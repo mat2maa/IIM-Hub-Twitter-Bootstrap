@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100710044445) do
+ActiveRecord::Schema.define(:version => 20100808162442) do
 
   create_table "airline_rights_countries", :force => true do |t|
     t.string   "name"
@@ -326,6 +326,7 @@ ActiveRecord::Schema.define(:version => 20100710044445) do
     t.boolean  "locked",      :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "movie_type"
   end
 
   add_index "movie_playlists", ["airline_id"], :name => "index_movie_playlists_on_airline_id"

@@ -13,8 +13,14 @@
 		</tr>
 		<tr>
 			<td rowspan="2">Episode Synopsis: <%= f.text_area :synopsis, :size => "29x3" %></td>
-			<td><%= f.input :language_track_1,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 1<br/>", :selected => "Eng" %></td>			
-			<td><%= f.input :language_track_2,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 2<br/>", :selected => "Eng" %></td>
+			<td>
+				<%= f.input (:language_track_1,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 1<br/>")  if !f.object.id.nil? %>
+				<%= f.input (:language_track_1,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 1<br/>", :selected => "Eng")  if f.object.id.nil? %>
+			</td>			
+			<td>
+			<%= f.input (:language_track_2,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 1<br/>")  if !f.object.id.nil? %>
+			<%= f.input (:language_track_2,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 1<br/>", :selected => "Eng")  if f.object.id.nil? %>
+			</td>
 			<td><%= f.input :language_track_3,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 3<br/>" %></td>
 			<td><%= f.input :language_track_4,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 4<br/>" %></td>			
 			<td><%= f.input :aspect_ratio, :as => :select, :collection => ["4:3", "16:9", "14:9"] %></td>

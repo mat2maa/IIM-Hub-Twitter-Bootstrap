@@ -28,11 +28,7 @@
 					</td>
 					<td valign="top">
 						Movie type:<br/>			
-						<%= movies.select :movie_type_equals, ["Hollywood Movie", "Arabic Movie", "Cantonese Movie", "Danish Movie", "Dutch Movie", 
-														"Finnish Movie", "French Movie", "German Movie", "Greek Movie", "Hebrew Movie", "Hindi Movie", 
-														"Indonesian Movie", "Italian Movie", "Japanese Movie", "Korean Movie", "Malay Movie", "Mandarin Movie", 
-														"Norwegian Movie", "Persian Movie", "Portuguese Movie", "Russian Movie", "Spanish Movie", "Swedish Movie",
-														"Thai Movie"], { :include_blank => true } %> <br/>
+						<%= movies.select :movie_type_equals, Movie::MOVIE_TYPE, { :include_blank => true } %> <br/>
 						Genre:<br/>
 						<% movies.fields_for movies.object.movie_genres do |genres| %> 
 							<%= genres.select :id_equals, MovieGenre.find(:all).collect {|p| [p.name, p.id] }, { :include_blank => true } %> 

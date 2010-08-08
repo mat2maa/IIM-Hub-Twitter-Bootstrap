@@ -27,10 +27,7 @@
 	<div id="movie-fields">
   	<%= f.input :movie_title, :label => "Movie Title", :input_html => {:tabindex => 1} %>
 		<%= f.input :movie_type, :label => "Movie Type", :as => :select, 
-								:collection => ["", "Arabic Movie", "Cantonese Movie", "Danish Movie", "Dutch Movie", "Finnish Movie", "French Movie", 
-																"German Movie", "Greek Movie", "Hebrew Movie", "Hindi Movie", "Hollywood Movie", "Indonesian Movie", 
-																"Italian Movie", "Japanese Movie", "Korean Movie", "Malay Movie", "Mandarin Movie", "Norwegian Movie", 
-																"Persian Movie", "Portuguese Movie", "Russian Movie", "Spanish Movie", "Swedish Movie", "Thai Movie"], 
+								:collection => Movie::MOVIE_TYPE, 
 								:include_blank => true, :input_html => { :tabindex => 2, :onchange =>  remote_function(:url => {:action => "check_movie_type"},
 								:with => "'movie_type=' + $('movie_movie_type').value")}%>
 								
@@ -120,7 +117,7 @@
 		
 		<div class="clear"></div>
 		<%= f.input :airline_rights, :label =>"Airline Rights", :as => :select, 
-								:collection => ["Worldwide", "Worldwide Excluding", "International Including", "North America"], 
+								:collection => ["Worldwide", "Worldwide Excluding", "International Including", "North America", "Limited"], 
 								:include_blank => true, :input_html => { :tabindex => 20, :onchange =>  remote_function(:url => {:action => "check_airline_rights"},
 								:with => "'movie_airline_rights=' + $('movie_airline_rights').value")} %>								
 		<% if (@movie.airline_rights=="Worldwide") || (@movie.airline_rights=="North America")%>

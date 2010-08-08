@@ -36,16 +36,22 @@ class Movie < ActiveRecord::Base
   
   RELEASE_VERSIONS = ["Th", "Ed", "M1", "M2", "W2", "M4", "W4"]
   
+  MOVIE_TYPE = ["Hollywood Movie", "Arabic Movie", "Cantonese Movie", "Danish Movie", "Dutch Movie", 
+									"Finnish Movie", "French Movie", "German Movie", "Greek Movie", "Hebrew Movie", "Hindi Movie", 
+									"Indonesian Movie", "Italian Movie", "Japanese Movie", "Korean Movie", "Malay Movie", "Mandarin Movie", 
+									"Norwegian Movie", "Persian Movie", "Portuguese Movie", "Russian Movie", "Spanish Movie", "Swedish Movie",
+									"Thai Movie"]
+  
   def before_save
     # if production studio is empty, set it to the same as movie distributor supplier
-    if production_studio_id.nil? && movie_distributor_id.nil?
+    if production_studio_id.nil? && !movie_distributor_id.nil?
       count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", movie_distributor_id, "Production Studios"]) 
-      production_studio_id = movie_distributor_id if !count_suppliers.zero?
+      self.production_studio_id = movie_distributor_id if !count_suppliers.zero?
     end
     
     if laboratory_id.nil? && !movie_distributor_id.nil?
       count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", movie_distributor_id, "Laboratories"]) 
-      laboratory_id = @movie.movie_distributor_id if !count_suppliers.zero?
+      self.laboratory_id = movie_distributor_id if !count_suppliers.zero?
     end
     
     self.synopsis = self.synopsis.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip      

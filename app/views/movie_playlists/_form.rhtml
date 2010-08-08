@@ -1,10 +1,12 @@
 <table class="edit">
   <tr>
 		<td class="pl-title">Airline :</td>
-		<td><%= select("movie_playlist", "airline_id", Airline.find(:all, :order=>"name asc").collect {|p| [ p.code + " - " + p.name, p.id] }, { :include_blank => true }) %> <%= link_to "+", airlines_path, :id => "add", :popup => true %></td>
+		<td><%= select("movie_playlist", "airline_id", Airline.find(:all, :order=>"name asc").collect {|p| [ p.name + " - " + p.code, p.id] }, { :include_blank => true }) %> <%= link_to "+", airlines_path, :id => "add", :popup => true %></td>
 		<td class="pl-title">Start Cycle :</td>
     <td><%= form.date_select :start_cycle, :discard_day => true, :order => [:month, :year], :use_month_numbers => true %> <strong>End Cycle:</strong> <%= form.date_select :end_cycle, :discard_day => true, :order => [:month, :year], :use_month_numbers => true %></td>  
-    <td class="pl-title">Programmer :</td>
+    <td class="pl-title">Movie Type :</td>
+		<td><%= select("movie_playlist", "movie_type", Movie::MOVIE_TYPE, { :include_blank => true }) %></td>
+		<td class="pl-title">Programmer :</td>
     <td><%=h @movie_playlist.user.login if !@movie_playlist.user_id.nil? %></td>
   </tr>
 </table>

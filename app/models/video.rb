@@ -34,6 +34,17 @@ class Video < ActiveRecord::Base
   
   
   def before_save
+    # if production studio is empty, set it to the same as movie distributor supplier
+    if production_studio_id.nil? && !video_distributor_id.nil?
+      count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", video_distributor_id, "Production Studios"]) 
+      self.production_studio_id = video_distributor_id if !count_suppliers.zero?
+    end
+    
+    if laboratory_id.nil? && !video_distributor_id.nil?
+      count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", video_distributor_id, "Laboratories"]) 
+      self.laboratory_id = video_distributor_id if !count_suppliers.zero?
+    end
+    
     self.synopsis = self.synopsis.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip    
   end
     
