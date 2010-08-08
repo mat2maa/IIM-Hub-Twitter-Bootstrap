@@ -19,9 +19,6 @@ form.formtastic fieldset ol li label {
 form.formtastic fieldset ol li label { display:block; width:150px;  padding-top:.2em; }
 form.formtastic fieldset ol li fieldset ol {width:100%;}
 
-
-form.formtastic fieldset ol li.check_boxes fieldset ol li { float:left; padding-right:10px;}
-
 .form-squeeze li{
 	display:inline;
 	float:left;	
@@ -31,7 +28,9 @@ form.formtastic fieldset ol li.check_boxes fieldset ol li { float:left; padding-
 	float:left;	
 	width:200px;
 }
-
+form.formtastic fieldset ol li.check_boxes fieldset ol li {
+float:left; padding-right:10px;
+}
 
 
 

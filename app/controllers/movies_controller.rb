@@ -68,17 +68,6 @@ class MoviesController < ApplicationController
     @movie.foreign_language_title = @movie.foreign_language_title.upcase if !@movie.foreign_language_title.nil?
     @movie.director = @movie.director.gsub(/\b\w/){$&.upcase}
     @movie.cast = @movie.cast.gsub(/\b\w/){$&.upcase}
-    
-    # if production studio is empty, set it to the same as movie distributor supplier
-    if @movie.production_studio_id.nil? 
-      count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", @movie.movie_distributor_id, "Production Studios"]) 
-      @movie.production_studio_id = @movie.movie_distributor_id if !count_suppliers.zero?
-    end
-    
-    if @movie.laboratory_id.nil? 
-      count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", @movie.movie_distributor_id, "Laboratories"]) 
-      @movie.laboratory_id = @movie.movie_distributor_id if !count_suppliers.zero?
-    end
          
 #    respond_to do |format|
       if @movie.save

@@ -37,6 +37,17 @@ class Movie < ActiveRecord::Base
   RELEASE_VERSIONS = ["Th", "Ed", "M1", "M2", "W2", "M4", "W4"]
   
   def before_save
+    # if production studio is empty, set it to the same as movie distributor supplier
+    if production_studio_id.nil? && movie_distributor_id.nil?
+      count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", movie_distributor_id, "Production Studios"]) 
+      production_studio_id = movie_distributor_id if !count_suppliers.zero?
+    end
+    
+    if laboratory_id.nil? && !movie_distributor_id.nil?
+      count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", movie_distributor_id, "Laboratories"]) 
+      laboratory_id = @movie.movie_distributor_id if !count_suppliers.zero?
+    end
+    
     self.synopsis = self.synopsis.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip      
     self.cast = self.cast.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip    
     self.director = self.director.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip

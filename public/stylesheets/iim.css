@@ -433,7 +433,7 @@ table.splits{
 	width:70px;
 }
 
-form.formtastic fieldset ol li.text textarea, #movie_movie_title, #movie_foreign_language_title, #movie_poster, #movie_screener_remarks_other_input input, #movie_director, #video_programme_title, #video_foreign_language_title{
+form.formtastic fieldset ol li.text textarea, form.formtastic fieldset ol li.string input{
 	width:430px;
 }
 
