@@ -1,0 +1,64 @@
+class RolesController < ApplicationController
+  before_filter :require_user
+	filter_access_to :all
+ 	 
+ 	 def index
+ 	   	conditions = params[:search]
+
+       @search = Role.new_search
+       if !params[:keywords].nil? && !params[:keywords].empty?
+         keywords = params[:keywords]
+         @search.conditions.name_keywords = keywords
+       end
+   		if !params[:search].nil?
+   			@search.per_page = conditions["per_page"] 
+   			@search.page = conditions["page"]
+   			@search.order_as = conditions["order_as"]
+   			@search.order_by = conditions["order_by"]
+   		end
+
+       @roles, @roles_count = @search.all, @search.count
+   end
+
+   def new
+     @role = Role.new
+   end
+
+   def create
+     @role = Role.new(params[:role])
+     if @role.save
+       flash[:notice] = "Role created"
+       redirect_back_or_default roles_path
+     else
+       render :action => :new
+     end
+   end
+
+   def show
+     @role = @current_role
+   end
+
+   def edit
+     @role = Role.find(params[:id]) 
+   end
+
+   def update
+     @role = Role.find(params[:id]) 
+     params[:role][:right_ids] ||= []
+     
+     if @role.update_attributes(params[:role])
+       flash[:notice] = "Account updated!"
+       redirect_to roles_path
+     else
+       render :action => :edit
+     end
+   end
+   
+   def destroy
+     @role = Role.find(params[:id]) 
+     @role.destroy 
+     flash[:notice] = 'Role successfully destroyed.' 
+     redirect_to roles_path
+   end
+  
+end

@@ -1,0 +1,14 @@
+<% if @notice=="" %>
+"<%=h @movie_to_add.movie_title %>" added to playlist
+<% else %>
+<%= @notice %>
+<%= link_to_remote "Continue adding to playlist", 
+:url => {:controller => "movie_playlists", 
+:action => "add_movie", 
+:id => params[:id], 
+:movie_id => @movie_to_add.id,
+:add => 1},
+:loading => "Element.show('spinner')",
+:complete => "Element.hide('spinner')" %>
+
+<% end %>

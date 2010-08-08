@@ -1,0 +1,1 @@
+page.replace_html "videos", :partial => "videos"

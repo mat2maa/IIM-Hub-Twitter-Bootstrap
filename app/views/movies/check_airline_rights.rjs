@@ -1,0 +1,5 @@
+if params[:movie_airline_rights] == "North America" ||params[:movie_airline_rights] == "Worldwide"
+  page['movie_airline_countries'].disabled=true
+else
+  page['movie_airline_countries'].disabled=false
+end

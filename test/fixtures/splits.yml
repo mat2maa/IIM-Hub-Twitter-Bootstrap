@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  more_than: 1
+  less_than: 1
+
+two:
+  name: MyString
+  more_than: 1
+  less_than: 1

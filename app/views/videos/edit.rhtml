@@ -1,0 +1,20 @@
+<%= render :partial => 'layouts/video_header' %>
+<center><p style="color: green"><%= flash[:notice] %></p></center>
+<div id="content-header-wrapper">
+<div id="content-header-actions">
+<%= link_to 'View Video', video_path(@video)%>
+[ <%= link_to "Prev", edit_video_path(@prev_id) if !@prev_id.nil?%>
+<%= link_to "Next", edit_video_path(@next_id) if !@next_id.nil?%> ]
+</div>
+<div id="content-header">Edit Video<br />
+</div>
+</div>
+<div id="content">
+<center>
+<h1>Edit Video</h1>
+
+<%= render :partial => 'form' %>
+
+</center>
+<br/><br/>
+</div>

@@ -1,0 +1,17 @@
+<% cache 'video_search_form' do %>
+<fieldset>
+	<legend>Search Masters</legend><% f.fields_for @search.conditions do |masters| %>
+	<%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
+	<table>
+		<tr>
+			<td valign="top">
+				Episode Title:<br/>
+				<%= masters.text_field :episode_title_keywords %><br/>
+			</td>
+		</tr>
+	</table>
+	<%= masters.submit "Search" %>
+	<% end %>
+	
+</fieldset>
+<% end %>

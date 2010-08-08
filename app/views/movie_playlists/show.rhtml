@@ -1,0 +1,22 @@
+<%= render :partial => 'layouts/movieplaylist_header' %>
+<center><p style="color: green"><%= flash[:notice] %></p></center>
+<div id="content-header-wrapper">
+<div id="content-header-actions">
+	<%= link_to "Print Playlist", {:controller => "movie_playlists", :action => "print",  :id => @movie_playlist}, :popup =>true %> |
+	<%= link_to "Export as Excel", :controller => "movie_playlists", :action => "export_to_excel",  :id => @movie_playlist %> 
+</div>
+<div id="content-header">Movie Playlists</div>
+</div>
+
+<div id="content">
+<center>
+<h2>Movie Playlist</h2>
+
+<table width="900">
+  <%= render :partial => 'playlist_item_view', :collection => @movie_playlist.movie_playlist_items_sorted %>
+</table>
+
+<%= link_to 'Back', movie_playlists_path %>
+
+</center>
+</div>

@@ -1,0 +1,26 @@
+<% if @albums_count > 0 %>
+<%= @albums_count %> albums found
+<table cellspacing="0" width="100%">
+	<tr>
+		<th><%= remote_order_by_link :id, :params=>{:hello=>"there"} %></th>
+		<th><%= remote_order_by_link :title_original %></th>
+		<th><%= remote_order_by_link :artist_original %></th>
+		<th><%= remote_order_by_link :label => :name %></th>
+		<th><%= remote_order_by_link :release_year %></th>
+		<th><%= remote_order_by_link :cd_code %></th>
+		<th colspan="2"></th>			
+	</tr>
+	
+	<%= render :partial => "album", :collection => @albums %>
+
+</table>
+	<br />
+	<br />
+	Per page: <%= remote_per_page_select %>
+	<% if @search.page_count > 1 %>
+	<br />
+	Page: <%= remote_page_select %>
+	<% end %>
+	<% else %>
+	No albums were found
+	<% end %>

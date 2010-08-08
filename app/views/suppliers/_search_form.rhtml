@@ -1,0 +1,20 @@
+<fieldset>
+	<legend>Search Suppliers</legend><% f.fields_for @search.conditions do |suppliers| %>
+			<%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %><br/>
+	<table>
+		<tr>
+			<td valign="top">
+				Company Name:<br/>
+				<%= suppliers.text_field :or_company_name_keywords %><br/>
+			</td>
+			<td valign="top">
+				Categories:<br/>
+				<% suppliers.fields_for suppliers.object.supplier_categories do |categories| %> 
+					<%= categories.select :id_equals, SupplierCategory.find(:all).collect {|p| [p.name, p.id] }, { :include_blank => true } %> 
+				<% end %>
+			</td>
+		</tr>
+	</table>
+	<%= suppliers.submit "Search" %>
+	<% end %>
+</fieldset>

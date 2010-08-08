@@ -1,0 +1,3 @@
+page.insert_html :bottom, 'labels', :partial => 'label', :locals => {:label => @label}
+page[:label_form].reset
+flash.discard

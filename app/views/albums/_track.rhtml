@@ -1,0 +1,17 @@
+<tr id="item_<%=h track.id %>">
+<td width="5%"><%= image_tag("arrow_move.png") %></td>
+<td width="5%"><%=h track.track_num %></td>
+<td width="45%">
+	<% if track.mp3_exists == true  %>
+	<%= link_to track.title_original, Settings.nas_mp3_url + track.album.id.to_s + "/" + track.track_num.to_s + ".mp3", :title=>track.artist_original + " - " + track.title_original %>
+	<% else %>
+	<%=h track.title_original %>
+	<% end %>
+</td>
+<td width="20%"><%=h track.artist_original %></td>
+<td width="10%"><%=h duration(track.duration) %></td>
+<td width="15%">
+<%= link_to 'Edit', edit_track_path(track) %>
+<%= link_to 'Delete', track, :confirm => 'Are you sure?', :method => :delete %>
+</td>
+</tr>

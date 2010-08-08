@@ -1,0 +1,6 @@
+  <tr id="origin-row-<%=h origin.id %>">
+    <td class="list-item"><%=h origin.id %></td>
+    <td class="list-item"><%=h origin.name %></td>
+    <td class="list-item"><%= link_to 'Edit', edit_origin_path(origin) %></td>
+    <td class="list-item"><%= link_to 'Delete', origin, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>

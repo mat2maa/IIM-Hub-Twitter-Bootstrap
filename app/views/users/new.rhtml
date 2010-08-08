@@ -1,0 +1,10 @@
+<%= render :partial => 'header' %>
+<div id="content">
+	<h2>New User</h2>
+
+<% form_for :user, :html => { :multipart => true } , :url => { :action => "create" } do |f|  %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Register" %>
+<% end %>
+</div>

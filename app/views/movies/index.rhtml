@@ -1,0 +1,17 @@
+<%= render :partial => 'layouts/movie_header' %>
+<%= calendar_date_select_includes "blue" %>
+
+<center><p style="color: green" id="notice"><%= flash[:notice] %></p></center>
+
+<div id="content-header-wrapper">
+	<div id="content-header-actions"><%= link_to "Create a movie", new_movie_path %></div>
+	<div id="content-header">Movies</div>
+</div>
+
+<div id="content">
+	<% form_for @search,  :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')" do |f| %>
+		<%= render :partial => 'search_form', :locals => { :f => f } %>
+	<% end %>  
+
+	<div id="movies">	<%= render :partial => "movies" %></div>
+</div>

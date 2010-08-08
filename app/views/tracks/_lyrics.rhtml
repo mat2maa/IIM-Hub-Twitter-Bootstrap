@@ -1,0 +1,5 @@
+<strong>Lyrics</strong><br/><br/>
+<%= link_to "Search seekalyric.com", "http://www.seekalyric.com/song/#{@track.artist_original.sub(/ /, '_')}/#{@track.title_original.sub(/ /, '_')}", :popup => true %> | <%= link_to "Search Baidu", "http://mp3.baidu.com/", :popup => true %><br/>
+<br/>
+<%=h @track.lyrics %>
+<br/>

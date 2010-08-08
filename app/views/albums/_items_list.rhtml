@@ -1,0 +1,20 @@
+<tr>
+  <th <%= sort_td_class_helper "title_original" %> ><%= sort_link_helper "Title", "title_original" %></th>
+  <th <%= sort_td_class_helper "artist_original" %>><%= sort_link_helper "Artist", "artist_original" %></hd>
+  <th <%= sort_td_class_helper "label" %>><%= sort_link_helper "Label", "label" %></th>
+  <th <%= sort_td_class_helper "year" %>><%= sort_link_helper "Year", "year" %></th>
+  <th <%= sort_td_class_helper "cd_code" %>><%= sort_link_helper "CD Code", "cd_code" %></th>
+  <th colspan="2" class="list-header">&nbsp;</th>
+</tr>
+<% for album in @albums %>
+  <tr>
+    <td class="list-item"><%= link_to album.title_original, album_path(:id => album.id) %><br/><%=h album.title_english %>&nbsp;</td>
+	<td class="list-item"><%=h album.artist_original %><br/><%=h album.artist_english %>&nbsp;</td>
+	<td class="list-item"><%=h album.label.name if !album.label_id.nil? %>&nbsp;</td>
+	<td class="list-item"><%=h album.release_year %>&nbsp;</td>
+	<td class="list-item"><%=h album.cd_code %>&nbsp;</td>
+    <td class="list-item"><%= link_to 'Edit', edit_album_path(album) %></td>
+    <td class="list-item"><%= link_to 'Delete', album, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+

@@ -1,0 +1,14 @@
+<% if @notice=="" %>
+"<%=h @album_to_add.title_original %>" added to playlist
+<% else %>
+<%= @notice %>
+<%= link_to_remote "Continue adding to playlist", 
+:url => {:controller => "album_playlists", 
+:action => "add_album", 
+:id => params[:id], 
+:album_id => @album_to_add.id,
+:add => 1},
+:loading => "Element.show('spinner')",
+:complete => "Element.hide('spinner')" %>
+
+<% end %>

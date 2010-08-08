@@ -1,0 +1,101 @@
+<%= render :partial => 'layouts/track_header' %>
+<center><p style="color: green"><%= flash[:notice] %></p></center>
+<div id="content-header-wrapper">
+	<div id="content-header-actions">
+	<%= link_to "Edit Track |", edit_track_path(@track) if permitted_to? :edit, :tracks %> <%= link_to "Search Baidu", "http://www.baidu.com", :popup => true %>
+</div>
+<div id="content-header">Track : <%=h @track.title_original %><br />
+</div>
+
+</div>
+<div id="content">
+	<center>
+		<table class="edit">
+			<tr>
+				<th>Track Title (Original)</th>
+				<td><%= @track.title_original %></td>
+				<th>Track Num</th>
+				<td><%= @track.track_num %></td>
+				<th>Playlists this track is in:</th>
+			</tr>
+			<tr>
+				<th>Track Title (Translated)</th>
+				<td><%=h @track.title_english %></td>
+				<th>Tempo</th>
+				<td><%=h @track.tempo  %></td>
+				<td rowspan="9" valign="top">
+					<% @playlists.each do |playlist| %>
+					<%= link_to playlist.audio_playlist_id, audio_playlist_path(:id => playlist.audio_playlist_id ) if !playlist.audio_playlist.nil? %> 
+					<%=h playlist.audio_playlist.program.name if !playlist.audio_playlist.nil? && !playlist.audio_playlist.program_id.nil? %><br/>
+					<% end %>
+				</td>
+			</tr>
+			<tr>
+				<th>Artist (Original)</th>
+				<td><%=h @track.artist_original %></td>
+				<th>Intro Tempo</th> 
+				<td><%=h @track.tempo_intro %></td>	
+			</tr>
+			<tr>
+				<th>Artist (Translated)</th>
+				<td><%=h @track.artist_english %></td>
+				<th>Outro Tempo</th>
+				<td><%=h @track.tempo_outro %></td>
+			</tr>
+			<tr>
+				<th>Composer</th>
+				<td><%=h @track.composer %></td>  
+				<th>Gender</th>
+				<td><%=h @track.gender %></td>
+			</tr>
+			<tr>
+				<th>Distributor</th>
+				<td><%=h @track.distributor %></td>
+				<th>Language</th>
+				<td><%=h @track.language.name if !@track.language_id.nil? %></td>
+			</tr>
+			<tr>
+				<th>Album</th>
+				<td><%= link_to @track.album.title_original, album_path(@track.album) %></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<th>Publisher</th>
+				<td><%=h @track.album.publisher.name if !@track.album.publisher_id.nil?  %></td>
+				<th>Origin</th>
+				<td>
+					<%=h @track.origin.name if !@track.origin_id.nil?  %></td>
+			</tr>
+			<tr>
+				<th>Label</th>
+				<td><%=h @track.album.label.name if !@track.album.label.nil? %></td>
+				<th>Duration</th>
+				<td><%=h duration_min(@track.duration) %> : <%=h duration_sec(@track.duration)  %></td>
+			</tr>
+			<tr>
+				<th>Release Year</th>
+				<td><%=h @track.album.release_year %></td>
+				<th >Explicit Lyrics </th>
+				<td><%= check_box("track", "explicit_lyrics", :disabled => true) %></td>
+			</tr>
+			<tr>
+				<th>CD Code</th>
+				<td><%=h @track.album.cd_code %></td>
+				<th>Genre</th>
+				<td><%=h show_genres @track.genres if !@track.genres.count.zero? %></td>
+
+			</tr>
+		</table> 
+		<br/>
+		<div class="nav-tab">
+		<%= link_to_remote "Lyrics", :url => {:action => "show_lyrics", :id => @track.id} %>
+
+	</div>
+	<div id="tab-area">
+	<%= render :partial => 'lyrics', :locals => {:track => 'track', :lyrics => 'lyrics'} %>
+</div>
+
+</center>
+<br/><br/>
+</div>

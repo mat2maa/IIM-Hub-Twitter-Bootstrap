@@ -1,0 +1,58 @@
+<%= render :partial => 'layouts/albumplaylist_header' %>
+<center><p style="color: green"><%= flash[:notice] %></p></center>
+<div id="content-header-wrapper">
+<div id="content-header-actions"><%= link_to "Export as Excel", :controller => "album_playlists", :action => "export_to_excel",  :id => @album_playlist %>
+</div>
+<div id="content-header">Album Playlists</div>
+</div>
+
+<div id="content">
+<center>
+<h1>Show Album Playlist</h1>
+
+<table class="show">
+  <tr>
+    <td>Program</td>
+    <td><%=h @album_playlist.client_playlist_code %></td>
+	<td>Programmer</td>
+	<td><%=h @album_playlist.user.login if !@album_playlist.user_id.nil? %></td>
+  </tr>
+  <tr>
+    <td>Airline</td>
+    <td><%=h @album_playlist.airline.name if !@album_playlist.airline_id.nil? %></td>
+	<td></td>
+	<td></td>
+  </tr>
+  <tr>
+    <td>IN/OUT</td>
+    <td><%=h @album_playlist.in_out %></td>
+	<td></td>
+	<td></td>
+  </tr>
+  <tr>
+    <td>Play Date</td>
+    <td>
+	  <%=h @album_playlist.start_playdate.strftime("%B %Y") %>
+	  to
+	  <%=h @album_playlist.end_playdate.strftime("%B %Y") %>
+	</td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+  </tr>
+</table>
+
+<div id="playlist">
+
+<table width="100%">
+<tbody id="audioplaylist" >
+  <%= render :partial => 'playlist_item_view', :collection => @album_playlist.album_playlist_items_sorted %>
+</tbody>
+</table>
+</div>
+
+<%= link_to 'Back', album_playlists_path %>
+
+</center>
+</div>

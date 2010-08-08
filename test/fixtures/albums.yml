@@ -1,0 +1,31 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  label_id: 1
+  title_original: MyString
+  title_english: MyString
+  artwork: MyString
+  cd_code: MyString
+  disc_num: 1
+  disc_count: 1
+  release_year: 1
+  artist_original: MyString
+  artist_english: MyString
+  synopsis: MyText
+  publisher_id: 1
+  live_album: false
+
+two:
+  label_id: 1
+  title_original: MyString
+  title_english: MyString
+  artwork: MyString
+  cd_code: MyString
+  disc_num: 1
+  disc_count: 1
+  release_year: 1
+  artist_original: MyString
+  artist_english: MyString
+  synopsis: MyText
+  publisher_id: 1
+  live_album: false

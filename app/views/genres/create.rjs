@@ -1,0 +1,3 @@
+page.insert_html :bottom, 'genres', :partial => 'genre', :locals => {:genre => @genre}
+page[:genre_form].reset
+flash.discard

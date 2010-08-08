@@ -1,0 +1,25 @@
+<%= render :partial => 'layouts/movieplaylist_header' %>
+<center><p style="color: green"><%= flash[:notice] %></p></center>
+<div id="content-header-wrapper">
+<div id="content-header-actions">
+
+</div>
+<div id="content-header">Movie Playlists</div>
+</div>
+
+<div id="content">
+<center>
+<h1>New Movie Playlist</h1>
+
+<% form_for(@movie_playlist) do |form| %>
+  <%= form.error_messages %>
+
+  <%= render :partial => 'form', :object => form %>
+  <p>
+    <%= form.submit "Next" %>
+  </p>
+<% end %>
+
+</center>
+<br/><br/>
+</div>

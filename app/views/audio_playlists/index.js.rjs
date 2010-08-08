@@ -1,0 +1,1 @@
+page.replace_html "audio_playlists", :partial => "audio_playlists"

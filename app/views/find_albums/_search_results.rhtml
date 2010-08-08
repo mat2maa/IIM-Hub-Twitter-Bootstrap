@@ -1,0 +1,9 @@
+<tr>
+  <th <%= sort_td_class_helper "title_original" %> ><%= sort_link_helper "Title", "title_original" %></th>
+  <th <%= sort_td_class_helper "artist_original" %>><%= sort_link_helper "Artist", "artist_original" %></hd>
+  <th <%= sort_td_class_helper "label" %>><%= sort_link_helper "Label", "label" %></th>
+  <th <%= sort_td_class_helper "year" %>><%= sort_link_helper "Year", "year" %></th>
+  <th <%= sort_td_class_helper "cd_code" %>><%= sort_link_helper "CD Code", "cd_code" %></th>
+  <th colspan="2">&nbsp;</td>
+  </tr>
+<%= render :partial => 'album', :collection => @albums %>

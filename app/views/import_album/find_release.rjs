@@ -1,0 +1,2 @@
+page.replace_html 'results', :partial => 'results', :object => @results
+flash.discard

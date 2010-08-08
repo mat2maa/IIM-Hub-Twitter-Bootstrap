@@ -1,0 +1,17 @@
+<div id="header">
+<div class="title">Movie/Video Playlist Maker</div>
+<div id="nav">
+<ul>
+<li><%= link_to "Dashboard", :controller => "dashboard" %></li>
+<li><%= link_to "Movie Playlists", :controller => "movie_playlists"  %></li>
+<li><%= link_to "Video Playlists", :controller => "video_playlists"  %></li>
+<li id="curr-nav"><%= link_to "Video Master Playlists", :controller => "video_master_playlists"  %></li>
+<li><%= link_to "Movies", :controller => "movies"  %></li>
+<li><%= link_to "Videos", :controller => "videos"  %></li>
+<% if permitted_to? :manage, :movies_settings %>
+<li><%= link_to "Movies Settings", movies_settings_path %></li>
+<% end %>
+</ul>
+<div id="clear"><br/></div>
+</div>
+</div>

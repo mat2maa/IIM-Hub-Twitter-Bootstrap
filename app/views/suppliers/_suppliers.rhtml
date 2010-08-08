@@ -1,0 +1,23 @@
+<% if @search.count > 0 %>
+	<%= @search.count %> suppliers found<br/>
+	<table border="0" cellpadding="10" cellspacing="0" width="100%">
+  	<tr >
+	    <td class="list-header"><%= remote_order_by_link  :id %></td>
+			<td class="list-header"><%= remote_order_by_link  :company_name %></td>
+			<td class="list-header">Categories</td>
+			<td colspan="2" class="list-header">&nbsp;</td>
+	  </tr>
+		<%= render :partial => 'supplier', :collection => @suppliers %>
+	</table>
+	<br/>
+	Per page: <%= per_page_select %>
+
+	<% if @search.page_count > 1 %>
+	<br />Page: <%= page_select %>
+	<% end %>
+
+<% else %>
+
+	No suppliers were found
+
+<% end %>

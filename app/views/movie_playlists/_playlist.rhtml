@@ -1,0 +1,11 @@
+<table width="100%">
+<tbody id="movieplaylist" style="cursor: move" >
+  <%= render :partial => 'playlist_item', :collection => @movie_playlist.movie_playlist_items_sorted %>
+</tbody>
+</table>
+
+<%= sortable_element "movieplaylist",
+:url => {:action => "sort"},
+:complete => visual_effect(:highlight, "movieplaylist"),
+:tag => 'tr'
+%>

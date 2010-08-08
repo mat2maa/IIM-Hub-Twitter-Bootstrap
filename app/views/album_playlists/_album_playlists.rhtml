@@ -1,0 +1,49 @@
+<% if @album_playlists_count > 0 %>
+<%= @album_playlists_count %> album playlists found
+
+<table cellspacing="0" width="100%">
+	<tr>
+		<th><%= remote_order_by_link :id %></th>
+		<th><%= remote_order_by_link :client_playlist_code %></th>
+		<th><%= remote_order_by_link :airline => :name %></th>
+		<th><%= remote_order_by_link :in_out, :text => 'In/Out' %></th>
+		<th><%= remote_order_by_link :start_playdate, :text => 'Start Date' %></th>
+		<th><%= remote_order_by_link :end_playdate, :text => 'End Date' %></th>
+		<th colspan="4"></th>			
+	</tr>
+	<% @album_playlists.each do |album_playlist| %>
+		<tr id="album_playlist-<%=h album_playlist.id %>">
+			<% cache([album_playlist]) do %>
+				<td><%= link_to album_playlist.id, album_playlist_path(:id => album_playlist.id ) %></td>
+				<td><%=h album_playlist.client_playlist_code %>
+				<td><%=h album_playlist.airline.name if !album_playlist.airline_id.nil? %></td>
+				<td><%=h album_playlist.in_out %>&nbsp;</td>
+				<td><%=h album_playlist.start_playdate.strftime("%B %Y") if !album_playlist.start_playdate.nil? %>&nbsp;</td>
+				<td><%=h album_playlist.end_playdate.strftime("%B %Y") if !album_playlist.end_playdate.nil?  %>&nbsp;</td>
+			<% end %>
+				<% if permitted_to? :edit, :album_playlists %>
+					<td><%= link_to 'Edit', edit_album_playlist_path(album_playlist) if album_playlist.locked!=true %></td>
+					<td><%= link_to_remote 'Delete', 	:url  => album_playlist_url(album_playlist), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"   if album_playlist.locked!=true %></td>
+					<td><%= link_to 'Duplicate', duplicate_album_playlist_path(album_playlist), :confirm => 'Are you sure?', :method => :post %></td>
+				<% end %>
+				<td>
+					<% if permitted_to? :lock, :albums_playlist %>
+						<% if album_playlist.locked!=true %>
+							<%= link_to 'Lock', lock_album_playlist_path(album_playlist), :method => :post %>
+						<% else %>
+							<%= link_to 'Unlock', unlock_album_playlist_path(album_playlist), :method => :post %>
+						<% end %>
+					<% end %>
+				</td>		
+			</tr>		
+		<% end %>
+	</table>
+
+	Per page: <%= per_page_select %>
+
+	<% if @search.page_count > 1 %>
+	<br />Page: <%= page_select %>
+	<% end %>
+	<% else %>
+	No playlists were found
+	<% end %>

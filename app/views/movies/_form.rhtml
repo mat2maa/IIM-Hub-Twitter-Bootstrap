@@ -1,0 +1,155 @@
+<% semantic_form_for @movie, :html => { :multipart => true }  do |f| %>
+<%= f.error_messages %><br/>
+
+
+<div id="poster-thumbnail">
+	<%= link_to (image_tag(@movie.poster.url(:small)), @movie.poster.url, :popup => true) %>
+	<br/>
+	<%= link_to("Search Box Office Mojo", "http://www.boxofficemojo.com/search/?q=" + CGI.escape(@movie.movie_title.to_s), :popup => true) %><br/>
+	<%= link_to("Search Yahoo Movies", "http://movies.yahoo.com/mv/search?fr=ush-movies&toggle=1&cop=&ei=UTF-8&p=" + 
+				CGI.escape(@movie.movie_title.to_s) 	, :popup => true) %><br/>
+	<%= link_to("Search Rotten Tomatoes", "http://www.rottentomatoes.com/search/full_search.php?search=" + CGI.escape(@movie.movie_title.to_s) 	, 
+				:popup => true) %><br/>
+	<%= link_to("Search IMDB", "http://www.imdb.com/find?s=all&q=" + CGI.escape(@movie.movie_title.to_s) 	, :popup => true) %><br/>
+	<br/>
+	<%= f.input :poster, :input_html => {:tabindex => 29}, :label => "Poster Image", :as => :file, :input_html => { :size => 6 }  %>
+	<br/>
+	<%= f.buttons %>
+	<%= link_to "Add EPK", {:controller=>:videos, :action => "new", :id =>params[:id], :video_type => CGI.escape("Movie EPK")}  %><br/>
+	<%= link_to "Add Trailer", {:controller=>:videos, :action => "new", :id =>params[:id], :video_type => CGI.escape("Movie Trailer")}  %><br/>
+	<%= link_to "Add Master", {:controller=>:videos, :action => "new", :id =>params[:id], :video_type => CGI.escape("Movie Master")}  %><br/>
+	<%= link_to "Add TV Special", {:controller=>:videos, :action => "new", :id =>params[:id], :video_type => CGI.escape("TV Special")}  %>
+	
+</div>
+
+<% f.inputs do %>
+
+	<div id="movie-fields">
+  	<%= f.input :movie_title, :label => "Movie Title", :input_html => {:tabindex => 1} %>
+		<%= f.input :movie_type, :label => "Movie Type", :as => :select, 
+								:collection => ["", "Arabic Movie", "Cantonese Movie", "Danish Movie", "Dutch Movie", "Finnish Movie", "French Movie", 
+																"German Movie", "Greek Movie", "Hebrew Movie", "Hindi Movie", "Hollywood Movie", "Indonesian Movie", 
+																"Italian Movie", "Japanese Movie", "Korean Movie", "Malay Movie", "Mandarin Movie", "Norwegian Movie", 
+																"Persian Movie", "Portuguese Movie", "Russian Movie", "Spanish Movie", "Swedish Movie", "Thai Movie"], 
+								:include_blank => true, :input_html => { :tabindex => 2, :onchange =>  remote_function(:url => {:action => "check_movie_type"},
+								:with => "'movie_type=' + $('movie_movie_type').value")}%>
+								
+		<% if (@movie.movie_type=="Hollywood Movie") %>
+				<%= f.input :foreign_language_title, :label =>"Foreign Language Title", :input_html => {:disabled => true, :tabindex => 3} %>
+		<% else %>		
+				<%= f.input :foreign_language_title, :label =>"Foreign Language Title", :input_html => {:tabindex => 3} %>
+		<% end %>
+		
+		<table border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td valign="top">
+				<%= f.input :movie_distributor, :include_blank => true, :input_html => {:tabindex => 4}, 
+										:label => "Distributor " + link_to("[edit]", suppliers_path, :popup => true),
+										:collection => Supplier.movie_distributors.collect {|p| [ p.company_name, p.id ] } %>
+			</td>
+			<td>
+				<%= f.input :production_studio, :input_html => {:tabindex => 5}, :include_blank => true, 
+										:label => "Production Studio " + link_to("[edit]", suppliers_path, :popup => true),
+										:collection => Supplier.production_studios.collect {|p| [ p.company_name, p.id ] } %>
+			</td>
+			<td>
+				<%= f.input :laboratory, :input_html => {:tabindex => 6}, :label =>"Laboratory", :include_blank => true, 
+										:label => "Laboratory "+ link_to("[edit]", suppliers_path, :popup => true),
+										:collection => Supplier.laboratories.collect {|p| [ p.company_name, p.id ] } %>
+			</td>
+		</tr>
+		<tr>
+			<td>Airline Release Date*
+				<%= f.input :airline_release_date, :input_html => {:tabindex => 7}, :label => false, :order => [:month, :year], 
+										:discard_day => true, :include_blank => true, :use_month_numbers => true, :start_year => Date.today.year + 2, :end_year => 1900   %>
+			</td>
+			<td>
+				Personal Video Date*
+				<%= f.input :personal_video_date, :input_html => {:tabindex => 8}, :label =>false, :order => [:month, :year], 
+										:discard_day => true, :include_blank => true, :use_month_numbers => true, :start_year => Date.today.year + 2, :end_year => 1900   %>
+			</td>
+			<td valign="top">
+				<%= f.input :theatrical_release_year, :input_html => {:tabindex => 9}, :label =>"Theatrical Release Year" %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Screener Received Date <%= link_to_remote("[today]",  
+										:url => { :action => "update_date", :id => "movie_screener_received_date" })%>
+				<%= f.input :screener_received_date, :input_html => {:tabindex => 10}, :label => false, 
+										:include_blank => true, :order => [:day, :month, :year] , 
+										:use_short_month => true, :default => nil %>
+			</td>
+			<td>
+				Screener Destroyed Date  <%= link_to_remote("[today]",  :url => { :action => "update_date", 
+				:id => "movie_screener_destroyed_date" }) %>
+				<%= f.input :screener_destroyed_date, :input_html => {:tabindex => 11}, :order => [:day, :month, :year], 
+										:label => false, :use_short_month => true,  :include_blank => true, :default => nil %>
+			</td>
+			<td>
+				<%= f.input :has_press_kit, :input_html => {:tabindex => 13}, :label => "Photo CD/Press Kit" %>
+				<%= f.input :has_poster, :input_html => {:tabindex => 12}, :label => "Poster" %>
+				<%= f.input :poster_quantity, :input_html => {:tabindex => 14, :size => 3}, :label => ",  &nbsp;Qty" %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.input :rating, :input_html => {:tabindex => 14}, :label =>"Rating", :as => :select, 
+									:collection => ["NR","G","PG","PG-13","R","NC-17"], :include_blank => false %>
+			</td>			
+			<td>
+				<%= f.input :theatrical_runtime, :input_html => {:tabindex => 15}, :label => "Theatrical R/T (min)" %>
+			</td>
+			<td>
+				<%= f.input :edited_runtime, :label => "Edited R/T (min)", :input_html => {:tabindex => 16} %>
+			</td>
+		</tr>
+		</table>
+		<%= f.input :release_versions, :input_html => {:tabindex => 17}, :label =>"Release Versions", :as => :check_boxes, :collection => Movie::RELEASE_VERSIONS %>
+		
+		<%= f.input :screener_remarks, :label =>"Screener Remarks", :as => :check_boxes, :collection =>  Movie::SCREENER_REMARKS, 
+								:input_html => {:tabindex => 18, :onchange => remote_function(:url => {:action => "check_screener_remarks"},
+								:with => "'screener_remarks=' + $('movie_screener_remarks_other').checked")} %>
+		<% if (@movie.screener_remarks.include?("Other")) %>
+			<%= f.input :screener_remarks_other, :input_html => {:tabindex => 19}, :label =>"Other", :id => 'movie_screener_remarks_other_other' %>
+		<% else %>
+			<%= f.input :screener_remarks_other, :input_html => {:tabindex => 19}, :label =>"Other", :id => 'movie_screener_remarks_other_other', 
+									:input_html => {:disabled => true}  %>
+		<% end %>
+		
+		
+		<div class="clear"></div>
+		<%= f.input :airline_rights, :label =>"Airline Rights", :as => :select, 
+								:collection => ["Worldwide", "Worldwide Excluding", "International Including", "North America"], 
+								:include_blank => true, :input_html => { :tabindex => 20, :onchange =>  remote_function(:url => {:action => "check_airline_rights"},
+								:with => "'movie_airline_rights=' + $('movie_airline_rights').value")} %>								
+		<% if (@movie.airline_rights=="Worldwide") || (@movie.airline_rights=="North America")%>
+			<%#= f.input :airline_rights_countries, :input_html => {:disabled => true} ,:as => :check_boxes, 
+									:label => "Countries "+ link_to("[edit]", airline_rights_countries_path, :popup => true) %>
+			<%= f.input :airline_countries,:input_html => {:disabled => true, :tabindex => 21 } %>
+		<% else %>
+			<%= f.input :airline_countries, :label =>"Airline Countries", :input_html => {:tabindex => 21} 	%>
+			<%#= f.input :airline_rights_countries, :as => :check_boxes, :label => "Countries "+ link_to("[edit]", airline_rights_countries_path, 
+								:popup => true) %>
+		<% end %>
+				
+		
+		<%= f.input :language_tracks, :input_html => {:tabindex => 22}, :label => "Available Language<br/>Tracks", :as => :check_boxes, 
+								:collection => IIM::MOVIE_LANGUAGES %>
+		<%= f.input :language_subtitles, :input_html => {:tabindex => 23}, :label => "Available Language<br/>Subtitles", :as => :check_boxes, 
+								:collection => IIM::MOVIE_LANGUAGES %>
+    <%= f.input :movie_genres, :collection => MovieGenre.find(:all, :order => "name"), :input_html => {:tabindex => 24}, :label =>"Movie Genre", :as => :check_boxes %>
+		
+		<%= f.input :cast, :input_html => {:tabindex => 25} %>
+		<%= f.input :director, :input_html => {:tabindex => 26} %>
+		<%= f.input :synopsis, :input_html => {:tabindex => 27}, :hint => "(<span id='char_count' ></span > characters)" %>
+		<%= character_count('movie_synopsis','char_count', :frequency => 0.10) %>
+			
+		<%= f.input :critics_review, :input_html => {:tabindex => 28}, :label =>"Critics Review<br/><a href='http://mingyi.org/T2F3' target='_blank'>Install TableTools</a><br/><br/>1. Right click on Critics Review table in Yahoo! Movies<br/><br/>2. Click on <br/>Other Table Operations > Copy Filtered As HTML" %>
+		
+		<%= f.input :remarks, :input_html => {:tabindex => 29, :rows => 3}, :hint => 'Only use this remarks field as a last resort' %>
+
+  <% end %>
+  <%= f.buttons %>
+</div>
+<% end %>

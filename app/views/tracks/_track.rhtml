@@ -1,0 +1,34 @@
+<% cache([track, track.album]) do %>
+<tr id="track-<%=h track.id %>">
+	<td><%= link_to track.id, track_path(:id => track.id ) %></td>
+	<td><%=h track.title_original %><br/><%=h track.title_english %></td>
+	<td><%=h track.artist_original %><br/><%=h track.artist_english %></td>
+	<td><%=h track.album.label.name if !track.album.label_id.nil? && !track.album.nil? %></td>
+	<td><%=h track.album.cd_code %>&nbsp;</td>
+	<td><%=h duration(track.duration) %></td>		    			
+	<% if params[:playlist_id]  || params["action"]=="add_track_to_playlist" %>
+		<td>
+			<% if !track.to_delete %>
+			<%= link_to_remote "add to playlist", 
+			:url => {:controller => "audio_playlists", 
+				:action => "add_track", 
+				:id => params[:id], 
+				:track_id => track.id},
+				:loading => "Element.show('spinner')",
+				:complete => "Element.hide('spinner')" %>
+				<% else %>
+				Pending Deletion
+				<% end %>
+			</td>
+			<% else %>
+			<td><%= link_to 'Edit', edit_track_path(track) %></td>
+			<td>
+				<% if !track.to_delete %>
+				<%= link_to_remote 'Delete', 	:url  => track_url(track), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>
+				<% else %>
+				<%= link_to_remote 'Restore', :url => { :action => "restore", :id => track.id }, :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>
+				<% end %>
+			</td>
+		<% end %>
+</tr>
+<% end %>

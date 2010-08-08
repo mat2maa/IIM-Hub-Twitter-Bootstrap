@@ -1,0 +1,53 @@
+<% if @tracks_count > 0 %>
+<%= @tracks_count %> tracks found
+
+<table cellspacing="0" width="100%">
+	<tr>
+		<th><%= remote_order_by_link :id, :search_obj => @search, :params_scope => :audio_playlists %></th>
+		<th>(track num) <%= remote_order_by_link :title_original, :search_obj => @search, :params_scope => :audio_playlists  %></th>
+		<th><%= remote_order_by_link :artist_original, :search_obj => @search, :params_scope => :audio_playlists  %></th>
+		<th>Label <%#= remote_order_by_link :label => :name, :search_obj => @search, :params_scope => :audio_playlists  %></th>						
+		<th>CD Code</th>
+		<th><%= remote_order_by_link :duration, :search_obj => @search, :params_scope => :audio_playlists  %></th>
+		<th>Explicit Lyrics</th>
+		<th>&nbsp;</th>			
+	</tr>
+	<% @tracks.each do |track| %>
+	
+	<% @track=track %>
+	<tr>
+    <% cache([track, track.album, "audio_playlists"]) do %>
+		<td><%= link_to track.id, track_path(:id => track.id ), :popup=>true %></td>
+		<td>(<%=h track.track_num%>) 
+		<%=h track.title_original %>
+		<br/><%=h track.title_english %></td>
+		<td><%=h track.artist_original %><br/><%=h track.artist_english %></td>
+		<td><%=h track.label_cached if !track.album.label_id.nil? %></td>								
+		<td><%=h track.album.cd_code %>&nbsp;</td>
+		<td><%=h duration(track.duration) %></td>
+    <% end %>
+		<td><%= check_box(:track, :explicit_lyrics, :disabled => true) %></td>    
+		<td>
+			<%= link_to_remote "add to playlist", 
+			:url => {:controller => "audio_playlists", 
+				:action => "add_track", 
+				:id => params[:id], 
+				:track_id => track.id},
+				:loading => "Element.show('spinner')",
+				:complete => "Element.hide('spinner')" %>
+			</td>
+		</tr>
+		
+		<% end %>
+	</table>
+	<br />
+	<br />
+
+	Per page: <%= remote_per_page_select %>
+
+	<% if @search.page_count > 1 %>
+	<br />Page: <%= remote_page_select %>
+	<% end %>
+	<% else %>
+	No tracks were returned
+	<% end %>

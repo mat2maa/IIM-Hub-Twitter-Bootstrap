@@ -1,0 +1,25 @@
+/* CSS Document */
+html, td {
+	font-family: "Lucida Sans Unicode","Lucida Grande",Sans-Serif;
+	font-size: 13px;
+	margin:0;
+	padding:0;
+}
+body{
+	margin:0;
+	padding:0;
+}
+.pl-title{
+	font-weight:bold;
+}
+
+table.movieplaylist, table.videoplaylist{
+	border-collapse: collapse;
+	border: 2px solid #ddd;
+}
+.movieplaylist td,.videoplaylist td{
+	font-size: 13px;
+	border: 1px solid #ddd;	
+	color: #333;	
+	padding:5px;
+}

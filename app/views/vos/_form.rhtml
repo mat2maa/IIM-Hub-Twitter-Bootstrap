@@ -1,0 +1,14 @@
+<% form_remote_tag :url => {:action => 'create'}, 
+                    :html => {:id => 'vo_form'} do %>
+<table>
+  <tr>
+	<td>VO Name</td>
+    <td>
+      <%= text_field_tag 'vo[name]' %>
+    </td>
+    <td colspan="2">
+      <%= submit_tag "Add New VO" %>
+    </td>
+  </tr>
+</table>
+<% end %>

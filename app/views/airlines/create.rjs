@@ -1,0 +1,3 @@
+page.insert_html :bottom, 'airlines', :partial => 'airline', :locals => {:airline => @airline}
+page[:airline_form].reset
+flash.discard

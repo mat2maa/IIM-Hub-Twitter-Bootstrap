@@ -1,0 +1,67 @@
+class Album < ActiveRecord::Base
+  has_many :tracks, :dependent => :destroy
+  belongs_to :label
+  belongs_to :publisher
+  has_many :album_playlist_items
+  has_many :album_playlists, :through=>:album_playlist_items
+  has_many :audio_playlist_tracks, :through=>:tracks
+  
+  has_and_belongs_to_many :genres
+  
+	validates_presence_of :title_original, :artist_original, :label_id, :publisher_id, :release_year, :gender, :language_id, :disc_num, :disc_count, :cd_code
+  
+  searchable_by :title_original, :title_english, :artist_original, :artist_english, :cd_code
+  
+  has_attached_file :cover, 
+                    :styles => { 
+                    :small => "50x50>",
+                    :medium => "100x100>",
+                    :large => "300x300>"}
+
+#                    :url  => "/assets/products/:id/:style/:basename.:extension",
+#                    :path => ":rails_root/public/assets/products/:id/:style/:basename.:extension"
+
+  validates_attachment_size :cover, :less_than => 5.megabytes
+  validates_attachment_content_type :cover, :content_type => ['image/jpeg', 'image/png','image/gif']
+  
+	def tracks_sorted
+		self.tracks.sort_by {|a| [a.track_num]}
+	end
+	
+  def duration
+    t = 0
+
+	  self.tracks.each do |track|
+	    if !track.duration.nil?
+	      t += track.duration
+      else
+        t += 0
+      end
+    end
+    t
+  end
+  
+  def duration_in_min 
+    
+    if !self.total_duration.nil?	  
+	    sec = self.total_duration/1000
+	
+  	  min = sec/60
+	  
+  	  sec = sec%60
+	
+  	  if sec < 10 :  sec = "0#{sec}"
+  	  end 
+  	  if sec == 0 :  sec = "00"
+  	  end
+  	  if min == 0 :  min = "0"
+  	  end
+	
+  	  t = "#{min}:#{sec}"
+      else 
+  	  t = "0:00"
+  	end
+  	t
+  end
+  
+end

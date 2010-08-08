@@ -1,0 +1,26 @@
+<% if @search.count > 0 %>
+	<%= @search.count %> videos found
+	<table cellspacing="0" width="100%">
+	<tr>
+		<th><%= remote_order_by_link  :id %></th>
+		<th><%= remote_order_by_link  :programme_title %></th>
+		<th><%= remote_order_by_link  :video_type %></th>
+		<th><%= remote_order_by_link  :commercial_runtime %></th>
+		<th>Genres</th>
+		<th colspan="2"></th>			
+	</tr>
+	
+	<%= render :partial => "video", :collection => @videos %>
+	</table>
+	
+	Per page: <%= per_page_select %>
+
+	<% if @search.page_count > 1 %>
+	<br />Page: <%= page_select %>
+	<% end %>
+
+<% else %>
+	
+	No videos were found
+
+<% end %>

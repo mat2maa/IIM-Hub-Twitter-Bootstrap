@@ -1,0 +1,3 @@
+page.insert_html :bottom, 'publishers', :partial => 'publisher', :locals => {:publisher => @publisher}
+page[:publisher_form].reset
+flash.discard

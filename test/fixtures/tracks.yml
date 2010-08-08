@@ -1,0 +1,41 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  album_id: 1
+  title_english: MyString
+  title_original: MyString
+  artist_english: MyString
+  artist_original: MyString
+  composer: MyString
+  publisher: MyString
+  distributor: MyString
+  description: MyText
+  tempo_intro: MyString
+  tempo_outro: MyString
+  tempo: MyString
+  track_num: 1
+  lyrics: MyText
+  language_id: 1
+  gender: MyString
+  program_type: MyString
+  origin: MyString
+
+two:
+  album_id: 1
+  title_english: MyString
+  title_original: MyString
+  artist_english: MyString
+  artist_original: MyString
+  composer: MyString
+  publisher: MyString
+  distributor: MyString
+  description: MyText
+  tempo_intro: MyString
+  tempo_outro: MyString
+  tempo: MyString
+  track_num: 1
+  lyrics: MyText
+  language_id: 1
+  gender: MyString
+  program_type: MyString
+  origin: MyString

@@ -1,0 +1,36 @@
+<%= render :partial => 'layouts/albumplaylist_header' %>
+<center><p style="color: green"><%= flash[:notice] %></p></center>
+<div id="content-header-wrapper">
+<div id="content-header-actions">
+	<%= link_to "Print Playlist", {:controller => "album_playlists", :action => "print",  :id => @album_playlist}, :popup =>true %> |
+	<%= link_to "Export as Excel", :controller => "album_playlists", :action => "export_to_excel",  :id => @album_playlist %> |
+	<%= link_to_show_overlay 'Download Playlist MP3s', "/download_album_mp3/" + @album_playlist.id.to_s %>
+</div>
+<div id="content-header">Album Playlists</div>
+</div>
+
+<div id="content">
+<center>
+<h2>Edit Album Playlist</h2>
+
+<div class="action-button"><%= link_to_show_overlay 'add album', add_album_to_playlist_path(@album_playlist.id) %></div><br/>
+<br/>
+<% form_for(@album_playlist) do |form| %> 
+
+  <%= form.error_messages %>
+
+  <%= render :partial => 'form', :object => form %>
+  <p>
+    <%= submit_tag "Save Changes" %>
+  </p>
+<% end %>
+
+
+<div id="playlist">
+<%= render :partial => 'playlist', :object => @album_playlist %>
+</div>
+
+<%= link_to 'Back', album_playlists_path %>
+
+</center>
+</div>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>IIM</title>
+<META HTTP-EQUIV=”Pragma” CONTENT=”no-cache”> 
+<META HTTP-EQUIV=”Expires” CONTENT=”-1″>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<link href="/stylesheets/iim.css?1231599086" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/in_place_styles.css?1231599086" media="screen" rel="stylesheet" type="text/css" />
+<script src="/javascripts/prototype.js?1231599085" type="text/javascript"></script>
+<script src="/javascripts/effects.js?1231599085" type="text/javascript"></script>
+<script src="/javascripts/dragdrop.js?1231599085" type="text/javascript"></script>
+<script src="/javascripts/controls.js?1231599085" type="text/javascript"></script>
+<script src="/javascripts/modal-overlay.js?1232288274" type="text/javascript"></script>
+<script src="/javascripts/application.js?1231599085" type="text/javascript"></script>
+</head>
+<body>
+<div id="header">
+<div id="logout">
+  </div>
+<div id="company-name">IIM</div>
+</div>
+<div id="header">
+<div id="nav">
+<div id="clear"><br/></div>
+</div>
+</div>
+<center><p style="color: green"></p></center>
+<div id="content-header-wrapper">
+<div id="content-header-actions">
+</div>
+<div id="content-header">
+Login
+</div>
+</div>
+<div id="content">
+<center>
+<form action="/user_session" class="new_user_session" id="new_user_session" method="post">
+  
+  <label for="user_session_login">Login</label><br />
+  <input id="user_session_login" name="user_session[login]" size="30" type="text" /><br />
+  <br />
+  <label for="user_session_password">Password</label><br />
+  <input id="user_session_password" name="user_session[password]" size="30" type="password" /><br />
+  <br />
+  <input id="user_session_remember_me" name="user_session[remember_me]" type="checkbox" value="1" /><input name="user_session[remember_me]" type="hidden" value="0" /><label for="user_session_remember_me">Remember me</label><br />
+  <br />
+  <input id="user_session_submit" name="commit" type="submit" value="Login" />
+</form>
+<a href="/password_resets/new">Forgot Password?</a>
+</center>
+</div>
+</body>
+</html>

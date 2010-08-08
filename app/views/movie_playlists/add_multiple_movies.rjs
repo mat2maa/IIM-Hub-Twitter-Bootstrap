@@ -1,0 +1,2 @@
+page.replace_html 'playlist', :partial => 'playlist', :object => @movie_playlist
+page.replace_html 'item_added', :partial => 'items_added', :object => {@movie_to_add, @notice}

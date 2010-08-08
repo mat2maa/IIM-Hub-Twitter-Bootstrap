@@ -1,0 +1,2 @@
+module VosHelper
+end

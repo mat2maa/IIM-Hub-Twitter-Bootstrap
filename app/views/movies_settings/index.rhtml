@@ -1,0 +1,29 @@
+<div id="header">
+<div class="title">Movies Settings</div>
+<div id="nav">
+<ul>
+<li><%= link_to "Dashboard", :controller => "dashboard" %></li>
+</ul>
+<div id="clear"><br/></div>
+</div>
+</div>
+<div id="content">
+<center>
+<br/>
+<strong>Please select from the following options:</strong>
+<br/><br/>
+<table border="0" cellpadding="10"><tr>
+	<tr><td class="dashboard"><%= link_to "Airlines", airlines_path %></td><td>Edit airlines list</td></tr>
+	<tr><td class="dashboard"><%= link_to "Movie Genres", movie_genres_path %></td><td>Edit genres list for movies</td></tr>
+	<tr><td class="dashboard"><%= link_to "Video Genres", video_genres_path %></td><td>Edit sub genres list for videos</td></tr>
+	<tr><td class="dashboard"><%= link_to "Video Parent Genres", video_parent_genres_path %></td><td>Edit genres list for videos</td></tr>
+	<tr><td class="dashboard"><%= link_to "Suppliers", suppliers_path %></td><td>Edit suppliers list</td></tr>
+	<tr><td class="dashboard"><%= link_to "Supplier Categories", supplier_categories_path %></td><td>Edit supplier categories list</td></tr>
+	<tr><td class="dashboard"><%= link_to "Airline Rights Countries", airline_rights_countries_path %></td><td>Edit airline rights countries list</td></tr>
+	<tr><td class="dashboard"><%= link_to "Commercial Run Time", commercial_run_times_path %></td><td>Edit commercial run times</td></tr>
+<% if has_role? :administrator %>
+<% end %>
+</table>
+</center>
+<br/><br/>
+</div>

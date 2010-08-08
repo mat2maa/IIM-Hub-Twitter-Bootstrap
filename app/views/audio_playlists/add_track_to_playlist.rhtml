@@ -1,0 +1,20 @@
+<center>
+  <div class="overlay">
+    <%= link_to_hide_overlay 'X', audio_playlists_path, :id => 'cancel' %>
+    <br/>
+	<strong>Add Track to Playlist</strong><br/>
+    <div id="search_form">
+      <% remote_form_for :audio_playlists, :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"do |f| %>
+			<%= hidden_field_tag 'id', params[:id] %>
+      <%= hidden_field_tag 'playlist_id', params[:id] %>
+      <%= render :partial => 'track_search_form', :locals => { :f => f } %>
+      <% end %> 
+    </div>
+		<%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
+		<div id="item_added"></div>
+    <div id="tracks">
+      <%= render :partial => "tracks" %>
+    </div>
+    <%= link_to_hide_overlay 'Cancel', audio_playlists_path %>
+</div>
+</center>

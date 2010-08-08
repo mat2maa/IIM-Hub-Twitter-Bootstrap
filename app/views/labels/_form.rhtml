@@ -1,0 +1,14 @@
+<% form_remote_tag :url => {:action => 'create'}, 
+                    :html => {:id => 'label_form'} do %>
+<table>
+  <tr>
+	<td>Label Name</td>
+    <td>
+      <%= text_field_tag 'label[name]' %>
+    </td>
+    <td colspan="2">
+      <%= submit_tag "Add New Label" %>
+    </td>
+  </tr>
+</table>
+<% end %>

@@ -1,0 +1,24 @@
+<%= link_to "Add a track", {:controller=>:tracks, :action => "new", :id =>params[:id]}  %>
+<br/><br/>
+<div id="track_form">
+</div>
+
+<table id="tracks" width="80%">
+<tr>
+<td width="10%" colspan="2"><strong>Track Num</strong></td>
+<td width="45%"><strong>Track Title</strong></td>
+<td width="20%"><strong>Artist</strong></td>
+<td width="10%"><strong>min:sec</strong></td>
+<td width="15%">&nbsp;</td>
+</tr>
+</table>
+<table id="tracks" width="80%">
+<tbody id="tracklist" style="cursor: move" >
+<%= render :partial => 'track', :collection => @tracks %>
+</tbody>
+</table>
+<%= sortable_element "tracklist",
+:url => {:action => "sort"},
+:complete => visual_effect(:highlight, "tracklist"),
+:tag => 'tr'
+%>

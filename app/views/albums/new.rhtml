@@ -1,0 +1,23 @@
+<%= render :partial => 'layouts/album_header' %>
+<center><p style="color: green"><%= flash[:notice] %></p></center>
+<div id="content-header-wrapper">
+<div id="content-header-actions">
+<%= link_to_remote "Add a track", :url => { :action => "add_track", :id => @album } %>
+</div>
+<div id="content-header">New Album<br />
+</div>
+</div>
+<div id="content">
+<center>
+<h1>New Album</h1>
+
+<% form_for :album, :url => { :action => "create" } do |form| %>
+<%= render :partial => 'form', :locals => { :form => form } %>
+<br/>
+<%= submit_tag "Create" , :class => "submit" %> &nbsp;
+<%= link_to "cancel" , { :action => "index" }, :class => "Cancel" %>
+<% end %>
+
+</center>
+<br/><br/>
+</div>

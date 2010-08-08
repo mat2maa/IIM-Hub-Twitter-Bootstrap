@@ -1,0 +1,6 @@
+  <tr id="video_parent_genre-row-<%=h video_parent_genre.id %>">
+    <td class="list-item"><%=h video_parent_genre.id %></td>
+    <td class="list-item"><%=h video_parent_genre.name %></td>
+    <td class="list-item"><%= link_to 'Edit', edit_video_parent_genre_path(video_parent_genre) %></td>
+    <td class="list-item"><%= link_to 'Delete', video_parent_genre, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>

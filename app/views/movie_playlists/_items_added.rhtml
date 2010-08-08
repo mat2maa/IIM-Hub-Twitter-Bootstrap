@@ -1,0 +1,5 @@
+<% if @notice=="" %>
+	"<%=h @movie_to_add.movie_title %>" added to playlist
+<% else %>
+	<%= @notice %>
+<% end %>

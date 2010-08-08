@@ -1,0 +1,11 @@
+<tr id="right-row-<%=h right.id %>">
+  <td><%=h right.id %></td>
+  <td><%=h right.name %></td>
+  <td><%=h right.controller %></td>
+  <td><%=h right.action %></td>
+  <td><%= link_to 'Edit', edit_right_path(right) %></td>
+  <td>
+	<%= link_to 'Delete', { :action => "destroy", :id => right.id }, :confirm => 'Are you sure?', :method => :delete %>
+
+	</td>
+</tr>

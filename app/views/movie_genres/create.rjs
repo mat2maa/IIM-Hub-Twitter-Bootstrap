@@ -1,0 +1,3 @@
+page.insert_html :bottom, 'movie_genres', :partial => 'movie_genre', :locals => {:movie_genre => @movie_genre}
+page[:movie_genre_form].reset
+flash.discard

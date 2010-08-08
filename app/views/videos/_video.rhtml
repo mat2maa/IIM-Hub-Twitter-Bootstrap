@@ -1,0 +1,36 @@
+<tr id="video-<%=h video.id %>">
+  <% cache([video, "video_playlists"]) do %>
+	<td><%= link_to video.id, video_path(:id => video.id ) %></td>
+	<td><%=h video.programme_title %></td>
+	<td><%=h video.video_type %></td>
+	<td><%=h video.commercial_run_time.minutes if !video.commercial_run_time.nil? %></td>	
+	<td><%=h video.video_genres_string %></td>
+  <% end %>
+	<% if (params[:playlist_id] || params["action"]=="add_video_to_playlist")  %>
+		<td>
+		<% if !video.to_delete %>
+		<%= link_to_remote "add to playlist", 
+			:url      => {:controller => "video_playlists", 
+			:action   => "add_video", 
+			:id       => params[:id], 
+			:video_id => video.id},
+			:loading  => "Element.show('spinner')",
+			:complete => "Element.hide('spinner')" %>
+		<% else %>
+			Pending Deletion
+		<% end %>
+		</td>
+	<% else %>
+		<td><%= link_to 'Edit', edit_video_path(video) %></td>
+		<td>
+			<% if !video.to_delete %>
+			<%= link_to_remote 'Delete', 	:url  => video_url(video), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>
+			<% else %>
+			<% if permitted_to? :admin_delete, :videos %>
+			<%= link_to_remote 'Delete', 	:url  => video_url(video), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>
+			<% end %>
+			<%= link_to_remote 'Restore', :url => { :action => "restore", :id => video.id }, :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>
+			<% end %>
+		</td>	
+		<% end %>			
+	</tr>

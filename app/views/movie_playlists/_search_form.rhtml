@@ -1,0 +1,25 @@
+<fieldset>
+	<legend>Search Movies Playlists</legend>
+	<% f.fields_for @search.conditions do |movie_playlists| %>
+	Match ANY or ALL of the conditions: <%= movie_playlists.select :any, [["All", false], ["Any", true]] %>
+	<%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
+	<br />
+	<table><tr><td>
+		Playlist ID:<br/>
+		<%= movie_playlists.text_field :id_equals, :size => 6 %><br />
+	</td>
+	<td>
+		Airline:<br />
+		<%= movie_playlists.select :airline_id_equals, Airline.find(:all, :order=>"name asc").collect {|p| [p.name, p.id] }, { :include_blank => true } %><br />
+	</td>
+	<td>Start Playdate:<br />
+	<%= movie_playlists.date_select :start_cycle_like,  {:discard_day => true, :order => [:month, :year],:include_blank => true, :use_month_numbers => true, :start_year => Date.today.year + 2, :end_year => 1900 }  %><br />
+	</td>
+	<td>End Playdate:<br />
+	<%= movie_playlists.date_select :end_cycle_like,  {:discard_day => true, :order => [:month, :year],:include_blank => true, :use_month_numbers => true, :start_year => Date.today.year + 2, :end_year => 1900 }%><br />
+	</td>
+	<td valign="bottom"><%= f.submit "Search" %> <input type="reset" value="Reset"></td>
+</tr>
+</table>
+<% end %>
+</fieldset>

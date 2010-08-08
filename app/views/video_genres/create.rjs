@@ -1,0 +1,3 @@
+page.insert_html :bottom, 'video_genres', :partial => 'video_genre', :locals => {:video_genre => @video_genre}
+page[:video_genre_form].reset
+flash.discard

@@ -1,0 +1,3 @@
+page.insert_html :bottom, 'splits', :partial => 'split', :locals => {:split => @split}
+page[:split_form].reset
+flash.discard

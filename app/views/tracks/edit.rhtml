@@ -1,0 +1,34 @@
+<%= render :partial => 'layouts/track_header' %>
+<center><p style="color: green"><%= flash[:notice] %></p></center>
+<div id="content-header-wrapper">
+<div id="content-header-actions">
+<%= link_to "Search Baidu", "http://www.baidu.com", :popup => true %>
+</div>
+<div id="content-header">Edit Track : <%=h @track.title_original %><br />
+</div>
+
+</div>
+<div id="content">
+<center>
+
+<% form_for (@track) do |form| %>
+<%= form.error_messages %>
+
+<%= render :partial => 'form', :object => form, :locals => {:track => 'track'} %>
+
+<br/>
+<%= submit_tag "Save" , :class => "submit" %> 
+
+<div class="nav-tab">
+<%= link_to_remote "Genre", :url => {:action => "show_genre", :id => @track.id} %>
+<%= link_to_remote "Lyrics", :url => {:action => "show_lyrics_form", :id => @track.id} %>
+<%= link_to_remote "Playlists", :url => {:action => "show_playlists", :id => @track.id} %>
+
+</div>
+<div id="tab-area">
+<%= render :partial => 'genre', :locals => {:track => 'track', :genres => 'genres'} %>
+</div>
+<% end %>
+</center>
+<br/><br/>
+</div>

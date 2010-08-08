@@ -1,0 +1,3 @@
+page.insert_html :bottom, 'vo_durations', :partial => 'vo_duration', :locals => {:vo_duration => @vo_duration}
+page[:vo_duration_form].reset
+flash.discard

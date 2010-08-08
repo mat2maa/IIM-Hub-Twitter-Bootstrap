@@ -1,0 +1,33 @@
+<%= error_messages_for :master %>
+
+<table class="master">
+  	<tr>
+			<td><%= f.input :episode_title, :input_html=>{:class=>"master_title"}, :label => "Episode Title"  %></td>
+			<td>Episode #: <%= f.text_field :episode_number, :size => 5 %></td>
+
+			<td><%= f.input :tape_media, :as => :select, :collection => ["Betacam SP", "Digital Betacam", "Betacam SX", "MPEG IMX", "HDCAM", "DVCCAM", "HDCAM", "DVCAM Pro"], :label => "Tape Media", :include_blank => false %></td>
+						
+			<td><%= f.input :tape_format, :as => :select, :collection => ["PAL", "NTSC"], :label => "Tape Format", :include_blank => false %></td>
+			<td><%= f.input :tape_size, :as => :select, :collection => ["Small","Large"], :label => "Tape Size", :include_blank => false %></td>	
+			<td><%= f.input :video_subtitles, :as => :select, :collection => IIM::MOVIE_LANGUAGES ,:include_blank => true, :label => "Video Subtitles" %></td>					
+		</tr>
+		<tr>
+			<td rowspan="2">Episode Synopsis: <%= f.text_area :synopsis, :size => "29x3" %></td>
+			<td><%= f.input :language_track_1,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 1<br/>", :selected => "Eng" %></td>			
+			<td><%= f.input :language_track_2,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 2<br/>", :selected => "Eng" %></td>
+			<td><%= f.input :language_track_3,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 3<br/>" %></td>
+			<td><%= f.input :language_track_4,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 4<br/>" %></td>			
+			<td><%= f.input :aspect_ratio, :as => :select, :collection => ["4:3", "16:9", "14:9"] %></td>
+		</tr>
+		<tr>
+			<td>Tape Location: <br/>
+				<%= f.text_field(:location, :size => 8) if !f.object.id.nil? %>
+				<%= f.text_field(:location, :size => 8, :value => @master_location) if f.object.id.nil? %>
+			</td>
+			<td><%= f.input :time_in, :size => 8, :input_html=>{:class=>"master_time"}, :label => "Time In" %></td>
+			<td><%= f.input :time_out, :size => 8, :input_html=>{:class=>"master_time"}, :label => "Time Out" %></td>
+			<td>Duration: <br/><%= f.object.duration %></td>
+			<td><%= link_to_function "remove", "$(this).up('.master').remove()" %></td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+</table>

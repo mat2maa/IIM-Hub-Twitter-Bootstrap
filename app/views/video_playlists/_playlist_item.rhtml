@@ -1,0 +1,32 @@
+	<% @video = playlist_item.video %>
+	<% @video_playlist_item = playlist_item %>
+  	<tr id="item_<%=h playlist_item.id %>">
+	<% if playlist_item.video.nil? %>
+    <td colspan="2">Missing video <%=h playlist_item.video_id %></td>
+	<% else %>
+		<td>
+			<table width="100%">
+				<tr>
+					<th width="130">(<%=h playlist_item.position %>) Programme Title:</th>
+					<td width="200"><%=h playlist_item.video.programme_title %></td>
+					<th width="130">Distributor:</th>
+					<td width="200"><%=h playlist_item.video.video_distributor.company_name if !playlist_item.video.video_distributor.nil? %></td>
+					<th width="180">Commercial Run Time:</th>
+					<td width="180"><%=h playlist_item.video.commercial_run_time.minutes if !playlist_item.video.commercial_run_time.nil? %> min </td>
+					<th>Episodes Available:</th>
+					<td><%=h playlist_item.video.episodes_available %></td>
+				</tr>
+				<tr>
+					<th>Foreign Language Title:</th>
+					<td><%=h playlist_item.video.foreign_language_title %></td>
+					<th>Available Language Tracks:</th>
+					<td><%=h playlist_item.video.language_tracks %> </td>
+					<th>Language Subtitles:</th>
+					<td><%=h playlist_item.video.language_subtitles %> </td>
+				</tr>	
+			</table>
+		</td>
+		<td><%= image_tag("arrow_move.png") %></td>
+    <% end %>
+		<td><%= link_to_remote "Delete", :confirm=>"Are you sure", :url => playlist_item , :method => 'delete' %></td>
+	</tr>

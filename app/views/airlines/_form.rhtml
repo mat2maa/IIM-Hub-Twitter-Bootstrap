@@ -1,0 +1,17 @@
+<% form_remote_tag :url => {:action => 'create'}, :html => {:id => 'airline_form'} do %>
+<table>
+  <tr>
+	<td>Airline Name</td>
+    <td>
+      <%= text_field_tag 'airline[name]' %>
+    </td>
+	<td>Airline Code</td>
+    <td>    
+      <%= text_field_tag 'airline[code]' %>
+    </td>
+    <td colspan="2">
+      <%= submit_tag "Add New Airline" %>
+    </td>
+  </tr>
+</table>
+<% end %>

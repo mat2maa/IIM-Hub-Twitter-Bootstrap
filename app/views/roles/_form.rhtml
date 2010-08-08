@@ -1,0 +1,10 @@
+<%= form.label :name %><br />
+<%= form.text_field :name %><br />
+	Rights
+<% for right in Right.find(:all) %>
+<div>
+  <%= check_box_tag "role[right_ids][]", right.id, @role.rights.include?(right) %>
+  <%= right.name %>
+</div>
+<% end %>
+<br />

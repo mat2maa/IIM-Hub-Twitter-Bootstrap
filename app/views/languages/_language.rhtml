@@ -1,0 +1,6 @@
+  <tr id="language-row-<%=h language.id %>">
+    <td class="list-item"><%=h language.id %></td>
+    <td class="list-item"><%=h language.name %></td>
+    <td class="list-item"><%= link_to 'Edit', edit_language_path(language) %></td>
+    <td class="list-item"><%= link_to 'Delete', language, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>

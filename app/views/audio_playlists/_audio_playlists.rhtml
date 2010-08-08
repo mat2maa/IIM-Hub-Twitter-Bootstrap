@@ -1,0 +1,50 @@
+<% if @audio_playlists_count > 0 %>
+<%= @audio_playlists_count %> songs playlists found
+<table width="100%" cellspacing="0">
+	<tr>
+		<th class="list-header"><%= remote_order_by_link :id %></th>
+		<th><%= remote_order_by_link :program => :name %></th>
+		<th><%= remote_order_by_link :airline => :name %></th>
+		<th><%= remote_order_by_link :in_out, :text => 'In/Out' %></th>
+		<th><%= remote_order_by_link :start_playdate, :text => 'Start Month' %></th>
+		<th><%= remote_order_by_link :end_playdate, :text => 'End Month' %></th>
+		<th>Total Duration</th>
+		<th colspan="4"></th>			
+	</tr>
+	<% @audio_playlists.each do |audio_playlist| %>
+	<tr id="audio_playlist-<%=h audio_playlist.id %>">
+		<% cache([audio_playlist]) do %>
+		<td><%= link_to audio_playlist.id, audio_playlist_path(:id => audio_playlist.id ) %></td>
+		<td><%=h audio_playlist.program_cache if !audio_playlist.program_id.nil? %></td>
+		<td><%=h audio_playlist.airline_cache if !audio_playlist.airline_id.nil? %></td>
+		<td><%=h audio_playlist.in_out %>&nbsp;</td>
+		<td><%=h audio_playlist.start_playdate.strftime("%B %Y") if !audio_playlist.start_playdate.nil? %>&nbsp;</td>								
+		<td><%=h audio_playlist.end_playdate.strftime("%B %Y") if !audio_playlist.end_playdate.nil? %>&nbsp;</td>								
+		<td><%=h audio_playlist.total_duration_cached if !audio_playlist.total_duration.nil? %></td>
+		<% end %>
+		<% if permitted_to? :edit, :audio_playlists %>
+		<td><%= link_to 'Edit', edit_audio_playlist_path(audio_playlist) if audio_playlist.locked!=true %></td>
+		<td><%= link_to_remote 'Delete', 	:url  => audio_playlist_url(audio_playlist), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  if audio_playlist.locked!=true  %></td>	
+		<td><%= link_to 'Duplicate', duplicate_audio_playlist_path(audio_playlist), :confirm => 'Are you sure?', :method => :post %></td>
+		<% end %>
+		<td>
+			<% if permitted_to? :lock, :audio_playlists %>
+			<% if audio_playlist.locked!=true %>
+			<%= link_to 'Lock', lock_audio_playlist_path(audio_playlist), :method => :post %>
+			<% else %>
+			<%= link_to 'Unlock', unlock_audio_playlist_path(audio_playlist), :method => :post %>
+			<% end %>
+			<% end %>
+		</td>	
+	</tr>
+	<% end %>
+</table>
+
+Per page: <%= per_page_select %>
+
+<% if @search.page_count > 1 %>
+<br />Page: <%= page_select %>
+<% end %>
+<% else %>
+No playlists were found
+<% end %>

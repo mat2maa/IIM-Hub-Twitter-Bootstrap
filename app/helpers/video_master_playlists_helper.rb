@@ -1,0 +1,2 @@
+module VideoMasterPlaylistsHelper
+end

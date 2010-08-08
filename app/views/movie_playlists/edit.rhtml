@@ -1,0 +1,35 @@
+<%= render :partial => 'layouts/movieplaylist_header' %>
+<center><p style="color: green"><%= flash[:notice] %></p></center>
+<div id="content-header-wrapper">
+<div id="content-header-actions">
+	<%= link_to "Print Playlist", {:controller => "movie_playlists", :action => "print",  :id => @movie_playlist}, :popup =>true %> |
+	<%= link_to "Export as Excel", :controller => "movie_playlists", :action => "export_to_excel",  :id => @movie_playlist %> 
+</div>
+<div id="content-header">Movie Playlists</div>
+</div>
+
+<div id="content">
+<center>
+<h2>Edit Movie Playlist</h2>
+
+<div class="action-button"><%= link_to_show_overlay 'add movie', add_movie_to_playlist_path(@movie_playlist.id) %></div><br/>
+<br/>
+<% form_for(@movie_playlist) do |form| %> 
+
+  <%= form.error_messages %>
+
+  <%= render :partial => 'form', :object => form %>
+  <p>
+    <%= submit_tag "Save Changes" %>
+  </p>
+<% end %>
+
+
+<div id="playlist">
+<%= render :partial => 'playlist', :object => @movie_playlist %>
+</div>
+
+<%= link_to 'Back', movie_playlists_path %>
+
+</center>
+</div>

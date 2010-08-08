@@ -1,0 +1,2 @@
+module AlbumPlaylistsHelper
+end

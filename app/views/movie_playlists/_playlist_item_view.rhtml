@@ -1,0 +1,54 @@
+<% @movie = playlist_item_view.movie %>
+<% @movie_playlist_item = playlist_item_view %>
+<tr id="item_<%=h playlist_item_view.id %>">
+	<% if playlist_item_view.movie.nil? %>
+    <td colspan="2">Missing movie <%=h playlist_item_view.movie_id %></td>
+
+<% else %>
+	
+<td>
+	<table width="100%" class="movieplaylist">
+		<tr>
+			<td width="150"><strong>Movie Title:</strong> </td>
+			<td><%=h playlist_item_view.movie.movie_title %></td>
+			<td rowspan="8" width="160" align="center"><%= image_tag(playlist_item_view.movie.poster.url(:small)) %></td>
+		</tr>
+		<tr>
+			<td><strong>Distributor:</strong> </td>
+			<td><%=h playlist_item_view.movie.movie_distributor.company_name if !playlist_item_view.movie.movie_distributor.nil? %></td>
+		</tr>
+		<tr>
+			<td><strong>Production Studio:</strong> </td>
+			<td><%=h playlist_item_view.movie.production_studio.company_name if !playlist_item_view.movie.production_studio.nil? %></td>
+		</tr>
+		<tr>
+			<td><strong>Theatrical Runtime:</strong> </td>
+			<td><%=h playlist_item_view.movie.theatrical_runtime %> min</td>
+		</tr>	
+		<tr>
+			<td><strong>Movie Rating:</strong> </td>
+			<td><%=h playlist_item_view.movie.rating %></td>
+		</tr>
+		<tr>
+			<td><strong>Genres:</strong> </td>
+			<td><%=h playlist_item_view.movie.movie_genres_string %></td>
+		</tr>
+		<tr>
+			<td><strong>Director:</strong> </td>
+			<td><%=h playlist_item_view.movie.director %></td>
+		</tr>	
+		<tr>
+			<td><strong>Cast:</strong> </td>
+			<td><%=h playlist_item_view.movie.cast %></td>
+		</tr>
+		<tr>
+			<td colspan="3"><strong>Synopsis:</strong><br/><%=h playlist_item_view.movie.synopsis %></td>
+		</tr>
+		<tr>
+			<td colspan="3"><%= playlist_item_view.movie.critics_review %></td>
+		</tr>
+	</table>
+	<br/><br/>
+</td>
+ <% end %>
+</tr>

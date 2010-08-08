@@ -1,0 +1,2 @@
+module VoDurationsHelper
+end

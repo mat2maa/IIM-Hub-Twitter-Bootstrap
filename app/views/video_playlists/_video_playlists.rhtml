@@ -1,0 +1,45 @@
+<% if @video_playlists_count > 0 %>
+<%= @video_playlists_count %> video playlists found
+
+<table cellspacing="0" width="100%">
+	<tr>
+		<th><%= remote_order_by_link :id %></th>
+		<th><%= remote_order_by_link :airline => :name %></th>
+		<th><%= remote_order_by_link :start_cycle, :text => 'Start Date' %></th>
+		<th><%= remote_order_by_link :end_cycle, :text => 'End Date' %></th>
+		<th colspan="4"></th>			
+	</tr>
+	<% @video_playlists.each do |video_playlist| %>
+		<tr id="video_playlist-<%=h video_playlist.id %>">
+			<% cache([video_playlist]) do %>
+				<td><%= link_to video_playlist.id, video_playlist_path(:id => video_playlist.id ) %></td>
+				<td><%=h video_playlist.airline.name if !video_playlist.airline_id.nil? %></td>
+				<td><%=h video_playlist.start_cycle.strftime("%m-%Y") if !video_playlist.start_cycle.nil? %>&nbsp;</td>
+				<td><%=h video_playlist.end_cycle.strftime("%m-%Y") if !video_playlist.end_cycle.nil?  %>&nbsp;</td>
+			<% end %>
+					<td><%= link_to 'Edit', edit_video_playlist_path(video_playlist) if video_playlist.locked!=true %></td>
+					<% if permitted_to? :delete, :video_playlists %>
+					<td><%= link_to_remote 'Delete', 	:url  => video_playlist_url(video_playlist), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"   if video_playlist.locked!=true %></td>
+					<td><%= link_to 'Duplicate', duplicate_video_playlist_path(video_playlist), :confirm => 'Are you sure?', :method => :post %></td>
+				<% end %>
+				<td>
+					<% if permitted_to? :lock, :videos_playlist %>
+						<% if video_playlist.locked!=true %>
+							<%= link_to 'Lock', lock_video_playlist_path(video_playlist), :method => :post %>
+						<% else %>
+							<%= link_to 'Unlock', unlock_video_playlist_path(video_playlist), :method => :post %>
+						<% end %>
+					<% end %>
+				</td>		
+			</tr>		
+		<% end %>
+	</table>
+
+	Per page: <%= per_page_select %>
+
+	<% if @search.page_count > 1 %>
+	<br />Page: <%= page_select %>
+	<% end %>
+	<% else %>
+	No playlists were found
+	<% end %>

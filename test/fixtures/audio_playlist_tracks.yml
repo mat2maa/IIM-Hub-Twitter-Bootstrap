@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  audio_playlist_id: 1
+  track_id: 1
+
+two:
+  audio_playlist_id: 1
+  track_id: 1

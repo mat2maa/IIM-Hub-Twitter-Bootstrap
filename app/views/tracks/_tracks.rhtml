@@ -1,0 +1,27 @@
+<% if @tracks_count > 0 %>
+<%= @tracks_count %> tracks found
+
+<table cellspacing="0" width="100%">
+	<tr>
+		<th><%= remote_order_by_link :id %></th>
+		<th><%= remote_order_by_link :title_original %></th>
+		<th><%= remote_order_by_link :artist_original %></th>
+		<th><%= remote_order_by_link :label => :name %></th>
+		<th><%= remote_order_by_link :album => :cd_code %></th>
+		<th><%= remote_order_by_link :duration %></th>
+		<th colspan="2"></th>			
+	</tr>
+	<%= render :partial => "track", :collection => @tracks %>
+	</table>
+
+	<br />
+	<br />
+
+	Per page: <%= remote_per_page_select %>
+
+	<% if @search.page_count > 1 %>
+	<br />Page: <%= remote_page_select %>
+	<% end %>
+	<% else %>
+	No tracks were returned
+	<% end %>

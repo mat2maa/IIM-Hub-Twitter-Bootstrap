@@ -1,0 +1,35 @@
+	<% cache 'album_search_form' do %>
+	<fieldset>
+			<legend>Search Albums</legend> <% f.fields_for @search.conditions do |albums| %> Match ANY or ALL of the conditions: <%= albums.select :any, [["All", false], ["Any", true]] %>
+			<br/>
+			<table>
+				<tr>
+					<td valign="top">
+						Title Original:<br>
+						<%= albums.text_field :title_original_like %><br>
+						Artist Original:<br>
+						<%= albums.text_field :artist_original_like %>
+					</td>
+					<td valign="top">
+						Title (Translated):<br>
+						<%= albums.text_field :title_english_keywords %><br>
+						Artist (Translated):<br>
+						<%= albums.text_field :artist_english_keywords %>
+					</td>
+					<td valign="top">
+						Year:<br>
+						<%= albums.text_field :release_year_equals, :size => 6 %><br>
+						CD Code:<br>
+						<%= albums.text_field :cd_code_contains, :size => 6  %>
+					</td>
+					<td valign="top">
+						Label:<br>
+						<% albums.fields_for albums.object.label do |label| %> 
+							<%= label.select :id_equals, Label.all.collect {|p| [p.name, p.id] }, { :include_blank => true } %> 
+						<% end %>
+					</td>
+				</tr>
+			</table>			
+			<% end %><%= f.submit "Search" %> <input type="reset" value="Reset">
+		</fieldset>
+		<% end %>

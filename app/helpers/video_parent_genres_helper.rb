@@ -1,0 +1,2 @@
+module VideoParentGenresHelper
+end

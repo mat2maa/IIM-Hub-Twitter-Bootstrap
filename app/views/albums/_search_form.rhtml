@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<fieldset>
+			<legend>Search Albums</legend> <% f.fields_for @search.conditions do |albums| %> Match ANY or ALL of the conditions: <%= albums.select :any, [["All", false], ["Any", true]] %>
+			<%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %><br/>
+			<table>
+				<tr>
+					<td valign="top">
+						Title Original:<br>
+						<%= albums.text_field :title_original_like %><br>
+						Artist Original:<br>
+						<%= albums.text_field :artist_original_like %>
+					</td>
+					<td valign="top">
+						Title (Translated):<br>
+						<%= albums.text_field :title_english_keywords %><br>
+						Artist (Translated):<br>
+						<%= albums.text_field :artist_english_keywords %>
+					</td>
+					<td valign="top">
+						Year:<br>
+						<%= albums.text_field :release_year_equals, :size => 6 %><br>
+						CD Code:<br>
+						<%= albums.text_field :cd_code_contains, :size => 6  %>
+					</td>
+					<td valign="top">
+						Label:<br>
+						<% albums.fields_for albums.object.label do |label| %> 
+							<%= label.select :id_equals, Label.find(:all).collect {|p| [p.name, p.id] }, { :include_blank => true } %> 
+						<% end %><br/>
+						Genre:<br>
+						<% albums.fields_for albums.object.genres do |genres| %> 
+							<%= genres.select :id_equals, Genre.find(:all).collect {|p| [p.name, p.id] }, { :include_blank => true } %> 
+						<% end %>
+						Pending Delete: <%= albums.check_box :to_delete_equals  %>
+					</td>
+				</tr>
+			</table>
+			
+			<% end %><%= f.submit "Search" %>
+		</fieldset>
+	</body>
+</html>

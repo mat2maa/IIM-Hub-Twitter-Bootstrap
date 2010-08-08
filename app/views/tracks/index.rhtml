@@ -1,0 +1,18 @@
+<%= render :partial => 'layouts/track_header' %>
+<center><p style="color: green" id="notice"><%= flash[:notice] %></p></center>
+<div id="content-header-wrapper">
+<div id="content-header-actions">
+</div>
+<div id="content-header">Tracks</div>
+</div>
+
+<div id="content">
+<% remote_form_for @search, :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')" do |f| %>
+  <%= render :partial => 'search_form', :locals => { :f => f } %>
+<% end %>  
+
+  <div id="tracks">
+    <%= render :partial => "tracks" %>
+  </div>
+
+</div>

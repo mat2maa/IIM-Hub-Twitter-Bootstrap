@@ -1,0 +1,25 @@
+<div id="header">
+<div class="title">Settings</div>
+<div id="nav">
+<ul>
+	<li><%= link_to "Dashboard", :controller => "dashboard" %></li>
+	<li><%= link_to "Movie Genres", movie_genres_path %></li>
+	<li><%= link_to "Video Genres", video_genres_path %></li>
+	<li><%= link_to "Video Parent Genres", video_parent_genres_path %></li>
+	<li><%= link_to "Suppliers", suppliers_path %></li>
+	<li id="curr-nav"><%= link_to "Supplier Categories", supplier_categories_path %></li>
+	<li><%= link_to "Airline Rights Countries", airline_rights_countries_path %></li>
+	<li><%= link_to "Commercial Run Time", commercial_run_times_path %></li>
+</ul>
+<div id="clear"><br/></div>
+</div>
+</div>
+<center><p style="color: green"><%= flash[:notice] %></p></center>
+<div id="content-header-wrapper">
+<div id="content-header-actions">
+	<%= link_to "Add Supplier Category", new_supplier_category_path %>	
+</div>
+<div id="content-header">
+Supplier Categories
+</div>
+</div>

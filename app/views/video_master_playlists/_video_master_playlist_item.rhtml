@@ -1,0 +1,54 @@
+	<% @master = video_master_playlist_item.master %>
+	<% @video_master_playlist_item = video_master_playlist_item %>
+  	<tr id="item_<%=h video_master_playlist_item.id %>">
+	<% if video_master_playlist_item.master.nil? %>
+    <td colspan="2">Missing master <%=h video_master_playlist_item.master_id %></td>
+	<% else %>
+		<td>
+			<table width="100%">
+				<tr>
+					<th width="130">(<%=h video_master_playlist_item.position %>) Episode Title [<%= link_to "Edit", edit_video_path(video_master_playlist_item.master.video.id), :popup => true %>]:</th>
+					<td width="200"><%= video_master_playlist_item.master.episode_title %></td>
+					<th>Tape Media:</th>
+					<td width="80"><%=h video_master_playlist_item.master.tape_media %></td>
+					<th>Tape Format:</th>
+					<td width="40"><%=h video_master_playlist_item.master.tape_format %></td>
+					<th>Tape Size:</th>
+					<td width="40"><%=h video_master_playlist_item.master.tape_size %></td>
+					<th>Aspect Ratio:</th>
+					<td width="40"><%=h video_master_playlist_item.master.aspect_ratio %></td>
+					<th>Video Subtitles:</th>
+					<td width="60"><%=h video_master_playlist_item.master.video_subtitles %></td>
+					<th>Master Tape Location:</th>
+					<td width="50"><%=h video_master_playlist_item.master.location %></td>
+				</tr>
+				<tr>
+					<th>Language Track 1:</th>
+					<td><%=h video_master_playlist_item.master.language_track_1 %></td>
+					<th>Language Track 2:</th>
+					<td><%=h video_master_playlist_item.master.language_track_2 %></td>
+					<th>Language Track 3:</th>
+					<td><%=h video_master_playlist_item.master.language_track_3 %></td>
+					<th>Language Track 4:</th>
+					<td><%=h video_master_playlist_item.master.language_track_4 %></td>
+					<th>Master Time In:</th>
+					<td><%=h video_master_playlist_item.master.time_in %></td>
+					<th>Master Time Out:</th>
+					<td><%=h video_master_playlist_item.master.time_out %></td>
+					<th>Duration:</th>
+					<td><%=h video_master_playlist_item.master.duration %></td>
+				</tr>
+				<tr>
+					<td colspan="13"<strong>Synopsis:</strong><br/><%=h video_master_playlist_item.master.synopsis %></td>
+				</tr>
+				<tr>
+					<td colspan="13"<strong>Mastering:</strong><br/>
+						<%=in_place_text_area :video_master_playlist_item, :mastering, {:rows=>"2"}%>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td><%= image_tag("arrow_move.png") %></td>
+    <% end %>
+		<td><%= link_to_remote "Delete", :confirm=>"Are you sure", :url => video_master_playlist_item , :method => 'delete' %></td>
+	</tr>

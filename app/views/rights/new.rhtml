@@ -1,0 +1,12 @@
+<%= render :partial => 'header' %>
+<div id="content">
+	<center>
+<h1>New Right</h1>
+
+<% form_for :right, :url => { :action => "create" } do |f|  %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Register" %>
+<% end %>
+</center>
+</div>
