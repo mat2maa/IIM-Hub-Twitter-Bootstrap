@@ -57,6 +57,7 @@ class Movie < ActiveRecord::Base
     self.synopsis = self.synopsis.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip      
     self.cast = self.cast.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip    
     self.director = self.director.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
+    
   end
   
   def movie_genres_string

@@ -10,17 +10,19 @@
             <th><%= remote_order_by_link :movie_title, :search_obj => @search, :params_scope => :movie_playlists  %></th>
             <th><%= remote_order_by_link :movie_type, :search_obj => @search, :params_scope => :movie_playlists  %></th>
             <th><%= remote_order_by_link :airline_release_date, :search_obj => @search, :params_scope => :movie_playlists  %></th>
+            <th>In Playlists With<br/>Same Movie Type</th>
 						<th>&nbsp;</th>			
         </tr>
         <% @movies.each do |movie| %>
             <tr>
-              <% cache([movie]) do %>
+              <%# cache([movie]) do %>
 								<td><%= check_box_tag "movie_ids[]", movie.id %></td>
                 <td><%= link_to movie.id, movie_path(:id => movie.id ) %></td>
                 <td><%=h movie.movie_title %></td>
                 <td><%=h movie.movie_type %></td>
-                <td><%=h movie.airline_release_date.strftime("%m %Y") if !movie.airline_release_date.nil? %></td>
-              <% end %>
+                <td><%=h movie.airline_release_date.strftime("%m-%Y") if !movie.airline_release_date.nil? %></td>
+                <td><span id="exists"><%= MoviePlaylist.with_same_movie_type_and_movie(movie.id, (@movie_playlist.movie_type.nil? ? '' : @movie_playlist.movie_type)).collect{|playlist| playlist.id}.join(', ') if !movie.in_playlists.nil? %></span></td>
+              <%# end %>
 				  			<td><%= link_to_remote "add to playlist", 
 									:url => {:controller => "movie_playlists", 
 									:action => "add_movie", 

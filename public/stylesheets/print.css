@@ -23,3 +23,11 @@ table.movieplaylist, table.videoplaylist{
 	color: #333;	
 	padding:5px;
 }
+.print{
+	margin-left: auto;
+	margin-right: auto;
+	width: 900px;
+}
+.print h2{
+	margin-bottom:0;
+}

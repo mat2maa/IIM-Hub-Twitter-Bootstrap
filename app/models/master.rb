@@ -15,6 +15,11 @@ class Master < ActiveRecord::Base
   validates_format_of :time_out, :with => /(\A[0-9]{1,2}):([0-5]?[0-9]):([0-5]?[0-9]):([0-2][0-4]|[0-9])\z/, 
       :if => Proc.new { |master| master.tape_format=='PAL' }
   
+  def before_save
+    self.episode_title = episode_title.upcase
+    
+  end
+  
   def time_in=(the_time)
     self[:time_in] = timecode_format(the_time)
   end

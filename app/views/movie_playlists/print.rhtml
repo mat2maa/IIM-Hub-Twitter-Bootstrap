@@ -5,20 +5,18 @@
 <%= stylesheet_link_tag 'print' , :media => 'screen' %>
 </header>
 <body>
-<center>
 <div class="print">
-<img src="/images/iim-logo.jpg" />
-<br/>
+	<center><img src="/images/iim-logo.jpg" /></center>
+	<br/>
+	<h2>
+	<%=h @movie_playlist.airline.code if !@movie_playlist.airline_id.nil? %><%=h @movie_playlist.start_cycle.strftime("%m%y") %> Movie Playlist</h2>
+	<%= "Movie Type: #{@movie_playlist.movie_type}s " if !@movie_playlist.movie_type.nil?%>
 
-<h2><%=h @movie_playlist.airline.code if !@movie_playlist.airline_id.nil? %><%=h @movie_playlist.start_cycle.strftime("%m%y") %> Movie Playlist</h2>
-<%= "Movie Type: #{@movie_playlist.movie_type}s " if !@movie_playlist.movie_type.nil?%>
-
-<div id="playlist">
-<table width="900">
-  <%= render :partial => 'playlist_item_view', :collection => @movie_playlist.movie_playlist_items_sorted %>
-</table>
+	<div id="playlist">
+		<table width="900">
+		  <%= render :partial => 'playlist_item_view', :collection => @movie_playlist.movie_playlist_items_sorted %>
+		</table>
+	</div>
 </div>
-</div>
-</div>
-</center>
-</body></html>
+</body>
+</html>
