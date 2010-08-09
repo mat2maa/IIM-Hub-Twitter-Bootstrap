@@ -15,8 +15,8 @@
 					<td width="180"><%=h playlist_item.movie.laboratory.company_name if !playlist_item.movie.laboratory.nil? %> </td>
 					<th width="130">Airline Release Date:</th>
 					<td width="80"><%=h playlist_item.movie.airline_release_date.strftime('%m-%Y') if !playlist_item.movie.airline_release_date.nil? %></td>
-					<th width="130">Airline Rights:</th>
-					<td><%=h playlist_item.movie.airline_rights %> <%=h playlist_item.movie.airline_countries %></td>
+					<th width="80" rowspan="2" valign="top">Airline Rights:</th>
+					<td rowspan="2" valign="top"><%=h playlist_item.movie.airline_rights %> <%=h playlist_item.movie.airline_countries %></td>
 				</tr>
 				<tr>
 					<th>Available Language Tracks:</th>

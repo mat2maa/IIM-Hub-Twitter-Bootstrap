@@ -611,6 +611,10 @@ table.movie td, table.movie t{
 	width:250px;
 }	
 
+/* Pagination */
+.page_links a{
+	padding:5px;
+}
 
 
 

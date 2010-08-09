@@ -5,9 +5,9 @@ class MoviePlaylist < ActiveRecord::Base
   belongs_to :airline
   belongs_to :user
   
-  named_scope :with_same_movie_type_and_movie, lambda { |movie_id, movie_type| {
+  named_scope :with_same_airline_and_movie, lambda { |movie_id, airline_id| {
     :select=>"movie_playlists.id", 
-    :conditions=>"movie_playlist_items.movie_id=#{movie_id} AND movie_playlists.movie_type='#{movie_type}'",
+    :conditions=>"movie_playlist_items.movie_id=#{movie_id} AND movie_playlists.airline_id='#{airline_id}'",
     :joins=>"LEFT JOIN movie_playlist_items on movie_playlists.id=movie_playlist_items.movie_playlist_id"} }
   
   def movie_playlist_items_sorted

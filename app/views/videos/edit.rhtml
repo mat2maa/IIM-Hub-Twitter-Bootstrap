@@ -12,6 +12,10 @@
 <div id="content">
 <center>
 <h1>Edit Video</h1>
+<% form_for @search,  :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')" do |f| %>
+	<%= render :partial => 'search_form', :locals => { :f => f } %>
+<% end %>
+<br/><br/>
 
 <%= render :partial => 'form' %>
 

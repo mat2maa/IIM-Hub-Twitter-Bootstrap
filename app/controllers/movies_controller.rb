@@ -31,6 +31,11 @@ class MoviesController < ApplicationController
       @search = Movie.new_search(:order_by => :id, :order_as => "DESC")
     end
     @movies, @movies_count = @search.all, @search.count
+    
+    if @movies_count == 1
+      redirect_to(edit_movie_path(@movies.first))
+    end
+    
     session[:movies_search] = collection_to_id_array(@movies)
   end
     
