@@ -7,26 +7,26 @@
 		<td>
 			<table width="100%">
 				<tr>
-					<th width="130">(<%=h playlist_item.position %>) Movie Title:</th>
-					<td width="180"><%=h playlist_item.movie.movie_title %></td>
-					<th width="130">Distributor:</th>
-					<td width="200"><%=h playlist_item.movie.movie_distributor.company_name if !playlist_item.movie.movie_distributor.nil? %></td>
-					<th width="100">Laboratory:</th>
-					<td width="180"><%=h playlist_item.movie.laboratory.company_name if !playlist_item.movie.laboratory.nil? %> </td>
-					<th width="130">Airline Release Date:</th>
-					<td width="80"><%=h playlist_item.movie.airline_release_date.strftime('%m-%Y') if !playlist_item.movie.airline_release_date.nil? %></td>
+					<th width="130" valign="top">(<%=h playlist_item.position %>) Movie Title:</th>
+					<td width="180" valign="top"><%=h playlist_item.movie.movie_title %></td>
+					<th width="130" valign="top">Distributor:</th>
+					<td width="200" valign="top"><%=h playlist_item.movie.movie_distributor.company_name if !playlist_item.movie.movie_distributor.nil? %></td>
+					<th width="80" valign="top">Laboratory:</th>
+					<td width="180" valign="top"><%=h playlist_item.movie.laboratory.company_name if !playlist_item.movie.laboratory.nil? %> </td>
+					<th width="120" valign="top">Airline Release Date:</th>
+					<td width="80" valign="top"><%=h playlist_item.movie.airline_release_date.strftime('%m-%Y') if !playlist_item.movie.airline_release_date.nil? %></td>
 					<th width="80" rowspan="2" valign="top">Airline Rights:</th>
 					<td rowspan="2" valign="top"><%=h playlist_item.movie.airline_rights %> <%=h playlist_item.movie.airline_countries %></td>
 				</tr>
 				<tr>
-					<th>Available Language Tracks:</th>
-					<td><%=h playlist_item.movie.language_tracks.join(', ') %> </td>
-					<th>Language Subtitles:</th>
-					<td><%=h playlist_item.movie.language_subtitles.join(', ') %> </td>
-					<th>Rating:</th>
-					<td><%=h playlist_item.movie.rating %></td>
-					<th>Release Versions:</th>
-					<td><%=h playlist_item.movie.release_versions.join(', ') %></td>
+					<th valign="top">Available Language Tracks:</th>
+					<td valign="top"><%=h playlist_item.movie.language_tracks.join(', ') %> </td>
+					<th valign="top">Language Subtitles:</th>
+					<td valign="top"><%=h playlist_item.movie.language_subtitles.join(', ') %> </td>
+					<th valign="top">Rating:</th>
+					<td valign="top"><%=h playlist_item.movie.rating %></td>
+					<th valign="top">Release Versions:</th>
+					<td valign="top"><%=h playlist_item.movie.release_versions.join(', ') %></td>
 				</tr>	
 			</table>
 		</td>
