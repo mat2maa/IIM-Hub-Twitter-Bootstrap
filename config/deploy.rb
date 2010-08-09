@@ -53,6 +53,7 @@ namespace :deploy do
   desc "Reset Movies"
   task :reset_movies do
     run "rake db:reset_movies RAILS_ENV=production"
+    run("cd #{deploy_to}/current && /usr/bin/env rake db:reset_movies RAILS_ENV=production")
   end
   
 end
