@@ -1,8 +1,8 @@
 <%= render :partial => 'layouts/movie_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
-<div id="content-header-actions"><%= link_to 'Edit Movie', edit_movie_path(@movie) if permitted_to? :edit, :movies%> 	[ <%= link_to "Prev", edit_movie_path(@prev_id) if !@prev_id.nil?%>
-	<%= link_to "Next", edit_movie_path(@next_id) if !@next_id.nil?%> ]
+<div id="content-header-actions"><%= link_to 'Edit Movie', edit_movie_path(@movie) if permitted_to? :edit, :movies%> 	[ <%= link_to "Prev", movie_path(@prev_id) if !@prev_id.nil?%>
+	<%= link_to "Next", movie_path(@next_id) if !@next_id.nil?%> ]
 </div>
 <div id="content-header">View Movie<br />
 </div>

@@ -5,7 +5,7 @@ class Video < ActiveRecord::Base
   accepts_nested_attributes_for :screeners, :reject_if => lambda { |a| a[:episode_title].blank? }, 
            :allow_destroy => true        
            
-  has_many :masters, :dependent => :destroy
+  has_many :masters, :dependent => :destroy, :order => 'episode_number'
   accepts_nested_attributes_for :masters, :reject_if => lambda { |a| a[:episode_title].blank? }, 
             :allow_destroy => true
                  

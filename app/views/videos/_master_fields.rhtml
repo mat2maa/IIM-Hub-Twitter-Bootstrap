@@ -24,8 +24,7 @@
 			<td><%= f.input :language_track_3,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 3<br/>" %></td>
 			<td><%= f.input :language_track_4,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, :label => "Lang Track 4<br/>" %></td>			
 			<td>
-				<%= f.input (:aspect_ratio, :as => :select, :collection => ["4:3", "16:9", "14:9"]) if !f.object.id.nil?  %>
-				<%= f.input (:aspect_ratio, :as => :select, :collection => ["4:3", "16:9", "14:9"], :selected => "4:3") if f.object.id.nil? %>
+				<%= f.input (:aspect_ratio, :as => :select, :collection => ["4:3", "16:9", "14:9"], :include_blank => false)  %>
 			</td>
 		</tr>
 		<tr>
