@@ -45,9 +45,16 @@ ssh_options[:keys] = %w(/Users/angela/.ssh/id_rsa)
 ssh_options[:port] = 8000
 
 namespace :deploy do
+  desc "Tell Passenger to restart the app."
   task :restart, :roles => :app do
-      run " touch /home/#{user}/public_html/#{application}/current/tmp/restart.txt"
+    run "touch #{current_path}/tmp/restart.txt"
   end
+  
+  desc "Reset Movies"
+  task :reset_movies do
+    run "rake db:reset_movies RAILS_ENV=production"
+  end
+  
 end
 
 after "deploy", "deploy:cleanup"
