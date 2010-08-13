@@ -61,6 +61,9 @@
 	<th>Screener Destroyed:</th><td><%= @movie.screener_destroyed_date == nil ? "No" : "Yes"  %></td>
 </tr>
 <tr>
+	<th>Genres:</th><td colspan="3"><%= @movie.movie_genres.collect{|genre| genre.name }.join(', ') %></td>
+</tr>
+<tr>
 	<th>Rating:</th><td colspan="3"><%= @movie.rating %></td>
 </tr>
 <tr>
@@ -73,8 +76,12 @@
 	<th>Synopsis:</th><td colspan="3"><%= simple_format(@movie.synopsis) %></td>
 </tr>
 <tr>
+	<th>Remarks:</th><td colspan="3"><%= @movie.remarks %></td>
+</tr>
+<tr>
 	<th>Critics Review:</th><td colspan="3"><%= @movie.critics_review %></td>
 </tr>
+
 </table> 
 
 </center>

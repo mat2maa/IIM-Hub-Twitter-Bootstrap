@@ -8,7 +8,7 @@
 			<table width="100%">
 				<tr>
 					<th width="130" valign="top">(<%=h playlist_item.position %>) Movie Title:</th>
-					<td width="180" valign="top"><%=h playlist_item.movie.movie_title %></td>
+					<td width="180" valign="top"><%= link_to playlist_item.movie.movie_title, edit_movie_path(playlist_item.movie), :popup => true %></td>
 					<th width="130" valign="top">Distributor:</th>
 					<td width="200" valign="top"><%=h playlist_item.movie.movie_distributor.company_name if !playlist_item.movie.movie_distributor.nil? %></td>
 					<th width="80" valign="top">Laboratory:</th>

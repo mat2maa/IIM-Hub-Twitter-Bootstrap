@@ -10,7 +10,7 @@
 	<table width="100%" class="movieplaylist">
 		<tr>
 			<td width="150"><strong>Movie Title:</strong> </td>
-			<td><%=h playlist_item_view.movie.movie_title %></td>
+			<td><%= link_to playlist_item_view.movie.movie_title, edit_movie_path(playlist_item_view.movie), :popup => true %></td>
 			<td rowspan="8" width="160" align="center"><%= image_tag(playlist_item_view.movie.poster.url(:small)) %></td>
 		</tr>
 		<tr>
