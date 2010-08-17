@@ -56,14 +56,13 @@ class MoviesController < ApplicationController
       @movie = Movie.new
       @movie.theatrical_release_year = Date.today.year
       @movie.release_versions = ["Th"]
-      @movie.airline_release_date = Date.today
-      @movie.personal_video_date = Date.today
       @movie.movie_type = "Hollywood Movie"
       @movie.airline_rights = "Worldwide"
       @movie.language_tracks = ["En"]
       @movie.screener_received_date = nil
       @movie.screener_destroyed_date = nil
-      
+      @movie.airline_release_date = nil
+      @movie.personal_video_date = nil      
   end
   
   def create

@@ -1,7 +1,9 @@
 <%= render :partial => 'layouts/video_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
-<div id="content-header-actions"><%= link_to 'Edit Video', edit_video_path(@video) if permitted_to? :edit, :videos%>
+<div id="content-header-actions">
+	<%= link_to 'Edit Video', edit_video_path(@video) if permitted_to? :edit, :videos%> |
+	<%= link_to "New Video", new_video_path %> 
 </div>
 <div id="content-header">View Video<br />
 </div>

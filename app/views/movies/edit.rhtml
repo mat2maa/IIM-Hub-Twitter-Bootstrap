@@ -4,7 +4,8 @@
 <div id="content-header-actions">
 [ <%= link_to "Prev", edit_movie_path(@prev_id) if !@prev_id.nil?%>
 <%= link_to "Next", edit_movie_path(@next_id) if !@next_id.nil?%> ]
-<%= link_to 'View Movie', movie_path(@movie)%> 
+<%= link_to 'View Movie', movie_path(@movie)%> |
+<%= link_to "New Movie", new_movie_path %>
 </div>
 <div id="content-header">Edit Movie<br />
 </div>

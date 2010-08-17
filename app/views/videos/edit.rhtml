@@ -2,9 +2,11 @@
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
 <div id="content-header-actions">
-<%= link_to 'View Video', video_path(@video)%>
-[ <%= link_to "Prev", edit_video_path(@prev_id) if !@prev_id.nil?%>
-<%= link_to "Next", edit_video_path(@next_id) if !@next_id.nil?%> ]
+	[ <%= link_to "Prev", edit_video_path(@prev_id) if !@prev_id.nil?%>
+	<%= link_to "Next", edit_video_path(@next_id) if !@next_id.nil?%> ]
+	<%= link_to 'View Video', video_path(@video)%> | 
+	<%= link_to "New Video", new_video_path %> 
+	
 </div>
 <div id="content-header">Edit Video<br />
 </div>

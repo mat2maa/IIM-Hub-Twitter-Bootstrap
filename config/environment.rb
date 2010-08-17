@@ -47,7 +47,8 @@ Rails::Initializer.run do |config|
   config.gem "authlogic"
   config.gem "settingslogic"
   config.gem "fastercsv"
-  config.gem 'formtastic', :source => 'http://gemcutter.org', :version=>"0.9.7"
+#  config.gem 'formtastic', :source => 'http://gemcutter.org', :version=>"0.9.7"
+  config.gem 'formtastic'
   config.gem "capybara"
   config.gem "factory_girl", :source => "http://gemcutter.org"
 

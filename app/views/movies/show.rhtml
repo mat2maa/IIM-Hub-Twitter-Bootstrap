@@ -2,9 +2,11 @@
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
 <div id="content-header-actions">
+	
 	[ <%= link_to "Prev", movie_path(@prev_id) if !@prev_id.nil?%>
 	<%= link_to "Next", movie_path(@next_id) if !@next_id.nil?%> ]
-	<%= link_to 'Edit Movie', edit_movie_path(@movie) if permitted_to? :edit, :movies%>
+	<%= link_to 'Edit Movie', edit_movie_path(@movie) if permitted_to? :edit, :movies%> |
+	<%= link_to "New Movie", new_movie_path %>
 </div>
 <div id="content-header">View Movie<br />
 </div>
