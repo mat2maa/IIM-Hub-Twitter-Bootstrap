@@ -52,9 +52,8 @@ class SuppliersController < ApplicationController
   end
   
   def destroy
-    
 	  id = params[:id]
-		@movies = Movie.find(:all, :conditions => ["supplier_id = ?", id] )
+		@movies = Movie.find(:all, :conditions => ["movie_distributor_id = ? OR laboratory_id = ? OR production_studio_id = ?", id,id,id] )
 		if @movies.length.zero?  
       @supplier = Supplier.find(id)
       @supplier.destroy

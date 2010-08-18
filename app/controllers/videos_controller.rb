@@ -47,7 +47,7 @@ class VideosController < ApplicationController
       if !params[:video_type].nil?
         @video.movie_id=params[:id]
         @video.video_type=CGI.unescape(params[:video_type]) 
-        if @video.video_type == "Movie EPK" || @video.video_type == "Movie Master" || @video.video_type == "TV Special" || @video.video_type == "Trailer"
+        if @video.video_type == "Movie EPK" || @video.video_type == "Movie Master" || @video.video_type == "TV Special" || @video.video_type == "Movie Trailer"
           movie = Movie.find(@video.movie_id)
           
           @existing_video = Video.find(:first, :conditions => ["programme_title=? AND video_type=?", movie.movie_title, @video.video_type])

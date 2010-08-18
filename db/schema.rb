@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100809031608) do
+ActiveRecord::Schema.define(:version => 20100818034957) do
 
   create_table "airline_rights_countries", :force => true do |t|
     t.string   "name"
@@ -481,6 +481,7 @@ ActiveRecord::Schema.define(:version => 20100809031608) do
     t.text     "aba_routing"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "beneficiary_name"
   end
 
   create_table "tempos", :force => true do |t|
