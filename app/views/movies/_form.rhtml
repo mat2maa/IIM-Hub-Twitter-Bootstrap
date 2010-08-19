@@ -14,6 +14,7 @@
 	<br/>
 	<%= f.input :poster, :input_html => {:tabindex => 29}, :label => "Poster Image", :as => :file, :input_html => { :size => 6 }  %>
 	<br/>
+	<a href="http://images.google.com/images?hl=en&q=movie+<%= CGI.escape(@movie.movie_title.to_s)%>" target="_blank">Search Google Images</a><br/><br/>	
 	<%= f.buttons %>
 	<%= link_to "Add EPK", {:controller=>:videos, :action => "new", :id =>params[:id], :video_type => CGI.escape("Movie EPK")}  %><br/>
 	<%= link_to "Add Trailer", {:controller=>:videos, :action => "new", :id =>params[:id], :video_type => CGI.escape("Movie Trailer")}  %><br/>

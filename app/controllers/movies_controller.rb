@@ -112,7 +112,6 @@ class MoviesController < ApplicationController
         @search = Movie.new_search(:order_by => :id, :order_as => "DESC")
       end
       @movies, @movies_count = @search.all, @search.count
-      session[:movies_search] = collection_to_id_array(@movies)
       
     @movie = Movie.find(params[:id])    
     if !session[:movies_search].nil?
@@ -126,6 +125,44 @@ class MoviesController < ApplicationController
   end
   
   def update
+    if !session[:movies_search].nil?
+      ids = session[:movies_search] 
+      id = ids.index(params[:id].to_i)
+      if !id.nil?
+        @next_id = ids[id+1] if (id+1 < ids.count)
+        @prev_id = ids[id-1] if (id-1 >= 0)
+      end
+    end
+    
+    if !params['search'].nil? 
+        if !params[:language].nil?
+          if params[:language][:track]!="" && params[:language][:subtitle]==""
+            @search = Movie.with_language_track(params[:language][:track]).new_search(params[:search])                
+          elsif params[:language][:subtitle]!="" && params[:language][:track]=="" && !params[:language].nil?
+            @search = Movie.with_language_subtitle(params[:language][:subtitle]).new_search(params[:search])      
+          elsif params[:language][:subtitle]!="" && params[:language][:track]!="" && !params[:language].nil?
+            @search = Movie.with_language_subtitle(params[:language][:subtitle]).with_language_track(params[:language][:track]).new_search(params[:search])      
+          else
+            @search = Movie.new_search(params[:search])
+            @search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:or_movie_title_keywords]          
+          end
+
+          if params[:screener][:destroyed] == "1"
+            @search.conditions.screener_destroyed_date_not_equal = nil
+          end
+          if params[:screener][:held] == "1"
+            @search.conditions.screener_destroyed_date_equals = ""
+          end
+
+        else      
+          @search = Movie.new_search(params[:search])
+        end      
+      else
+        #no search made yet
+        @search = Movie.new_search(:order_by => :id, :order_as => "DESC")
+      end
+      @movies, @movies_count = @search.all, @search.count
+    
     @movie = Movie.find(params[:id])
     params[:movie][:movie_title] = params[:movie][:movie_title].upcase
     params[:movie][:director] = params[:movie][:director].gsub(/\b\w/){$&.upcase}
