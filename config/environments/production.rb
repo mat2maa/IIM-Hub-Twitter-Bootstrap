@@ -23,10 +23,5 @@ config.action_controller.session_store = :mem_cache_store
 # config.action_mailer.raise_delivery_errors = false
 
 Mime::Type.register "application/pdf", :pdf
-PDFKit.configure do |config|
-  config.wkhtmltopdf = '/bin/wkhtmltopdf'
-  config.default_options = {
-    :page_size => 'A4',
-    :print_media_type => true
-  }
-end
+
+
