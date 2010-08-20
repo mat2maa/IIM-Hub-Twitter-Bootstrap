@@ -21,6 +21,3 @@ if $0 == 'irb'
   require 'hirb'
   Hirb.enable
 end
-
-config.middleware.use "PDFKit::Middleware", :print_media_type => true
-Mime::Type.register "application/pdf", :pdf

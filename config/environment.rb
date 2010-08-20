@@ -57,6 +57,9 @@ Rails::Initializer.run do |config|
   
   config.cache_store = :mem_cache_store
   config.action_controller.session_store = :mem_cache_store
+
+  config.middleware.use "PDFKit::Middleware", :print_media_type => true
+  Mime::Type.register "application/pdf", :pdf
   
 end
 

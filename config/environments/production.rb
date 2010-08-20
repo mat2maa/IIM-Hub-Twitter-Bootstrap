@@ -22,7 +22,4 @@ config.action_controller.session_store = :mem_cache_store
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
 
-config.middleware.use "PDFKit::Middleware", :print_media_type => true
-Mime::Type.register "application/pdf", :pdf
-
 
