@@ -57,7 +57,6 @@ Rails::Initializer.run do |config|
   
   config.cache_store = :mem_cache_store
   config.action_controller.session_store = :mem_cache_store
-  Mime::Type.register "application/pdf", :pdf
   
 end
 
