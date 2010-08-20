@@ -17,12 +17,10 @@ ActionController::Routing::Routes.draw do |map|
   map.add_master_to_playlist '/add_master_to_playlist/:id', :controller => 'video_master_playlists', :action => 'add_master_to_playlist'
 	map.download_tracks_mp3 '/download_track_mp3/:id', :controller => 'audio_playlists', :action => 'download_mp3'
 	map.download_album_tracks_mp3 '/download_album_mp3/:id', :controller => 'album_playlists', :action => 'download_mp3'
-	
   map.edit_album_playlist_synopsis '/edit_album_playlist_synopsis/:id', :controller => 'album_playlists', :action => 'edit_synopsis'
-
   map.export_by_airline '/export_by_airline', :controller => 'album_playlists', :action => 'export_by_airline'
-
   map.view_splits '/view_splits', :controller => 'audio_playlists', :action=>'splits'
+  map.print_movie_playlist '/movie_playlists/print/:id', :controller => 'movie_playlists', :action => 'print'
 
   map.resources :roles
   map.resources :rights

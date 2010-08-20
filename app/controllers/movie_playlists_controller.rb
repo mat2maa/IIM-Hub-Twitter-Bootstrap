@@ -174,6 +174,7 @@ class MoviePlaylistsController < ApplicationController
 
     respond_to do  |format|
       format.html {render :layout => false }
+      format.pdf {render :text => PDFKit.new(print_movie_playlist_url(@movie_playlist) ).to_pdf, :layout => false}
     end
   end
   
