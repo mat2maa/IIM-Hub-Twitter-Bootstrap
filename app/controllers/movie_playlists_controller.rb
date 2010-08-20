@@ -65,6 +65,7 @@ class MoviePlaylistsController < ApplicationController
   #display overlay
   def add_movie_to_playlist
     @movie_playlist = MoviePlaylist.find(params[:id])
+    debugger
     if !params[:movie_playlists].nil?
       @search = Movie.new_search(params[:movie_playlists])      
       @search.conditions.to_delete_equals=0
@@ -110,25 +111,11 @@ class MoviePlaylistsController < ApplicationController
 
     @movie_playlist = MoviePlaylist.find(params[:id])
     @movie_playlist_item = MoviePlaylistItem.new(:movie_playlist_id => params[:id], :movie_id => params[:movie_id], :position => @movie_playlist.movie_playlist_items.count + 1)
-
-    #check if movie has been added to a previous playlist before    
-    # @playlists_with_movie = MoviePlaylistItem.find(:all, 
-    #     :conditions=>"movie_id=#{params[:movie_id]}",
-    #     :group=>"movie_playlist_id")
     @notice=""
-
     @movie_to_add = Movie.find(params[:movie_id])
-
-    # if !@playlists_with_movie.empty? && params[:add].nil?
-    #   @playlists_with_movie.each do |playlist_item|
-    #     @notice += "<br/><div id='exists'>Note! This movie #{@movie_to_add.id.to_s} exists in playlist <a href='/movie_playlists/#{playlist_item.movie_playlist_id.to_s}' target='_blank'>#{playlist_item.movie_playlist_id.to_s}</a></div>" if !playlist_item.movie_playlist.nil?
-    #   end     
-    # 
-    # else
-      if @movie_playlist_item.save
-        flash[:notice] = 'Movie was successfully added.'
-      end
-    # end
+    if @movie_playlist_item.save
+      flash[:notice] = 'Movie was successfully added.'
+    end
   end  
   
   #add selected movies to playlist
@@ -140,39 +127,11 @@ class MoviePlaylistsController < ApplicationController
     
     movie_ids.each do |movie_id|
       @movie_playlist_item = MoviePlaylistItem.new(:movie_playlist_id => params[:playlist_id], :movie_id => movie_id, :position => @movie_playlist.movie_playlist_items.count + 1)
-    
-      #check if movie has been added to a previous playlist before    
-      # @playlists_with_movie = MoviePlaylistItem.find(:all, 
-      #       :conditions=>"movie_id=#{movie_id}",
-      #       :group=>"movie_playlist_id")
-      # 
-      #       @movie_to_add = Movie.find(movie_id)
-      #       if !@playlists_with_movie.empty? && params[:add].nil?
-      #         @playlists_with_movie.each do |playlist_item|
-      #           if !playlist_item.movie_playlist.nil?
-      #             if !playlist_item.movie_playlist.airline_id.nil?
-      #               airline_code = Airline.find(playlist_item.movie_playlist.airline_id).code
-      #             else
-      #               airline_code = ""
-      #             end
-      #             @notice += "<br/><div id='exists'>Note! This movie #{@movie_to_add.movie_title.to_s} exists in playlist 
-      #                         <a href='/movie_playlists/#{playlist_item.movie_playlist_id.to_s}' target='_blank'>#{airline_code}#{playlist_item.movie_playlist.start_cycle.strftime("%m%y")}</a></div>
-      #                         #{@template.link_to_remote("Continue adding " + @movie_to_add.movie_title.to_s + " to playlist", 
-      #                         :url => {:controller => "movie_playlists", 
-      #                         :action => "add_movie", 
-      #                         :id => params[:playlist_id], 
-      #                         :movie_id => movie_id,
-      #                         :add => 1},
-      #                         :loading => "Element.show('spinner')",
-      #                         :complete => "Element.hide('spinner')")}" 
-      #           end
-      #         end     
-      #       else
-        if @movie_playlist_item.save
-          flash[:notice] = 'Movies were successfully added.'
-          @notice = 'Movies were successfully added.'
-        end
-      # end
+  
+      if @movie_playlist_item.save
+        flash[:notice] = 'Movies were successfully added.'
+        @notice = 'Movies were successfully added.'
+      end
     end # loop through movie ids
     
   end
