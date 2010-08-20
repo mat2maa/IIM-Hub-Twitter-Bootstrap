@@ -15,6 +15,7 @@ end
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+
 Rails::Initializer.run do |config|
 
   #config.time_zone = 'UTC'
@@ -56,7 +57,6 @@ Rails::Initializer.run do |config|
   
   config.cache_store = :mem_cache_store
   config.action_controller.session_store = :mem_cache_store
-  config.middleware.use "PDFKit::Middleware", :print_media_type => true
 	
 end
 
