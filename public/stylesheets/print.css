@@ -1,4 +1,5 @@
 /* CSS Document */
+
 html, td {
 	font-family: "Lucida Sans Unicode","Lucida Grande",Sans-Serif;
 	font-size: 13px;
@@ -13,11 +14,11 @@ body{
 	font-weight:bold;
 }
 
-table.movieplaylist, table.videoplaylist{
+table.playlist{
 	border-collapse: collapse;
 	border: 2px solid #ddd;
 }
-.movieplaylist td,.videoplaylist td{
+.playlist td {
 	font-size: 13px;
 	border: 1px solid #ddd;	
 	color: #333;	
@@ -30,4 +31,12 @@ table.movieplaylist, table.videoplaylist{
 }
 .print h2{
 	margin-bottom:0;
+}
+
+@media print {  
+	body { background-color: #FFF; }  
+	
+	table.playlist{
+		page-break-inside: avoid;  
+	}
 }

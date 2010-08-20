@@ -1,13 +1,11 @@
 <% @movie = playlist_item_view.movie %>
 <% @movie_playlist_item = playlist_item_view %>
-<tr id="item_<%=h playlist_item_view.id %>">
 	<% if playlist_item_view.movie.nil? %>
     <td colspan="2">Missing movie <%=h playlist_item_view.movie_id %></td>
 
 <% else %>
-	
-<td>
-	<table width="100%" class="movieplaylist">
+
+	<table width="100%" class="playlist" >
 		<tr>
 			<td width="150"><strong>Movie Title:</strong> </td>
 			<td><%= link_to playlist_item_view.movie.movie_title, edit_movie_path(playlist_item_view.movie), :popup => true %></td>
@@ -48,7 +46,6 @@
 			<td colspan="3"><%= playlist_item_view.movie.critics_review %></td>
 		</tr>
 	</table>
+
 	<br/><br/>
-</td>
  <% end %>
-</tr>

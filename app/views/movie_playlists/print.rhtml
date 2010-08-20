@@ -13,9 +13,7 @@
 	<%= "Movie Type: #{@movie_playlist.movie_type}s " if !@movie_playlist.movie_type.nil?%>
 
 	<div id="playlist">
-		<table width="900">
 		  <%= render :partial => 'playlist_item_view', :collection => @movie_playlist.movie_playlist_items_sorted %>
-		</table>
 	</div>
 </div>
 </body>

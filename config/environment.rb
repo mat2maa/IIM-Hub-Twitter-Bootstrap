@@ -47,8 +47,8 @@ Rails::Initializer.run do |config|
   config.gem "authlogic"
   config.gem "settingslogic"
   config.gem "fastercsv"
-#  config.gem 'formtastic', :source => 'http://gemcutter.org', :version=>"0.9.7"
   config.gem 'formtastic'
+  config.gem 'pdfkit'
   config.gem "capybara"
   config.gem "factory_girl", :source => "http://gemcutter.org"
 
@@ -56,6 +56,7 @@ Rails::Initializer.run do |config|
   
   config.cache_store = :mem_cache_store
   config.action_controller.session_store = :mem_cache_store
+  config.middleware.use "PDFKit::Middleware", :print_media_type => true
 	
 end
 

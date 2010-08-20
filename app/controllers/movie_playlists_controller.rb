@@ -40,7 +40,7 @@ class MoviePlaylistsController < ApplicationController
   end
   
   def edit 
-    @movie_playlist = MoviePlaylist.find(params[:id],:include=>[:movie_playlist_items,:movies])
+    @movie_playlist = MoviePlaylist.find(params[:id],:include=>[:movie_playlist_items,:movies])    
   end 
 
   def update

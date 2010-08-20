@@ -5,32 +5,34 @@
     <td colspan="2">Missing movie <%=h playlist_item.movie_id %></td>
 	<% else %>
 		<td>
-			<table width="100%">
+			<table width="1024">
 				<tr>
-					<th width="130" valign="top">(<%=h playlist_item.position %>) Movie Title:</th>
-					<td width="180" valign="top"><%= link_to playlist_item.movie.movie_title, edit_movie_path(playlist_item.movie), :popup => true %></td>
-					<th width="130" valign="top">Distributor:</th>
+					<th width="90" valign="top">(<%=h playlist_item.position %>) Movie Title:</th>
+					<td width="240" valign="top"><%= link_to playlist_item.movie.movie_title, edit_movie_path(playlist_item.movie), :popup => true %></td>
+					<th width="50" valign="top">Distributor:</th>
 					<td width="200" valign="top"><%=h playlist_item.movie.movie_distributor.company_name if !playlist_item.movie.movie_distributor.nil? %></td>
-					<th width="80" valign="top">Laboratory:</th>
-					<td width="180" valign="top"><%=h playlist_item.movie.laboratory.company_name if !playlist_item.movie.laboratory.nil? %> </td>
+					<th width="120" valign="top">Language Subtitles:</th>
+					<td width="100" valign="top"><%=h playlist_item.movie.language_subtitles.join(', ') %> </td>
 					<th width="120" valign="top">Airline Release Date:</th>
-					<td width="80" valign="top"><%=h playlist_item.movie.airline_release_date.strftime('%m-%Y') if !playlist_item.movie.airline_release_date.nil? %></td>
-					<th width="80" rowspan="2" valign="top">Airline Rights:</th>
-					<td rowspan="2" valign="top"><%=h playlist_item.movie.airline_rights %> <%=h playlist_item.movie.airline_countries %></td>
+					<td valign="top"><%=h playlist_item.movie.airline_release_date.strftime('%m-%Y') if !playlist_item.movie.airline_release_date.nil? %></td>
 				</tr>
 				<tr>
-					<th valign="top">Available Language Tracks:</th>
+					<th valign="top">Avail Lang Tracks:</th>
 					<td valign="top"><%=h playlist_item.movie.language_tracks.join(', ') %> </td>
-					<th valign="top">Language Subtitles:</th>
-					<td valign="top"><%=h playlist_item.movie.language_subtitles.join(', ') %> </td>
+					<th valign="top">Laboratory:</th>
+					<td valign="top"><%=h playlist_item.movie.laboratory.company_name if !playlist_item.movie.laboratory.nil? %> </td>
 					<th valign="top">Rating:</th>
 					<td valign="top"><%=h playlist_item.movie.rating %></td>
 					<th valign="top">Release Versions:</th>
 					<td valign="top"><%=h playlist_item.movie.release_versions.join(', ') %></td>
 				</tr>	
+				<tr>
+					<th width="80" valign="top">Airline Rights:</th>
+					<td colspan="7" valign="top"><%=h playlist_item.movie.airline_rights %> <%=h playlist_item.movie.airline_countries %></td>
+				</tr>
 			</table>
 		</td>
-		<td><%= image_tag("arrow_move.png") %></td>
+		<td class="actions"><%= image_tag("arrow_move.png") %></td>
     <% end %>
-		<td><%= link_to_remote "Delete", :confirm=>"Are you sure", :url => playlist_item , :method => 'delete' %></td>
+		<td class="actions"><%= link_to_remote "Delete", :confirm=>"Are you sure", :url => playlist_item , :method => 'delete' %></td>
 	</tr>

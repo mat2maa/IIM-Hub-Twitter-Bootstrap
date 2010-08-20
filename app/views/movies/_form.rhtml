@@ -8,9 +8,14 @@
 	<%= link_to("Search Box Office Mojo", "http://www.boxofficemojo.com/search/?q=" + CGI.escape(@movie.movie_title.to_s), :popup => true) %><br/>
 	<%= link_to("Search Yahoo Movies", "http://movies.yahoo.com/mv/search?fr=ush-movies&toggle=1&cop=&ei=UTF-8&p=" + 
 				CGI.escape(@movie.movie_title.to_s) 	, :popup => true) %><br/>
+	<%= link_to("Search Taiwan Yahoo Movies", "http://tw.movie.yahoo.com/moviesearch_result.html?qmv=" + CGI.escape(@movie.movie_title.to_s) 	, 
+										:popup => true) %><br/>
 	<%= link_to("Search Rotten Tomatoes", "http://www.rottentomatoes.com/search/full_search.php?search=" + CGI.escape(@movie.movie_title.to_s) 	, 
 				:popup => true) %><br/>
 	<%= link_to("Search IMDB", "http://www.imdb.com/find?s=all&q=" + CGI.escape(@movie.movie_title.to_s) 	, :popup => true) %><br/>
+	
+	<%= link_to("Search Mtime", "http://www.mtime.com/search/?" + CGI.escape(@movie.movie_title.to_s) 	, 
+													:popup => true) %><br/>
 	<br/>
 	<%= f.input :poster, :input_html => {:tabindex => 29}, :label => "Poster Image", :as => :file, :input_html => { :size => 6 }  %>
 	<br/>

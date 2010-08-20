@@ -616,5 +616,23 @@ table.movie td, table.movie t{
 	padding:5px;
 }
 
+@media print {  
+	body, td, th, select{ 	
+		background-color: #FFF; 
+		font-size:7pt;
+	}  
 
-
+	#header, #content-header-actions, .actions, .action-button,input[type="submit"]{
+		display:none;
+	}
+	#playlist{
+		border:0;
+	}
+	select{
+		height:10px;
+	}
+	table.edit, #content-header, #content{
+		width:1024px;
+	}		
+	
+}

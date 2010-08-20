@@ -26,7 +26,7 @@
 				</tr>	
 			</table>
 		</td>
-		<td><%= image_tag("arrow_move.png") %></td>
+		<td class="actions"><%= image_tag("arrow_move.png") %></td>
     <% end %>
-		<td><%= link_to_remote "Delete", :confirm=>"Are you sure", :url => playlist_item , :method => 'delete' %></td>
+		<td class="actions"><%= link_to_remote "Delete", :confirm=>"Are you sure", :url => playlist_item , :method => 'delete' %></td>
 	</tr>
