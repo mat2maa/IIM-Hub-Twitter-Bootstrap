@@ -1,0 +1,2 @@
+jQuery('#update_screener_dialog').dialog('destroy');
+jQuery('#screeners_list').html("<%= escape_javascript(render(:partial => "/cms/deals/screeners", :locals => { :deal_id => @screener.deal_id })) %>");

@@ -1,0 +1,11 @@
+<table width="300" id="videos" cellspacing="0" cellpadding="0">
+	<% Screener.find_all_by_video_id(video_id).each do |screener| %>
+		<tr>
+			<td><%= screener.episode_title %></td>
+			<td width="80">
+				<%= link_to "edit", edit_screener_path(screener), :class => 'edit_screener' %> | 
+				<%= link_to 'delete', screener_path(screener), :class => 'delete_screener' %>
+			</td>
+		</tr>
+	<% end %>
+</table>
