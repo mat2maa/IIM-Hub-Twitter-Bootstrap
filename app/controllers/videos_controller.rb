@@ -14,7 +14,8 @@ class VideosController < ApplicationController
           @search = Video.with_language_subtitle(params[:language][:subtitle]).with_language_track(params[:language][:track]).new_search(params[:search])      
         else
           @search = Video.new_search(params[:search])
-          @search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:or_programme_title_keywords] 
+          @search.conditions.programme_title_keywords = params[:search][:conditions][:programme_title_keywords] 
+          #@search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:programme_title_keywords] 
         end
       else      
         @search = Video.new_search(params[:search])
@@ -23,6 +24,8 @@ class VideosController < ApplicationController
     else 
       @search = Video.new_search(:order_by => :id, :order_as => "DESC")
     end
+    @search.conditions.screeners.id_gte = params[:screeners] if params[:screeners]=='1'
+    
   
     @videos, @videos_count = @search.all, @search.count
   

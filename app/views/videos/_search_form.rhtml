@@ -13,7 +13,7 @@
 				<tr>
 					<td valign="top">
 						Video Title:<br/>
-						<%= videos.text_field :or_programme_title_keywords %><br/>
+						<%= videos.text_field :programme_title_keywords %><br/>
 						Distributor:<br/>
 						<%= videos.select :video_distributor_id_equals, Supplier.video_distributors.collect {|p| [ p.company_name, p.id ] } , :include_blank => true  %><br/>
 					</td>
@@ -52,9 +52,7 @@
 							<%= masters.text_field :location_equals, :size => 6  %><br/>
 						<% end %>
 						Screeners Held:<br/>
-						<% videos.fields_for videos.object.screeners do |screeners| %>
-							<%= screeners.check_box :id_not_null %><br/>
-						<% end %>
+							<%= check_box_tag :screeners %><br/>
 					</td>
 				</tr>
 			</table>
