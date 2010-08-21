@@ -65,7 +65,7 @@ class MoviePlaylistsController < ApplicationController
   #display overlay
   def add_movie_to_playlist
     @movie_playlist = MoviePlaylist.find(params[:id])
-    debugger
+    
     if !params[:movie_playlists].nil?
       @search = Movie.new_search(params[:movie_playlists])      
       @search.conditions.to_delete_equals=0
@@ -84,6 +84,7 @@ class MoviePlaylistsController < ApplicationController
       end
       
       @movies, @movies_count = @search.all, @search.count
+      session[:movies_search] = collection_to_id_array(@movies)
 
     else
       @movies = nil

@@ -36,7 +36,7 @@ class MoviesController < ApplicationController
       redirect_to(edit_movie_path(@movies.first))
     end
     
-    session[:movies_search] = collection_to_id_array(@search.all)
+    session[:movies_search] = collection_to_id_array(@movies)
   end
     
   

@@ -82,6 +82,8 @@ class VideoPlaylistsController < ApplicationController
       # end
       
       @videos, @videos_count = @search.all, @search.count
+      session[:videos_search] = collection_to_id_array(@videos)
+      
 
     else
       @videos = nil
