@@ -41,6 +41,8 @@ class VideoPlaylistsController < ApplicationController
   
   def edit 
     @video_playlist = VideoPlaylist.find(params[:id],:include=>[:video_playlist_items,:videos])
+    session[:videos_search] = collection_to_id_array(@video_playlist.videos)
+    
   end 
 
   def update
@@ -82,7 +84,6 @@ class VideoPlaylistsController < ApplicationController
       # end
       
       @videos, @videos_count = @search.all, @search.count
-      session[:videos_search] = collection_to_id_array(@videos)
       
 
     else

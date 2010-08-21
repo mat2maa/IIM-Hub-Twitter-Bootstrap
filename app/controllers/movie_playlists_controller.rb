@@ -40,7 +40,9 @@ class MoviePlaylistsController < ApplicationController
   end
   
   def edit 
-    @movie_playlist = MoviePlaylist.find(params[:id],:include=>[:movie_playlist_items,:movies])    
+    @movie_playlist = MoviePlaylist.find(params[:id],:include=>[:movie_playlist_items,:movies])  
+    session[:movies_search] = collection_to_id_array(@movie_playlist.movies)
+      
   end 
 
   def update
@@ -84,7 +86,6 @@ class MoviePlaylistsController < ApplicationController
       end
       
       @movies, @movies_count = @search.all, @search.count
-      session[:movies_search] = collection_to_id_array(@movies)
 
     else
       @movies = nil
