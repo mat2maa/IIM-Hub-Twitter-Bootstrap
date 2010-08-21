@@ -46,6 +46,16 @@
 						Video ID:<br/>
 						<%= videos.text_field :id_equals, :size => 6 %>
 					</td>
+					<td valign="top">
+						Tape Location Number:<br/>
+						<% videos.fields_for videos.object.masters do |masters| %>
+							<%= masters.text_field :location_equals, :size => 6  %><br/>
+						<% end %>
+						Screeners Held:<br/>
+						<% videos.fields_for videos.object.screeners do |screeners| %>
+							<%= screeners.check_box :id_not_null %><br/>
+						<% end %>
+					</td>
 				</tr>
 			</table>
 			<%= videos.submit "Search" %>

@@ -115,29 +115,8 @@ class VideosController < ApplicationController
   end
 
   def edit
-    
-     if !params['search'].nil? 
-        if !params[:language].nil?
-          #before search
-          if params[:language][:track]!="" && params[:language][:subtitle]==""
-            @search = Video.with_language_track(params[:language][:track]).new_search(params[:search])      
-          elsif params[:language][:subtitle]!="" && params[:language][:track]=="" && !params[:language].nil?
-            @search = Video.with_language_subtitle(params[:language][:subtitle]).new_search(params[:search])      
-          elsif params[:language][:subtitle]!="" && params[:language][:track]!="" && !params[:language].nil?
-            @search = Video.with_language_subtitle(params[:language][:subtitle]).with_language_track(params[:language][:track]).new_search(params[:search])      
-          else
-            @search = Video.new_search(params[:search])
-            @search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:or_programme_title_keywords] 
-          end
-        else      
-          @search = Video.new_search(params[:search])
-        end
-
-      else 
-        @search = Video.new_search(:order_by => :id, :order_as => "DESC")
-      end
-      @videos, @videos_count = @search.all, @search.count
-      session[:videos_search] = collection_to_id_array(@videos)
+    @search = Video.new_search
+    @videos, @videos_count = @search.all, @search.count
       
     @video = Video.find(params[:id])
     @video_genres = VideoParentGenre.find(:all)
@@ -161,6 +140,9 @@ class VideosController < ApplicationController
   end
 
   def update
+    @search = Video.new_search
+    @videos, @videos_count = @search.all, @search.count
+     
     @video_genres = VideoParentGenre.find(:all)
     
     @video = Video.find(params[:id])
