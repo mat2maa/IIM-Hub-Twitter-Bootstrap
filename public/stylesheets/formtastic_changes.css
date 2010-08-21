@@ -38,9 +38,11 @@ form.formtastic fieldset ol li.string input{
 }
 
 
-form.formtastic fieldset.buttons{
+table.screener td fieldset.buttons,
+table.master td fieldset.buttons{
 	margin:0 !important;
 	padding:0 !important;
+	text-align:center;
 }
 #screener_location_input label{
 	width:50px;
