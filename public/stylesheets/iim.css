@@ -433,8 +433,8 @@ table.splits{
 	width:70px;
 }
 
-form.formtastic fieldset ol li.text textarea, form.formtastic fieldset ol li.string input{
-	width:430px;
+.screener form.formtastic fieldset ol li label {
+	padding:0;
 }
 
 #movie_airline_release_date_input legend,#movie_airline_release_date_input label, #video_production_year_input label{
@@ -473,13 +473,12 @@ form.formtastic fieldset ol li.text textarea, form.formtastic fieldset ol li.str
 #movie_poster_quantity_input label{
 	width:30px;
 }
-#video_new_master_attributes__location, #video_new_master_attributes__duration{
-	width:40px;
+.master li{
+	margin:0;
+	padding:0;
 }
-#video_new_master_attributes__tape_media, #video_new_master_attributes__tape_format, #video_new_master_attributes__tape_size,
-#video_new_master_attributes__language_track_1, #video_new_master_attributes__language_track_2, #video_new_master_attributes__language_track_3,
-#video_new_master_attributes__language_track_4{
-	width:80px;
+.master td{
+	vertical-align: top; 
 }
 #movie_has_poster_input label, #movie_has_press_kit_input label{
 	padding-left:0;

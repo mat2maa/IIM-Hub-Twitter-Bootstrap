@@ -74,6 +74,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :movies_settings
   map.resources :videos
   map.resources :commercial_run_times
+  
+  map.resources :masters
+  map.resources :screeners
+  
         
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

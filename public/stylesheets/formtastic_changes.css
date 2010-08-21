@@ -16,7 +16,8 @@ form.formtastic fieldset ol li label {
 	text-align:left;
 }
 
-form.formtastic fieldset ol li label { display:block; width:150px;  padding-top:.2em; }
+form.formtastic fieldset ol li label { display:block; width:150px;  padding:0; }
+
 form.formtastic fieldset ol li fieldset ol {width:100%;}
 
 .form-squeeze li{
@@ -32,5 +33,21 @@ form.formtastic fieldset ol li.check_boxes fieldset ol li {
 float:left; padding-right:10px;
 }
 
+form.formtastic fieldset ol li.string input{
+	width:70%;
+}
 
 
+form.formtastic fieldset.buttons{
+	margin:0 !important;
+	padding:0 !important;
+}
+#screener_location_input label{
+	width:50px;
+}
+#master_episode_title, #master_synopsis{
+	width:90%;
+}
+#master_synopsis{
+	height:80px;
+}

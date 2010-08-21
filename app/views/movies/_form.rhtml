@@ -31,7 +31,7 @@
 <% f.inputs do %>
 
 	<div id="movie-fields">
-  	<%= f.input :movie_title, :label => "Movie Title", :input_html => {:tabindex => 1} %>
+  	<%= f.input :movie_title, :label => "Movie Title", :input_html => {:tabindex => 1}, :size => 5 %>
 		<%= f.input :movie_type, :label => "Movie Type", :as => :select, 
 								:collection => Movie::MOVIE_TYPE, 
 								:include_blank => true, :input_html => { :tabindex => 2, :onchange =>  remote_function(:url => {:action => "check_movie_type"},
@@ -153,6 +153,6 @@
 		<%= f.input :remarks, :input_html => {:tabindex => 29, :rows => 3}, :hint => 'Only use this remarks field as a last resort' %>
 
   <% end %>
-  <%= f.buttons %>
+  <center><%= f.buttons %></center>
 </div>
 <% end %>
