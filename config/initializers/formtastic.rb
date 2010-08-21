@@ -45,3 +45,5 @@
 # Default value: false. Overridden for specific fields by setting value to true,
 # i.e. :label => true, or :hint => true (or opposite depending on initialized value)
 # Formtastic::SemanticFormBuilder.i18n_lookups_by_default = false
+Formtastic::SemanticFormBuilder.escape_html_entities_in_hints_and_labels = false
+
