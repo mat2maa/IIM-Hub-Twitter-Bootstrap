@@ -89,9 +89,10 @@ authorization do
 		has_permission_on :programs, :to => :manage
 		
 		#movies
-		has_permission_on :movies, :to => [:manage, :admin_delete, :check_airline_rights, :check_screener_remarks, :check_movie_type, :update_date]
-		has_permission_on :masters, :to => :manage
-		has_permission_on :videos, :to => [:manage, :admin_delete]
+		has_permission_on :movies, :to => [:manage, :admin_delete, :check_airline_rights, :check_screener_remarks, 
+		    :check_movie_type, :update_date, :restore]
+		has_permission_on :masters, :to => [:manage, :admin_delete, :restore]
+		has_permission_on :videos, :to => [:manage, :admin_delete, :restore]
 		has_permission_on :suppliers, :to => :manage		
 		has_permission_on :airline_rights_countries, :to => :manage
 		has_permission_on :movie_genres, :to => :manage

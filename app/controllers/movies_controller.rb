@@ -168,5 +168,15 @@ class MoviesController < ApplicationController
     end
   end
   
+  def restore
+    @movie = Movie.find(params[:id])
+    @movie.to_delete = false
+    @movie.save(false)
+    flash[:notice] = 'Movie has been restored'
+    respond_to do |format|
+        format.html { redirect_to(:back) }
+        format.js
+    end
+  end
 
 end

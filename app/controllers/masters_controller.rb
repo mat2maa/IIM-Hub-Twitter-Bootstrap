@@ -100,4 +100,15 @@ class MastersController < ApplicationController
       format.js {render :layout => false}
     end
   end
+  
+  def restore
+    @master = Master.find(params[:id])
+    @master.to_delete = false
+    @master.save(false)
+    flash[:notice] = 'Master has been restored'
+    respond_to do |format|
+        format.html { redirect_to(:back) }
+        format.js
+    end
+  end
 end

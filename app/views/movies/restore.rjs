@@ -1,0 +1,4 @@
+page.replace "movie-#{@movie.id}",  :partial=>"movie", :object=>@movie
+page.replace_html :notice, flash[:notice]
+page.visual_effect :highlight, :notice
+flash.discard
