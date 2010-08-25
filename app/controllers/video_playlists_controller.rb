@@ -40,9 +40,8 @@ class VideoPlaylistsController < ApplicationController
   end
   
   def edit 
-    @video_playlist = VideoPlaylist.find(params[:id],:include=>[:video_playlist_items,:videos])
+    @video_playlist = VideoPlaylist.find(params[:id],:include=>[:video_playlist_items,:videos])    
     session[:videos_search] = collection_to_id_array(@video_playlist.videos)
-    
   end 
 
   def update
@@ -76,15 +75,8 @@ class VideoPlaylistsController < ApplicationController
         @search.page = search[:page] if !search[:page].nil?
       end
       
-      # if params[:screener][:destroyed] == "1"
-      #   @search.conditions.screener_destroyed_date_not_equal = nil
-      # end
-      # if params[:screener][:held] == "1"
-      #   @search.conditions.screener_destroyed_date_equals = ""
-      # end
-      
       @videos, @videos_count = @search.all, @search.count
-      
+      session[:videos_search] = collection_to_id_array(@videos)
 
     else
       @videos = nil
@@ -129,6 +121,7 @@ class VideoPlaylistsController < ApplicationController
     else
       if @video_playlist_item.save
         flash[:notice] = 'Video was successfully added.'
+        session[:videos_search] = collection_to_id_array(@video_playlist.videos)
       end
     end
   end  
@@ -172,6 +165,7 @@ class VideoPlaylistsController < ApplicationController
       else
         if @video_playlist_item.save
           flash[:notice] = 'Videos were successfully added.'
+          session[:videos_search] = collection_to_id_array(@video_playlist.videos)          
         end
       end
     end # loop through video ids

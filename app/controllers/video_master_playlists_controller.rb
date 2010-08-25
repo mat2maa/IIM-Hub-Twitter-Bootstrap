@@ -44,6 +44,8 @@ class VideoMasterPlaylistsController < ApplicationController
   
   def edit 
     @video_master_playlist = VideoMasterPlaylist.find(params[:id],:include=>[:video_master_playlist_items,:masters])
+    session[:masters_search] = collection_to_id_array(@video_master_playlist.masters)
+    
   end 
 
   def update
@@ -69,19 +71,11 @@ class VideoMasterPlaylistsController < ApplicationController
   def add_master_to_playlist
     if !params[:video_master_playlists].nil?
       @search = Master.new_search(params[:video_master_playlists])      
-#      @search.conditions.or_foreign_language_title_keywords = params[:video_master_playlists][:conditions][:or_video_title_keywords]  
       if !params[:search].nil?
         search = params[:search]        
         @search.per_page = search[:per_page] if !search[:per_page].nil? 
         @search.page = search[:page] if !search[:page].nil?
       end
-      
-      # if params[:screener][:destroyed] == "1"
-      #   @search.conditions.screener_destroyed_date_not_equal = nil
-      # end
-      # if params[:screener][:held] == "1"
-      #   @search.conditions.screener_destroyed_date_equals = ""
-      # end
       
       @masters, @masters_count = @search.all, @search.count
 
@@ -128,6 +122,7 @@ class VideoMasterPlaylistsController < ApplicationController
     else
       if @video_master_playlist_item.save
         flash[:notice] = 'Master was successfully added.'
+        session[:masters_search] = collection_to_id_array(@video_master_playlist.masters)
       end
     end
   end  
@@ -171,6 +166,7 @@ class VideoMasterPlaylistsController < ApplicationController
       else
         if @video_master_playlist_item.save
           flash[:notice] = 'Masters were successfully added.'
+          session[:masters_search] = collection_to_id_array(@video_master_playlist.masters
         end
       end
     end # loop through video ids

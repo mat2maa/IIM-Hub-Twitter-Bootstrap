@@ -7,7 +7,7 @@
 		<td>
 			<table width="100%">
 				<tr>
-					<th width="130">(<%=h video_master_playlist_item.position %>) Episode Title [<%= link_to "Edit", edit_video_path(video_master_playlist_item.master.video.id), :popup => true %>]:</th>
+					<th width="130">(<%=h video_master_playlist_item.position %>) Episode Title [<%= link_to "Edit", edit_master_path(video_master_playlist_item.master.id), :popup => true %>]:</th>
 					<td width="200"><%= video_master_playlist_item.master.episode_title %></td>
 					<th>Tape Media:</th>
 					<td width="80"><%=h video_master_playlist_item.master.tape_media %></td>

@@ -42,7 +42,6 @@ class MoviePlaylistsController < ApplicationController
   def edit 
     @movie_playlist = MoviePlaylist.find(params[:id],:include=>[:movie_playlist_items,:movies])  
     session[:movies_search] = collection_to_id_array(@movie_playlist.movies)
-      
   end 
 
   def update
@@ -117,6 +116,7 @@ class MoviePlaylistsController < ApplicationController
     @movie_to_add = Movie.find(params[:movie_id])
     if @movie_playlist_item.save
       flash[:notice] = 'Movie was successfully added.'
+      session[:movies_search] = collection_to_id_array(@movie_playlist.movies)
     end
   end  
   
@@ -133,6 +133,7 @@ class MoviePlaylistsController < ApplicationController
       if @movie_playlist_item.save
         flash[:notice] = 'Movies were successfully added.'
         @notice = 'Movies were successfully added.'
+        session[:movies_search] = collection_to_id_array(@movie_playlist.movies)
       end
     end # loop through movie ids
     
