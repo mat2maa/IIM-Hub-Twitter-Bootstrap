@@ -166,7 +166,7 @@ class VideoMasterPlaylistsController < ApplicationController
       else
         if @video_master_playlist_item.save
           flash[:notice] = 'Masters were successfully added.'
-          session[:masters_search] = collection_to_id_array(@video_master_playlist.masters
+          session[:masters_search] = collection_to_id_array(@video_master_playlist.masters)
         end
       end
     end # loop through video ids
