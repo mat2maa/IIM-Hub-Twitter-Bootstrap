@@ -1,0 +1,25 @@
+<fieldset>
+	<legend>Search Masters</legend><% f.fields_for @search.conditions do |masters| %>
+<!--Match ANY or ALL of the conditions:<br />-->
+      <%#= masters.select :any, [["All", false], ["Any", true]] %><br />
+	<%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
+	<table>
+		<tr>
+			<td valign="top">
+				Episode Title:<br/>
+				<%= masters.text_field :episode_title %><br/>
+			</td>
+			<td valign="top">
+				Episode Number:<br/>
+				<%= masters.text_field :episode_number %><br/>
+			</td>
+			<td valign="top">
+				Location:<br/>
+				<%= masters.text_field :location %><br/>
+			</td>
+		</tr>
+	</table>
+	<%= masters.submit "Search" %>
+	<% end %>
+	
+</fieldset>

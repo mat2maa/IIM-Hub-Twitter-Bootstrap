@@ -1,4 +1,23 @@
 class MastersController < ApplicationController
+  before_filter :require_user
+  filter_access_to :all
+  
+  def index    
+    if !params['search'].nil? 
+      @search = Master.new_search(params[:search])
+    else
+      #no search made yet
+      @search = Master.new_search(:order_by => :id, :order_as => "DESC")
+    end
+    @masters, @masters_count = @search.all, @search.count
+    
+    if @masters_count == 1
+      redirect_to(edit_master_path(@masters.first))
+    end
+    
+    session[:masters_search] = collection_to_id_array(@masters)
+  end
+  
   def new  
     @master = Master.new
     @master.video_id = params[:id]
@@ -26,9 +45,27 @@ class MastersController < ApplicationController
   end
   
   def edit
+    if !params['search'].nil? 
+      @search = Master.new_search(params[:search])
+    else
+      #no search made yet
+      @search = Master.new_search(:order_by => :id, :order_as => "DESC")
+    end
+    @masters, @masters_count = @search.all, @search.count
+    
+    if !session[:masters_search].nil?
+      ids = session[:masters_search] 
+      id = ids.index(params[:id].to_i)
+      if !id.nil?
+        @next_id = ids[id+1] if (id+1 < ids.count)
+        @prev_id = ids[id-1] if (id-1 >= 0)
+      end
+    end
+    
     @master = Master.find(params[:id])  
     respond_to do |format|
       format.js {render :layout => false}    
+      format.html {}    
     end    
   end
   
@@ -36,12 +73,11 @@ class MastersController < ApplicationController
     
     @master = Master.find(params[:id])
     
-    
     if @master.update_attributes(params[:master])      
       respond_to do |format|    
         format.html { 
           flash[:notice] = "Successfully updated master."
-          redirect_to edit_cms_video_url(@master.video.id) 
+          redirect_to edit_master_url(@master.id) 
         } 
         format.js {render :layout => false}
       end

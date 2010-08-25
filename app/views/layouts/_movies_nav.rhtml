@@ -1,0 +1,31 @@
+<div id="nav">
+	<ul>
+		<li <%= "id='curr-nav'" if (yield(:title).include?("Dashboard"))%>>
+			<%= link_to "Dashboard", :controller => "dashboard" %>
+		</li>
+		<li <%= "id='curr-nav'" if (yield(:title).eql?(" - Movies"))%>>
+			<%= link_to "Movies", :controller => "movies"  %>
+		</li>
+		<li <%= "id='curr-nav'" if (yield(:title).include?("Movie Playlists"))%>>
+			<%= link_to "Movie Playlists", :controller => "movie_playlists"  %>
+		</li>
+		<li <%= "id='curr-nav'" if (yield(:title).eql?(" - Videos"))%>>
+			<%= link_to "Videos", :controller => "videos"  %>
+		</li>
+		<li <%= "id='curr-nav'" if (yield(:title).include?("Video Playlists"))%>>
+			<%= link_to "Video Playlists", :controller => "video_playlists"  %>
+		</li>
+		<li <%= "id='curr-nav'" if (yield(:title).include?("Masters"))%>>
+			<%= link_to "Masters", :controller => "masters"  %>
+		</li>
+		<li <%= "id='curr-nav'" if (yield(:title).include?("Video Master Playlists"))%>>
+			<%= link_to "Video Master Playlists", :controller => "video_master_playlists"  %>
+		</li>
+		<% if permitted_to? :manage, :movies_settings %>
+			<li  <%= "id='curr-nav'" if (yield(:title).include?("Settings"))%>>
+				<%= link_to "Settings", movies_settings_path %>
+			</li>
+		<% end %>
+	</ul>
+	<div id="clear"><br/></div>
+</div>

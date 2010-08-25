@@ -10,8 +10,9 @@
 	<br/>
 	<h2>
 	<%=h @movie_playlist.airline.code if !@movie_playlist.airline_id.nil? %><%=h @movie_playlist.start_cycle.strftime("%m%y") %> Movie Playlist</h2>
-	<%= "Movie Type: #{@movie_playlist.movie_type}s " if !@movie_playlist.movie_type.nil?%>
-
+	<br/>
+	<strong><%= "MOVIE TYPE: #{@movie_playlist.movie_type.upcase}S " if !@movie_playlist.movie_type.nil?%></strong>
+<br/><br/>
 	<div id="playlist">
 		  <%= render :partial => 'playlist_item_view', :collection => @movie_playlist.movie_playlist_items_sorted %>
 	</div>

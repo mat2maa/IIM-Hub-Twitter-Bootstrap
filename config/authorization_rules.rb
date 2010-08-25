@@ -10,6 +10,7 @@ authorization do
 	  has_permission_on :dashboard, :to => :manage
 		
 		has_permission_on :movies, :to => [:manage, :check_airline_rights, :check_screener_remarks, :check_movie_type, :update_date]
+		has_permission_on :masters, :to => :manage
 		has_permission_on :videos, :to => :manage
 		has_permission_on :movie_playlist_items, :to => :manage	
 		has_permission_on :video_playlist_items, :to => :manage	
@@ -89,6 +90,7 @@ authorization do
 		
 		#movies
 		has_permission_on :movies, :to => [:manage, :admin_delete, :check_airline_rights, :check_screener_remarks, :check_movie_type, :update_date]
+		has_permission_on :masters, :to => :manage
 		has_permission_on :videos, :to => [:manage, :admin_delete]
 		has_permission_on :suppliers, :to => :manage		
 		has_permission_on :airline_rights_countries, :to => :manage

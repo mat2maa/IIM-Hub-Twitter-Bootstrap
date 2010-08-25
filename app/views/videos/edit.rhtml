@@ -112,12 +112,16 @@
 
 	<h2>Screeners</h2>
 	<a href="/screeners/new" id="add_screener">Add Screener</a>
+	<br/><br/>
+	
 	<div id="screeners_list">
 		<%= render :partial => 'screeners', :locals => { :video_id => @video.id } %>
 	</div>
-	
+	<br/><br/>
 	<h2>Masters</h2>
 	<a href="/masters/new" id="add_master">Add Master</a>
+	<br/><br/>
+	
 	<div id="masters_list">
 		<%= render :partial => 'masters', :locals => { :video_id => @video.id } %>
 	</div>

@@ -36,7 +36,6 @@ class ScreenersController < ApplicationController
     
     @screener = Screener.find(params[:id])
     
-    
     if @screener.update_attributes(params[:screener])      
       respond_to do |format|    
         format.html { 
