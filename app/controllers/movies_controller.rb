@@ -101,6 +101,8 @@ class MoviesController < ApplicationController
   end
   
   def update
+    @search = Movie.new_search(:order_by => :id, :order_as => "DESC")
+    @movies, @movies_count = @search.all, @search.count
     
     @movie = Movie.find(params[:id])
     params[:movie][:movie_title] = params[:movie][:movie_title].upcase
