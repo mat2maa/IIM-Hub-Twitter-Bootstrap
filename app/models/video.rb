@@ -31,7 +31,7 @@ class Video < ActiveRecord::Base
   validates_attachment_content_type :poster, :content_type => ['image/jpeg', 'image/png']
     
   named_scope :with_language_track, lambda { |language_track| {:conditions => "language_tracks_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_track.to_s)} > 0"} }
-  
+  VIDEO_TYPES = ["Short Subject Programme", "Movie EPK", "Movie Trailer", "Movie Master", "TV Special", "Graphics"]
   
   def before_save
     # if production studio is empty, set it to the same as movie distributor supplier

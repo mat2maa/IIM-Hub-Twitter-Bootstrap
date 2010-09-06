@@ -39,9 +39,11 @@ class VideoPlaylistsController < ApplicationController
     end
   end
   
-  def edit 
+  def edit
+     
     @video_playlist = VideoPlaylist.find(params[:id],:include=>[:video_playlist_items,:videos])    
     session[:videos_search] = collection_to_id_array(@video_playlist.videos)
+      
   end 
 
   def update
@@ -207,9 +209,13 @@ class VideoPlaylistsController < ApplicationController
   def print
 
     @video_playlist = VideoPlaylist.find(params[:id]) 	
+    headers["Content-Disposition"] =  "attachment; filename=\"#{@video_playlist.airline.code if !@video_playlist.airline.nil? }#{@video_playlist.start_cycle.strftime("%m%y")}.pdf\""        
 
-    respond_to do  |format|
-      format.html {render :layout => false }
+    respond_to do |format|
+      format.html
+      format.pdf {
+        render :text => PDFKit.new(print_video_playlist_url(@video_playlist)).to_pdf, :layout => false 
+      }
     end
   end
   

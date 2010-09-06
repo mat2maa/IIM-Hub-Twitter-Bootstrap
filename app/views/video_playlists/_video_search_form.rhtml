@@ -36,7 +36,7 @@
 			</td>
 			<td valign="top">
 				Video type:<br/>			
-				<%= videos.select :video_type_equals, ["Short Subject Programme", "Video EPK", "Video Trailer", "Video Master"], 
+				<%= videos.select :video_type_equals, Video::VIDEO_TYPES, 
 						{ :include_blank => true } %> <br/>
 			</td>
 		</tr>

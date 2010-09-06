@@ -3,8 +3,10 @@ class Master < ActiveRecord::Base
 
   has_many :video_master_playlist_items
   has_many :video_master_playlists, :through=>:video_master_playlist_items
+  belongs_to :video, :counter_cache => true
     
-  belongs_to :video
+  default_scope :order => 'location, episode_number'
+  
   validates_presence_of :episode_title
   validates_format_of :time_in, :with => /(\A[0-9]{1,2}):([0-5]?[0-9]):([0-5]?[0-9]):([0-2][0-9]|[0-9])\z/, 
       :if => Proc.new { |master| master.tape_format=='NTSC' }

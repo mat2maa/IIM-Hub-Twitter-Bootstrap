@@ -208,10 +208,15 @@ class VideoMasterPlaylistsController < ApplicationController
   def print
 
     @video_master_playlist = VideoMasterPlaylist.find(params[:id]) 	
+    headers["Content-Disposition"] =  "attachment; filename=\"#{@video_master_playlist.airline.code if !@video_master_playlist.airline.nil? }#{@video_master_playlist.start_cycle.strftime("%m%y")}.pdf\""        
 
-    respond_to do  |format|
-      format.html {render :layout => false }
+    respond_to do |format|
+      format.html
+      format.pdf {
+        render :text => PDFKit.new(print_video_playlist_url(@video_master_playlist)).to_pdf, :layout => false 
+      }
     end
+    
   end
   
   

@@ -1,8 +1,12 @@
+<% content_for(:head) do %>
+<meta name="pdfkit-orientation" content="Landscape"/>
+<% end %>
+
 <%= render :partial => 'layouts/movieplaylist_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
 <div id="content-header-actions">
-	<%= link_to "View Playlist", {:controller => "movie_playlists", :action => "print",  :id => @movie_playlist}, :popup => true %> |
+	<%= link_to "View Playlist", {:controller => "movie_playlists", :action => "show",  :id => @movie_playlist}, :popup => true %> |
 	<%= link_to "Download Full PDF", {:controller => "movie_playlists", :action => "print",  :id => @movie_playlist, :format => "pdf"} %> |
 	<%= link_to "Download Summary PDF", {:controller => "movie_playlists", :action => "edit",  :id => @movie_playlist, :format => "pdf"} %> |
 	<%= link_to "Export as Excel", :controller => "movie_playlists", :action => "export_to_excel",  :id => @movie_playlist %> 

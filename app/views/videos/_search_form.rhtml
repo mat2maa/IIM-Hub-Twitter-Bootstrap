@@ -41,24 +41,27 @@
 					</td>
 					<td valign="top">
 						Video type:<br/>			
-						<%= videos.select :video_type_equals, ["Short Subject Programme", "Movie EPK", "Movie Trailer", "Movie Master", "TV Special"], 
+						<%= videos.select :video_type_equals, Video::VIDEO_TYPES, 
 								{ :include_blank => true } %> <br/>
 						Video ID:<br/>
 						<%= videos.text_field :id_equals, :size => 6 %>
 					</td>
 					<td valign="top">
+						Masters Held:<br/>
+							<%= check_box_tag :masters %><br/>
 						Tape Location Number:<br/>
 						<% videos.fields_for videos.object.masters do |masters| %>
 							<%= masters.text_field :location_equals, :size => 6  %><br/>
 						<% end %>
+					</td>
+					<td valign="top">
 						Screeners Held:<br/>
 							<%= check_box_tag :screeners %><br/>
 					</td>
 				</tr>
 			</table>
 			<%= videos.submit "Search" %>
-			<% end %>
-			
+			<% end %>		
 		</fieldset>
 	</body>
 </html>

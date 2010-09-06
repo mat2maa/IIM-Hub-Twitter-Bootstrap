@@ -9,7 +9,7 @@
 RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
 module IIM
-  MOVIE_LANGUAGES = ["Eng", "Zho", "Yue", "Ara", "Dan", "Deu", "Ell",	"Spa",	"Spn",	"Fas",	"Fin",	"Cfr",	"Fra",	"Hin",	"Ind",	"Ita",	"Heb",	"Jpn",	"Kor",	"Msa",	"Nld",	"Nor",	"Por",	"Rus",	"Swe", "Tam",	"Tgl", "Tha", "Tur", "Vie"]
+  MOVIE_LANGUAGES = ["Ara", "Cfr", "Dan", "Deu", "Ell", "Eng", "Fas",	"Fin", "Fra",	"Hin", "Heb", "Ind", "Ita", "Jpn",	"Kor",	"Msa",	"Nld",	"Nor",	"Por",	"Rus",	"Spa",	"Spn",	"Swe", "Tam",	"Tgl", "Tha", "Tur", "Vie" , "Yue", "Zho" ]
 end
 
 # Bootstrap the Rails environment, frameworks, and default configuration
@@ -52,6 +52,7 @@ Rails::Initializer.run do |config|
   config.gem 'pdfkit'
   config.gem "capybara"
   config.gem "factory_girl", :source => "http://gemcutter.org"
+  config.gem "pickle"
 
   config.load_paths << "#{RAILS_ROOT}/app/sweepers"
   

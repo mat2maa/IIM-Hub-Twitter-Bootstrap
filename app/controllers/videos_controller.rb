@@ -24,9 +24,9 @@ class VideosController < ApplicationController
     else 
       @search = Video.new_search(:order_by => :id, :order_as => "DESC")
     end
-    @search.conditions.screeners.id_gte = params[:screeners] if params[:screeners]=='1'
+    @search.conditions.screeners_count_gte = params[:screeners].to_i if params[:screeners]=='1'
+    @search.conditions.masters_count_gte = params[:masters].to_i if params[:masters]=='1'
     
-  
     @videos, @videos_count = @search.all, @search.count
   
     if @videos_count == 1
@@ -142,10 +142,7 @@ class VideosController < ApplicationController
     
   end
 
-  def update
-    @search = Video.new_search
-    @videos, @videos_count = @search.all, @search.count
-     
+  def update     
     @video_genres = VideoParentGenre.find(:all)
     
     @video = Video.find(params[:id])

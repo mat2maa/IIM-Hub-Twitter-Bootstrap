@@ -9,28 +9,30 @@
 				<tr>
 					<th width="130">(<%=h video_master_playlist_item.position %>) Episode Title [<%= link_to "Edit", edit_master_path(video_master_playlist_item.master.id), :popup => true %>]:</th>
 					<td width="200"><%= video_master_playlist_item.master.episode_title %></td>
-					<th>Tape Media:</th>
-					<td width="80"><%=h video_master_playlist_item.master.tape_media %></td>
-					<th>Tape Format:</th>
-					<td width="40"><%=h video_master_playlist_item.master.tape_format %></td>
-					<th>Tape Size:</th>
-					<td width="40"><%=h video_master_playlist_item.master.tape_size %></td>
-					<th>Aspect Ratio:</th>
-					<td width="40"><%=h video_master_playlist_item.master.aspect_ratio %></td>
-					<th>Video Subtitles:</th>
-					<td width="60"><%=h video_master_playlist_item.master.video_subtitles %></td>
-					<th>Master Tape Location:</th>
-					<td width="50"><%=h video_master_playlist_item.master.location %></td>
+					<th width="85">Language Track 1:</th>
+					<td width="85"><%=h video_master_playlist_item.master.language_track_1 %></td>
+					<th width="85">Language Track 2:</th>
+					<td width="85"><%=h video_master_playlist_item.master.language_track_2 %></td>
+					<th width="85">Language Track 3:</th>
+					<td width="85"><%=h video_master_playlist_item.master.language_track_3 %></td>
+					<th width="85">Language Track 4:</th>
+					<td width="85"><%=h video_master_playlist_item.master.language_track_4 %></td>
 				</tr>
 				<tr>
-					<th>Language Track 1:</th>
-					<td><%=h video_master_playlist_item.master.language_track_1 %></td>
-					<th>Language Track 2:</th>
-					<td><%=h video_master_playlist_item.master.language_track_2 %></td>
-					<th>Language Track 3:</th>
-					<td><%=h video_master_playlist_item.master.language_track_3 %></td>
-					<th>Language Track 4:</th>
-					<td><%=h video_master_playlist_item.master.language_track_4 %></td>
+					<th>Tape Media:</th>
+					<td><%=h video_master_playlist_item.master.tape_media %></td>
+					<th>Tape Format:</th>
+					<td><%=h video_master_playlist_item.master.tape_format %></td>
+					<th>Tape Size:</th>
+					<td><%=h video_master_playlist_item.master.tape_size %></td>
+					<th>Aspect Ratio:</th>
+					<td><%=h video_master_playlist_item.master.aspect_ratio %></td>
+					<th>Video Subtitles:</th>
+					<td><%=h video_master_playlist_item.master.video_subtitles %></td>
+				</tr>
+				<tr>
+					<th>Master Tape Location:</th>
+					<td><%=h video_master_playlist_item.master.location %></td>
 					<th>Master Time In:</th>
 					<td><%=h video_master_playlist_item.master.time_in %></td>
 					<th>Master Time Out:</th>

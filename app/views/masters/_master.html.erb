@@ -1,5 +1,6 @@
 <tr id="master-<%=h master.id %>">
 	<td><%= link_to master.id, master_path(:id => master.id ) %></td>
+	<td><%=h master.video.programme_title %></td>
 	<td><%=h master.episode_title %></td>
 	<td><%=h master.episode_number %></td>
 	<td><%=h master.location %></td>

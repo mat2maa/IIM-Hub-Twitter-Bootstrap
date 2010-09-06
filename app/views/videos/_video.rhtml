@@ -2,9 +2,12 @@
   <% cache([video, "video_playlists"]) do %>
 	<td><%= link_to video.id, video_path(:id => video.id ) %></td>
 	<td><%=h video.programme_title %></td>
+	<td><%=h video.video_distributor.company_name if !video.video_distributor.nil? %></td>
 	<td><%=h video.video_type %></td>
 	<td><%=h video.commercial_run_time.minutes if !video.commercial_run_time.nil? %></td>	
 	<td><%=h video.video_genres_string %></td>
+	<td><%= video.screeners_count > 0 ? 'yes' : 'no' %></td>
+	<td><%= video.masters_count > 0 ? 'yes' : 'no' %></td>
   <% end %>
 	<% if (params[:playlist_id] || params["action"]=="add_video_to_playlist")  %>
 		<td>

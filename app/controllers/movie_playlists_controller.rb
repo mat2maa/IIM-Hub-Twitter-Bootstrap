@@ -42,6 +42,12 @@ class MoviePlaylistsController < ApplicationController
   def edit 
     @movie_playlist = MoviePlaylist.find(params[:id],:include=>[:movie_playlist_items,:movies])  
     session[:movies_search] = collection_to_id_array(@movie_playlist.movies)
+      
+    respond_to do |format|
+      format.html { }
+      format.pdf { render :text => PDFKit.new(edit_movie_playlist_url(@movie_playlist), :orientation => 'Landscape' ).to_pdf }
+      
+    end
   end 
 
   def update
@@ -174,10 +180,13 @@ class MoviePlaylistsController < ApplicationController
   def print
 
     @movie_playlist = MoviePlaylist.find(params[:id]) 	
-
-    respond_to do  |format|
-      format.html {render :layout => false }
-      format.pdf {render :text => PDFKit.new(print_movie_playlist_url(@movie_playlist) ).to_pdf, :layout => false}
+    headers["Content-Disposition"] =  "attachment; filename=\"#{@movie_playlist.airline.code if !@movie_playlist.airline.code.nil?}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_type if !@movie_playlist.movie_type.nil?}.pdf\""        
+    
+    respond_to do |format|
+      format.html
+      format.pdf {
+        render :text => PDFKit.new(print_movie_playlist_url(@movie_playlist)).to_pdf, :layout => false 
+      }
     end
   end
   

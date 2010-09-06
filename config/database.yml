@@ -22,15 +22,10 @@ development:
   pool: 5
   password: 
   socket: /var/mysql/mysql.sock
-  #password: mtv2008 
-  #socket: /var/run/mysqld/mysqld.sock
 	
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-#  socket: /var/run/mysqld/mysqld.sock
-# username: iim
-# password: inmotion08
 
 
 test: &test
@@ -40,7 +35,7 @@ test: &test
   username: root
   pool: 5
   password:
-  socket: /tmp/mysql.sock
+  socket: /var/mysql/mysql.sock
 
 production:
   adapter: mysql
@@ -50,5 +45,6 @@ production:
   password: inmotion08
   pool: 5
   socket: /var/run/mysqld/mysqld.sock
+  
 cucumber:
   <<: *test

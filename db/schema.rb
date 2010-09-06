@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100818034957) do
+ActiveRecord::Schema.define(:version => 20100905175411) do
 
   create_table "airline_rights_countries", :force => true do |t|
     t.string   "name"
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(:version => 20100818034957) do
   end
 
   create_table "commercial_run_times", :force => true do |t|
-    t.string   "minutes"
+    t.integer  "minutes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -267,7 +267,7 @@ ActiveRecord::Schema.define(:version => 20100818034957) do
   create_table "masters", :force => true do |t|
     t.integer  "video_id"
     t.string   "episode_title"
-    t.integer  "episode_number"
+    t.string   "episode_number"
     t.string   "tape_media"
     t.string   "tape_format"
     t.string   "tape_size"
@@ -425,7 +425,7 @@ ActiveRecord::Schema.define(:version => 20100818034957) do
   create_table "screeners", :force => true do |t|
     t.integer  "video_id"
     t.string   "episode_title"
-    t.integer  "episode_number"
+    t.string   "episode_number"
     t.string   "location"
     t.string   "remarks"
     t.string   "remarks_other"
@@ -642,6 +642,8 @@ ActiveRecord::Schema.define(:version => 20100818034957) do
     t.integer  "video_distributor_id"
     t.boolean  "on_going_series"
     t.text     "remarks"
+    t.integer  "masters_count",           :default => 0
+    t.integer  "screeners_count",         :default => 0
   end
 
   add_index "videos", ["laboratory_id"], :name => "index_videos_on_laboratory_id"

@@ -6,3 +6,4 @@ doc/app
 doc/api
 public/system/*
 import/*
+capybara*.html

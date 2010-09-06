@@ -17,7 +17,7 @@
 		  	<%= f.input :programme_title, :label => "Video Title", :input_html => {:tabindex => 1} %>
 		  	<%= f.input :foreign_language_title, :label => "Foreign Language Title", :input_html => {:tabindex => 2}, :size => 2 %>
 				<%= f.input :video_type, :label => "Video Type", :as => :select, 
-										:collection => ["Short Subject Programme", "Movie EPK", "Movie Trailer", "Movie Master", "TV Special"], 
+										:collection => Video::VIDEO_TYPES, 
 										:include_blank => true,
 					 					:input_html => { :tabindex => 3 }%>
 		
@@ -35,7 +35,7 @@
 											:label => "Production Studio " + link_to("[edit]", suppliers_path, :popup => true),
 											:collection => Supplier.production_studios.collect {|p| [ p.company_name, p.id ] } %>
 
-					<%= f.input :commercial_run_time, :label => "Run Time (Commercial) " + link_to("[edit]", commercial_run_times_path, :popup => true), 
+					<%= f.input :commercial_run_time, :label => "Run Time (Commercial)", 
 											:as => :select, 
 											:include_blank => true,
 						 					:input_html => { :tabindex => 8 },

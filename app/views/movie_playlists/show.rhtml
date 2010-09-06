@@ -2,7 +2,7 @@
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
 <div id="content-header-actions">
-	<%= link_to "Print Playlist", {:controller => "movie_playlists", :action => "print",  :id => @movie_playlist}, :popup =>true %> |
+	<%= link_to "Download Full PDF", {:controller => "movie_playlists", :action => "print",  :id => @movie_playlist, :format => "pdf"} %>
 	<%= link_to "Export as Excel", :controller => "movie_playlists", :action => "export_to_excel",  :id => @movie_playlist %> 
 </div>
 <div id="content-header">Movie Playlists</div>
