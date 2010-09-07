@@ -28,28 +28,27 @@
 												:collection => Supplier.video_distributors.collect {|p| [ p.company_name, p.id ] } %>
 																				
 					<%= f.input :production_year, :input_html => {:tabindex => 7}, :label =>"Production Year", :size => 3 %>
-					<%= f.input :on_going_series, :input_html => {:tabindex => 10}, :label => "On Going Series" %>
-			
+					
 					</td><td valign="top">
 					<%= f.input :production_studio, :input_html => {:tabindex => 5}, :include_blank => true, 
 											:label => "Production Studio " + link_to("[edit]", suppliers_path, :popup => true),
 											:collection => Supplier.production_studios.collect {|p| [ p.company_name, p.id ] } %>
+					<%= f.input :episodes_available, :input_html => {:tabindex => 9}, :label =>"&nbsp;No. of Episodes Available" %>			
 
-					<%= f.input :commercial_run_time, :label => "Run Time (Commercial)", 
-											:as => :select, 
-											:include_blank => true,
-						 					:input_html => { :tabindex => 8 },
-											:collection => CommercialRunTime.all.collect {|p| [ p.minutes, p.id ] }%>
+				
 
 					</td><td valign="top">
 					<%= f.input :laboratory, :input_html => {:tabindex => 6}, :label =>"Laboratory", :include_blank => true, 
 											:label => "Laboratory "+ link_to("[edit]", suppliers_path, :popup => true),
 											:collection => Supplier.laboratories.collect {|p| [ p.company_name, p.id ] } %>
-
-					<%= f.input :episodes_available, :input_html => {:tabindex => 9}, :label =>"&nbsp;No. of Episodes Available" %>			
+					<%= f.input :on_going_series, :input_html => {:tabindex => 10}, :label => "On Going Series" %>
 					</td></tr>
 				</table>
-				
+				<%= f.input :commercial_run_time, :label => "Run Time (Commercial)", 
+											:as => :select, 
+											:include_blank => true,
+						 					:input_html => { :tabindex => 8 },
+											:collection => CommercialRunTime.all.collect {|p| [ p.minutes, p.id ] }%>
 				Video Genres
 				<% @video_genres.each do |video_genre| %>
 					<%= f.input :video_genres, :input_html => {:tabindex => 11}, :label =>video_genre.name, :as => :check_boxes, 

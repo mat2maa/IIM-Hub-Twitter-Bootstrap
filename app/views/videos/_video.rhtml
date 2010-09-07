@@ -6,8 +6,8 @@
 	<td><%=h video.video_type %></td>
 	<td><%=h video.commercial_run_time.minutes if !video.commercial_run_time.nil? %></td>	
 	<td><%=h video.video_genres_string %></td>
-	<td><%= video.screeners_count > 0 ? 'yes' : 'no' %></td>
-	<td><%= video.masters_count > 0 ? 'yes' : 'no' %></td>
+	<td><%= video.screeners_count > 0 ? 'Yes' : 'No' %></td>
+	<td><%= video.masters_count > 0 ? 'Yes' : 'No' %></td>
   <% end %>
 	<% if (params[:playlist_id] || params["action"]=="add_video_to_playlist")  %>
 		<td>
