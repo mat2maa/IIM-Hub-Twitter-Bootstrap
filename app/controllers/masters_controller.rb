@@ -41,7 +41,7 @@ class MastersController < ApplicationController
       else
         respond_to do |format|
           format.html { render :action => 'new' }
-          format.js { render :action => 'error.js.erb',render :layout => false } 
+          format.js { render :action => 'error.js.erb', :layout => false } 
         end
       end
   end
@@ -86,7 +86,7 @@ class MastersController < ApplicationController
     else
       respond_to do |format|
         format.html { render :action => 'edit' }
-        format.js { render :action => 'error.js.erb',render :layout => false } 
+        format.js { render :action => 'error.js.erb', :layout => false } 
       end
     end
   end
