@@ -2,7 +2,7 @@
 <% semantic_form_for @supplier do |form| %>
 	<%= form.semantic_errors %>
 	<% form.inputs do %>
-    <%= form.input :company_name, :label => "Company Name", :hint => 'Note: Amending the supplier name will affect titles linked to the supplier' %>
+    <%= form.input :company_name, :label => "Company Name"%>
     <%= form.input :supplier_categories, :as => :check_boxes, :label => "Supplier Categories" %>
     <%= form.input :contact_name_1, :label => "Contact Name 1"  %>
     <%= form.input :position_1, :label => "Position 1" %>

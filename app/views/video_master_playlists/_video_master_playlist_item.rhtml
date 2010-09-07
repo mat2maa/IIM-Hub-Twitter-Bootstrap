@@ -41,10 +41,9 @@
 					<td><%=h video_master_playlist_item.master.duration %></td>
 				</tr>
 				<tr>
-					<td colspan="13"<strong>Synopsis:</strong><br/><%=h video_master_playlist_item.master.synopsis %></td>
-				</tr>
-				<tr>
-					<td colspan="13"<strong>Mastering:</strong><br/>
+					<td valign="top"><strong>Mastering:</strong><br/>
+					</td>
+					<td  colspan="12">
 						<%=in_place_text_area :video_master_playlist_item, :mastering, {:rows=>"2"}%>
 					</td>
 				</tr>

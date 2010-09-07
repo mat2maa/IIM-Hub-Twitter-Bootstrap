@@ -21,6 +21,8 @@ class MastersController < ApplicationController
   def new  
     @master = Master.new
     @master.video_id = params[:id]
+    @master.language_track_1 = 'Eng'
+    @master.language_track_2 = 'Eng'
     respond_to do |format|
       format.js {render :layout => false}    
     end
@@ -39,7 +41,7 @@ class MastersController < ApplicationController
       else
         respond_to do |format|
           format.html { render :action => 'new' }
-          format.js { render :action => 'error.js.erb' } 
+          format.js { render :action => 'error.js.erb',render :layout => false } 
         end
       end
   end
@@ -84,7 +86,7 @@ class MastersController < ApplicationController
     else
       respond_to do |format|
         format.html { render :action => 'edit' }
-        format.js { render :action => 'error.js.erb' } 
+        format.js { render :action => 'error.js.erb',render :layout => false } 
       end
     end
   end

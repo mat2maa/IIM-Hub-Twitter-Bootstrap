@@ -24,9 +24,9 @@
 							<%= videos.text_field :production_year_equals, :size => 6 %>
 					</td>
 					<td valign="top">	
-						Available Language Track:<br/>
+						Language Track:<br/>
 						<%= select :language, :track, IIM::MOVIE_LANGUAGES, { :include_blank => true } %><br/>
-					 	Available Language Subtitles:<br/>
+					 	Language Subtitles:<br/>
 						<%= select :language, :subtitle, IIM::MOVIE_LANGUAGES, { :include_blank => true } %>
 					</td>
 					<td valign="top">

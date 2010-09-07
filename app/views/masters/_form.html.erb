@@ -45,13 +45,13 @@ jQuery(document).ready(function() {
 					<td>Episode #:<br/><%= f.text_field :episode_number, :size => 5 %></td>
 
 					<td><%= f.input :tape_media, :as => :select, 
-						:collection => ["Betacam SP", "Digital Betacam", "Betacam SX", "MPEG IMX", "HDCAM", "DVCCAM", "HDCAM", "DVCAM Pro"], 
+						:collection => Video::TAPE_MEDIA, 
 						:label => "Tape Media", :include_blank => false %></td>
 
 					<td><%= f.input :tape_format, :as => :select, :collection => ["PAL", "NTSC"], :label => "Tape Format", 
 						:include_blank => false %></td>
 					<td><%= f.input :tape_size, :as => :select, :collection => ["Small","Large"], :label => "Tape Size", 
-						:include_blank => false %></td>	
+						:include_blank => true %></td>	
 					<td><%= f.input :video_subtitles, :as => :select, :collection => IIM::MOVIE_LANGUAGES ,:include_blank => true, 
 						:label => "Video Subtitles" %></td>					
 				</tr>
@@ -59,15 +59,11 @@ jQuery(document).ready(function() {
 					<td rowspan="2">Episode Synopsis: <%= f.text_area :synopsis, :size => "29x3" %></td>
 					<td>
 						<%= f.input (:language_track_1,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, 
-							:label => "Lang Track 1<br/>")  if !f.object.id.nil? %>
-						<%= f.input (:language_track_1,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, 
-							:label => "Lang Track 1<br/>", :selected => "Eng")  if f.object.id.nil? %>
+							:label => "Lang Track 1<br/>")  %>
 					</td>			
 					<td>
 					<%= f.input (:language_track_2,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, 
-							:label => "Lang Track 1<br/>")  if !f.object.id.nil? %>
-					<%= f.input (:language_track_2,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, 
-							:label => "Lang Track 1<br/>", :selected => "Eng")  if f.object.id.nil? %>
+							:label => "Lang Track 2<br/>") %>
 					</td>
 					<td><%= f.input :language_track_3,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, 
 							:label => "Lang Track 3<br/>" %></td>

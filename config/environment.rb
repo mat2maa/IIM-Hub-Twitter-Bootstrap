@@ -43,6 +43,7 @@ Rails::Initializer.run do |config|
 	#rack
 	
 	#config.gem "binarylogic-searchlogic", :source => "http://gems.github.com"
+	config.gem 'i18n', :version => '0.3.7'
   config.gem "searchlogic", :version=>"1.6.6"
 	config.gem "mysql"
   config.gem "populator"

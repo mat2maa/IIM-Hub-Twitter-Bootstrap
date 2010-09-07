@@ -12,13 +12,13 @@
 					<td>Episode #:<br/><%= f.text_field :episode_number, :size => 5 %></td>
 
 					<td><%= f.input :tape_media, :as => :select, 
-						:collection => ["Betacam SP", "Digital Betacam", "Betacam SX", "MPEG IMX", "HDCAM", "DVCCAM", "HDCAM", "DVCAM Pro"], 
+						:collection => Video::TAPE_MEDIA, 
 						:label => "Tape Media", :include_blank => false %></td>
 
 					<td><%= f.input :tape_format, :as => :select, :collection => ["PAL", "NTSC"], :label => "Tape Format", 
 						:include_blank => false %></td>
 					<td><%= f.input :tape_size, :as => :select, :collection => ["Small","Large"], :label => "Tape Size", 
-						:include_blank => false %></td>	
+						:include_blank => true %></td>	
 					<td><%= f.input :video_subtitles, :as => :select, :collection => IIM::MOVIE_LANGUAGES ,:include_blank => true, 
 						:label => "Video Subtitles" %></td>					
 				</tr>

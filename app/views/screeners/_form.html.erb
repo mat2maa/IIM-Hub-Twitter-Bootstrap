@@ -47,7 +47,7 @@ jQuery(document).ready(function() {
 						<%= f.input :remarks,	:as => :select, :collection =>["VHS", "B&W", "Chinese Subs", "Other"], :include_blank => true %>
 					</td>
 					<td width="100" valign="top">Other <%= f.text_field :remarks_other, :size => 16 %></td>	
-					<td width="50" valign="top"><%= f.input :location,	:as => :select, :collection =>["SIN", "BJS", "JKT"] %></td>
+					<td width="50" valign="top"><%= f.input :location,	:as => :select, :collection =>["SIN", "BJS", "HKG"] %></td>
 					<td><%= f.buttons %></td>
 				</tr>
 		</table>
