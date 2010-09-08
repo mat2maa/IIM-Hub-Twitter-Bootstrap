@@ -2,14 +2,14 @@
 	<%= @search.count %> videos found
 	<table cellspacing="0" width="100%">
 	<tr>
-		<th><%= remote_order_by_link  :id %></th>
-		<th><%= remote_order_by_link  :programme_title %></th>
-		<th>Distributor</th>
-		<th><%= remote_order_by_link  :video_type %></th>
-		<th><%= remote_order_by_link  :commercial_runtime %></th>
+		<th><%= order_by_link  :id %></th>
+		<th><%= order_by_link  :programme_title %></th>
+		<th><%= order_by_link  :video_distributor =>:company_name %></th>
+		<th><%= order_by_link  :video_type %></th>
+		<th><%= order_by_link  :commercial_runtime %></th>
 		<th>Genres</th>
-		<th>Screeners Held</th>
-		<th>Masters Held</th>
+		<th><%= order_by_link  :screeners_count, :text => 'Screeners Held' %></th>
+		<th><%= order_by_link  :masters_count, :text => 'Masters Held' %></th>
 		<th colspan="2"></th>			
 	</tr>
 	

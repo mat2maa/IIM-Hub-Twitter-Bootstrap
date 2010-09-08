@@ -2,12 +2,12 @@
 	<%= @search.count %> movies found
 	<table cellspacing="0" width="100%">
 	<tr>
-		<th><%= remote_order_by_link  :id %></th>
-		<th><%= remote_order_by_link  :movie_title %></th>
-		<th><%= remote_order_by_link  :movie_distributor => :company_name %></th>
-		<th><%= remote_order_by_link  :movie_type %></th>
-		<th><%= remote_order_by_link :airline_release_date %></th>
-		<th><%= remote_order_by_link  :screener_received_date, :as => "Screener received" %></th>
+		<th><%= order_by_link  :id %></th>
+		<th><%= order_by_link  :movie_title %></th>
+		<th><%= order_by_link  :movie_distributor => :company_name %></th>
+		<th><%= order_by_link  :movie_type %></th>
+		<th><%= order_by_link :airline_release_date %></th>
+		<th><%= order_by_link  :screener_received_date, :as => "Screener received" %></th>
 		<th colspan="2"></th>			
 	</tr>
 	

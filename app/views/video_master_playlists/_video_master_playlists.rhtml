@@ -3,10 +3,10 @@
 
 <table cellspacing="0" width="100%">
 	<tr>
-		<th><%= remote_order_by_link :id %></th>
-		<th><%= remote_order_by_link :airline => :name %></th>
-		<th><%= remote_order_by_link :start_cycle, :text => 'Start Date' %></th>
-		<th><%= remote_order_by_link :end_cycle, :text => 'End Date' %></th>
+		<th><%= order_by_link :id %></th>
+		<th><%= order_by_link :airline => :name %></th>
+		<th><%= order_by_link :start_cycle, :text => 'Start Date' %></th>
+		<th><%= order_by_link :end_cycle, :text => 'End Date' %></th>
 		<th colspan="4"></th>			
 	</tr>
 	<% @video_master_playlists.each do |video_master_playlist| %>

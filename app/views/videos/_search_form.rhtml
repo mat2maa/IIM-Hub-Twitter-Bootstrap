@@ -14,14 +14,17 @@
 					<td valign="top">
 						Video Title:<br/>
 						<%= videos.text_field :programme_title_keywords %><br/>
-						Distributor:<br/>
-						<%= videos.select :video_distributor_id_equals, Supplier.video_distributors.collect {|p| [ p.company_name, p.id ] } , :include_blank => true  %><br/>
+						<% videos.fields_for videos.object.masters do |masters| %>
+						Episode Title:<br/>
+						<%= masters.text_field :episode_title %><br/>						
+						<% end %>
 					</td>
 					<td valign="top">
+							Distributor:<br/>
+							<%= videos.select :video_distributor_id_equals, Supplier.video_distributors.collect {|p| [ p.company_name, p.id ] } , :include_blank => true  %><br/>
 							Laboratory:<br/>
 							<%= videos.select :laboratory_id_equals, Supplier.laboratories.collect {|p| [ p.company_name, p.id ] }, :include_blank => true  %><br/>
-							Production Year:<br/>
-							<%= videos.text_field :production_year_equals, :size => 6 %>
+						
 					</td>
 					<td valign="top">	
 						Language Track:<br/>
@@ -43,8 +46,8 @@
 						Video type:<br/>			
 						<%= videos.select :video_type_equals, Video::VIDEO_TYPES, 
 								{ :include_blank => true } %> <br/>
-						Video ID:<br/>
-						<%= videos.text_field :id_equals, :size => 6 %>
+						Production Year:<br/>
+						<%= videos.text_field :production_year_equals, :size => 6 %>
 					</td>
 					<td valign="top">
 						Masters Held:<br/>
@@ -57,6 +60,8 @@
 					<td valign="top">
 						Screeners Held:<br/>
 							<%= check_box_tag :screeners %><br/>
+						Video ID:<br/>
+						<%= videos.text_field :id_equals, :size => 6 %>
 					</td>
 				</tr>
 			</table>

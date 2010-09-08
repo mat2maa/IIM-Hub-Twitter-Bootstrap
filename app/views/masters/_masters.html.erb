@@ -2,11 +2,11 @@
 	<%= @search.count %> masters found
 	<table cellspacing="0" width="100%">
 	<tr>
-		<th><%= remote_order_by_link  :id %></th>
-		<th>Programme Title</th>
-		<th><%= remote_order_by_link  :episode_title %></th>
-		<th><%= remote_order_by_link  :episode_number %></th>
-		<th><%= remote_order_by_link  :location %></th>
+		<th><%= order_by_link  :id %></th>
+		<th><%= order_by_link  :video => :programme_title %></th>
+		<th><%= order_by_link  :episode_title %></th>
+		<th><%= order_by_link  :episode_number %></th>
+		<th><%= order_by_link  :location %></th>
 		<th colspan="2"></th>			
 	</tr>
 	

@@ -3,20 +3,20 @@
 <!--Match ANY or ALL of the conditions:<br />-->
       <%#= masters.select :any, [["All", false], ["Any", true]] %><br />
 	<%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
-	<% masters.fields_for masters.object.video do |video| %>
 	<table>
 		<tr>
 			<td valign="top">
+				<% masters.fields_for masters.object.video do |video| %>
 				Video Title:<br/>
 				<%= video.text_field :programme_title_keywords %><br/>
-				Distributor:<br/>
-				<%= video.select :video_distributor_id_equals, Supplier.video_distributors.collect {|p| [ p.company_name, p.id ] } , :include_blank => true  %><br/>
+				Episode Title:<br/>
+				<%= masters.text_field :episode_title_keywords %><br/>
 			</td>
 			<td valign="top">
+				Distributor:<br/>
+				<%= video.select :video_distributor_id_equals, Supplier.video_distributors.collect {|p| [ p.company_name, p.id ] } , :include_blank => true  %><br/>
 					Laboratory:<br/>
 					<%= video.select :laboratory_id_equals, Supplier.laboratories.collect {|p| [ p.company_name, p.id ] }, :include_blank => true  %><br/>
-					Production Year:<br/>
-					<%= video.text_field :production_year_equals, :size => 6 %>
 			</td>
 			<td valign="top">	
 				Language Track:<br/>
@@ -38,20 +38,16 @@
 				Video type:<br/>			
 				<%= video.select :video_type_equals, Video::VIDEO_TYPES, 
 						{ :include_blank => true } %> <br/>
-				Video ID:<br/>
-				<%= video.text_field :id_equals, :size => 6 %>
+				Production Year:<br/>
+				<%= video.text_field :production_year_equals, :size => 6 %>
 			</td>
 			<td valign="top">
-				Masters Held:<br/>
-					<%= check_box_tag :masters %><br/>
 				Tape Location Number:<br/>
 				<% video.fields_for video.object.masters do |masters| %>
 					<%= masters.text_field :location_equals, :size => 6  %><br/>
 				<% end %>
-			</td>
-			<td valign="top">
-				Screeners Held:<br/>
-					<%= check_box_tag :screeners %><br/>
+				Video ID:<br/>
+				<%= video.text_field :id_equals, :size => 6 %>
 			</td>
 		</tr>
 	</table>
@@ -64,8 +60,6 @@
 				<%= masters.text_field :episode_title %><br/>
 			</td>
 			<td valign="top">
-				Episode Number:<br/>
-				<%= masters.text_field :episode_number %><br/>
 			</td>
 			<td valign="top">
 				Location:<br/>
