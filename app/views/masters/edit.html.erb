@@ -4,6 +4,10 @@
 <div id="content-header-actions">
 [ <%= link_to "Prev", edit_master_path(@prev_id) if !@prev_id.nil?%>
 <%= link_to "Next", edit_master_path(@next_id) if !@next_id.nil?%> ]
+<% if permitted_to? :admin_delete, :masters %>
+<%= link_to_remote 'Delete', 	:url  => master_url(@master), :method => :delete, :confirm => 'Are you sure?' %>
+<% end %>
+
 </div>
 <div id="content-header">Edit Master<br />
 </div>

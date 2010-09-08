@@ -1,8 +1,10 @@
-if @video_is_deleted
-  page.visual_effect :fade, "video-#{@video.id}"
-else
-  page.replace "video-#{@video.id}",  :partial=>"video", :object=>@video
-  page.replace_html :notice, flash[:notice]
-  page.visual_effect :highlight, :notice
-  flash.discard
-end
+page.redirect_to videos_url
+
+# if @video_is_deleted
+#   page.visual_effect :fade, "video-#{@video.id}"
+# else
+#   page.replace "video-#{@video.id}",  :partial=>"video", :object=>@video
+#   page.replace_html :notice, flash[:notice]
+#   page.visual_effect :highlight, :notice
+#   flash.discard
+# end

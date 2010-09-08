@@ -94,11 +94,22 @@ class MastersController < ApplicationController
   def destroy
     @master = Master.find(params[:id])
     
-    @master.destroy
-    flash[:notice] = "Successfully deleted master."
+    #check if video is in any playlists
+    tot_playlists =VideoMasterPlaylistItem.count(:conditions => 'master_id=' + @master.id.to_s )
+    
+    if tot_playlists.zero?
+      if permitted_to? :admin_delete, :masters
+        @master.destroy
+        flash[:notice] = "Successfully deleted master."
+        @master_is_deleted = true
+      end
+	  else
+      flash[:notice] = 'Master could not be deleted, master is in use by playlists'
+    	@master_is_deleted = false
+    end	
     
     respond_to do |format|    
-      format.html { redirect_to edit_cms_video_url(@master.video.id) } 
+      format.html { redirect_to edit_video_url(@master.video.id) } 
       format.js {render :layout => false}
     end
   end

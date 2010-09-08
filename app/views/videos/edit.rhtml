@@ -94,7 +94,10 @@
 	[ <%= link_to "Prev", edit_video_path(@prev_id) if !@prev_id.nil?%>
 	<%= link_to "Next", edit_video_path(@next_id) if !@next_id.nil?%> ]
 	<%= link_to 'View Video', video_path(@video)%> | 
-	<%= link_to "New Video", new_video_path %> 
+	<%= link_to "New Video", new_video_path %> |
+	<% if permitted_to? :admin_delete, :videos %>
+	<%= link_to_remote 'Delete', 	:url  => video_url(@video), :method => :delete, :confirm => 'Are you sure?' %>
+	<% end %>
 	
 </div>
 <div id="content-header">Edit Video<br />

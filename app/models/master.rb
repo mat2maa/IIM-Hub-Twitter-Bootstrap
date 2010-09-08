@@ -8,13 +8,14 @@ class Master < ActiveRecord::Base
   default_scope :order => 'location, episode_number'
   
   validates_presence_of :episode_title
-  validates_format_of :time_in, :with => /(\A[0-9]{1,2}):([0-5]?[0-9]):([0-5]?[0-9]):([0-2][0-9]|[0-9])\z/, 
+  #PAL 25 fps, NTSC 30 fps
+  validates_format_of :time_in, :with => /\A[0-9]+:([0-5]?[0-9]|[0-9]):([0-5]?[0-9]|[0-9]):([0-1][0-9]|2[0-9]|0[0-9]|[0-9])\z/, 
       :if => Proc.new { |master| master.tape_format=='NTSC' }
-  validates_format_of :time_out, :with => /(\A[0-9]{1,2}):([0-5]?[0-9]):([0-5]?[0-9]):([0-2][0-9]|[0-9])\z/, 
+  validates_format_of :time_out, :with => /\A[0-9]+:([0-5]?[0-9]|[0-9]):([0-5]?[0-9]|[0-9]):([0-1][0-9]|2[0-9]|0[0-9]|[0-9])\z/, 
       :if => Proc.new { |master| master.tape_format=='NTSC' }
-  validates_format_of :time_in, :with => /(\A[0-9]{1,2}):([0-5]?[0-9]):([0-5]?[0-9]):([0-2][0-4]|[0-9])\z/, 
+  validates_format_of :time_in, :with => /\A[0-9]+:([0-5]?[0-9]|[0-9]):([0-5]?[0-9]|[0-9]):([0-1][0-9]|2[0-4]|0[0-9]|[0-9])\z/, 
       :if => Proc.new { |master| master.tape_format=='PAL' }
-  validates_format_of :time_out, :with => /(\A[0-9]{1,2}):([0-5]?[0-9]):([0-5]?[0-9]):([0-2][0-4]|[0-9])\z/, 
+  validates_format_of :time_out, :with => /\A[0-9]+:([0-5]?[0-9]|[0-9]):([0-5]?[0-9]|[0-9]):([0-1][0-9]|2[0-4]|0[0-9]|[0-9])\z/, 
       :if => Proc.new { |master| master.tape_format=='PAL' }
   
   def before_save

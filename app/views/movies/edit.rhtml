@@ -5,7 +5,12 @@
 [ <%= link_to "Prev", edit_movie_path(@prev_id) if !@prev_id.nil?%>
 <%= link_to "Next", edit_movie_path(@next_id) if !@next_id.nil?%> ]
 <%= link_to 'View Movie', movie_path(@movie)%> |
-<%= link_to "New Movie", new_movie_path %>
+<%= link_to "New Movie", new_movie_path %> | 
+<% if permitted_to? :admin_delete, :movies %>
+<%= link_to_remote 'Delete', 	:url  => movie_url(@movie), :method => :delete, :confirm => 'Are you sure?' %>
+<% end %>
+
+
 </div>
 <div id="content-header">Edit Movie<br />
 </div>
