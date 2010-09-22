@@ -245,7 +245,7 @@ class VideoMasterPlaylistsController < ApplicationController
     
     # Master Playlist Summary
     # header row
-    sheet.add_row ["Position", "Episode Title", "Tape Media", "Tape Format", "Tape Size", "Aspect Ratio", "Language Track 1", "Language Track 2", "Language Track 3", "Language Track 4", "Video Subtitles", "Master Tape Location", "Master Time In", "Master Time Out", "Duration", "Synopsis"]
+    sheet.add_row ["Position", "Episode Title", "Tape Media", "Tape Format", "Tape Size", "Aspect Ratio", "Language Track 1", "Language Track 2", "Language Track 3", "Language Track 4", "Video Subtitles 1", "Video Subtitles 2", "Master Tape Location", "Master Time In", "Master Time Out", "Duration", "Synopsis"]
 
     # data rows
     video_master_playlist_items.each do |video_master_playlist_item|
@@ -260,7 +260,8 @@ class VideoMasterPlaylistsController < ApplicationController
         video_master_playlist_item.master.language_track_2, 
         video_master_playlist_item.master.language_track_3, 
         video_master_playlist_item.master.language_track_4, 
-        video_master_playlist_item.master.video_subtitles, 
+        video_master_playlist_item.master.video_subtitles_1, 
+        video_master_playlist_item.master.video_subtitles_2, 
         video_master_playlist_item.master.location, 
         video_master_playlist_item.master.time_in, 
         video_master_playlist_item.master.time_out,

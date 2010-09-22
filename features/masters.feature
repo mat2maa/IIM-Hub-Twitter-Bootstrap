@@ -8,11 +8,20 @@ Feature: Masters
 
   Scenario: View masters
     Given the following masters exist:
-		 | id | episode_title | episode_number | location |
-		 | 1  | Tom and Jerry | 1              | 123      |
-		 | 2  | Tom and Jerry | 2              | 123      |
-		 | 3  | Tom and Jerry | 3              | 124      |
-    When I go to path "/masters"		
+		 | id | episode_title   | episode_number | location |
+		 | 1  | Tom and Jerry 1 | ep 1           | 111      |
+		 | 2  | Tom and Jerry 2 | ep 2           | 222      |
+		 | 3  | Tom and Jerry 3 | ep 3           | 333      |
+    When I go to path "/masters"	
+	  Then I should see "TOM AND JERRY 1" 
+	  And I should see "TOM AND JERRY 2" 
+	  And I should see "TOM AND JERRY 3" 
+	  And I should see "ep 1" 
+	  And I should see "ep 2" 
+	  And I should see "ep 3" 
+	  And I should see "111" 
+	  And I should see "222" 
+	  And I should see "333" 
   
   
   

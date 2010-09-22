@@ -21,6 +21,12 @@
 		<li <%= "id='curr-nav'" if (yield(:title).include?("Video Master Playlists"))%>>
 			<%= link_to "Video Master Playlists", :controller => "video_master_playlists"  %>
 		</li>
+		<li <%= "id='curr-nav'" if (yield(:title).include?("Screeners"))%>>
+			<%= link_to "Screeners", :controller => "screeners"  %>
+		</li>
+		<li <%= "id='curr-nav'" if (yield(:title).include?("Video Screener Playlists"))%>>
+			<%= link_to "Video Screener Playlists", :controller => "video_screener_playlists"  %>
+		</li>
 		<% if permitted_to? :manage, :movies_settings %>
 			<li  <%= "id='curr-nav'" if (yield(:title).include?("Settings"))%>>
 				<%= link_to "Settings", movies_settings_path %>

@@ -153,7 +153,7 @@ class VideoPlaylistsController < ApplicationController
               airline_code = ""
             end
             @notice += "<br/><div id='exists'>Note! This video #{@video_to_add.programme_title.to_s} exists in playlist 
-                        <a href='/video_playlists/#{playlist_item.video_playlist_id.to_s}' target='_blank'>#{airline_code}#{playlist_item.video_playlist.start_cycle.strftime("%m%y")}</a></div>
+                        <a href='/video_playlists/#{playlist_item.video_playlist_id.to_s}' target='_blank'>#{airline_code}#{playlist_item.video_playlist.start_cycle.strftime("%m%y") unless playlist_item.video_playlist.start_cycle.nil? }</a></div>
                         #{@template.link_to_remote("Continue adding " + @video_to_add.programme_title.to_s + " to playlist", 
                         :url => {:controller => "video_playlists", 
                         :action => "add_video", 

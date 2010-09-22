@@ -1,3 +1,7 @@
+Factory.sequence :episode_title do |n|
+  "the episode title #{n}" 
+end
+
 Factory.sequence :programme_title do |n|
   "the video title #{n}" 
 end
@@ -48,5 +52,11 @@ Factory.define :video do |record|
 end
 
 Factory.define :master do |record|
-  record.association :video   
+  record.episode_title Factory.next :episode_title
+  record.association :video, :factory => :video  
+end
+
+Factory.define :screener do |record|
+  record.episode_title Factory.next :episode_title
+  record.association :video, :factory => :video
 end

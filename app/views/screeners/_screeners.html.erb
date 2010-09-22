@@ -1,0 +1,26 @@
+<% if @search.count > 0 %>
+	<%= @search.count %> screeners found
+	<table cellspacing="0" width="100%">
+	<tr>
+		<th><%= order_by_link  :id %></th>
+		<th><%= order_by_link  :video => :programme_title %></th>
+		<th><%= order_by_link  :episode_title %></th>
+		<th><%= order_by_link  :episode_number %></th>
+		<th><%= order_by_link  :location %></th>
+		<th colspan="2"></th>			
+	</tr>
+	
+	<%= render :partial => "screener", :collection => @screeners %>
+	</table>
+	
+  <% if @search.page_count > 1 %>
+		<br/><br/>
+		<div class="page_links">
+			<%=	page_links()%>
+		</div>
+  <% end %>
+<% else %>
+	
+	No screeners were found
+
+<% end %>

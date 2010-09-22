@@ -11,10 +11,12 @@ authorization do
 		
 		has_permission_on :movies, :to => [:manage, :check_airline_rights, :check_screener_remarks, :check_movie_type, :update_date]
 		has_permission_on :masters, :to => :manage
+		has_permission_on :screeners, :to => :manage
 		has_permission_on :videos, :to => :manage
 		has_permission_on :movie_playlist_items, :to => :manage	
 		has_permission_on :video_playlist_items, :to => :manage	
 		has_permission_on :video_master_playlist_items, :to => :manage	
+		has_permission_on :video_screener_playlist_items, :to => :manage	
 			
 		has_permission_on :movie_playlists, :to => [:read, :create, :update, :print, :add_movie, :add_movie_to_playlist, 
 		            :sort, :export_to_excel, :add_multiple_movies, :duplicate]
@@ -92,6 +94,7 @@ authorization do
 		has_permission_on :movies, :to => [:manage, :admin_delete, :check_airline_rights, :check_screener_remarks, 
 		    :check_movie_type, :update_date, :restore]
 		has_permission_on :masters, :to => [:manage, :admin_delete, :restore]
+		has_permission_on :screeners, :to => [:manage, :admin_delete, :restore]
 		has_permission_on :videos, :to => [:manage, :admin_delete, :restore]
 		has_permission_on :suppliers, :to => :manage		
 		has_permission_on :airline_rights_countries, :to => :manage
@@ -107,6 +110,7 @@ authorization do
 		has_permission_on :movie_playlist_items, :to => :manage	
 		has_permission_on :video_playlist_items, :to => :manage	
 		has_permission_on :video_master_playlist_items, :to => :manage	
+		has_permission_on :video_screener_playlist_items, :to => :manage	
 	
 		has_permission_on :users, :to => [:manage,:edit_own_password, :update_own_password, :enable, :disable]
 		has_permission_on :rights, :to => :manage

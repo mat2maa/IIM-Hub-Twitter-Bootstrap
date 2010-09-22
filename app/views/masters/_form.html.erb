@@ -52,8 +52,10 @@ jQuery(document).ready(function() {
 						:include_blank => false %></td>
 					<td><%= f.input :tape_size, :as => :select, :collection => ["Small","Large"], :label => "Tape Size", 
 						:include_blank => true %></td>	
-					<td><%= f.input :video_subtitles, :as => :select, :collection => IIM::MOVIE_LANGUAGES ,:include_blank => true, 
-						:label => "Video Subtitles" %></td>					
+					<td><%= f.input :video_subtitles_1, :as => :select, :collection => IIM::MOVIE_LANGUAGES ,:include_blank => true, 
+						:label => "Video Subtitles 1" %></td>					
+					<td><%= f.input :video_subtitles_2, :as => :select, :collection => IIM::MOVIE_LANGUAGES ,:include_blank => true, 
+						:label => "Video Subtitles 2" %></td>					
 				</tr>
 				<tr>
 					<td rowspan="2">Episode Synopsis: <%= f.text_area :synopsis, :size => "29x3" %></td>
@@ -81,7 +83,7 @@ jQuery(document).ready(function() {
 					<td><%= f.input :time_in, :size => 8, :input_html=>{:class=>"master_time"}, :label => "Time In" %></td>
 					<td><%= f.input :time_out, :size => 8, :input_html=>{:class=>"master_time"}, :label => "Time Out" %></td>
 					<td>Duration: <br/><%= f.object.duration %></td>
-					<td><%= f.buttons %></td>
+					<td colspan="2"><%= f.buttons %></td>
 				</tr>
 		</table>		
 		
