@@ -20,7 +20,6 @@ class Master < ActiveRecord::Base
   
   def before_save
     self.episode_title = episode_title.upcase
-    
   end
   
   def time_in=(the_time)

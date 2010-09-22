@@ -4,4 +4,8 @@ class Screener < ActiveRecord::Base
   validates_presence_of :episode_title
   default_scope :order => 'location, episode_number'
 
+  def before_save
+    self.episode_title = self.episode_title.upcase    
+  end
+  
 end
