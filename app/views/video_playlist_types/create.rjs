@@ -1,0 +1,3 @@
+page.insert_html :bottom, 'video_playlist_types', :partial => 'video_playlist_type', :locals => {:video_playlist_type => @video_playlist_type}
+page[:video_playlist_type_form].reset
+flash.discard

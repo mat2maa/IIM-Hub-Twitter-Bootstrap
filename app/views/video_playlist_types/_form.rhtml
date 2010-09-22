@@ -1,0 +1,14 @@
+<% form_remote_tag :url => {:action => 'create'}, 
+                    :html => {:id => 'video_playlist_type_form'}  do %>
+<table>
+  <tr>
+	<td>Video Playlist Type Name</td>
+    <td>
+      <%= text_field_tag 'video_playlist_type[name]' %>
+    </td>
+    <td colspan="2">
+      <%= submit_tag "Add New Video Playlist Type" %>
+    </td>
+  </tr>
+</table>
+<% end %>

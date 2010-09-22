@@ -1,23 +1,23 @@
-<%= render :partial => 'layouts/videomasterplaylist_header' %>
+<%= render :partial => 'layouts/screener_playlist_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
 <div id="content-header-actions">
-	<%= link_to "Print Playlist", {:controller => "video_playlists", :action => "show",  :id => @video_master_playlist}, :popup =>true %> |
-	<%= link_to "Export as Excel", :controller => "video_playlists", :action => "export_to_excel",  :id => @video_master_playlist %> 
+	<%= link_to "Print Playlist", {:controller => "screener_playlists", :action => "show",  :id => @screener_playlist}, :popup =>true %> |
+	<%= link_to "Export as Excel", :controller => "screener_playlists", :action => "export_to_excel",  :id => @screener_playlist %> 
 </div>
-<div id="content-header">Video Playlists</div>
+<div id="content-header">Screener Playlists</div>
 </div>
 
 <div id="content">
 <center>
 
-<h2><%=h @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %><%=h @video_master_playlist.start_cycle.strftime("%m%y") %> Video Master Playlist</h2>
+<h2><%=h @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%=h @screener_playlist.start_cycle.strftime("%m%y") %> Screener Playlist</h2>
 
 <table width="900">
-  <%= render :partial => 'playlist_item_view', :collection => @video_master_playlist.video_master_playlist_items_sorted %>
+  <%= render :partial => 'playlist_item_view', :collection => @screener_playlist.screener_playlist_items_sorted %>
 </table>
 
-<%= link_to 'Back', video_master_playlists_path %>
+<%= link_to 'Back', screener_playlists_path %>
 
 </center>
 </div>

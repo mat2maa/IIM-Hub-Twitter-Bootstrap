@@ -106,6 +106,7 @@ authorization do
 		has_permission_on :video_parent_genres, :to => :manage
 		has_permission_on :movies_settings, :to => :manage
 		has_permission_on :commercial_run_times, :to => :manage
+		has_permission_on :video_playlist_types, :to => :manage
 		
 		has_permission_on :publishers, :to => :manage
 		has_permission_on :album_playlist_items, :to => :manage

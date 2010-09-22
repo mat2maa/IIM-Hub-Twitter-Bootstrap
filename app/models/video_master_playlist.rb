@@ -1,7 +1,8 @@
 class VideoMasterPlaylist < ActiveRecord::Base
   has_many :video_master_playlist_items, :dependent => :destroy
   has_many :masters, :through => :video_master_playlist_items, :order => "position"
-
+  belongs_to :video_playlist_type
+  
   belongs_to :airline
   belongs_to :user
   

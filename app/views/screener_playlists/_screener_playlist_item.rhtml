@@ -1,57 +1,33 @@
-	<% @master = video_master_playlist_item.master %>
-	<% @video_master_playlist_item = video_master_playlist_item %>
-  	<tr id="item_<%=h video_master_playlist_item.id %>">
-	<% if video_master_playlist_item.master.nil? %>
-    <td colspan="2">Missing master <%=h video_master_playlist_item.master_id %></td>
+	<% @screener = screener_playlist_item.screener %>
+	<% @screener_playlist_item = screener_playlist_item %>
+  	<tr id="item_<%=h screener_playlist_item.id %>">
+	<% if screener_playlist_item.screener.nil? %>
+    <td colspan="2">Missing screener <%=h screener_playlist_item.screener_id %></td>
 	<% else %>
 		<td>
 			<table width="100%">
 				<tr>
-					<th width="130">(<%=h video_master_playlist_item.position %>) Episode Title [<%= link_to "Edit", edit_master_path(video_master_playlist_item.master.id), :popup => true %>]:</th>
-					<td width="200"><%= video_master_playlist_item.master.episode_title %></td>
-					<th width="85">Language Track 1:</th>
-					<td width="85"><%=h video_master_playlist_item.master.language_track_1 %></td>
-					<th width="85">Language Track 2:</th>
-					<td width="85"><%=h video_master_playlist_item.master.language_track_2 %></td>
-					<th width="85">Language Track 3:</th>
-					<td width="85"><%=h video_master_playlist_item.master.language_track_3 %></td>
-					<th width="85">Language Track 4:</th>
-					<td width="85"><%=h video_master_playlist_item.master.language_track_4 %></td>
-				</tr>
+					<th width="130">(<%=h screener_playlist_item.position %>) Episode Title [<%= link_to "Edit", edit_screener_path(screener_playlist_item.screener.id), :popup => true %>]:</th>
+					<td width="200"><%= screener_playlist_item.screener.episode_title %></td>
+					<td><%=h screener_playlist_item.screener.episode_title %></td>
+					<td width="100">Episode Number:</td>
+					<td><%=h screener_playlist_item.screener.episode_number %></td>
+					<td width="100">Remarks:</td>
+					<td><%=h screener_playlist_item.screener.remarks %></td>
+					<td width="100">Other:</td>
+					<td><%=h screener_playlist_item.screener.remarks_other %></td>
+					<td width="100">Location:</td>
+					<td><%=h screener_playlist_item.screener.location %></td>				</tr>
 				<tr>
-					<th>Tape Media:</th>
-					<td><%=h video_master_playlist_item.master.tape_media %></td>
-					<th>Tape Format:</th>
-					<td><%=h video_master_playlist_item.master.tape_format %></td>
-					<th>Tape Size:</th>
-					<td><%=h video_master_playlist_item.master.tape_size %></td>
-					<th>Video Subtitles 1:</th>
-					<td><%=h video_master_playlist_item.master.video_subtitles_1 %></td>
-					<th>Video Subtitles 2:</th>
-					<td><%=h video_master_playlist_item.master.video_subtitles_2 %></td>
-				</tr>
-				<tr>
-					<th>Master Tape Location:</th>
-					<td><%=h video_master_playlist_item.master.location %></td>
-					<th>Master Time In:</th>
-					<td><%=h video_master_playlist_item.master.time_in %></td>
-					<th>Master Time Out:</th>
-					<td><%=h video_master_playlist_item.master.time_out %></td>
-					<th>Aspect Ratio:</th>
-					<td><%=h video_master_playlist_item.master.aspect_ratio %></td>
-					<th>Duration:</th>
-					<td><%=h video_master_playlist_item.master.duration %></td>
-				</tr>
-				<tr>
-					<td valign="top"><strong>Mastering:</strong><br/>
+					<td valign="top">Mastering:<br/>
 					</td>
 					<td  colspan="12">
-						<%=in_place_text_area :video_master_playlist_item, :mastering, {:rows=>"2"}%>
+						<%=in_place_text_area :screener_playlist_item, :mastering, {:rows=>"2"}%>
 					</td>
 				</tr>
 			</table>
 		</td>
 		<td class="actions"><%= image_tag("arrow_move.png") %></td>
     <% end %>
-		<td class="actions"><%= link_to_remote "Delete", :confirm=>"Are you sure", :url => video_master_playlist_item , :method => 'delete' %></td>
+		<td class="actions"><%= link_to_remote "Delete", :confirm=>"Are you sure", :url => screener_playlist_item , :method => 'delete' %></td>
 	</tr>

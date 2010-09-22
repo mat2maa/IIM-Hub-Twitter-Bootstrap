@@ -1,1 +1,1 @@
-page.replace_html "video_master_playlists", :partial => "video_master_playlists"
+page.replace_html "screener_playlists", :partial => "screener_playlists"

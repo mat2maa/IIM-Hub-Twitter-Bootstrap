@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100922095355) do
+ActiveRecord::Schema.define(:version => 20100922131251) do
 
   create_table "airline_rights_countries", :force => true do |t|
     t.string   "name"
@@ -284,6 +284,7 @@ ActiveRecord::Schema.define(:version => 20100922095355) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "aspect_ratio"
+    t.string   "video_subtitles_2"
   end
 
   add_index "masters", ["video_id"], :name => "index_masters_on_video_id"
@@ -610,9 +611,13 @@ ActiveRecord::Schema.define(:version => 20100922095355) do
     t.date     "start_cycle"
     t.date     "end_cycle"
     t.integer  "user_id"
-    t.boolean  "locked",      :default => false, :null => false
+    t.boolean  "locked",                 :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "total_runtime"
+    t.string   "edit_runtime"
+    t.text     "media_instruction"
+    t.integer  "video_playlist_type_id"
   end
 
   add_index "video_master_playlists", ["airline_id"], :name => "index_video_master_playlists_on_airline_id"
@@ -633,6 +638,12 @@ ActiveRecord::Schema.define(:version => 20100922095355) do
 
   add_index "video_playlist_items", ["video_id"], :name => "index_video_playlist_items_on_video_id"
   add_index "video_playlist_items", ["video_playlist_id"], :name => "index_video_playlist_items_on_video_playlist_id"
+
+  create_table "video_playlist_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "video_playlists", :force => true do |t|
     t.integer  "airline_id"

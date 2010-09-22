@@ -43,8 +43,8 @@ class ScreenerPlaylistsController < ApplicationController
   end
   
   def edit 
-    @screener_playlist = ScreenerPlaylist.find(params[:id],:include=>[:screener_playlist_items,:masters])
-    session[:masters_search] = collection_to_id_array(@screener_playlist.masters)
+    @screener_playlist = ScreenerPlaylist.find(params[:id],:include=>[:screener_playlist_items,:screeners])
+    session[:screeners_search] = collection_to_id_array(@screener_playlist.screeners)
     
   end 
 
@@ -64,13 +64,13 @@ class ScreenerPlaylistsController < ApplicationController
   end
   
   def show 
-    @screener_playlist = ScreenerPlaylist.find(params[:id],:include=>[:screener_playlist_items,:masters])
+    @screener_playlist = ScreenerPlaylist.find(params[:id],:include=>[:screener_playlist_items,:screeners])
   end
   
   #display overlay
-  def add_master_to_playlist
+  def add_screener_to_playlist
     if !params[:screener_playlists].nil?
-      @search = Master.new_search(params[:screener_playlists])      
+      @search = Screener.new_search(params[:screener_playlists])      
       if !params[:search].nil?
         search = params[:search]        
         @search.per_page = search[:per_page] if !search[:per_page].nil? 
@@ -82,7 +82,7 @@ class ScreenerPlaylistsController < ApplicationController
     else
       @screeners = nil
       @screeners_count = 0
-      @search = Master.new_search
+      @search = Screener.new_search
     end
 
     respond_to do |format|
@@ -112,7 +112,7 @@ class ScreenerPlaylistsController < ApplicationController
     :group=>"screener_playlist_id")
     @notice=""
 
-    @screener_to_add = Master.find(params[:screener_id])
+    @screener_to_add = Screener.find(params[:screener_id])
 
     if !@playlists_with_video.empty? && params[:add].nil?
       @playlists_with_video.each do |playlist_item|
@@ -121,7 +121,7 @@ class ScreenerPlaylistsController < ApplicationController
 
     else
       if @screener_playlist_item.save
-        flash[:notice] = 'Master was successfully added.'
+        flash[:notice] = 'Screener was successfully added.'
         session[:screeners_search] = collection_to_id_array(@screener_playlist.screeners)
       end
     end
@@ -142,7 +142,7 @@ class ScreenerPlaylistsController < ApplicationController
       :conditions=>"screener_id=#{screener_id}",
       :group=>"screener_playlist_id")
 
-      @screener_to_add = Master.find(screener_id)
+      @screener_to_add = Screener.find(screener_id)
       if !@playlists_with_video.empty? && params[:add].nil?
         @playlists_with_video.each do |playlist_item|
           if !playlist_item.screener_playlist.nil?
@@ -165,7 +165,7 @@ class ScreenerPlaylistsController < ApplicationController
         end     
       else
         if @screener_playlist_item.save
-          flash[:notice] = 'Masters were successfully added.'
+          flash[:notice] = 'Screeners were successfully added.'
           session[:screeners_search] = collection_to_id_array(@screener_playlist.screeners)
         end
       end
@@ -243,30 +243,19 @@ class ScreenerPlaylistsController < ApplicationController
     
     screener_playlist_items = @screener_playlist.screener_playlist_items_sorted
     
-    # Master Playlist Summary
+    # Screener Playlist Summary
     # header row
-    sheet.add_row ["Position", "Episode Title", "Tape Media", "Tape Format", "Tape Size", "Aspect Ratio", "Language Track 1", "Language Track 2", "Language Track 3", "Language Track 4", "Video Subtitles 1", "Video Subtitles 2", "Master Tape Location", "Master Time In", "Master Time Out", "Duration", "Synopsis"]
+    sheet.add_row ["Position", "Episode Title", "Episode Number", "Remarks", "Other", "Location"]
 
     # data rows
     screener_playlist_items.each do |screener_playlist_item|
 
       sheet.add_row [screener_playlist_item.position, 
         screener_playlist_item.screener.episode_title, 
-        screener_playlist_item.screener.tape_media, 
-        screener_playlist_item.screener.tape_format, 
-        screener_playlist_item.screener.tape_size, 
-        screener_playlist_item.screener.aspect_ratio, 
-        screener_playlist_item.screener.language_track_1, 
-        screener_playlist_item.screener.language_track_2, 
-        screener_playlist_item.screener.language_track_3, 
-        screener_playlist_item.screener.language_track_4, 
-        screener_playlist_item.screener.video_subtitles_1, 
-        screener_playlist_item.screener.video_subtitles_2, 
-        screener_playlist_item.screener.location, 
-        screener_playlist_item.screener.time_in, 
-        screener_playlist_item.screener.time_out,
-        screener_playlist_item.screener.duration,  
-        screener_playlist_item.screener.synopsis]
+        screener_playlist_item.screener.episode_number, 
+        screener_playlist_item.screener.remarks, 
+        screener_playlist_item.screener.remarks_other, 
+        screener_playlist_item.screener.location]
       end
 
       sheet.add_lines(1)
@@ -274,7 +263,7 @@ class ScreenerPlaylistsController < ApplicationController
       data = StringIO.new ''
       book.write data
       send_data data.string, :type=>"application/excel", 
-      :disposition=>'attachment', :filename => "#{airline_code}#{@screener_playlist.start_cycle.strftime("%m%y")} Video Master Playlist.xls"
+      :disposition=>'attachment', :filename => "#{airline_code}#{@screener_playlist.start_cycle.strftime("%m%y")} Video Screener Playlist.xls"
   end
 
   def sort

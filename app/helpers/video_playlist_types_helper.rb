@@ -1,0 +1,2 @@
+module VideoPlaylistTypesHelper
+end

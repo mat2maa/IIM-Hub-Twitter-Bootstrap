@@ -283,9 +283,9 @@ class MoviePlaylistsController < ApplicationController
 
     @playlist = MoviePlaylist.find(params[:id])
     @playlist_duplicate = MoviePlaylist.create(
-      :airline_id => @playlist.airline_id,
       :start_cycle => @playlist.start_cycle,
       :end_cycle => @playlist.end_cycle,
+      :movie_type => @playlist.movie_type,
       :user_id => current_user.id
     )
 

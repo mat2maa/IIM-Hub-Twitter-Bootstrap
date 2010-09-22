@@ -2,25 +2,25 @@
 <meta name="pdfkit-orientation" content="Landscape"/>
 <% end %>
 
-<%= render :partial => 'layouts/videomasterplaylist_header' %>
+<%= render :partial => 'layouts/screener_playlist_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
 <div id="content-header-actions">
-	<%= link_to "View Playlist", {:controller => "video_master_playlists", :action => "show",  :id => @video_master_playlist}, :popup =>true %> |
-	<%= link_to "Download Full PDF", {:controller => "video_master_playlists", :action => "print",  :id => @video_master_playlist, :format => "pdf"} %> |
-	<%= link_to "Download Summary PDF", {:controller => "video_master_playlists", :action => "edit",  :id => @video_master_playlist, :format => "pdf"} %> |	
-	<%= link_to "Export as Excel", :controller => "video_master_playlists", :action => "export_to_excel",  :id => @video_master_playlist %> 
+	<%= link_to "View Playlist", {:controller => "screener_playlists", :action => "show",  :id => @screener_playlist}, :popup =>true %> |
+	<%= link_to "Download Full PDF", {:controller => "screener_playlists", :action => "print",  :id => @screener_playlist, :format => "pdf"} %> |
+	<%= link_to "Download Summary PDF", {:controller => "screener_playlists", :action => "edit",  :id => @screener_playlist, :format => "pdf"} %> |	
+	<%= link_to "Export as Excel", :controller => "screener_playlists", :action => "export_to_excel",  :id => @screener_playlist %> 
 </div>
-<div id="content-header">Video Playlists</div>
+<div id="content-header">Screener Playlists</div>
 </div>
 
 <div id="content">
 <center>
-<h2>Edit Video Master Playlist</h2>
+<h2>Edit Screener Playlist</h2>
 
-<div class="action-button"><%= link_to_show_overlay 'add master', add_master_to_playlist_path(@video_master_playlist.id) %></div><br/>
+<div class="action-button"><%= link_to_show_overlay 'add screener', add_screener_to_playlist_path(@screener_playlist.id) %></div><br/>
 <br/>
-<% form_for(@video_master_playlist) do |form| %> 
+<% form_for(@screener_playlist) do |form| %> 
 
   <%= form.error_messages %>
 
@@ -32,10 +32,10 @@
 
 
 <div id="playlist">
-<%= render :partial => 'playlist', :object => @video_master_playlist %>
+<%= render :partial => 'playlist', :object => @screener_playlist %>
 </div>
 
-<%= link_to 'Back', video_master_playlists_path %>
+<%= link_to 'Back', screener_playlists_path %>
 
 </center>
 </div>

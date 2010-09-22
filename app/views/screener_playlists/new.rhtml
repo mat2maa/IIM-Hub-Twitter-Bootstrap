@@ -1,17 +1,17 @@
-<%= render :partial => 'layouts/videomasterplaylist_header' %>
+<%= render :partial => 'layouts/screener_playlist_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
 <div id="content-header-actions">
 
 </div>
-<div id="content-header">Video Master Playlists</div>
+<div id="content-header">Screener Playlists</div>
 </div>
 
 <div id="content">
 <center>
-<h1>New Video Master Playlist</h1>
+<h1>New Screener Playlist</h1>
 
-<% form_for(@video_master_playlist) do |form| %>
+<% form_for(@screener_playlist) do |form| %>
   <%= form.error_messages %>
 
   <%= render :partial => 'form', :object => form %>

@@ -1,0 +1,2 @@
+page.replace_html 'playlist', :partial => 'playlist', :object => @video_screener_playlist
+page.replace_html 'item_added', :partial => 'items_added', :object => {@screener_to_add, @notice}

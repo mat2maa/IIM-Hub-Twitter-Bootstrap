@@ -15,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.add_movie_to_playlist '/add_movie_to_playlist/:id', :controller => 'movie_playlists', :action => 'add_movie_to_playlist'
   map.add_video_to_playlist '/add_video_to_playlist/:id', :controller => 'video_playlists', :action => 'add_video_to_playlist'
   map.add_master_to_playlist '/add_master_to_playlist/:id', :controller => 'video_master_playlists', :action => 'add_master_to_playlist'
+  map.add_screener_to_playlist '/add_screener_to_playlist/:id', :controller => 'screener_playlists', :action => 'add_screener_to_playlist'
 	map.download_tracks_mp3 '/download_track_mp3/:id', :controller => 'audio_playlists', :action => 'download_mp3'
 	map.download_album_tracks_mp3 '/download_album_mp3/:id', :controller => 'album_playlists', :action => 'download_mp3'
   map.edit_album_playlist_synopsis '/edit_album_playlist_synopsis/:id', :controller => 'album_playlists', :action => 'edit_synopsis'
@@ -78,6 +79,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :movies_settings
   map.resources :videos
   map.resources :commercial_run_times
+  map.resources :video_playlist_types
   
   map.resources :masters
   map.resources :screeners

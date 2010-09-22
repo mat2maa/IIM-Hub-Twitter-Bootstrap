@@ -1,5 +1,6 @@
 <fieldset>
-	<legend>Search Screeners</legend><% f.fields_for @search.conditions do |screeners| %>
+	<legend>Search Screeners</legend>
+	<% f.fields_for @search.conditions do |screeners| %>
 <!--Match ANY or ALL of the conditions:<br />-->
       <%#= screeners.select :any, [["All", false], ["Any", true]] %><br />
 	<%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>

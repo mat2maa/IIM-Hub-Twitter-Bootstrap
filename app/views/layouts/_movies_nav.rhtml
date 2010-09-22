@@ -24,7 +24,7 @@
 		<li <%= "id='curr-nav'" if (yield(:title).include?("Screeners"))%>>
 			<%= link_to "Screeners", :controller => "screeners"  %>
 		</li>
-		<li <%= "id='curr-nav'" if (yield(:title).include?("Video Screener Playlists"))%>>
+		<li <%= "id='curr-nav'" if (yield(:title).include?("Screener Playlists"))%>>
 			<%= link_to "Video Screener Playlists", :controller => "screener_playlists"  %>
 		</li>
 		<% if permitted_to? :manage, :movies_settings %>

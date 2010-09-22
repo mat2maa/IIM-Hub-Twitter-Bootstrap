@@ -5,7 +5,7 @@ class AddSecondSubtitleMasters < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :masters, :video_subtitles_2, :string
+    remove_column :masters, :video_subtitles_2
     rename_column :masters, :video_subtitles_1, :video_subtitles
   end
 end

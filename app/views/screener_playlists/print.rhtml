@@ -1,6 +1,6 @@
 <html>
 <header>
-<title>Images in Motion - <%=h @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %><%=h @video_master_playlist.start_cycle.strftime("%m%y") %> Video Masters Playlist</title>
+<title>Images in Motion - <%=h @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%=h @screener_playlist.start_cycle.strftime("%m%y") %> Screeners Playlist</title>
 <%= stylesheet_link_tag 'print' , :media => 'print' %>
 <%= stylesheet_link_tag 'print' , :media => 'screen' %>
 </header>
@@ -8,11 +8,11 @@
 <div class="print">
 	<center><img src="/images/iim-logo.jpg" /></center>
 	<br/>
-	<h2><%=h @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %><%=h @video_master_playlist.start_cycle.strftime("%m%y") %> Video Master Playlist</h2>
+	<h2><%=h @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%=h @screener_playlist.start_cycle.strftime("%m%y") %> Screener Playlist</h2>
 
 	<div id="playlist">
 		<table width="900">
-		  <%= render :partial => 'playlist_item_view', :collection => @video_master_playlist.video_master_playlist_items_sorted %>
+		  <%= render :partial => 'playlist_item_view', :collection => @screener_playlist.screener_playlist_items_sorted %>
 		</table>
 	</div>
 </div>

@@ -319,17 +319,17 @@ overflow: hidden;
 .center {
 text-align: center;
 }
-#audio_playlists table, #album_playlists table, #albums table, #tracks table, #movies table, .lists table, #videos table, #movie_playlists table, #video_playlists table, #video_master_playlists table{
+#audio_playlists table, #album_playlists table, #albums table, #tracks table, #movies table, .lists table, #videos table, #movie_playlists table, #video_playlists table, #video_master_playlists table, #screener_playlists table{
 	padding:0;
 	margin-top:5px;
 	margin-bottom:10px;
 }
-#audio_playlists th, #album_playlists th, #albums th, #tracks th, #movies th, #movie_playlists th, #video_playlists th, #video_master_playlists th, #videos th, .lists th {
+#audio_playlists th, #album_playlists th, #albums th, #tracks th, #movies th, #movie_playlists th, #video_playlists th, #video_master_playlists th, #videos th, .lists th, #screener_playlists th {
 border-bottom: 2px solid #999;
 padding:5px;
 text-align: left;
 }
-#audio_playlists td , #album_playlists td, #albums td, #tracks td, #movies td, #movie_playlists td, #video_playlists td, #video_master_playlists td, #videos td, .lists td  {
+#audio_playlists td , #album_playlists td, #albums td, #tracks td, #movies td, #movie_playlists td, #video_playlists td, #video_master_playlists td, #videos td, .lists td, #screener_playlists td  {
 border-bottom: 1px solid #999;
 padding:5px;
 text-align: left;
