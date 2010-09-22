@@ -289,7 +289,6 @@ class VideoMasterPlaylistsController < ApplicationController
 
     @playlist = VideoMasterPlaylist.find(params[:id])
     @playlist_duplicate = VideoMasterPlaylist.create(
-      :airline_id => @playlist.airline_id,
       :start_cycle => @playlist.start_cycle,
       :end_cycle => @playlist.end_cycle,
       :user_id => current_user.id
