@@ -96,7 +96,7 @@ class ScreenersController < ApplicationController
     @screener = Screener.find(params[:id])
     
     #check if video is in any playlists
-    tot_playlists =VideoScreenerPlaylistItem.count(:conditions => 'screener_id=' + @screener.id.to_s )
+    tot_playlists =ScreenerPlaylistItem.count(:conditions => 'screener_id=' + @screener.id.to_s )
     
     if tot_playlists.zero?
       if permitted_to? :admin_delete, :screeners

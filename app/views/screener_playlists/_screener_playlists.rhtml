@@ -1,0 +1,46 @@
+<% if @screener_playlists_count > 0 %>
+<%= @screener_playlists_count %> video master playlists found
+
+<table cellspacing="0" width="100%">
+	<tr>
+		<th><%= order_by_link :id %></th>
+		<th><%= order_by_link :airline => :name %></th>
+		<th><%= order_by_link :start_cycle, :text => 'Start Date' %></th>
+		<th><%= order_by_link :end_cycle, :text => 'End Date' %></th>
+		<th colspan="4"></th>			
+	</tr>
+	<% @screener_playlists.each do |screener_playlist| %>
+		<tr id="screener_playlist-<%=h screener_playlist.id %>">
+			<% cache([screener_playlist]) do %>
+				<td><%= link_to screener_playlist.id, screener_playlist_path(:id => screener_playlist.id ) %></td>
+				<td><%=h screener_playlist.airline.name if !screener_playlist.airline_id.nil? %></td>
+				<td><%=h screener_playlist.start_cycle.strftime("%m-%Y") if !screener_playlist.start_cycle.nil? %>&nbsp;</td>
+				<td><%=h screener_playlist.end_cycle.strftime("%m-%Y") if !screener_playlist.end_cycle.nil?  %>&nbsp;</td>
+			<% end %>
+					<td><%= link_to 'Edit', edit_screener_playlist_path(screener_playlist) if screener_playlist.locked!=true %></td>
+					<% if permitted_to? :delete, :screener_playlists %>
+					<td><%= link_to_remote 'Delete', 	:url  => screener_playlist_url(screener_playlist), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"   if screener_playlist.locked!=true %></td>
+					<td><%= link_to 'Duplicate', duplicate_screener_playlist_path(screener_playlist), :confirm => 'Are you sure?', :method => :post %></td>
+				<% end %>
+				<td>
+					<% if permitted_to? :lock, :videos_playlist %>
+						<% if screener_playlist.locked!=true %>
+							<%= link_to 'Lock', lock_screener_playlist_path(screener_playlist), :method => :post %>
+						<% else %>
+							<%= link_to 'Unlock', unlock_screener_playlist_path(screener_playlist), :method => :post %>
+						<% end %>
+					<% end %>
+				</td>		
+			</tr>		
+		<% end %>
+	</table>
+
+  <% if @search.page_count > 1 %>
+		<br/><br/>
+		<div class="page_links">
+			<%=	page_links()%>
+		</div>
+  <% end %>
+	<% else %>
+	No playlists were found
+	<% end %>

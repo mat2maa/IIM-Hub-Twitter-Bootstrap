@@ -1,0 +1,20 @@
+<html>
+<header>
+<title>Images in Motion - <%=h @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %><%=h @video_master_playlist.start_cycle.strftime("%m%y") %> Video Masters Playlist</title>
+<%= stylesheet_link_tag 'print' , :media => 'print' %>
+<%= stylesheet_link_tag 'print' , :media => 'screen' %>
+</header>
+<body>
+<div class="print">
+	<center><img src="/images/iim-logo.jpg" /></center>
+	<br/>
+	<h2><%=h @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %><%=h @video_master_playlist.start_cycle.strftime("%m%y") %> Video Master Playlist</h2>
+
+	<div id="playlist">
+		<table width="900">
+		  <%= render :partial => 'playlist_item_view', :collection => @video_master_playlist.video_master_playlist_items_sorted %>
+		</table>
+	</div>
+</div>
+</body>
+</html>

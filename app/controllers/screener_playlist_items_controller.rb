@@ -1,0 +1,2 @@
+class ScreenerPlaylistItemsController < ApplicationController
+end

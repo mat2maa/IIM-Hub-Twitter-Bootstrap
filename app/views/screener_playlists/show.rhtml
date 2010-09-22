@@ -1,0 +1,23 @@
+<%= render :partial => 'layouts/videomasterplaylist_header' %>
+<center><p style="color: green"><%= flash[:notice] %></p></center>
+<div id="content-header-wrapper">
+<div id="content-header-actions">
+	<%= link_to "Print Playlist", {:controller => "video_playlists", :action => "show",  :id => @video_master_playlist}, :popup =>true %> |
+	<%= link_to "Export as Excel", :controller => "video_playlists", :action => "export_to_excel",  :id => @video_master_playlist %> 
+</div>
+<div id="content-header">Video Playlists</div>
+</div>
+
+<div id="content">
+<center>
+
+<h2><%=h @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %><%=h @video_master_playlist.start_cycle.strftime("%m%y") %> Video Master Playlist</h2>
+
+<table width="900">
+  <%= render :partial => 'playlist_item_view', :collection => @video_master_playlist.video_master_playlist_items_sorted %>
+</table>
+
+<%= link_to 'Back', video_master_playlists_path %>
+
+</center>
+</div>

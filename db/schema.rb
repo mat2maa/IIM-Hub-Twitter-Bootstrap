@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100921055102) do
+ActiveRecord::Schema.define(:version => 20100922095355) do
 
   create_table "airline_rights_countries", :force => true do |t|
     t.string   "name"
@@ -284,7 +284,6 @@ ActiveRecord::Schema.define(:version => 20100921055102) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "aspect_ratio"
-    t.string   "video_subtitles_2"
   end
 
   add_index "masters", ["video_id"], :name => "index_masters_on_video_id"
@@ -422,6 +421,34 @@ ActiveRecord::Schema.define(:version => 20100921055102) do
     t.integer "role_id"
     t.integer "user_id"
   end
+
+  create_table "screener_playlist_items", :force => true do |t|
+    t.integer  "screener_playlist_id"
+    t.integer  "screener_id"
+    t.integer  "position"
+    t.text     "mastering"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "screener_playlist_items", ["screener_id"], :name => "index_screener_playlist_items_on_screener_id"
+  add_index "screener_playlist_items", ["screener_playlist_id"], :name => "index_screener_playlist_items_on_screener_playlist_id"
+
+  create_table "screener_playlists", :force => true do |t|
+    t.integer  "airline_id"
+    t.date     "start_cycle"
+    t.date     "end_cycle"
+    t.integer  "user_id"
+    t.string   "total_runtime"
+    t.string   "edit_runtime"
+    t.text     "media_instruction"
+    t.boolean  "locked",                 :default => false, :null => false
+    t.integer  "video_playlist_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "screener_playlists", ["airline_id"], :name => "index_screener_playlists_on_airline_id"
 
   create_table "screeners", :force => true do |t|
     t.integer  "video_id"
@@ -618,6 +645,15 @@ ActiveRecord::Schema.define(:version => 20100921055102) do
   end
 
   add_index "video_playlists", ["airline_id"], :name => "index_video_playlists_on_airline_id"
+
+  create_table "video_screener_playlist_items", :force => true do |t|
+    t.integer  "video_screener_playlist_id"
+    t.integer  "screener_id"
+    t.integer  "position"
+    t.text     "screenering"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "videos", :force => true do |t|
     t.string   "programme_title"

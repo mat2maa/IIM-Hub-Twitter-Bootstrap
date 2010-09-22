@@ -47,6 +47,10 @@ ActionController::Routing::Routes.draw do |map|
     :collection => { :add_multiple_masters => :put }
   
   map.resources :video_master_playlist_items
+
+  map.resources :screener_playlists, :member => {:duplicate => :post, :lock => :post, :unlock => :post}, 
+    :collection => { :add_multiple_screeners => :put }  
+  map.resources :screener_playlist_items
   
   map.resources :import_album, :collection => {:find_albums => :post,:cddb_import => :post, :update_album_mp3_exists => :post},  
     :member => {:itunes_import => :post}    

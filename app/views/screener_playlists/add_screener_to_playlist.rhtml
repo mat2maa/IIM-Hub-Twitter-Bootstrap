@@ -1,0 +1,19 @@
+<center>
+  <div class="overlay">
+    <%= link_to_hide_overlay 'X', video_master_playlists_path, :id => "cancel" %><br/>
+		<strong>Add Master to Playlist</strong>
+		  <div id="search_form">
+      <% remote_form_for :video_master_playlists, :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')" do |f| %>
+      <%= hidden_field_tag 'id', params[:id] %>
+			<%= hidden_field_tag 'playlist_id', params[:id] %>
+      <%= render :partial => 'video_master_search_form', :locals => { :f => f } %>
+      <% end %> 
+    </div>
+		<%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
+		<br/>
+		<div id="item_added"></div>
+    <div id="masters" class="lists">
+     	<%= render :partial => "masters" %>
+    </div>
+</div>
+</center>

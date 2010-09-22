@@ -44,11 +44,3 @@ Feature: Screeners
 		 | 1          | 1/1/2010    | 1/2/2010  |
 	  When event
 	  Then outcome
-	
-	
-	
-	
-	
-	
-
-  

@@ -10,13 +10,10 @@ class CreateVideoMasterPlaylists < ActiveRecord::Migration
       t.timestamps
     end
     add_index :video_master_playlists, :airline_id
-
     
   end
 
   def self.down
-
-
     drop_table :video_master_playlists
   end
 end
