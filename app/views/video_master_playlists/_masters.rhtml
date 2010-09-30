@@ -7,6 +7,7 @@
         <tr>
 						<th width="8"><%= check_box_tag('check_all', 'check_all', false,  :onclick => "$$('#video_ids_').each(function(box){box.checked=($('check_all').checked)?true:false});")%></th>
             <th><%= remote_order_by_link :id, :search_obj => @search, :params_scope => :video_master_playlists %></th>
+            <th>Programme Title</th>
             <th><%= remote_order_by_link :episode_title, :search_obj => @search, :params_scope => :video_master_playlists  %></th>
             <th><%#= remote_order_by_link :video_type, :search_obj => @search, :params_scope => :video_master_playlists  %></th>
 						<th>&nbsp;</th>			
@@ -16,6 +17,7 @@
               <%# cache([video]) do %>
 								<td><%= check_box_tag "master_ids[]", master.id %></td>
                 <td><%= master.id %></td>
+                <td><%=h master.video.programme_title %></td>
                 <td><%=h master.episode_title %></td>
                 <td><%#=h master.video_type %></td>
               <%# end %>
