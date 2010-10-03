@@ -19,7 +19,7 @@ class Master < ActiveRecord::Base
       :if => Proc.new { |master| master.tape_format=='PAL' }
   
   def before_save
-    self.episode_title = episode_title.upcase
+    self.episode_title = episode_title.upcase unless episode_title.nil?
   end
   
   def time_in=(the_time)
