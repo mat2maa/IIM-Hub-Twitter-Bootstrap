@@ -4,6 +4,8 @@ class Master < ActiveRecord::Base
   has_many :video_master_playlist_items
   has_many :video_master_playlists, :through=>:video_master_playlist_items
   belongs_to :video, :counter_cache => true
+  
+  accepts_nested_attributes_for :video
     
   default_scope :order => 'location, episode_number'
   

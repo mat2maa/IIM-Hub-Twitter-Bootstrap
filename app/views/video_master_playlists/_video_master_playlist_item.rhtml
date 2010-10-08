@@ -7,10 +7,10 @@
 		<td>
 			<table width="100%">
 				<tr>
-					<th width="130">(<%=h video_master_playlist_item.position %>) Episode Title [<%= link_to "Edit", edit_master_path(video_master_playlist_item.master.id), :popup => true %>]:</th>
-					<td width="200"><%= video_master_playlist_item.master.episode_title %></td>
-					<th width="85">Lang Track 1:</th>
-					<td width="85"><%=h video_master_playlist_item.master.language_track_1 %></td>
+					<th width="130">(<%=h video_master_playlist_item.position %>) Programme Title [<%= link_to "Edit", edit_video_path(video_master_playlist_item.master.video.id), :popup => true %>]:</th>
+					<td width="200"><%= video_master_playlist_item.master.video.programme_title %></td>
+					<th width="50">Lang Track 1:</th>
+					<td width="50"><%=h video_master_playlist_item.master.language_track_1 %></td>
 					<th width="85">Lang Track 2:</th>
 					<td width="85"><%=h video_master_playlist_item.master.language_track_2 %></td>
 					<th width="85">Lang Track 3:</th>
@@ -19,16 +19,16 @@
 					<td width="85"><%=h video_master_playlist_item.master.language_track_4 %></td>
 				</tr>
 				<tr>
-					<th width="130">Programme Title [<%= link_to "Edit", edit_video_path(video_master_playlist_item.master.video.id), :popup => true %>]:</th>
-					<td width="200"><%= video_master_playlist_item.master.video.programme_title %></td>
-					<th>Master Tape Location:</th>
+					<th width="130">Episode Title [<%= link_to "Edit", edit_master_path(video_master_playlist_item.master.id), :popup => true %>]:</th>
+					<td width="200"><%= video_master_playlist_item.master.episode_title %></td>
+					<th>Episode #:</th>
+					<td><%=h video_master_playlist_item.master.episode_number %></td>
+					<th>Tape #:</th>
 					<td><%=h video_master_playlist_item.master.location %></td>
-					<th>Master Time In:</th>
+					<th>Time In:</th>
 					<td><%=h video_master_playlist_item.master.time_in %></td>
-					<th>Master Time Out:</th>
+					<th>Time Out:</th>
 					<td><%=h video_master_playlist_item.master.time_out %></td>
-					<th>Aspect Ratio:</th>
-					<td><%=h video_master_playlist_item.master.aspect_ratio %></td>
 				</tr>
 				<tr>
 					<th>Tape Media:</th>
@@ -37,17 +37,19 @@
 					<td><%=h video_master_playlist_item.master.tape_format %></td>
 					<th>Tape Size:</th>
 					<td><%=h video_master_playlist_item.master.tape_size %></td>
-					<th>Subtitles 1:</th>
+					<th>Lang Subs 1:</th>
 					<td><%=h video_master_playlist_item.master.video_subtitles_1 %></td>
-					<th>Subtitles 2:</th>
+					<th>Lang Subs 2:</th>
 					<td><%=h video_master_playlist_item.master.video_subtitles_2 %></td>
 				</tr>
 				<tr>
 					<td valign="top"><strong>Mastering:</strong><br/>
 					</td>
-					<td  colspan="7">
+					<td  colspan="5">
 						<%=in_place_text_area :video_master_playlist_item, :mastering, {:rows=>"2"}%>
 					</td>
+					<th>Aspect Ratio:</th>
+					<td><%=h video_master_playlist_item.master.aspect_ratio %></td>
 					<th>Duration:</th>
 					<td><%=h video_master_playlist_item.master.duration %></td>					
 				</tr>

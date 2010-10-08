@@ -9,7 +9,8 @@
 	<%= link_to "View Playlist", {:controller => "video_playlists", :action => "show",  :id => @video_playlist }, :popup => true%> |
 	<%= link_to "Download Full PDF", {:controller => "video_playlists", :action => "print",  :id => @video_playlist, :format => "pdf"}%> |
 	<%= link_to "Download Summary PDF", {:controller => "video_playlists", :action => "edit",  :id => @video_playlist, :format => "pdf"}%> |
-	<%= link_to "Export as Excel", :controller => "video_playlists", :action => "export_to_excel",  :id => @video_playlist %> 
+	<%= link_to "Export as Excel", :controller => "video_playlists", :action => "export_to_excel",  :id => @video_playlist %> | 
+	<%= link_to "Create a playlist", new_video_playlist_path %>
 </div>
 <div id="content-header">Video Playlists</div>
 </div>

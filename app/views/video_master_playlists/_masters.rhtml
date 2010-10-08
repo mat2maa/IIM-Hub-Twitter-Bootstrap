@@ -9,7 +9,7 @@
             <th><%= remote_order_by_link :id, :search_obj => @search, :params_scope => :video_master_playlists %></th>
             <th>Programme Title</th>
             <th><%= remote_order_by_link :episode_title, :search_obj => @search, :params_scope => :video_master_playlists  %></th>
-            <th><%#= remote_order_by_link :video_type, :search_obj => @search, :params_scope => :video_master_playlists  %></th>
+            <th>Video Type</th>
 						<th>&nbsp;</th>			
         </tr>
         <% @masters.each do |master| %>
@@ -19,7 +19,7 @@
                 <td><%= master.id %></td>
                 <td><%=h master.video.programme_title %></td>
                 <td><%=h master.episode_title %></td>
-                <td><%#=h master.video_type %></td>
+                <td><%=h master.video.video_type %></td>
               <%# end %>
 				  			<td><%= link_to_remote "add to playlist", 
 									:url => {:controller => "video_master_playlists", 

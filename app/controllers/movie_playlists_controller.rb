@@ -233,7 +233,10 @@ class MoviePlaylistsController < ApplicationController
     
     # Movie Playlist Summary
     # header row
-    sheet.add_row ["Position", "Movie Title", "Distributor", "Production Company", "Genre", "Theatrical Run Time", "Rating", "Cast", "Director", "Synopsis", "Poster", "Critics Review"]
+    sheet.add_row ["Position", "Movie Title", "Theatrical Release Year", "Airline Release Date", "Distributor", 
+      "Production Company", "Laboratory", "Genre", "Release Versions", "Theatrical Run Time", "Edited Run Time", 
+      "Rating", "Cast", "Director", "Synopsis", 
+      "Poster", "Critics Review"]
 
     # data rows
     movie_playlist_items.each do |movie_playlist_item|
@@ -249,13 +252,24 @@ class MoviePlaylistsController < ApplicationController
       else
         movie_playlist_item.movie.production_studio.company_name
       end
-      
+
+      if movie_playlist_item.movie.laboratory.nil?
+        laboratory = ""
+      else
+        movie_playlist_item.movie.laboratory.company_name
+      end
+
       sheet.add_row [movie_playlist_item.position, 
         movie_playlist_item.movie.movie_title, 
+        movie_playlist_item.movie.theatrical_release_year,
+        movie_playlist_item.movie.airline_release_date.strftime('%m-%Y'),
         movie_distributor, 
         production_studio, 
+        laboratory,
         movie_playlist_item.movie.movie_genres_string, 
+        movie_playlist_item.movie.release_versions.join(', '),
         movie_playlist_item.movie.theatrical_runtime, 
+        movie_playlist_item.movie.edited_runtime, 
         movie_playlist_item.movie.rating, 
         movie_playlist_item.movie.cast,
         movie_playlist_item.movie.director,  
