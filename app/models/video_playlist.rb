@@ -5,6 +5,9 @@ class VideoPlaylist < ActiveRecord::Base
   belongs_to :airline
   belongs_to :user
   
+  belongs_to :video_playlist_type
+  
+  
   def video_playlist_items_sorted
     return VideoPlaylistItem.find(:all, :conditions=>{:video_playlist_id => self.id}, :order_by=>:position)
 	end

@@ -80,6 +80,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :videos
   map.resources :commercial_run_times
   map.resources :video_playlist_types
+  map.resources :master_playlist_types
   
   map.resources :masters
   map.resources :screeners

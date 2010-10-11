@@ -8,8 +8,8 @@
     <td><%=h @video_master_playlist.user.login if !@video_master_playlist.user_id.nil? %></td>
   </tr>
   <tr>
-		<td class="pl-title">Video Playlist Type :</td>
-		<td><%= select("video_master_playlist", "video_playlist_type_id", VideoPlaylistType.find(:all, :order=>"name asc").collect {|p| [ p.name, p.id] }, { :include_blank => true }) %> <%= link_to "+", video_playlist_types_path, :id => "add", :popup => true %></td>
+		<td class="pl-title">Master Playlist Type :</td>
+		<td><%= select("video_master_playlist", "master_playlist_type_id", MasterPlaylistType.find(:all, :order=>"name asc").collect {|p| [ p.name, p.id] }, { :include_blank => true }) %> <%= link_to "+", master_playlist_types_path, :id => "add", :popup => true %></td>
 		<td class="pl-title">Edit Runtime :</td>
     <td><%= form.text_field :edit_runtime %></td>  
     <td class="pl-title">Total Runtime :</td>

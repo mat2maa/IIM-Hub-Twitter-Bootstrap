@@ -1,0 +1,3 @@
+page.insert_html :bottom, 'master_playlist_types', :partial => 'master_playlist_type', :locals => {:master_playlist_type => @master_playlist_type}
+page[:master_playlist_type_form].reset
+flash.discard

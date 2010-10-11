@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100922131251) do
+ActiveRecord::Schema.define(:version => 20101011155729) do
 
   create_table "airline_rights_countries", :force => true do |t|
     t.string   "name"
@@ -252,13 +252,13 @@ ActiveRecord::Schema.define(:version => 20100922131251) do
     t.datetime "updated_at"
   end
 
-  create_table "laboratories", :force => true do |t|
+  create_table "languages", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "languages", :force => true do |t|
+  create_table "master_playlist_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -288,12 +288,6 @@ ActiveRecord::Schema.define(:version => 20100922131251) do
   end
 
   add_index "masters", ["video_id"], :name => "index_masters_on_video_id"
-
-  create_table "movie_distributors", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "movie_genres", :force => true do |t|
     t.string   "name"
@@ -380,12 +374,6 @@ ActiveRecord::Schema.define(:version => 20100922131251) do
   add_index "movies", ["production_studio_id"], :name => "index_movies_on_production_studio_id"
 
   create_table "origins", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "production_studios", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -572,12 +560,6 @@ ActiveRecord::Schema.define(:version => 20100922131251) do
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token"
 
-  create_table "video_distributors", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "video_genres", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -611,13 +593,13 @@ ActiveRecord::Schema.define(:version => 20100922131251) do
     t.date     "start_cycle"
     t.date     "end_cycle"
     t.integer  "user_id"
-    t.boolean  "locked",                 :default => false, :null => false
+    t.boolean  "locked",                  :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "total_runtime"
     t.string   "edit_runtime"
     t.text     "media_instruction"
-    t.integer  "video_playlist_type_id"
+    t.integer  "master_playlist_type_id"
   end
 
   add_index "video_master_playlists", ["airline_id"], :name => "index_video_master_playlists_on_airline_id"
@@ -650,21 +632,13 @@ ActiveRecord::Schema.define(:version => 20100922131251) do
     t.date     "start_cycle"
     t.date     "end_cycle"
     t.integer  "user_id"
-    t.boolean  "locked",      :default => false, :null => false
+    t.boolean  "locked",                 :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "video_playlist_type_id"
   end
 
   add_index "video_playlists", ["airline_id"], :name => "index_video_playlists_on_airline_id"
-
-  create_table "video_screener_playlist_items", :force => true do |t|
-    t.integer  "video_screener_playlist_id"
-    t.integer  "screener_id"
-    t.integer  "position"
-    t.text     "screenering"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "videos", :force => true do |t|
     t.string   "programme_title"
@@ -678,6 +652,7 @@ ActiveRecord::Schema.define(:version => 20100922131251) do
     t.string   "trailer_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "movie_id"
     t.string   "poster_file_name"
     t.string   "poster_content_type"
     t.integer  "poster_file_size"
@@ -685,7 +660,6 @@ ActiveRecord::Schema.define(:version => 20100922131251) do
     t.boolean  "to_delete",               :default => false
     t.integer  "language_tracks_mask"
     t.integer  "language_subtitles_mask"
-    t.integer  "movie_id"
     t.integer  "commercial_run_time_id"
     t.integer  "video_distributor_id"
     t.boolean  "on_going_series"

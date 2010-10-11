@@ -6,6 +6,9 @@
 		<li <%= "id='curr-nav'" if (yield(:title).include?("Video Playlist Types"))%>>
 			<%= link_to "Video Playlist Types", :controller => "video_playlist_types" %>
 		</li>
+		<li <%= "id='curr-nav'" if (yield(:title).include?("Master Playlist Types"))%>>
+			<%= link_to "Master Playlist Types", :controller => "master_playlist_types" %>
+		</li>
 		<li <%= "id='curr-nav'" if (yield(:title).eql?(" - Movie Genres"))%>>
 			<%= link_to "Movie Genres", :controller => "movie_genres"  %>
 		</li>
