@@ -283,7 +283,7 @@ class MoviePlaylistsController < ApplicationController
     data = StringIO.new ''
     book.write data
     send_data data.string, :type=>"application/excel", 
-    :disposition=>'attachment', :filename => "#{airline_code}#{@movie_playlist.start_cycle.strftime("%m%y")} Movie Playlist.xls"
+    :disposition=>'attachment', :filename => "#{airline_code}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_type}.xls"
   end
   
   def sort
