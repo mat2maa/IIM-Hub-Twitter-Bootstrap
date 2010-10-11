@@ -12,6 +12,8 @@
 				<%= video.text_field :programme_title_keywords %><br/>
 				Episode Title:<br/>
 				<%= masters.text_field :episode_title_keywords %><br/>
+				Episode #:<br/>
+				<%= masters.text_field :episode_number_equals %><br/>
 				<% video.fields_for video.object.video_genres do |genres| %> 
 					<% genres.fields_for "video_parent_genre" do |parents| %> 
 					Genre:<br/>
