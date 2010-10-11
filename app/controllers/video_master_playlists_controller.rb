@@ -250,24 +250,26 @@ class VideoMasterPlaylistsController < ApplicationController
 
     # data rows
     video_master_playlist_items.each do |video_master_playlist_item|
-
-      sheet.add_row [video_master_playlist_item.position, 
-        video_master_playlist_item.master.episode_title, 
-        video_master_playlist_item.master.tape_media, 
-        video_master_playlist_item.master.tape_format, 
-        video_master_playlist_item.master.tape_size, 
-        video_master_playlist_item.master.aspect_ratio, 
-        video_master_playlist_item.master.language_track_1, 
-        video_master_playlist_item.master.language_track_2, 
-        video_master_playlist_item.master.language_track_3, 
-        video_master_playlist_item.master.language_track_4, 
-        video_master_playlist_item.master.video_subtitles_1, 
-        video_master_playlist_item.master.video_subtitles_2, 
-        video_master_playlist_item.master.location, 
-        video_master_playlist_item.master.time_in, 
-        video_master_playlist_item.master.time_out,
-        video_master_playlist_item.master.duration,  
-        video_master_playlist_item.master.synopsis]
+      
+      if !video_master_playlist_item.master.nil?
+        sheet.add_row [video_master_playlist_item.position, 
+          video_master_playlist_item.master.episode_title, 
+          video_master_playlist_item.master.tape_media, 
+          video_master_playlist_item.master.tape_format, 
+          video_master_playlist_item.master.tape_size, 
+          video_master_playlist_item.master.aspect_ratio, 
+          video_master_playlist_item.master.language_track_1, 
+          video_master_playlist_item.master.language_track_2, 
+          video_master_playlist_item.master.language_track_3, 
+          video_master_playlist_item.master.language_track_4, 
+          video_master_playlist_item.master.video_subtitles_1, 
+          video_master_playlist_item.master.video_subtitles_2, 
+          video_master_playlist_item.master.location, 
+          video_master_playlist_item.master.time_in, 
+          video_master_playlist_item.master.time_out,
+          video_master_playlist_item.master.duration,  
+          video_master_playlist_item.master.synopsis]
+        end
       end
 
       sheet.add_lines(1)
