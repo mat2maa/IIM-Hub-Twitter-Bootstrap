@@ -295,7 +295,7 @@ class ScreenerPlaylistsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to(screener_playlists_path) }
+      format.html { redirect_to(edit_screener_playlist_path(@playlist_duplicate)) }
     end
   end
 

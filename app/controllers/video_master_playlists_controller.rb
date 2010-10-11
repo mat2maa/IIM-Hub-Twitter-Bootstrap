@@ -309,7 +309,7 @@ class VideoMasterPlaylistsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to(video_master_playlists_path) }
+      format.html { redirect_to(edit_video_master_playlist_path(@playlist_duplicate)) }
     end
   end
 
