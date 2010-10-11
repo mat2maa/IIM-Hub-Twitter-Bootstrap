@@ -314,7 +314,7 @@ class MoviePlaylistsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to(movie_playlists_path) }
+      format.html { redirect_to(edit_movie_playlist_path(@playlist_duplicate)) }
     end
   end
   
