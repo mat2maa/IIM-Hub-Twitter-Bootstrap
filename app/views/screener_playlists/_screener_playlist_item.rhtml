@@ -7,23 +7,23 @@
 		<td>
 			<table width="100%">
 				<tr>
-					<th width="130">(<%=h screener_playlist_item.position %>) Episode Title [<%= link_to "Edit", edit_screener_path(screener_playlist_item.screener.id), :popup => true %>]:</th>
-					<td width="200"><%= screener_playlist_item.screener.episode_title %></td>
-					<td><%=h screener_playlist_item.screener.episode_title %></td>
-					<td width="100">Episode Number:</td>
-					<td><%=h screener_playlist_item.screener.episode_number %></td>
-					<td width="100">Remarks:</td>
-					<td><%=h screener_playlist_item.screener.remarks %></td>
-					<td width="100">Other:</td>
-					<td><%=h screener_playlist_item.screener.remarks_other %></td>
-					<td width="100">Location:</td>
-					<td><%=h screener_playlist_item.screener.location %></td>				</tr>
+					<th width="130">(<%=h screener_playlist_item.position %>) 
+						Programme Title [<%= link_to "Edit", edit_screener_path(screener_playlist_item.screener.id), :popup => true %>]:</th>
+					<td width="200"><%= screener_playlist_item.screener.video.programme_title %></td>
+					<th width="80">Distributor:</th>
+					<td width="190"><%= screener_playlist_item.screener.video.video_distributor.company_name unless screener_playlist_item.screener.video.video_distributor.nil?  %></td>
+					<th width="100">Location:</th>
+					<td width="150"><%=h screener_playlist_item.screener.location %></td>				
+				</tr>
 				<tr>
-					<td valign="top">Mastering:<br/>
-					</td>
-					<td  colspan="12">
-						<%=in_place_text_area :screener_playlist_item, :mastering, {:rows=>"2"}%>
-					</td>
+					<th>Episode Title:</th>
+					<td><%=h screener_playlist_item.screener.episode_title %></td>
+					<th>Episode Number:</th>
+					<td><%=h screener_playlist_item.screener.episode_number %></td>
+					<th>Remarks:</th>
+					<td><%=h screener_playlist_item.screener.remarks %></td>
+					<th>Other:</th>
+					<td><%=h screener_playlist_item.screener.remarks_other %></td>
 				</tr>
 			</table>
 		</td>
