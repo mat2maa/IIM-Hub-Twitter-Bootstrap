@@ -244,19 +244,19 @@ class MoviePlaylistsController < ApplicationController
       if movie_playlist_item.movie.movie_distributor.nil?
         movie_distributor = ""
       else
-        movie_playlist_item.movie.movie_distributor.company_name
+        movie_distributor = movie_playlist_item.movie.movie_distributor.company_name
       end
 
       if movie_playlist_item.movie.production_studio.nil?
         production_studio = ""
       else
-        movie_playlist_item.movie.production_studio.company_name
+        production_studio = movie_playlist_item.movie.production_studio.company_name
       end
 
       if movie_playlist_item.movie.laboratory.nil?
         laboratory = ""
       else
-        movie_playlist_item.movie.laboratory.company_name
+        laboratory = movie_playlist_item.movie.laboratory.company_name
       end
 
       sheet.add_row [movie_playlist_item.position, 
