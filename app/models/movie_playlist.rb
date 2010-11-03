@@ -13,9 +13,8 @@ class MoviePlaylist < ActiveRecord::Base
   MOVIE_TYPE = ["Hollywood Movie", "Arabic Movie", "Asian Movies", "Chinese Movies", "Cantonese Movie", "Danish Movie", 
                 "Dutch Movie", "European Movies",	"Finnish Movie", "French Movie", "German Movie", "Greek Movie", 
                 "Hebrew Movie", "Hindi Movie", "Indonesian Movie", "Italian Movie", "Japanese Movie", "Korean Movie", 
-                "Malay Movie", "Mandarin Movie", 
-  									"Norwegian Movie", "Persian Movie", "Portuguese Movie", "Russian Movie", "Spanish Movie", "Swedish Movie",
-  									"Thai Movie"]
+                "Malay Movie", "Mandarin Movie", "Norwegian Movie", "Persian Movie", "Portuguese Movie", "Russian Movie", 
+                "Spanish Movie", "Swedish Movie", "Thai Movie"]
   									
   def movie_playlist_items_sorted
     return MoviePlaylistItem.find(:all, :conditions=>{:movie_playlist_id => self.id}, :order_by=>:position)
