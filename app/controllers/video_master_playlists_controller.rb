@@ -246,14 +246,21 @@ class VideoMasterPlaylistsController < ApplicationController
     
     # Master Playlist Summary
     # header row
-    sheet.add_row ["Position", "Episode Title", "Tape Media", "Tape Format", "Tape Size", "Aspect Ratio", "Language Track 1", "Language Track 2", "Language Track 3", "Language Track 4", "Video Subtitles 1", "Video Subtitles 2", "Master Tape Location", "Master Time In", "Master Time Out", "Duration", "Synopsis"]
+    sheet.add_row ["Position", "Episode Title", "Distributor", "Tape Media", "Tape Format", "Tape Size", "Aspect Ratio", "Language Track 1", "Language Track 2", "Language Track 3", "Language Track 4", "Video Subtitles 1", "Video Subtitles 2", "Master Tape Location", "Master Time In", "Master Time Out", "Duration", "Synopsis"]
 
     # data rows
     video_master_playlist_items.each do |video_master_playlist_item|
       
+      if video_master_playlist_item.master.video.video_distributor.nil?
+        distributor = ""
+      else
+        distributor = video_master_playlist_item.master.video.video_distributor.company_name 
+      end
+      
       if !video_master_playlist_item.master.nil?
         sheet.add_row [video_master_playlist_item.position, 
           video_master_playlist_item.master.episode_title, 
+          distributor, 
           video_master_playlist_item.master.tape_media, 
           video_master_playlist_item.master.tape_format, 
           video_master_playlist_item.master.tape_size, 

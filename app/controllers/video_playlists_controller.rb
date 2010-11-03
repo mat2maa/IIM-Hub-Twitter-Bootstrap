@@ -255,12 +255,18 @@ class VideoPlaylistsController < ApplicationController
       else
         video_distributor = video_playlist_item.video.video_distributor.company_name
       end
-        
+      
+      if video_playlist_item.video.commercial_run_time.nil?
+        runtime = ""
+      else
+        runtime = video_playlist_item.video.commercial_run_time.minutes
+      end
+      
       sheet.add_row [video_playlist_item.position, 
         video_playlist_item.video.programme_title, 
         video_distributor, 
-        video_playlist_item.video.video_genres_string, 
-        video_playlist_item.video.commercial_run_time.minutes, 
+        video_playlist_item.video.video_genres_string_with_parent, 
+        runtime,
         video_playlist_item.video.episodes_available, 
         video_playlist_item.video.synopsis, 
         "http://hub.iim.com.sg" + video_playlist_item.video.poster.url]

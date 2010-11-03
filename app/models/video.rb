@@ -31,7 +31,7 @@ class Video < ActiveRecord::Base
   validates_attachment_content_type :poster, :content_type => ['image/jpeg', 'image/png']
     
   named_scope :with_language_track, lambda { |language_track| {:conditions => "language_tracks_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_track.to_s)} > 0"} }
-  VIDEO_TYPES = ["Short Subject Programme", "Movie EPK", "Movie Trailer", "Movie Master", "TV Special", "Graphics"]
+  VIDEO_TYPES = ["Short Subject Programme", "Movie EPK", "Movie Trailer", "Movie Master", "TV Special", "Graphics", "Airline Master"]
   TAPE_MEDIA = ["Betacam SP", "Digital Betacam", "DVD", "Betacam SX", "MPEG IMX", "HDCAM", "DVCCAM", "HDCAM", "DVCAM Pro"]
   
   def before_save
@@ -53,7 +53,12 @@ class Video < ActiveRecord::Base
     genres = self.video_genres.collect{|genre| genre.name}
     genres.join(', ')
   end
-      
+     
+  def video_genres_string_with_parent
+    genres = self.video_genres.collect{|genre| "#{genre.video_parent_genre.name} - #{genre.name}"}
+    genres.join(', ')
+  end
+   
   def language_tracks=(language_tracks)
     self.language_tracks_mask = (language_tracks & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum
   end

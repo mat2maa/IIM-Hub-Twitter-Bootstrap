@@ -245,12 +245,20 @@ class ScreenerPlaylistsController < ApplicationController
     
     # Screener Playlist Summary
     # header row
-    sheet.add_row ["Position", "Episode Title", "Episode Number", "Remarks", "Other", "Location"]
+    sheet.add_row ["Position", "Video Title", "Distributor", "Episode Title", "Episode Number", "Remarks", "Other", "Location"]
 
     # data rows
     screener_playlist_items.each do |screener_playlist_item|
 
+      if screener_playlist_item.screener.video.video_distributor.nil?
+        distributor = ""
+      else
+        distributor = screener_playlist_item.screener.video.video_distributor 
+      end
+      
       sheet.add_row [screener_playlist_item.position, 
+        screener_playlist_item.screener.video.programme_title, 
+        distributor,
         screener_playlist_item.screener.episode_title, 
         screener_playlist_item.screener.episode_number, 
         screener_playlist_item.screener.remarks, 
