@@ -107,10 +107,9 @@ class MastersController < ApplicationController
       flash[:notice] = 'Master could not be deleted, master is in use by playlists'
     	@master_is_deleted = false
     end	
-    
     respond_to do |format|    
       format.html { redirect_to edit_video_url(@master.video.id) } 
-      format.js {render :layout => false}
+      format.js { render :layout => false}
     end
   end
   

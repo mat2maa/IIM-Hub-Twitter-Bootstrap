@@ -33,7 +33,7 @@
 			jQuery(".delete_master").live('click', function(master){
 				master.preventDefault();
 				if(confirm("Are you sure?")){
-          jQuery.post(this.href, {_method:'delete'}, null, "script");
+          jQuery.post(this.href, {_method:'delete', video:true}, null, "script");
           return false;
         } else {
           //they clicked no.

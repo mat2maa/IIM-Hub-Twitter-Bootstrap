@@ -1,5 +1,6 @@
 page.redirect_to videos_url
 
+
 # if @video_is_deleted
 #   page.visual_effect :fade, "video-#{@video.id}"
 # else
