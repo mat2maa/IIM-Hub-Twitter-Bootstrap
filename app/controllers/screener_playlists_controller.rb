@@ -275,7 +275,7 @@ class ScreenerPlaylistsController < ApplicationController
   end
 
   def sort
-    params[:screenerplaylist].each_with_index do |id, pos|
+    params[:videoplaylist].each_with_index do |id, pos|
       ScreenerPlaylistItem.find(id).update_attribute(:position, pos+1)
     end
     render :nothing => true

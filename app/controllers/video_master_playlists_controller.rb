@@ -288,7 +288,7 @@ class VideoMasterPlaylistsController < ApplicationController
   end
 
   def sort
-    params[:videomasterplaylist].each_with_index do |id, pos|
+    params[:videoplaylist].each_with_index do |id, pos|
       VideoMasterPlaylistItem.find(id).update_attribute(:position, pos+1)
     end
     render :nothing => true

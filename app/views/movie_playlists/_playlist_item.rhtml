@@ -5,20 +5,20 @@
     <td colspan="2">Missing movie <%=h playlist_item.movie_id %></td>
 	<% else %>
 		<td>
-			<table width="1024">
+			<table width="100%">
 				<tr>
 					<th width="90" valign="top">(<%=h playlist_item.position %>) Movie Title:</th>
-					<td width="240" valign="top"><%= link_to playlist_item.movie.movie_title, edit_movie_path(playlist_item.movie), :popup => true %></td>
-					<th width="50" valign="top">Distributor:</th>
-					<td width="200" valign="top"><%=h playlist_item.movie.movie_distributor.company_name if !playlist_item.movie.movie_distributor.nil? %></td>
-					<th width="120" valign="top">Language Subtitles:</th>
-					<td width="100" valign="top"><%=h playlist_item.movie.language_subtitles.join(', ') %> </td>
-					<th width="120" valign="top">Airline Release Date:</th>
+					<td width="290" valign="top"><%= link_to playlist_item.movie.movie_title, edit_movie_path(playlist_item.movie), :popup => true %></td>
+					<th valign="top" width="80">Lang Tracks:</th>
+					<td valign="top" width="150"><%=h playlist_item.movie.language_tracks.join(', ') %> </td>
+					<th width="50" valign="top">Lang Subs:</th>
+					<td width="50" valign="top"><%=h playlist_item.movie.language_subtitles.join(', ') %> </td>
+					<th width="100" valign="top">Release Date:</th>
 					<td valign="top"><%=h playlist_item.movie.airline_release_date.strftime('%m-%Y') if !playlist_item.movie.airline_release_date.nil? %></td>
 				</tr>
 				<tr>
-					<th valign="top">Avail Lang Tracks:</th>
-					<td valign="top"><%=h playlist_item.movie.language_tracks.join(', ') %> </td>
+					<th valign="top">Distributor:</th>
+					<td valign="top"><%=h playlist_item.movie.movie_distributor.company_name if !playlist_item.movie.movie_distributor.nil? %></td>
 					<th valign="top">Laboratory:</th>
 					<td valign="top"><%=h playlist_item.movie.laboratory.company_name if !playlist_item.movie.laboratory.nil? %> </td>
 					<th valign="top">Rating:</th>

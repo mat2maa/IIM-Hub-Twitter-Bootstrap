@@ -22,7 +22,8 @@
                 <td><%=h movie.movie_type %></td>
                 <td><%=h movie.airline_release_date.strftime("%m-%Y") if !movie.airline_release_date.nil? %></td>
               <% end %>
-								<td><span id="exists"><%#= MoviePlaylist.with_same_airline_and_movie(movie.id, (@movie_playlist.airline_id.nil? ? '' : @movie_playlist.airline_id)).collect{|playlist| link_to("#{playlist.airline.code if !playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}", edit_movie_playlist_url(playlist), :popup => true)}.join(', ') if(movie.in_playlists!="" && !movie.in_playlists.nil?) %></span></td>
+								<td><span id="exists">
+								<%#= MoviePlaylist.with_same_airline_and_movie(movie.id, (@movie_playlist.airline_id.nil? ? '' : @movie_playlist.airline_id)).collect{|playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}", edit_movie_playlist_url(playlist), :popup => true)}.join(', ') if(movie.in_playlists!="" && !movie.in_playlists.nil?) %></span></td>
 				  			<td><%= link_to_remote "add to playlist", 
 									:url => {:controller => "movie_playlists", 
 									:action => "add_movie", 
