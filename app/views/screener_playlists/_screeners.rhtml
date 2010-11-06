@@ -9,6 +9,7 @@
             <th><%= remote_order_by_link :id, :search_obj => @search, :params_scope => :screener_playlists %></th>
             <th><%= remote_order_by_link :episode_title, :search_obj => @search, :params_scope => :screener_playlists  %></th>
             <th><%#= remote_order_by_link :video_type, :search_obj => @search, :params_scope => :screener_playlists  %></th>
+            <th>In Playlists With<br/>Same Airline</th>
 						<th>&nbsp;</th>			
         </tr>
         <% @screeners.each do |screener| %>
@@ -18,6 +19,13 @@
                 <td><%= screener.id %></td>
                 <td><%=h screener.episode_title %></td>
                 <td><%#=h screener.video_type %></td>
+								<td>
+									<span id="exists">
+										<% if(screener.in_playlists!="" && !screener.in_playlists.nil?) %>
+											<%= ScreenerPlaylist.with_same_airline_and_screener(screener.id, (@screener_playlist.airline_id unless @screener_playlist.airline.nil?)).collect{|playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}", edit_screener_playlist_path(playlist), :popup => true) }.join(', ') %>
+										<% end %>
+									</span>
+								</td>
               <%# end %>
 				  			<td><%= link_to_remote "add to playlist", 
 									:url => {:controller => "screener_playlists", 

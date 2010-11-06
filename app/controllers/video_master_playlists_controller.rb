@@ -69,6 +69,7 @@ class VideoMasterPlaylistsController < ApplicationController
   
   #display overlay
   def add_master_to_playlist
+    @video_master_playlist = VideoMasterPlaylist.find(params[:id])
     
     if !params[:video_master_playlists].nil?
       @search = Master.new_search(params[:video_master_playlists])      
@@ -107,24 +108,13 @@ class VideoMasterPlaylistsController < ApplicationController
     @video_master_playlist = VideoMasterPlaylist.find(params[:id])
     @video_master_playlist_item = VideoMasterPlaylistItem.new(:video_master_playlist_id => params[:id], :master_id => params[:master_id], :position => @video_master_playlist.video_master_playlist_items.count + 1)
 
-    #check if video has been added to a previous playlist before    
-    @playlists_with_video = VideoMasterPlaylistItem.find(:all, 
-    :conditions=>"master_id=#{params[:master_id]}",
-    :group=>"video_master_playlist_id")
     @notice=""
 
     @master_to_add = Master.find(params[:master_id])
 
-    if !@playlists_with_video.empty? && params[:add].nil?
-      @playlists_with_video.each do |playlist_item|
-        @notice += "<br/><div id='exists'>Note! This video #{@master_to_add.id.to_s} exists in playlist <a href='/video_master_playlists/#{playlist_item.video_master_playlist_id.to_s}' target='_blank'>#{playlist_item.video_master_playlist_id.to_s}</a></div>" if !playlist_item.video_master_playlist.nil?
-      end     
-
-    else
-      if @video_master_playlist_item.save
-        flash[:notice] = 'Master was successfully added.'
-        session[:masters_search] = collection_to_id_array(@video_master_playlist.masters)
-      end
+    if @video_master_playlist_item.save
+      flash[:notice] = 'Master was successfully added.'
+      session[:masters_search] = collection_to_id_array(@video_master_playlist.masters)
     end
   end  
   
@@ -137,38 +127,11 @@ class VideoMasterPlaylistsController < ApplicationController
     
     master_ids.each do |master_id|
       @video_master_playlist_item = VideoMasterPlaylistItem.new(:video_master_playlist_id => params[:playlist_id], :master_id => master_id, :position => @video_master_playlist.video_master_playlist_items.count + 1)
-    
-      #check if video has been added to a previous playlist before    
-      @playlists_with_video = VideoMasterPlaylistItem.find(:all, 
-      :conditions=>"master_id=#{master_id}",
-      :group=>"video_master_playlist_id")
 
       @master_to_add = Master.find(master_id)
-      if !@playlists_with_video.empty? && params[:add].nil?
-        @playlists_with_video.each do |playlist_item|
-          if !playlist_item.video_master_playlist.nil?
-            if !playlist_item.video_master_playlist.airline_id.nil?
-              airline_code = Airline.find(playlist_item.video_master_playlist.airline_id).code
-            else
-              airline_code = ""
-            end
-            @notice += "<br/><div id='exists'>Note! This video #{@master_to_add.episode_title.to_s} exists in playlist 
-                        <a href='/video_master_playlists/#{playlist_item.video_master_playlist_id.to_s}' target='_blank'>#{airline_code}#{playlist_item.video_master_playlist.start_cycle.strftime("%m%y")}</a></div>
-                        #{@template.link_to_remote("Continue adding " + @master_to_add.episode_title.to_s + " to playlist", 
-                        :url => {:controller => "video_master_playlists", 
-                        :action => "add_master", 
-                        :id => params[:playlist_id], 
-                        :master_id => master_id,
-                        :add => 1},
-                        :loading => "Element.show('spinner')",
-                        :complete => "Element.hide('spinner')")}" 
-          end
-        end     
-      else
-        if @video_master_playlist_item.save
-          flash[:notice] = 'Masters were successfully added.'
-          session[:masters_search] = collection_to_id_array(@video_master_playlist.masters)
-        end
+      if @video_master_playlist_item.save
+        flash[:notice] = 'Masters were successfully added.'
+        session[:masters_search] = collection_to_id_array(@video_master_playlist.masters)
       end
     end # loop through video ids
     

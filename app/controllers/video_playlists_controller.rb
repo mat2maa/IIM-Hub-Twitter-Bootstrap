@@ -67,9 +67,11 @@ class VideoPlaylistsController < ApplicationController
   
   #display overlay
   def add_video_to_playlist
+    @video_playlist = VideoPlaylist.find(params[:id])
+    
     if !params[:video_playlists].nil?
       @search = Video.new_search(params[:video_playlists])      
-      @search.conditions.to_delete_equals=0
+      @search.conditions.to_delete_equals = 0
       @search.conditions.or_foreign_language_title_keywords = params[:video_playlists][:conditions][:or_video_title_keywords]  
       if !params[:search].nil?
         search = params[:search]        
@@ -107,24 +109,13 @@ class VideoPlaylistsController < ApplicationController
     @video_playlist = VideoPlaylist.find(params[:id])
     @video_playlist_item = VideoPlaylistItem.new(:video_playlist_id => params[:id], :video_id => params[:video_id], :position => @video_playlist.video_playlist_items.count + 1)
 
-    #check if video has been added to a previous playlist before    
-    @playlists_with_video = VideoPlaylistItem.find(:all, 
-    :conditions=>"video_id=#{params[:video_id]}",
-    :group=>"video_playlist_id")
     @notice=""
 
     @video_to_add = Video.find(params[:video_id])
 
-    if !@playlists_with_video.empty? && params[:add].nil?
-      @playlists_with_video.each do |playlist_item|
-        @notice += "<br/><div id='exists'>Note! This video #{@video_to_add.id.to_s} exists in playlist <a href='/video_playlists/#{playlist_item.video_playlist_id.to_s}' target='_blank'>#{playlist_item.video_playlist_id.to_s}</a></div>" if !playlist_item.video_playlist.nil?
-      end     
-
-    else
-      if @video_playlist_item.save
-        flash[:notice] = 'Video was successfully added.'
-        session[:videos_search] = collection_to_id_array(@video_playlist.videos)
-      end
+    if @video_playlist_item.save
+      flash[:notice] = 'Video was successfully added.'
+      session[:videos_search] = collection_to_id_array(@video_playlist.videos)
     end
   end  
   
@@ -138,37 +129,10 @@ class VideoPlaylistsController < ApplicationController
     video_ids.each do |video_id|
       @video_playlist_item = VideoPlaylistItem.new(:video_playlist_id => params[:playlist_id], :video_id => video_id, :position => @video_playlist.video_playlist_items.count + 1)
     
-      #check if video has been added to a previous playlist before    
-      @playlists_with_video = VideoPlaylistItem.find(:all, 
-      :conditions=>"video_id=#{video_id}",
-      :group=>"video_playlist_id")
-
       @video_to_add = Video.find(video_id)
-      if !@playlists_with_video.empty? && params[:add].nil?
-        @playlists_with_video.each do |playlist_item|
-          if !playlist_item.video_playlist.nil?
-            if !playlist_item.video_playlist.airline_id.nil?
-              airline_code = Airline.find(playlist_item.video_playlist.airline_id).code
-            else
-              airline_code = ""
-            end
-            @notice += "<br/><div id='exists'>Note! This video #{@video_to_add.programme_title.to_s} exists in playlist 
-                        <a href='/video_playlists/#{playlist_item.video_playlist_id.to_s}' target='_blank'>#{airline_code}#{playlist_item.video_playlist.start_cycle.strftime("%m%y") unless playlist_item.video_playlist.start_cycle.nil? }</a></div>
-                        #{@template.link_to_remote("Continue adding " + @video_to_add.programme_title.to_s + " to playlist", 
-                        :url => {:controller => "video_playlists", 
-                        :action => "add_video", 
-                        :id => params[:playlist_id], 
-                        :video_id => video_id,
-                        :add => 1},
-                        :loading => "Element.show('spinner')",
-                        :complete => "Element.hide('spinner')")}" 
-          end
-        end     
-      else
-        if @video_playlist_item.save
+      if @video_playlist_item.save
           flash[:notice] = 'Videos were successfully added.'
           session[:videos_search] = collection_to_id_array(@video_playlist.videos)          
-        end
       end
     end # loop through video ids
     

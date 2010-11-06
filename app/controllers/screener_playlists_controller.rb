@@ -69,6 +69,8 @@ class ScreenerPlaylistsController < ApplicationController
   
   #display overlay
   def add_screener_to_playlist
+    @screener_playlist = ScreenerPlaylist.find(params[:id])
+    
     if !params[:screener_playlists].nil?
       @search = Screener.new_search(params[:screener_playlists])      
       if !params[:search].nil?
@@ -106,24 +108,13 @@ class ScreenerPlaylistsController < ApplicationController
     @screener_playlist = ScreenerPlaylist.find(params[:id])
     @screener_playlist_item = ScreenerPlaylistItem.new(:screener_playlist_id => params[:id], :screener_id => params[:screener_id], :position => @screener_playlist.screener_playlist_items.count + 1)
 
-    #check if video has been added to a previous playlist before    
-    @playlists_with_video = ScreenerPlaylistItem.find(:all, 
-    :conditions=>"screener_id=#{params[:screener_id]}",
-    :group=>"screener_playlist_id")
     @notice=""
 
     @screener_to_add = Screener.find(params[:screener_id])
 
-    if !@playlists_with_video.empty? && params[:add].nil?
-      @playlists_with_video.each do |playlist_item|
-        @notice += "<br/><div id='exists'>Note! This video #{@screener_to_add.id.to_s} exists in playlist <a href='/screener_playlists/#{playlist_item.screener_playlist_id.to_s}' target='_blank'>#{playlist_item.screener_playlist_id.to_s}</a></div>" if !playlist_item.screener_playlist.nil?
-      end     
-
-    else
-      if @screener_playlist_item.save
-        flash[:notice] = 'Screener was successfully added.'
-        session[:screeners_search] = collection_to_id_array(@screener_playlist.screeners)
-      end
+    if @screener_playlist_item.save
+      flash[:notice] = 'Screener was successfully added.'
+      session[:screeners_search] = collection_to_id_array(@screener_playlist.screeners)
     end
   end  
   
@@ -137,37 +128,10 @@ class ScreenerPlaylistsController < ApplicationController
     screener_ids.each do |screener_id|
       @screener_playlist_item = ScreenerPlaylistItem.new(:screener_playlist_id => params[:playlist_id], :screener_id => screener_id, :position => @screener_playlist.screener_playlist_items.count + 1)
     
-      #check if video has been added to a previous playlist before    
-      @playlists_with_video = ScreenerPlaylistItem.find(:all, 
-      :conditions=>"screener_id=#{screener_id}",
-      :group=>"screener_playlist_id")
-
       @screener_to_add = Screener.find(screener_id)
-      if !@playlists_with_video.empty? && params[:add].nil?
-        @playlists_with_video.each do |playlist_item|
-          if !playlist_item.screener_playlist.nil?
-            if !playlist_item.screener_playlist.airline_id.nil?
-              airline_code = Airline.find(playlist_item.screener_playlist.airline_id).code
-            else
-              airline_code = ""
-            end
-            @notice += "<br/><div id='exists'>Note! This video #{@screener_to_add.episode_title.to_s} exists in playlist 
-                        <a href='/screener_playlists/#{playlist_item.screener_playlist_id.to_s}' target='_blank'>#{airline_code}#{playlist_item.screener_playlist.start_cycle.strftime("%m%y")}</a></div>
-                        #{@template.link_to_remote("Continue adding " + @screener_to_add.episode_title.to_s + " to playlist", 
-                        :url => {:controller => "screener_playlists", 
-                        :action => "add_screener", 
-                        :id => params[:playlist_id], 
-                        :screener_id => screener_id,
-                        :add => 1},
-                        :loading => "Element.show('spinner')",
-                        :complete => "Element.hide('spinner')")}" 
-          end
-        end     
-      else
-        if @screener_playlist_item.save
-          flash[:notice] = 'Screeners were successfully added.'
-          session[:screeners_search] = collection_to_id_array(@screener_playlist.screeners)
-        end
+      if @screener_playlist_item.save
+        flash[:notice] = 'Screeners were successfully added.'
+        session[:screeners_search] = collection_to_id_array(@screener_playlist.screeners)
       end
     end # loop through video ids
     
