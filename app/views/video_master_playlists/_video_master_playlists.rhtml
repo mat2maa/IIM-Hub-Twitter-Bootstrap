@@ -7,6 +7,7 @@
 		<th><%= order_by_link :airline => :name %></th>
 		<th><%= order_by_link :start_cycle, :text => 'Start Date' %></th>
 		<th><%= order_by_link :end_cycle, :text => 'End Date' %></th>
+		<th><%= order_by_link :master_playlist_type => :name %></th>
 		<th colspan="4"></th>			
 	</tr>
 	<% @video_master_playlists.each do |video_master_playlist| %>
@@ -16,6 +17,7 @@
 				<td><%=h video_master_playlist.airline.name if !video_master_playlist.airline_id.nil? %></td>
 				<td><%=h video_master_playlist.start_cycle.strftime("%m-%Y") if !video_master_playlist.start_cycle.nil? %>&nbsp;</td>
 				<td><%=h video_master_playlist.end_cycle.strftime("%m-%Y") if !video_master_playlist.end_cycle.nil?  %>&nbsp;</td>
+				<td><%=h video_master_playlist.master_playlist_type.name if !video_master_playlist.master_playlist_type.nil?  %>&nbsp;</td>
 			<% end %>
 					<td><%= link_to 'Edit', edit_video_master_playlist_path(video_master_playlist) if video_master_playlist.locked!=true %></td>
 					<% if permitted_to? :delete, :video_master_playlists %>

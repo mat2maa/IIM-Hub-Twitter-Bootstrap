@@ -1,6 +1,7 @@
 class ScreenerPlaylist < ActiveRecord::Base
   has_many :screener_playlist_items, :dependent => :destroy
   has_many :screeners, :through => :screener_playlist_items, :order => "position"
+  belongs_to :video_playlist_type
 
   belongs_to :airline
   belongs_to :user
