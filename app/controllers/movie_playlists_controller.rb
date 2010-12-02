@@ -258,11 +258,14 @@ class MoviePlaylistsController < ApplicationController
       else
         laboratory = movie_playlist_item.movie.laboratory.company_name
       end
+      
+      airline_release_date = ""
+      airline_release_date = movie_playlist_item.movie.airline_release_date.strftime('%m-%Y') unless movie_playlist_item.movie.airline_release_date.nil?
 
       sheet.add_row [movie_playlist_item.position, 
         movie_playlist_item.movie.movie_title, 
         movie_playlist_item.movie.theatrical_release_year,
-        movie_playlist_item.movie.airline_release_date.strftime('%m-%Y'),
+        airline_release_date,
         movie_distributor, 
         production_studio, 
         laboratory,
