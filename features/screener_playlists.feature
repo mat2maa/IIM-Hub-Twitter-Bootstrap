@@ -7,4 +7,3 @@ Feature: Screeners
 		Given I am an authenticated "admin" user
 		
 	Scenario: View list of screener playlist
-	  Given the following screeners exist:

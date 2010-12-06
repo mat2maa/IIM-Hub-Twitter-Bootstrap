@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Video do
+describe Screener do
   before(:each) do
   end
 

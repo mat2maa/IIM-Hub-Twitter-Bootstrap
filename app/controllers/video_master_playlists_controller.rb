@@ -209,7 +209,7 @@ class VideoMasterPlaylistsController < ApplicationController
     
     # Master Playlist Summary
     # header row
-    sheet.add_row ["Position", "Episode Title", "Distributor", "Tape Media", "Tape Format", "Tape Size", "Aspect Ratio", "Language Track 1", "Language Track 2", "Language Track 3", "Language Track 4", "Video Subtitles 1", "Video Subtitles 2", "Master Tape Location", "Master Time In", "Master Time Out", "Duration", "Synopsis"]
+    sheet.add_row ["Position", "Programme Title", "Episode Title", "Distributor", "Tape Media", "Tape Format", "Tape Size", "Aspect Ratio", "Language Track 1", "Language Track 2", "Language Track 3", "Language Track 4", "Video Subtitles 1", "Video Subtitles 2", "Master Tape Location", "Master Time In", "Master Time Out", "Duration", "Programme Synopsis", "Episode Synopsis"]
 
     # data rows
     video_master_playlist_items.each do |video_master_playlist_item|
@@ -222,6 +222,7 @@ class VideoMasterPlaylistsController < ApplicationController
       
       if !video_master_playlist_item.master.nil?
         sheet.add_row [video_master_playlist_item.position, 
+          video_master_playlist_item.master.video.programme_title, 
           video_master_playlist_item.master.episode_title, 
           distributor, 
           video_master_playlist_item.master.tape_media, 
@@ -238,6 +239,7 @@ class VideoMasterPlaylistsController < ApplicationController
           video_master_playlist_item.master.time_in, 
           video_master_playlist_item.master.time_out,
           video_master_playlist_item.master.duration,  
+          video_master_playlist_item.master.video.synopsis,  
           video_master_playlist_item.master.synopsis]
         end
       end
@@ -264,7 +266,8 @@ class VideoMasterPlaylistsController < ApplicationController
     @playlist_duplicate = VideoMasterPlaylist.create(
       :start_cycle => @playlist.start_cycle,
       :end_cycle => @playlist.end_cycle,
-      :user_id => current_user.id
+      :user_id => current_user.id,
+      :media_instruction => @playlist.media_instruction
     )
 
     @playlist.video_master_playlist_items.each do |item|

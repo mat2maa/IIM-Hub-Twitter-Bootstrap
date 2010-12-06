@@ -7,16 +7,16 @@
 		<td>
 			<table width="100%">
 				<tr>
-					<th width="130">(<%=h video_master_playlist_item.position %>) Programme Title [<%= link_to "Edit", edit_video_path(video_master_playlist_item.master.video.id), :popup => true %>]:</th>
+					<th width="170">(<%=h video_master_playlist_item.position %>) Programme Title [<%= link_to "Edit", edit_video_path(video_master_playlist_item.master.video.id), :popup => true %>]:</th>
 					<td width="200"><%= video_master_playlist_item.master.video.programme_title %></td>
-					<th width="50">Lang Track 1:</th>
+					<th width="85">Lang Track 1:</th>
 					<td width="50"><%=h video_master_playlist_item.master.language_track_1 %></td>
 					<th width="85">Lang Track 2:</th>
-					<td width="85"><%=h video_master_playlist_item.master.language_track_2 %></td>
+					<td width="50"><%=h video_master_playlist_item.master.language_track_2 %></td>
 					<th width="85">Lang Track 3:</th>
 					<td width="85"><%=h video_master_playlist_item.master.language_track_3 %></td>
 					<th width="85">Lang Track 4:</th>
-					<td width="85"><%=h video_master_playlist_item.master.language_track_4 %></td>
+					<td><%=h video_master_playlist_item.master.language_track_4 %></td>
 				</tr>
 				<tr>
 					<th width="130">Episode Title [<%= link_to "Edit", edit_master_path(video_master_playlist_item.master.id), :popup => true %>]:</th>

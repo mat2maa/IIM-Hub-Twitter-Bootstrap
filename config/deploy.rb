@@ -50,12 +50,6 @@ namespace :deploy do
   task :restart, :roles => :app do
     run "touch #{current_path}/tmp/restart.txt"
   end
-  
-  desc "Reset Movies"
-  task :reset_movies, :roles => :app do
-    run("cd #{deploy_to}/current && /usr/bin/env rake db:reset_movies RAILS_ENV=production")
-  end
-  
 end
 
 after "deploy", "deploy:cleanup"

@@ -252,7 +252,8 @@ class ScreenerPlaylistsController < ApplicationController
     @playlist_duplicate = ScreenerPlaylist.create(
       :start_cycle => @playlist.start_cycle,
       :end_cycle => @playlist.end_cycle,
-      :user_id => current_user.id
+      :user_id => current_user.id,
+      :media_instruction => @playlist.media_instruction
     )
 
     @playlist.screener_playlist_items.each do |item|
