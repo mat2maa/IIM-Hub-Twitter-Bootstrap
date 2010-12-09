@@ -624,6 +624,10 @@ table.movie td, table.movie t{
 }
 
 @media print {  
+	body, html{
+		margin:0;
+		padding:0;
+	}
 	body, td, th, select{ 	
 		background-color: #FFF; 
 		font-size:7pt;
@@ -634,6 +638,7 @@ table.movie td, table.movie t{
 	}
 	#playlist{
 		border:0;
+		width:100%;
 	}
 	select{
 		height:10px;
