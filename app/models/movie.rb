@@ -42,7 +42,11 @@ class Movie < ActiveRecord::Base
 									"Norwegian Movie", "Persian Movie", "Portuguese Movie", "Russian Movie", "Spanish Movie", "Swedish Movie",
 									"Thai Movie"]
   
+  serialize   :language_tracks
+  serialize   :language_subtitles
+    
   def before_save
+        
     # if production studio is empty, set it to the same as movie distributor supplier
     if production_studio_id.nil? && !movie_distributor_id.nil?
       count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", movie_distributor_id, "Production Studios"]) 
@@ -93,32 +97,32 @@ class Movie < ActiveRecord::Base
     screener_remarks.map(&:to_sym)
   end
   
-  named_scope :with_language_track, lambda { |language_track| {:conditions => "language_tracks_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_track.to_s)} > 0"} }
-    
-  def language_tracks=(language_tracks)
-    self.language_tracks_mask = (language_tracks & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum
-  end
-  
-  def language_tracks
-    IIM::MOVIE_LANGUAGES.reject { |r| ((language_tracks_mask || 0) & 2**IIM::MOVIE_LANGUAGES.index(r)).zero? }
-  end
-  
-  def language_track_symbols
-    language_tracks.map(&:to_sym)
-  end
+  named_scope :with_old_language_track, lambda { |language_track| {:conditions => "language_tracks_mask & #{2**IIM::MOVIE_LANGUAGES.index(old_language_track.to_s)} > 0"} }
+       
+     def old_language_tracks=(old_language_tracks)
+       self.language_tracks_mask = (old_language_tracks & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum
+     end
+     
+     def old_language_tracks
+       IIM::MOVIE_LANGUAGES.reject { |r| ((language_tracks_mask || 0) & 2**IIM::MOVIE_LANGUAGES.index(r)).zero? }
+     end
+     
+     def old_language_track_symbols
+       old_language_tracks.map(&:to_sym)
+     end
   
   named_scope :with_language_subtitle, lambda { |language_subtitle| {:conditions => "language_subtitles_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_subtitle.to_s)} > 0"} }
     
-  def language_subtitles=(language_subtitles)
-    self.language_subtitles_mask = (language_subtitles & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum
+  def old_language_subtitles=(old_language_subtitles)
+    self.language_subtitles_mask = (old_language_subtitles & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum
   end
   
-  def language_subtitles
+  def old_language_subtitles
     IIM::MOVIE_LANGUAGES.reject { |r| ((language_subtitles_mask || 0) & 2**IIM::MOVIE_LANGUAGES.index(r)).zero? }
   end
   
   def language_subtitle_symbols
-    language_subtitles.map(&:to_sym)
+    old_language_subtitles.map(&:to_sym)
   end
   
  
