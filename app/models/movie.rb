@@ -97,34 +97,34 @@ class Movie < ActiveRecord::Base
     screener_remarks.map(&:to_sym)
   end
   
-  named_scope :with_old_language_track, lambda { |language_track| {:conditions => "language_tracks_mask & #{2**IIM::MOVIE_LANGUAGES.index(old_language_track.to_s)} > 0"} }
-       
-     def old_language_tracks=(old_language_tracks)
-       self.language_tracks_mask = (old_language_tracks & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum
-     end
-     
-     def old_language_tracks
-       IIM::MOVIE_LANGUAGES.reject { |r| ((language_tracks_mask || 0) & 2**IIM::MOVIE_LANGUAGES.index(r)).zero? }
-     end
-     
-     def old_language_track_symbols
-       old_language_tracks.map(&:to_sym)
-     end
-  
-  named_scope :with_language_subtitle, lambda { |language_subtitle| {:conditions => "language_subtitles_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_subtitle.to_s)} > 0"} }
-    
-  def old_language_subtitles=(old_language_subtitles)
-    self.language_subtitles_mask = (old_language_subtitles & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum
-  end
-  
-  def old_language_subtitles
-    IIM::MOVIE_LANGUAGES.reject { |r| ((language_subtitles_mask || 0) & 2**IIM::MOVIE_LANGUAGES.index(r)).zero? }
-  end
-  
-  def language_subtitle_symbols
-    old_language_subtitles.map(&:to_sym)
-  end
-  
+  # named_scope :with_old_language_track, lambda { |language_track| {:conditions => "language_tracks_mask & #{2**IIM::MOVIE_LANGUAGES.index(old_language_track.to_s)} > 0"} }
+  #        
+  #      def old_language_tracks=(old_language_tracks)
+  #        self.language_tracks_mask = (old_language_tracks & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum
+  #      end
+  #      
+  #      def old_language_tracks
+  #        IIM::MOVIE_LANGUAGES.reject { |r| ((language_tracks_mask || 0) & 2**IIM::MOVIE_LANGUAGES.index(r)).zero? }
+  #      end
+  #      
+  #      def old_language_track_symbols
+  #        old_language_tracks.map(&:to_sym)
+  #      end
+  #   
+  #   named_scope :with_language_subtitle, lambda { |language_subtitle| {:conditions => "language_subtitles_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_subtitle.to_s)} > 0"} }
+  #     
+  #   def old_language_subtitles=(old_language_subtitles)
+  #     self.language_subtitles_mask = (old_language_subtitles & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum
+  #   end
+  #   
+  #   def old_language_subtitles
+  #     IIM::MOVIE_LANGUAGES.reject { |r| ((language_subtitles_mask || 0) & 2**IIM::MOVIE_LANGUAGES.index(r)).zero? }
+  #   end
+  #   
+  #   def language_subtitle_symbols
+  #     old_language_subtitles.map(&:to_sym)
+  #   end
+  #   
  
   
 end

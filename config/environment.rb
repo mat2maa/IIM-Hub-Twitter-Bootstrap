@@ -9,8 +9,8 @@
 RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
 module IIM
-#  MOVIE_LANGUAGES = ["Eng", "Zho", "Ara", "Cfr", "Dan", "Deu", "Ell", "Fas",	"Fin", "Fra",	"Hin", "Heb", "Ind", "Ita", "Jpn",	"Kor",	"Msa",	"Nld",	"Nor",	"Por",	"Rus",	"Spa",	"Spn",	"Swe", "Tam",	"Tgl", "Tha", "Tur", "Vie" , "Yue" ]
-  MOVIE_LANGUAGES = ["Eng", "Zho", "Yue", "Ara", "Dan", "Deu", "Ell",	"Spa",	"Spn",	"Fas",	"Fin",	"Cfr",	"Fra",	"Hin",	"Ind",	"Ita",	"Heb",	"Jpn",	"Kor",	"Msa",	"Nld",	"Nor",	"Por",	"Rus",	"Swe", "Tam",	"Tgl", "Tha", "Tur", "Vie"]
+  MOVIE_LANGUAGES = ["Eng", "Zho", "Ara", "Cfr", "Dan", "Deu", "Ell", "Fas",	"Fin", "Fra",	"Hin", "Heb", "Ind", "Ita", "Jpn",	"Kor",	"Msa",	"Nld",	"Nor",	"Por",	"Rus",	"Spa",	"Spn",	"Swe", "Tam",	"Tgl", "Tha", "Tur", "Vie" , "Yue" ]
+#  MOVIE_LANGUAGES = ["Eng", "Zho", "Yue", "Ara", "Dan", "Deu", "Ell",	"Spa",	"Spn",	"Fas",	"Fin",	"Cfr",	"Fra",	"Hin",	"Ind",	"Ita",	"Heb",	"Jpn",	"Kor",	"Msa",	"Nld",	"Nor",	"Por",	"Rus",	"Swe", "Tam",	"Tgl", "Tha", "Tur", "Vie"]
 
 end
 
