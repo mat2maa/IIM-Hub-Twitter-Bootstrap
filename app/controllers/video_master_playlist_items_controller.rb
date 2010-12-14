@@ -13,7 +13,7 @@ class VideoMasterPlaylistItemsController < ApplicationController
     respond_to do |format|
       if @videomasterplaylistitem.update_attributes(params[:video_master_playlist_item])
         flash[:notice] = 'Mastering was successfully updated.'
-        format.html { redirect_to(edit_audio_playlist_path(@videomasterplaylistitem.video_master_playlist)) }
+        format.html { redirect_to(edit_video_master_playlist_path(@videomasterplaylistitem.video_master_playlist)) }
         format.js
       else
         format.html { render :action => "edit" }
@@ -24,9 +24,9 @@ class VideoMasterPlaylistItemsController < ApplicationController
   def destroy
     @videomasterplaylistitem = VideoMasterPlaylistItem.find(params[:id])
 
-	  @audio_playlist = VideoMasterPlaylist.find(@videomasterplaylistitem.video_master_playlist.id) 
-  	@audio_playlist.updated_at_will_change!
-    @audio_playlist.save
+	  @playlist = VideoMasterPlaylist.find(@videomasterplaylistitem.video_master_playlist.id) 
+  	@playlist.updated_at_will_change!
+    @playlist.save
     
   	@videomasterplaylistitem.destroy
 	
