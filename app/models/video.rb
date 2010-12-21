@@ -37,6 +37,10 @@ class Video < ActiveRecord::Base
   TAPE_MEDIA = ["Betacam SP", "Digital Betacam", "DVD", "Betacam SX", "MPEG IMX", "HDCAM", "DVCCAM", "HDCAM", "DVCAM Pro"]
   
   def before_save
+    
+    self.language_tracks = self.language_tracks.delete_if{|x| x == "" }  unless self.language_tracks.nil?
+    self.language_subtitles = self.language_subtitles.delete_if{|x| x == "" }  unless self.language_tracks.nil?
+    
     # if production studio is empty, set it to the same as movie distributor supplier
     if production_studio_id.nil? && !video_distributor_id.nil?
       count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", video_distributor_id, "Production Studios"]) 

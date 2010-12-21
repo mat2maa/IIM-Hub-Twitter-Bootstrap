@@ -360,8 +360,6 @@ ActiveRecord::Schema.define(:version => 20101221065500) do
     t.string   "release_version"
     t.integer  "screener_remarks_mask"
     t.string   "screener_remark"
-    t.integer  "language_tracks_mask"
-    t.integer  "language_subtitles_mask"
     t.boolean  "has_press_kit"
     t.boolean  "has_poster"
     t.text     "airline_countries"
@@ -661,15 +659,13 @@ ActiveRecord::Schema.define(:version => 20101221065500) do
     t.string   "poster_content_type"
     t.integer  "poster_file_size"
     t.datetime "poster_updated_at"
-    t.boolean  "to_delete",               :default => false
-    t.integer  "language_tracks_mask"
-    t.integer  "language_subtitles_mask"
+    t.boolean  "to_delete",              :default => false
     t.integer  "commercial_run_time_id"
     t.integer  "video_distributor_id"
     t.boolean  "on_going_series"
     t.text     "remarks"
-    t.integer  "masters_count",           :default => 0
-    t.integer  "screeners_count",         :default => 0
+    t.integer  "masters_count",          :default => 0
+    t.integer  "screeners_count",        :default => 0
     t.string   "in_playlists"
     t.text     "language_tracks"
     t.text     "language_subtitles"
