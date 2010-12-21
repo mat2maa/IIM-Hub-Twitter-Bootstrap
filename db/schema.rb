@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101214173130) do
+ActiveRecord::Schema.define(:version => 20101221065500) do
 
   create_table "airline_rights_countries", :force => true do |t|
     t.string   "name"
@@ -368,8 +368,8 @@ ActiveRecord::Schema.define(:version => 20101214173130) do
     t.integer  "poster_quantity",         :default => 0
     t.text     "remarks"
     t.string   "in_playlists"
-    t.string   "language_tracks"
-    t.string   "language_subtitles"
+    t.text     "language_tracks"
+    t.text     "language_subtitles"
   end
 
   add_index "movies", ["laboratory_id"], :name => "index_movies_on_laboratory_id"
@@ -671,8 +671,8 @@ ActiveRecord::Schema.define(:version => 20101214173130) do
     t.integer  "masters_count",           :default => 0
     t.integer  "screeners_count",         :default => 0
     t.string   "in_playlists"
-    t.string   "language_tracks"
-    t.string   "language_subtitles"
+    t.text     "language_tracks"
+    t.text     "language_subtitles"
   end
 
   add_index "videos", ["laboratory_id"], :name => "index_videos_on_laboratory_id"

@@ -30,8 +30,8 @@ class Video < ActiveRecord::Base
   validates_attachment_size :poster, :less_than => 5.megabytes
   validates_attachment_content_type :poster, :content_type => ['image/jpeg', 'image/png']
    
-  serialize   :language_tracks
-  serialize   :language_subtitles
+  serialize :language_tracks
+  serialize :language_subtitles
    
   VIDEO_TYPES = ["Short Subject Programme", "Movie EPK", "Movie Trailer", "Movie Master", "TV Special", "Graphics", "Airline Master"]
   TAPE_MEDIA = ["Betacam SP", "Digital Betacam", "DVD", "Betacam SX", "MPEG IMX", "HDCAM", "DVCCAM", "HDCAM", "DVCAM Pro"]
