@@ -39,7 +39,7 @@ class Video < ActiveRecord::Base
   def before_save
     
     self.language_tracks = self.language_tracks.delete_if{|x| x == "" }  unless self.language_tracks.nil?
-    self.language_subtitles = self.language_subtitles.delete_if{|x| x == "" }  unless self.language_tracks.nil?
+    self.language_subtitles = self.language_subtitles.delete_if{|x| x == "" }  unless self.language_subtitles.nil?
     
     # if production studio is empty, set it to the same as movie distributor supplier
     if production_studio_id.nil? && !video_distributor_id.nil?
