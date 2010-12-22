@@ -11,7 +11,7 @@
 					<td width="290" valign="top"><%= link_to playlist_item.movie.movie_title, edit_movie_path(playlist_item.movie), :popup => true %></td>
 					<th valign="top" width="80">Lang Tracks:</th>
 					<td valign="top" width="150">
-					<%=h playlist_item.movie.language_tracks.class == Array ? playlist_item.movie.language_tracks.to_sentence : playlist_item.movie.language_tracks %> </td>
+					<%=h playlist_item.movie.language_tracks.class == Array ? playlist_item.movie.language_tracks.join(', ') : playlist_item.movie.language_tracks %> </td>
 					<th width="50" valign="top">Lang Subs:</th>
 					<td width="50" valign="top"><%=h playlist_item.movie.language_subtitles.class == Array ? playlist_item.movie.language_subtitles.join(', ') : playlist_item.movie.language_subtitles %> </td>
 					<th width="100" valign="top">Release Date:</th>
