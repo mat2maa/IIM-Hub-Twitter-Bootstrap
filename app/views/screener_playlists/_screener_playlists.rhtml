@@ -13,13 +13,13 @@
 	<% @screener_playlists.each do |screener_playlist| %>
 		<tr id="screener_playlist-<%=h screener_playlist.id %>">
 			<% cache([screener_playlist]) do %>
-				<td><%= link_to screener_playlist.id, screener_playlist_path(:id => screener_playlist.id ) %></td>
+				<td><%= link_to screener_playlist.id, screener_playlist_path(:id => screener_playlist.id ), :popup => true %></td>
 				<td><%=h screener_playlist.airline.name if !screener_playlist.airline_id.nil? %></td>
 				<td><%=h screener_playlist.start_cycle.strftime("%m-%Y") if !screener_playlist.start_cycle.nil? %>&nbsp;</td>
 				<td><%=h screener_playlist.end_cycle.strftime("%m-%Y") if !screener_playlist.end_cycle.nil?  %>&nbsp;</td>
 				<td><%=h screener_playlist.video_playlist_type.name if !screener_playlist.video_playlist_type.nil?  %>&nbsp;</td>
 			<% end %>
-					<td><%= link_to 'Edit', edit_screener_playlist_path(screener_playlist) if screener_playlist.locked!=true %></td>
+					<td><%= link_to('Edit', edit_screener_playlist_path(screener_playlist), :popup => true) if screener_playlist.locked!=true %></td>
 					<% if permitted_to? :delete, :screener_playlists %>
 					<td><%= link_to_remote 'Delete', 	:url  => screener_playlist_url(screener_playlist), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"   if screener_playlist.locked!=true %></td>
 					<td><%= link_to 'Duplicate', duplicate_screener_playlist_path(screener_playlist), :confirm => 'Are you sure?', :method => :post %></td>
