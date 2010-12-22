@@ -172,7 +172,12 @@ class VideoMasterPlaylistsController < ApplicationController
   def print
 
     @video_master_playlist = VideoMasterPlaylist.find(params[:id]) 	
-    headers["Content-Disposition"] =  "attachment; filename=\"#{@video_master_playlist.airline.code if !@video_master_playlist.airline.nil? }#{@video_master_playlist.start_cycle.strftime("%m%y")}.pdf\""        
+    if @video_master_playlist.master_playlist_type.nil?
+      video_type = " "
+    else
+      video_type = " " + @video_master_playlist.master_playlist_type.name
+    end
+    headers["Content-Disposition"] =  "attachment; filename=\"#{@video_master_playlist.airline.code if !@video_master_playlist.airline.nil? }#{@video_master_playlist.start_cycle.strftime("%m%y")}#{video_type} Master.pdf\""        
 
     respond_to do |format|
       format.html
@@ -247,10 +252,16 @@ class VideoMasterPlaylistsController < ApplicationController
 
       sheet.add_lines(1)
 
+      if @video_master_playlist.master_playlist_type.nil?
+        video_type = " "
+      else
+        video_type = " " + @video_master_playlist.master_playlist_type.name
+      end
+      
       data = StringIO.new ''
       book.write data
       send_data data.string, :type=>"application/excel", 
-      :disposition=>'attachment', :filename => "#{airline_code}#{@video_master_playlist.start_cycle.strftime("%m%y")} Video Master Playlist.xls"
+      :disposition=>'attachment', :filename => "#{airline_code}#{@video_master_playlist.start_cycle.strftime("%m%y")}#{video_type} Master.xls"
   end
 
   def sort

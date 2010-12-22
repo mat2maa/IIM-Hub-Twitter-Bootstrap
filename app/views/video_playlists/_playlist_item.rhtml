@@ -20,9 +20,9 @@
 				<th>Foreign Language Title:</th>
 				<td><%=h playlist_item.video.foreign_language_title %></td>
 				<th>Lang Tracks:</th>
-				<td><%=h playlist_item.video.language_tracks %> </td>
+				<td><%=h playlist_item.video.language_tracks.join(', ') %> </td>
 				<th>Lang Subs:</th>
-				<td><%=h playlist_item.video.language_subtitles %> </td>
+				<td><%=h playlist_item.video.language_subtitles.join(', ') %> </td>
 				<th>Genres:</th>
 				<td><%=h playlist_item.video.video_genres_string_with_parent %> </td>
 			</tr>	
