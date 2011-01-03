@@ -51,7 +51,7 @@
 	</td>
 </tr>
 <tr>
-	<th>Available Language Tracks:</th>
+	<th>Available Lang Tracks:</th>
 	<td><%= @movie.language_tracks.collect{|r| r}.to_sentence %>
 	</td>
 	<th>Screener Held:</th><td><%=  @movie.screener_received_date == nil ? "No" : "Yes" %></td>	

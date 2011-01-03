@@ -27,9 +27,9 @@
 						
 					</td>
 					<td valign="top">	
-						Language Track:<br/>
+						Lang Track:<br/>
 						<%= select :language, :track, IIM::MOVIE_LANGUAGES, { :include_blank => true } %><br/>
-					 	Language Subtitles:<br/>
+					 	Lang Subtitles:<br/>
 						<%= select :language, :subtitle, IIM::MOVIE_LANGUAGES, { :include_blank => true } %>
 					</td>
 					<td valign="top">
@@ -65,7 +65,7 @@
 					</td>
 				</tr>
 			</table>
-			<%= videos.submit "Search" %>
+			<%= videos.submit "Search" %><input type="reset" value="Reset">
 			<% end %>		
 		</fieldset>
 	</body>

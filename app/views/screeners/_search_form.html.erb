@@ -20,9 +20,9 @@
 					<%= video.select :laboratory_id_equals, Supplier.laboratories.collect {|p| [ p.company_name, p.id ] }, :include_blank => true  %><br/>
 			</td>
 			<td valign="top">	
-				Language Track:<br/>
+				Lang Track:<br/>
 				<%= select :language, :track, IIM::MOVIE_LANGUAGES, { :include_blank => true } %><br/>
-			 	Language Subtitles:<br/>
+			 	Lang Subtitles:<br/>
 				<%= select :language, :subtitle, IIM::MOVIE_LANGUAGES, { :include_blank => true } %>
 			</td>
 			<td valign="top">
@@ -69,7 +69,7 @@
 		</tr>
 	</table>
 	-->
-	<%= screeners.submit "Search" %>
+	<%= screeners.submit "Search" %><input type="reset" value="Reset">
 	<% end %>
 	
 </fieldset>
