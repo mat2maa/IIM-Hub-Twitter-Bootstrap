@@ -20,7 +20,7 @@
 
 					<td><%= f.input :tape_format, :as => :select, :collection => ["PAL", "NTSC"], :label => "Tape Format", 
 						:include_blank => false %></td>
-					<td><%= f.input :tape_size, :as => :select, :collection => ["Small","Large"], :label => "Tape Size", 
+					<td><%= f.input :tape_size, :as => :select, :collection => ["Small","Large", "DVD"], :label => "Tape Size", 
 						:include_blank => true %></td>	
 					<td><%= f.input :video_subtitles_1, :as => :select, :collection => IIM::MOVIE_LANGUAGES ,:include_blank => true, 
 						:label => "Lang Subs 1" %></td>					
