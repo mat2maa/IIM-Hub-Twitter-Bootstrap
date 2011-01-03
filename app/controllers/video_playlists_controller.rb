@@ -279,7 +279,6 @@ class VideoPlaylistsController < ApplicationController
       VideoPlaylistItem.create(
       :video_id => item.video_id,
       :position => item.position,
-      :mastering => item.mastering,
       :video_playlist_id => @playlist_duplicate.id
       )
 

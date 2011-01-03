@@ -92,6 +92,7 @@ class MastersController < ApplicationController
   end
   
   def destroy
+    
     @master = Master.find(params[:id])
     
     #check if video is in any playlists
@@ -111,6 +112,16 @@ class MastersController < ApplicationController
       format.html { redirect_to edit_video_url(@master.video.id) } 
       format.js { render :layout => false}
     end
+  end
+  
+  def duplicate
+    @master = Master.find(params[:id])  
+    @duplicated_master = Master.create(@master.attributes)
+       
+    respond_to do |format|
+      format.html { redirect_to edit_video_url(@master.video.id) } 
+      format.js { render :layout => false} 
+    end    
   end
   
   def restore

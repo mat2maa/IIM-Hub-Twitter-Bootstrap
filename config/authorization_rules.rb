@@ -10,8 +10,8 @@ authorization do
 	  has_permission_on :dashboard, :to => :manage
 		
 		has_permission_on :movies, :to => [:manage, :check_airline_rights, :check_screener_remarks, :check_movie_type, :update_date]
-		has_permission_on :masters, :to => :manage
-		has_permission_on :screeners, :to => :manage
+		has_permission_on :masters, :to => [:manage, :duplicate]
+		has_permission_on :screeners, :to => [:manage, :duplicate]
 		has_permission_on :videos, :to => :manage
 		has_permission_on :movie_playlist_items, :to => :manage	
 		has_permission_on :video_playlist_items, :to => :manage	
@@ -96,8 +96,8 @@ authorization do
 		#movies
 		has_permission_on :movies, :to => [:manage, :admin_delete, :check_airline_rights, :check_screener_remarks, 
 		    :check_movie_type, :update_date, :restore]
-		has_permission_on :masters, :to => [:manage, :admin_delete, :restore]
-		has_permission_on :screeners, :to => [:manage, :admin_delete, :restore]
+		has_permission_on :masters, :to => [:manage, :admin_delete, :restore, :duplicate]
+		has_permission_on :screeners, :to => [:manage, :admin_delete, :restore, :duplicate]
 		has_permission_on :videos, :to => [:manage, :admin_delete, :restore]
 		has_permission_on :suppliers, :to => :manage		
 		has_permission_on :airline_rights_countries, :to => :manage
@@ -122,10 +122,8 @@ authorization do
 		has_permission_on :roles, :to => :manage
 		has_permission_on :import_album, :to => [:read, :find_release, :import_release]
 		
-		has_permission_on :audio_playlists, :to => [:manage, 
-					      :add_track, :add_track_to_playlist, :duplicate,
-		            :edit_audio_playlist_mastering, :export, 
-		            :export_to_excel, :find_track, :lock, 
+		has_permission_on :audio_playlists, :to => [:manage, :add_track, :add_track_to_playlist, :duplicate,
+		            :edit_audio_playlist_mastering, :export, :export_to_excel, :find_track, :lock, 
 		            :unlock,:set_audio_playlist_track_mastering, :set_audio_playlist_track_split, 
 								:print, :sort, :splits,:set_audio_playlist_track_vo_duration, :download_mp3]
 								

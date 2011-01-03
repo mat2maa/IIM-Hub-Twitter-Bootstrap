@@ -82,8 +82,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :video_playlist_types
   map.resources :master_playlist_types
   
-  map.resources :masters
-  map.resources :screeners
+  map.resources :masters, :member => {:duplicate => :post} 
+  map.resources :screeners, :member => {:duplicate => :post} 
   
         
   map.connect ':controller/:action/:id'

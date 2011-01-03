@@ -46,5 +46,8 @@ class Master < ActiveRecord::Base
     end
   end
   
+  def duration_in_seconds
+    convert_timecode_to_seconds(self.duration)
+  end
   
 end

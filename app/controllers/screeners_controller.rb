@@ -114,4 +114,15 @@ class ScreenersController < ApplicationController
       format.js {render :layout => false}
     end
   end
+  
+  def duplicate
+    @screener = Screener.find(params[:id])  
+    @duplicated_screener = Screener.create(@screener.attributes)
+       
+    respond_to do |format|
+      format.html { redirect_to edit_video_url(@screener.video.id) } 
+      format.js { render :layout => false} 
+    end    
+  end
+  
 end

@@ -27,4 +27,18 @@ module Iim
 	  x.to_s
   end
   
+  # hh:mm:ss
+  def convert_timecode_to_seconds(timecode)
+      tc = timecode.split(":")
+      frames = (tc[0].to_i * 60 * 60) + (tc[1].to_i * 60) + (tc[2].to_i)
+  end
+
+  # hh:mm:ss
+  def convert_seconds_to_timecode(seconds)
+    hh = seconds / (60*60)
+    mm = (seconds - (hh*60*60)) / (60)
+    ss = (seconds - (hh*60*60) - (mm*60))
+    timecode = convert_to_two_digits(hh).to_s + ":" + convert_to_two_digits(mm).to_s + ":" + convert_to_two_digits(ss).to_s 
+  end
+  
 end
