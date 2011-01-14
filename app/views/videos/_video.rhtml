@@ -5,10 +5,10 @@
 	<td><%=h video.video_distributor.company_name if !video.video_distributor.nil? %></td>
 	<td><%=h video.video_type %></td>
 	<td><%=h video.commercial_run_time.minutes if !video.commercial_run_time.nil? %></td>	
-	<td><%=h video.video_genres_string %></td>
+  <% end %>
+	<td><%=h video.video_genres.collect{|r| r.name}.to_sentence %></td>
 	<td><%= video.screeners_count > 0 ? 'Yes' : 'No' %></td>
 	<td><%= video.masters_count > 0 ? 'Yes' : 'No' %></td>
-  <% end %>
 	<% if (params[:playlist_id] || params["action"]=="add_video_to_playlist")  %>
 		<td>
 		<% if !video.to_delete %>
