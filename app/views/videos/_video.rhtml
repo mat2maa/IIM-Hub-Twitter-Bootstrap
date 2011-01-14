@@ -1,5 +1,5 @@
 <tr id="video-<%=h video.id %>">
-  <% cache([video, "video_playlists"]) do %>
+  <% cache([video, "videos"]) do %>
 	<td><%= link_to video.id, video_path(:id => video.id ), :popup => true %></td>
 	<td><%=h video.programme_title %></td>
 	<td><%=h video.video_distributor.company_name if !video.video_distributor.nil? %></td>
