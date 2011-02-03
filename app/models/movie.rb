@@ -44,7 +44,15 @@ class Movie < ActiveRecord::Base
   
   serialize   :language_tracks
   serialize   :language_subtitles
-    
+  
+  named_scope :with_language_track, lambda { |language_track|
+        { :conditions => "language_tracks like '%#{sanitize_sql(language_track)}%'"  }
+      }
+      
+  named_scope :with_language_subtitle, lambda { |language_subtitle|
+        { :conditions => "language_subtitles like '%#{sanitize_sql(language_subtitle)}%'"  }
+      }
+      
   def before_save
 
     self.language_tracks = nil if self.language_tracks.class == String

@@ -32,6 +32,14 @@ class Video < ActiveRecord::Base
    
   serialize :language_tracks
   serialize :language_subtitles
+  
+  named_scope :with_language_track, lambda { |language_track|
+        { :conditions => "language_tracks like '%#{sanitize_sql(language_track)}%'"  }
+      }
+      
+  named_scope :with_language_subtitle, lambda { |language_subtitle|
+        { :conditions => "language_subtitles like '%#{sanitize_sql(language_subtitle)}%'"  }
+      }
    
   VIDEO_TYPES = ["Short Subject Programme", "Movie EPK", "Movie Trailer", "Movie Master", "TV Special", "Graphics", "Airline Master"]
   TAPE_MEDIA = ["Betacam SP", "Digital Betacam", "DVD", "Betacam SX", "MPEG IMX", "HDCAM", "DVCCAM", "HDCAM", "DVCAM Pro", "Pro Res Proxy"]
@@ -68,6 +76,8 @@ class Video < ActiveRecord::Base
     genres = self.video_genres.collect{|genre| "#{genre.video_parent_genre.name} - #{genre.name}"}
     genres.join(', ')
   end
+
+
 
   #  named_scope :with_language_track, lambda { |language_track| {:conditions => "language_tracks_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_track.to_s)} > 0"} } 
   # def old_language_tracks=(old_language_tracks)

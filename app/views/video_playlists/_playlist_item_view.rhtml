@@ -14,21 +14,25 @@
 			<td rowspan="5" width="160"><%= image_tag(playlist_item_view.video.poster.url(:small)) %></td>
 		</tr>
 		<tr>
-			<td width="150"><strong>Production Year:</strong> </td>
-			<td><%=h playlist_item_view.video.production_year %></td>
-		</tr>
-		<tr>
 			<td><strong>Distributor:</strong> </td>
 			<td><%=h playlist_item_view.video.video_distributor.company_name if !playlist_item_view.video.video_distributor.nil? %></td>
+		</tr>
+		<tr>
+			<td><strong>Full Genre:</strong> </td>
+			<td><%=h playlist_item_view.video.video_genres_string_with_parent %></td>
 		</tr>
 		<tr>
 			<td><strong>Commercial Runtime:</strong> </td>
 			<td><%=h playlist_item_view.video.commercial_run_time.minutes if !playlist_item_view.video.commercial_run_time.nil? %> min</td>
 		</tr>	
 		<tr>
-			<td><strong>Episodes Available:</strong> </td>
-			<td><%=h playlist_item_view.video.episodes_available %> min</td>
-		</tr>
+			<td><strong>Lang Tracks:</strong> </td>
+			<td><%=h playlist_item_view.video.language_tracks.join(', ') %></td>
+		</tr>	
+		<tr>
+			<td><strong>Lang Subtitles:</strong> </td>
+			<td><%=h playlist_item_view.video.language_subtitles.join(', ') %></td>
+		</tr>	
 		<tr>
 			<td colspan="3"><strong>Synopsis:</strong><br/><%=h playlist_item_view.video.synopsis %></td>
 		</tr>

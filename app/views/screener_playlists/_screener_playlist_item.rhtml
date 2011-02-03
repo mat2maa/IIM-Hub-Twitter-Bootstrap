@@ -8,7 +8,7 @@
 			<table width="100%">
 				<tr>
 					<th width="130">(<%=h screener_playlist_item.position %>) 
-						Programme Title [<%= link_to "Edit", edit_screener_path(screener_playlist_item.screener.id), :popup => true %>]:</th>
+						Video Title [<%= link_to "Edit", edit_screener_path(screener_playlist_item.screener.id), :popup => true %>]:</th>
 					<td width="200"><%= screener_playlist_item.screener.video.programme_title %></td>
 					<th width="80">Distributor:</th>
 					<td width="190"><%= screener_playlist_item.screener.video.video_distributor.company_name unless screener_playlist_item.screener.video.video_distributor.nil?  %></td>
@@ -18,7 +18,7 @@
 				<tr>
 					<th>Episode Title:</th>
 					<td><%=h screener_playlist_item.screener.episode_title %></td>
-					<th>Episode Number:</th>
+					<th>Episode No:</th>
 					<td><%=h screener_playlist_item.screener.episode_number %></td>
 					<th>Remarks:</th>
 					<td><%=h screener_playlist_item.screener.remarks %></td>

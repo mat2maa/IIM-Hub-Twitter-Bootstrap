@@ -216,7 +216,7 @@ class VideoPlaylistsController < ApplicationController
     
     # Video Playlist Summary
     # header row
-    sheet.add_row ["Position", "Programme Title", "Distributor", "Genre", "Commercial Run Time", "Episodes Available", "Synopsis", "Poster"]
+    sheet.add_row ["Position", "Programme Title", "Distributor", "Genre", "Commercial Run Time", "Lang Tracks", "Lang Subtitles", "Synopsis", "Poster"]
 
     # data rows
     video_playlist_items.each do |video_playlist_item|
@@ -238,7 +238,8 @@ class VideoPlaylistsController < ApplicationController
         video_distributor, 
         video_playlist_item.video.video_genres_string_with_parent, 
         runtime,
-        video_playlist_item.video.episodes_available, 
+        video_playlist_item.video.language_tracks.join(', '), 
+        video_playlist_item.video.language_subtitles.join(', '), 
         video_playlist_item.video.synopsis, 
         "http://hub.iim.com.sg" + video_playlist_item.video.poster.url]
       end
