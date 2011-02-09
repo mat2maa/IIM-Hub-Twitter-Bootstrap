@@ -2,7 +2,7 @@
 	<% @video_master_playlist_item = video_master_playlist_item %>
   	<tr id="item_<%=h video_master_playlist_item.id %>">
 	<% if video_master_playlist_item.master.nil? %>
-    <td colspan="2">Missing master <%=h video_master_playlist_item.master_id %></td>
+    <td colspan="2">Missing master <%=h video_master_playlist_item.master_id %> id = <%=h video_master_playlist_item.id %></td>
 	<% else %>
 		<td>
 			<table width="100%">
