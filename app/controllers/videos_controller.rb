@@ -178,7 +178,7 @@ class VideosController < ApplicationController
          @video_is_deleted = false
       end
 	  else
-      flash[:notice] = 'Video could not be deleted, video is in use for by playlists'
+      flash[:notice] = 'Video could not be deleted, video is in use by playlists'
     	@video_is_deleted = false
     end
         
