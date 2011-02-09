@@ -162,11 +162,12 @@ class VideosController < ApplicationController
     @video = Video.find(params[:id])
     
     #check if video is in any playlists
-    tot_playlists =VideoPlaylistItem.count(:conditions => 'video_id=' + @video.id.to_s )
-    tot_master_playlists =VideoMasterPlaylistItem.count(:conditions => ["master_id IN (?)", @video.masters ])
+    tot_playlists = VideoPlaylistItem.count(:conditions => 'video_id=' + @video.id.to_s )
+    tot_master_playlists = VideoMasterPlaylistItem.count(:conditions => ["master_id IN (?)", @video.masters ])
+    tot_screener_playlists = ScreenerPlaylistItem.count(:conditions => ["screener_id IN (?)", @video.screeners ])
     
     
-    if tot_playlists.zero? && tot_master_playlists.zero?
+    if tot_playlists.zero? && tot_master_playlists.zero? && tot_screener_playlists.zero?
       if permitted_to? :admin_delete, :videos  
         @video.destroy
         flash[:notice] = "Successfully deleted video."
