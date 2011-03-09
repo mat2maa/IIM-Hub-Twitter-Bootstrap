@@ -53,3 +53,7 @@ table.master td fieldset.buttons{
 #master_synopsis{
 	height:80px;
 }
+textarea{
+	font-family: Arial, "MS Trebuchet", sans-serif;
+	font-size:10pt;
+}

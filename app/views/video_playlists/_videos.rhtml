@@ -16,7 +16,7 @@
             <tr>
               <%# cache([video]) do %>
 								<td><%= check_box_tag "video_ids[]", video.id %></td>
-                <td><%= link_to video.id, video_path(:id => video.id ) %></td>
+                <td><%= link_to video.id, video_path(:id => video.id ), :popup => true %></td>
                 <td><%=h video.programme_title %></td>
                 <td><%=h video.video_type %></td>
 								<td>

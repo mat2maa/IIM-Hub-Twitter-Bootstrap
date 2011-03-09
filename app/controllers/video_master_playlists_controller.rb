@@ -74,7 +74,7 @@ class VideoMasterPlaylistsController < ApplicationController
     if !params[:video_master_playlists].nil?
       @search = Master.new_search(params[:video_master_playlists])      
       if !params[:search].nil?
-        search = params[:search]        
+        search = params[:search]                
         @search.per_page = search[:per_page] if !search[:per_page].nil? 
         @search.page = search[:page] if !search[:page].nil?
       end

@@ -27,10 +27,10 @@
 		<td><%= link_to 'Edit', edit_video_path(video), :popup => true %></td>
 		<td>
 			<% if !video.to_delete %>
-			<%= link_to_remote 'Delete', 	:url  => video_url(video), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>
+			<%= link_to_remote 'Delete', 	:url  => video_url(video), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')",  :with => "'redirect_url=#{request.url}'" %>
 			<% else %>
 			<% if permitted_to? :admin_delete, :videos %>
-			<%= link_to_remote 'Delete', 	:url  => video_url(video), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>
+			<%= link_to_remote 'Delete', 	:url  => video_url(video), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')",  :with => "'redirect_url=#{request.url}'" %>
 			<% end %>
 			<%= link_to_remote 'Restore', :url => { :action => "restore", :id => video.id }, :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>
 			<% end %>

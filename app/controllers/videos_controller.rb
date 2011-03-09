@@ -14,8 +14,8 @@ class VideosController < ApplicationController
           @search = Video.with_language_subtitle(params[:language][:subtitle]).with_language_track(params[:language][:track]).new_search(params[:search])      
         else
           @search = Video.new_search(params[:search])
-          @search.conditions.programme_title_keywords = params[:search][:conditions][:programme_title_keywords] 
-          #@search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:programme_title_keywords] 
+          @search.conditions.programme_title_keywords = params[:search][:conditions][:programme_title_keywords].gsub(/\'s|\'t/, "")
+          #@search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:programme_title_keywords]           
         end
       else      
         @search = Video.new_search(params[:search])
@@ -184,7 +184,9 @@ class VideosController < ApplicationController
     end
         
     respond_to do |format|
-      format.html { redirect_to(:back) }
+      format.html { 
+        redirect_to(:back)
+      }
       format.js
     end
     
