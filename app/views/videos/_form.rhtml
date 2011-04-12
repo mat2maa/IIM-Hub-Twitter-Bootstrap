@@ -5,6 +5,9 @@
 		<%= link_to(image_tag(@video.poster.url(:small)), @video.poster.url, :popup => true) %>
 		<br/>
 		<a href="http://images.google.com/images?hl=en&q=tv+still+<%=@video.programme_title%>" target="_blank">Search Google Images</a><br/>
+		<a href="http://www.tv.com/search.php?type=11&stype=all&tag=search%3Bfrontdoor&qs=<%=@video.programme_title%>&stype=program" target="_blank">Search TV.com</a><br/>
+		<a href="http://en.wikipedia.org/w/index.php?title=Special%3ASearch&search=<%=@video.programme_title%>" target="_blank">Search Wikipedia</a><br/>
+
 		<%= f.input :poster, :input_html => {:tabindex => 16}, :label => false, :as => :file, :input_html => { :size => 6 }  %>
 		<br/>
 		<%= f.buttons %>

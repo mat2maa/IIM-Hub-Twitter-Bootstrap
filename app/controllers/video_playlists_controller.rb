@@ -239,8 +239,8 @@ class VideoPlaylistsController < ApplicationController
         video_distributor, 
         video_playlist_item.video.video_genres_string_with_parent, 
         runtime,
-        video_playlist_item.video.language_tracks.join(', '), 
-        video_playlist_item.video.language_subtitles.join(', '), 
+        (video_playlist_item.video.language_tracks.nil? ? "" : video_playlist_item.video.language_tracks.join(', ')), 
+        (video_playlist_item.video.language_subtitles.nil? ? "" : video_playlist_item.video.language_subtitles.join(', ')), 
         video_playlist_item.video.synopsis, 
         "http://hub.iim.com.sg" + video_playlist_item.video.poster.url]
       end

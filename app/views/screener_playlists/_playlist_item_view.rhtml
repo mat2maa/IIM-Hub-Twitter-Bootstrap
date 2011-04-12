@@ -7,18 +7,38 @@
 <% else %>
 	
 <td>
-	<table width="100%" class="videoplaylist">
+	<table width="100%"  class="playlist">
 		<tr>
-			<td width="200"><strong>Episode Title:</strong></td>
+			<td width="200"><strong>Programme Title:</strong></td>
+			<td><%=h playlist_item_view.screener.video.programme_title %></td>
+		</tr>
+		<tr>
+			<td><strong>Episode Title:</strong></td>
 			<td><%=h playlist_item_view.screener.episode_title %></td>
-			<td width="100"><strong>Episode Number:</strong></td>
-			<td><%=h playlist_item_view.screener.episode_number %></td>
-			<td width="100"><strong>Remarks:</strong></td>
-			<td><%=h playlist_item_view.screener.remarks %></td>
-			<td width="100"><strong>Other:</strong></td>
-			<td><%=h playlist_item_view.screener.remarks_other %></td>
-			<td width="100"><strong>Location:</strong></td>
-			<td><%=h playlist_item_view.screener.location %></td>
+		</tr>
+		<tr>
+			<td><strong>Distributor:</strong></td>
+			<td><%=h playlist_item_view.screener.video.video_distributor.company_name %></td>
+		</tr>
+		<tr>
+			<td><strong>Full Genre:</strong></td>
+			<td><%=h playlist_item_view.screener.video.video_genres_string_with_parent %></td>
+		</tr>
+		<tr>
+			<td><strong>Commercial Runtime:</strong></td>
+			<td><%=h playlist_item_view.screener.video.commercial_run_time.minutes if !playlist_item_view.screener.video.commercial_run_time.nil? %></td>
+		</tr>
+		<tr>
+			<td><strong>Lang Tracks:</strong></td>
+			<td><%=h playlist_item_view.screener.video.language_tracks.join(', ') if !playlist_item_view.screener.video.language_tracks.nil? %></td>
+		</tr>
+		<tr>
+			<td><strong>Lang Subtitles:</strong></td>
+			<td><%=h playlist_item_view.screener.video.language_subtitles.join(', ') if !playlist_item_view.screener.video.language_subtitles.nil? %></td>
+		</tr>
+		<tr>
+			<td><strong>Synopsis:</strong></td>
+			<td><%=h playlist_item_view.screener.video.synopsis %></td>
 		</tr>
 	</table>
 	<br/><br/>

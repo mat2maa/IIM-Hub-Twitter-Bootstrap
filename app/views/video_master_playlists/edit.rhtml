@@ -8,7 +8,6 @@
 <div id="content-header-actions">
 	<%= link_to "View Playlist", {:controller => "video_master_playlists", :action => "show",  :id => @video_master_playlist}, :popup =>true %> |
 	<%= link_to "Download Full PDF", {:controller => "video_master_playlists", :action => "print",  :id => @video_master_playlist, :format => "pdf"} %> |
-	<%= link_to "Download Summary PDF", {:controller => "video_master_playlists", :action => "edit",  :id => @video_master_playlist, :format => "pdf"} %> |	
 	<%= link_to "Export as Excel", :controller => "video_master_playlists", :action => "export_to_excel",  :id => @video_master_playlist %> |
 	<%= link_to "Create a playlist", new_video_master_playlist_path %>
 	 

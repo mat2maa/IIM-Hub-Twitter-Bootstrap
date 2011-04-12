@@ -646,5 +646,8 @@ table.movie td, table.movie t{
 	table.edit, #content-header, #content{
 		width:1024px;
 	}		
+	.print-hide{
+		display:none;
+	}
 	
 }

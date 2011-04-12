@@ -214,7 +214,7 @@ class ScreenerPlaylistsController < ApplicationController
     
     # Screener Playlist Summary
     # header row
-    sheet.add_row ["Position", "Video Title", "Distributor", "Episode Title", "Episode Number", "Remarks", "Other", "Location"]
+    sheet.add_row ["Position", "Video Title", "Episode Title", "Episode Number", "Distributor", "Location", "Full Genre", "Commercial Runtime", "Lang Tracks", "Lang Subtitles", "Synopsis"]
 
     # data rows
     screener_playlist_items.each do |screener_playlist_item|
@@ -227,12 +227,16 @@ class ScreenerPlaylistsController < ApplicationController
       
       sheet.add_row [screener_playlist_item.position, 
         screener_playlist_item.screener.video.programme_title, 
-        distributor,
         screener_playlist_item.screener.episode_title, 
         screener_playlist_item.screener.episode_number, 
-        screener_playlist_item.screener.remarks, 
-        screener_playlist_item.screener.remarks_other, 
-        screener_playlist_item.screener.location]
+        distributor,
+        screener_playlist_item.screener.location,
+        screener_playlist_item.screener.video.video_genres_string_with_parent,
+        (screener_playlist_item.screener.video.commercial_run_time.nil? ? "" : screener_playlist_item.screener.video.commercial_run_time.minutes), 
+        (screener_playlist_item.screener.video.language_tracks.nil? ? "" : screener_playlist_item.screener.video.language_tracks.join(', ')),
+        (screener_playlist_item.screener.video.language_subtitles.nil? ? "" : screener_playlist_item.screener.video.language_subtitles.join(', ')),
+        screener_playlist_item.screener.video.synopsis
+      ]
       end
 
       sheet.add_lines(1)

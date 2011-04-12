@@ -10,7 +10,7 @@
 	<table width="100%" class="playlist">
 		<tr>
 			<td width="150"><strong>Programme Title:</strong> </td>
-			<td><%=h playlist_item_view.video.programme_title %></td>
+			<td><%= link_to playlist_item_view.video.programme_title, edit_video_path(playlist_item_view.video), :popup => true %> <%= playlist_item_view.video.on_going_series ? "(On-Going)" : "" %></td>
 			<td rowspan="5" width="160"><%= image_tag(playlist_item_view.video.poster.url(:small)) %></td>
 		</tr>
 		<tr>
@@ -27,11 +27,11 @@
 		</tr>	
 		<tr>
 			<td><strong>Lang Tracks:</strong> </td>
-			<td><%=h playlist_item_view.video.language_tracks.join(', ') %></td>
+			<td><%=h playlist_item_view.video.language_tracks.join(', ') if !playlist_item_view.video.language_tracks.nil? %></td>
 		</tr>	
 		<tr>
 			<td><strong>Lang Subtitles:</strong> </td>
-			<td><%=h playlist_item_view.video.language_subtitles.join(', ') %></td>
+			<td><%=h playlist_item_view.video.language_subtitles.join(', ') if !playlist_item_view.video.language_subtitles.nil? %></td>
 		</tr>	
 		<tr>
 			<td colspan="3"><strong>Synopsis:</strong><br/><%=h playlist_item_view.video.synopsis %></td>

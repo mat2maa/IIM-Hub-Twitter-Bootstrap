@@ -8,7 +8,7 @@
 		<table width="100%">
 			<tr>
 				<th width="130">(<%=h playlist_item.position %>) Programme Title:</th>
-				<td width="200"><%= link_to playlist_item.video.programme_title, edit_video_path(playlist_item.video), :popup => true %></td>
+				<td width="200"><%= link_to playlist_item.video.programme_title, edit_video_path(playlist_item.video), :popup => true %> <%= playlist_item.video.on_going_series ? "(On-Going)" : "" %></td>
 				<th width="60">Distributor:</th>
 				<td width="180"><%=h playlist_item.video.video_distributor.company_name if !playlist_item.video.video_distributor.nil? %></td>
 				<th width="50">Run Time:</th>
@@ -20,9 +20,9 @@
 				<th>Foreign Language Title:</th>
 				<td><%=h playlist_item.video.foreign_language_title %></td>
 				<th>Lang Tracks:</th>
-				<td><%=h playlist_item.video.language_tracks.join(', ') %> </td>
+				<td><%=h playlist_item.video.language_tracks.join(', ') if !playlist_item.video.language_tracks.nil? %> </td>
 				<th>Lang Subs:</th>
-				<td><%=h playlist_item.video.language_subtitles.join(', ') %> </td>
+				<td><%=h playlist_item.video.language_subtitles.join(', ') if !playlist_item.video.language_subtitles.nil? %> </td>
 				<th>Genres:</th>
 				<td><%=h playlist_item.video.video_genres_string_with_parent %> </td>
 			</tr>	

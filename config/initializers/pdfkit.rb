@@ -1,3 +1,5 @@
+require 'pdfkit'
+
 PDFKit.configure do |config|
   config.wkhtmltopdf = '/bin/wkhtmltopdf'
   config.default_options = {

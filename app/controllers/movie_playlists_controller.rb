@@ -270,7 +270,7 @@ class MoviePlaylistsController < ApplicationController
         production_studio, 
         laboratory,
         movie_playlist_item.movie.movie_genres_string, 
-        movie_playlist_item.movie.release_versions.join(', '),
+        (movie_playlist_item.movie.release_versions.nil? ? "" : movie_playlist_item.movie.release_versions.join(', ')),
         movie_playlist_item.movie.theatrical_runtime, 
         movie_playlist_item.movie.edited_runtime, 
         movie_playlist_item.movie.rating, 

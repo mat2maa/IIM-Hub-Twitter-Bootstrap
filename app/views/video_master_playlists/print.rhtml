@@ -1,6 +1,6 @@
 <html>
 <header>
-<title>Images in Motion - <%=h @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %><%=h @video_master_playlist.start_cycle.strftime("%m%y") %> Video Masters Playlist</title>
+<title>Images in Motion - <%=h @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %><%=h @video_master_playlist.start_cycle.strftime("%m%y") %> <%=h @video_master_playlist.video_playlist_type %> Screeners Playlist</title>
 <%= stylesheet_link_tag 'print' , :media => 'print' %>
 <%= stylesheet_link_tag 'print' , :media => 'screen' %>
 </header>

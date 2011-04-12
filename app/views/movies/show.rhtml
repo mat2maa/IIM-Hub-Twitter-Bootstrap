@@ -52,13 +52,13 @@
 </tr>
 <tr>
 	<th>Available Lang Tracks:</th>
-	<td><%= @movie.language_tracks.collect{|r| r}.to_sentence %>
+	<td><%= @movie.language_tracks.collect{|r| r}.to_sentence if !@movie.language_tracks.nil?%>
 	</td>
 	<th>Screener Held:</th><td><%=  @movie.screener_received_date == nil ? "No" : "Yes" %></td>	
 </tr>
 <tr>
 	<th>Available Subtitle Tracks:</th>
-	<td><%= @movie.language_subtitles.collect{|r| r}.to_sentence %>
+	<td><%= @movie.language_subtitles.collect{|r| r}.to_sentence if !@movie.language_subtitles.nil? %>
 	</td>
 	<th>Screener Destroyed:</th><td><%= @movie.screener_destroyed_date == nil ? "No" : "Yes"  %></td>
 </tr>

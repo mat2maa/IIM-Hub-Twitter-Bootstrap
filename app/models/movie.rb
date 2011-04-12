@@ -81,7 +81,7 @@ class Movie < ActiveRecord::Base
   
   def movie_genres_string
     genres = self.movie_genres.collect{|genre| genre.name}
-    genres.join(', ')
+    genres.nil? ? "" : genres.join(', ')
   end
 
   def release_versions=(release_versions)
