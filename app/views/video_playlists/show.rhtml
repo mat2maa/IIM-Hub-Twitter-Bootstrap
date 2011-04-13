@@ -12,6 +12,7 @@
 <div id="content">
 <center>
 <h2>Video Playlist</h2>
+<%= "Video Playlist Type: #{@video_playlist.video_playlist_type.name} " if !@video_playlist.video_playlist_type.nil?%>
 
 <table width="900">
   <%= render :partial => 'playlist_item_view', :collection => @video_playlist.video_playlist_items_sorted %>
