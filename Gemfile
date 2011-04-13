@@ -17,7 +17,7 @@ gem "authlogic"
 gem "settingslogic"
 gem "fastercsv"
 gem 'formtastic', "~>1.2.3"
-gem 'pdfkit'
+gem "pdfkit", :git => "https://huerlisi@github.com/huerlisi/PDFKit.git"
 gem "factory_girl"
 gem "capybara"
 gem "populator"

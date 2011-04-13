@@ -1,3 +1,9 @@
+GIT
+  remote: https://huerlisi@github.com/huerlisi/PDFKit.git
+  revision: 7fd74e36a81af03533fb8f42611458dd9bec7fc6
+  specs:
+    pdfkit (0.5.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -75,7 +81,6 @@ GEM
       gem_plugin (>= 0.2.3)
     mysql (2.8.1)
     nokogiri (1.4.4)
-    pdfkit (0.5.0)
     pickle (0.4.7)
       cucumber (>= 0.8)
       rake
@@ -140,7 +145,7 @@ DEPENDENCIES
   mime-types
   mongrel
   mysql
-  pdfkit
+  pdfkit!
   pickle
   populator
   rails (~> 2.3.11)
