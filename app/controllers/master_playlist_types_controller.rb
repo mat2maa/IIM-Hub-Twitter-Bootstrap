@@ -51,7 +51,7 @@ class MasterPlaylistTypesController < ApplicationController
   def destroy
 
     id = params[:id]
-    @master_playlists = VideoMasterPlaylistItem.find(:all, :conditions => ["master_playlist_type_id = ?", id] )
+    @master_playlists = VideoMasterPlaylist.find(:all, :conditions => ["master_playlist_type_id = ?", id] )
     if @master_playlists.length.zero? 
       @master_playlist_type = MasterPlaylistType.find(id)
       @master_playlist_type.destroy
