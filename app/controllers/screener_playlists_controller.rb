@@ -44,8 +44,7 @@ class ScreenerPlaylistsController < ApplicationController
   
   def edit 
     @screener_playlist = ScreenerPlaylist.find(params[:id],:include=>[:screener_playlist_items,:screeners])
-    session[:screeners_search] = collection_to_id_array(@screener_playlist.screeners)
-    
+    session[:screeners_search] = collection_to_id_array(@screener_playlist.screeners)    
   end 
 
   def update
@@ -72,7 +71,10 @@ class ScreenerPlaylistsController < ApplicationController
     @screener_playlist = ScreenerPlaylist.find(params[:id])
     
     if !params[:screener_playlists].nil?
-      @search = Screener.new_search(params[:screener_playlists])      
+      @search = Screener.new_search(params[:screener_playlists])  
+      @search.conditions.video.programme_title_keywords = params[:screener_playlists][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/, "")
+      @search.conditions.episode_title_keywords = params[:screener_playlists][:conditions][:episode_title_keywords].gsub(/\'s|\'t/, "")
+          
       if !params[:search].nil?
         search = params[:search]        
         @search.per_page = search[:per_page] if !search[:per_page].nil? 

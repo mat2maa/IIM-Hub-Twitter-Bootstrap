@@ -72,7 +72,8 @@ class VideoPlaylistsController < ApplicationController
     if !params[:video_playlists].nil?
       @search = Video.new_search(params[:video_playlists])      
       @search.conditions.to_delete_equals = 0
-      @search.conditions.or_foreign_language_title_keywords = params[:video_playlists][:conditions][:or_video_title_keywords]
+      @search.conditions.or_movie_title_keywords = params[:video_playlists][:conditions][:or_movie_title_keywords].gsub(/\'s|\'t/, "") 
+      @search.conditions.or_foreign_language_title_keywords = params[:video_playlists][:conditions][:or_video_title_keywords].gsub(/\'s|\'t/, "") 
       if !params[:search].nil?
         search = params[:search]  
               

@@ -76,7 +76,9 @@ class MoviePlaylistsController < ApplicationController
     if !params[:movie_playlists].nil?
       @search = Movie.new_search(params[:movie_playlists])      
       @search.conditions.to_delete_equals=0
-      @search.conditions.or_foreign_language_title_keywords = params[:movie_playlists][:conditions][:or_movie_title_keywords]  
+      @search.conditions.or_movie_title_keywords = params[:movie_playlists][:conditions][:or_movie_title_keywords].gsub(/\'s|\'t/, "")      
+      @search.conditions.or_foreign_language_title_keywords = params[:movie_playlists][:conditions][:or_movie_title_keywords].gsub(/\'s|\'t/, "") 
+
       if !params[:search].nil?
         search = params[:search]        
         @search.per_page = search[:per_page] if !search[:per_page].nil? 
@@ -90,7 +92,8 @@ class MoviePlaylistsController < ApplicationController
         @search.conditions.screener_destroyed_date_equals = ""
       end
       
-      @movies, @movies_count = @search.all, @search.count
+      @movies = @search.all
+      @movies_count = @movies.count
 
     else
       @movies = nil

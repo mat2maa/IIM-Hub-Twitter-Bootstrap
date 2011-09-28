@@ -5,6 +5,8 @@ class ScreenersController < ApplicationController
   def index    
     if !params['search'].nil? 
       @search = Screener.new_search(params[:search])
+      @search.conditions.video.programme_title_keywords = params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/, "")
+      @search.conditions.episode_title_keywords = params[:search][:conditions][:episode_title_keywords].gsub(/\'s|\'t/, "")      
     else
       #no search made yet
       @search = Screener.new_search(:order_by => :id, :order_as => "DESC")
