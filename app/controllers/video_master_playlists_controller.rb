@@ -64,7 +64,7 @@ class VideoMasterPlaylistsController < ApplicationController
   end
   
   def show 
-    @video_master_playlist = VideoMasterPlaylist.find(params[:id],:include=>[:video_master_playlist_items,:masters])
+    @video_master_playlist = VideoMasterPlaylist.find(params[:id],:include=>[:video_master_playlist_items,:masters])    
   end
   
   #display overlay
@@ -281,7 +281,9 @@ class VideoMasterPlaylistsController < ApplicationController
       :media_instruction => @playlist.media_instruction
     )
 
-    @playlist.video_master_playlist_items.each do |item|
+    @video_master_playlist_items = VideoMasterPlaylistItem.find(:all, :conditions=>"video_master_playlist_id=#{@playlist.id}", :order =>"position ASC")
+
+    @video_master_playlist_items.each do |item|
 
       VideoMasterPlaylistItem.create(
       :master_id => item.master_id,

@@ -306,7 +306,9 @@ class MoviePlaylistsController < ApplicationController
       :user_id => current_user.id
     )
 
-    @playlist.movie_playlist_items.each do |item|
+    @movie_playlist_items = MoviePlaylistItem.find(:all, :conditions=>"movie_playlist_id=#{@playlist.id}", :order =>"position ASC")
+    
+    @movie_playlist_items.each do |item|
 
       MoviePlaylistItem.create(
       :movie_id => item.movie_id,

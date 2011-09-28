@@ -276,7 +276,9 @@ class VideoPlaylistsController < ApplicationController
       :user_id => current_user.id
     )
 
-    @playlist.video_playlist_items.each do |item|
+    @video_playlist_items = VideoPlaylistItem.find(:all, :conditions=>"video_playlist_id=#{@playlist.id}", :order =>"position ASC")
+
+    @video_playlist_items.each do |item|
 
       VideoPlaylistItem.create(
       :video_id => item.video_id,

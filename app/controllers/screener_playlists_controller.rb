@@ -270,8 +270,9 @@ class ScreenerPlaylistsController < ApplicationController
       :user_id => current_user.id,
       :media_instruction => @playlist.media_instruction
     )
+    @screener_playlist_items = ScreenerPlaylistItem.find(:all, :conditions=>"screener_playlist_id=#{@playlist.id}", :order =>"position ASC")
 
-    @playlist.screener_playlist_items.each do |item|
+    @screener_playlist_items.each do |item|
 
       ScreenerPlaylistItem.create(
       :screener_id => item.screener_id,

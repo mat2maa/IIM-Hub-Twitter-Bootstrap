@@ -1,12 +1,21 @@
 <% content_for(:head) do %>
 <meta name="pdfkit-orientation" content="Landscape"/>
+<script>
+jQuery(document).ready(function() {
+	jQuery('#print_playlist').click(function(event){
+		if (!confirm("ALERT! Please change your page layout to LANDSCAPE when printing")) {
+		      event.preventDefault();
+		}		
+	});
+});
+</script>
 <% end %>
 
 <%= render :partial => 'layouts/screener_playlist_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
 <div id="content-header-actions">
-	<%= link_to "View Playlist", {:controller => "screener_playlists", :action => "show",  :id => @screener_playlist}, :popup =>true %> |
+	<%= link_to "Print Playlist", {:controller => "screener_playlists", :action => "show",  :id => @screener_playlist}, :id => 'print_playlist', :target => '_blank' %> |
 	<%= link_to "Download Full PDF", {:controller => "screener_playlists", :action => "print",  :id => @screener_playlist, :format => "pdf"} %> |
 	<%#= link_to "Download Summary PDF", {:controller => "screener_playlists", :action => "edit",  :id => @screener_playlist, :format => "pdf"} %> 
 	<%= link_to "Export as Excel", :controller => "screener_playlists", :action => "export_to_excel",  :id => @screener_playlist %> |
