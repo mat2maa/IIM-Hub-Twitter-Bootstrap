@@ -17,7 +17,9 @@ jQuery(document).ready(function() {
 <center>
 
 <h2><%=h @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%=h @screener_playlist.start_cycle.strftime("%m%y") %> Screener Playlist</h2>
-<%= "Video Playlist Type: #{@screener_playlist.video_playlist_type.name} " if !@screener_playlist.video_playlist_type.nil?%>
+<%= "Video Playlist Type: #{@screener_playlist.video_playlist_type.name} " if !@screener_playlist.video_playlist_type.nil?%><br/>
+<strong>Media Instruction:</strong><br/>
+<%= @screener_playlist.media_instruction.gsub(/\n/,'<br/>') %>
 
 <table width="900">
   <%= render :partial => 'playlist_item_view', :collection => @screener_playlist.screener_playlist_items_sorted %>
