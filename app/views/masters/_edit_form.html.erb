@@ -16,10 +16,10 @@
 
 					<td><%= f.input :tape_media, :as => :select, 
 						:collection => Video::TAPE_MEDIA, 
-						:label => "Tape Media", :include_blank => false %></td>
+						:label => "Tape Media", :include_blank => true %></td>
 
 					<td><%= f.input :tape_format, :as => :select, :collection => ["PAL", "NTSC"], :label => "Tape Format", 
-						:include_blank => false %></td>
+						:include_blank => true %></td>
 					<td><%= f.input :tape_size, :as => :select, :collection => ["Small","Large", "DVD"], :label => "Tape Size", 
 						:include_blank => true %></td>	
 					<td><%= f.input :video_subtitles_1, :as => :select, :collection => IIM::MOVIE_LANGUAGES ,:include_blank => true, 
@@ -47,7 +47,7 @@
 					<td><%= f.input :language_track_4,	:as => :select, :collection => IIM::MOVIE_LANGUAGES, :include_blank => true, 
 							:label => "Lang Track 4<br/>" %></td>			
 					<td>
-						<%= f.input (:aspect_ratio, :as => :select, :collection => ["4:3", "16:9", "14:9"], :include_blank => false)  %>
+						<%= f.input (:aspect_ratio, :as => :select, :collection => ["4:3", "16:9", "14:9"], :include_blank => true)  %>
 					</td>
 				</tr>
 				<tr>

@@ -23,8 +23,8 @@ class MastersController < ApplicationController
   def new  
     @master = Master.new
     @master.video_id = params[:id]
-    @master.language_track_1 = 'Eng'
-    @master.language_track_2 = 'Eng'
+    # @master.language_track_1 = 'Eng'
+    # @master.language_track_2 = 'Eng'
     respond_to do |format|
       format.js {render :layout => false}    
     end

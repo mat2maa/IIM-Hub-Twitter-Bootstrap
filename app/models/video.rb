@@ -42,7 +42,7 @@ class Video < ActiveRecord::Base
       }
    
   VIDEO_TYPES = ["Short Subject Programme", "Movie EPK", "Movie Trailer", "Movie Master", "TV Special", "Graphics", "Airline Master"]
-  TAPE_MEDIA = ["Betacam SP", "Digital Betacam", "DVD", "Betacam SX", "MPEG IMX", "HDCAM", "DVCCAM", "HDCAM", "DVCAM Pro", "Pro Res Proxy"]
+  TAPE_MEDIA = ["Betacam SP", "Betacam SX", "Digital Betacam", "DV", "DVCCAM", "DVCAM Pro", "DVD", "H.264", "HDCAM", "MPEG IMX", "Pro Res HQ", "Pro Res Proxy"]
   
   def before_save
     
