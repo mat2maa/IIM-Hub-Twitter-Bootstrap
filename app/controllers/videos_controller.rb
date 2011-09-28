@@ -8,24 +8,35 @@ class VideosController < ApplicationController
         #before search
         if params[:language][:track]!="" && params[:language][:subtitle]==""
           @search = Video.with_language_track(params[:language][:track]).new_search(params[:search])      
+          @search.conditions.active_equals = true
+          
         elsif params[:language][:subtitle]!="" && params[:language][:track]=="" && !params[:language].nil?
           @search = Video.with_language_subtitle(params[:language][:subtitle]).new_search(params[:search])      
+          @search.conditions.active_equals = true
+          
         elsif params[:language][:subtitle]!="" && params[:language][:track]!="" && !params[:language].nil?
           @search = Video.with_language_subtitle(params[:language][:subtitle]).with_language_track(params[:language][:track]).new_search(params[:search])      
+          @search.conditions.active_equals = true
+          
         else
           @search = Video.new_search(params[:search])
+          @search.conditions.active_equals = true          
           @search.conditions.programme_title_keywords = params[:search][:conditions][:programme_title_keywords].gsub(/\'s|\'t/, "")
           #@search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:programme_title_keywords]           
         end
       else      
         @search = Video.new_search(params[:search])
+        @search.conditions.active_equals = true        
       end
 
     else 
       @search = Video.new_search(:order_by => :id, :order_as => "DESC")
+      @search.conditions.active_equals = true      
     end
     @search.conditions.screeners_count_gte = params[:screeners].to_i if params[:screeners]=='1'
     @search.conditions.masters_count_gte = params[:masters].to_i if params[:masters]=='1'
+    @search.conditions.active_equals = true
+    
     
     @videos, @videos_count = @search.all, @search.count
   
@@ -179,8 +190,15 @@ class VideosController < ApplicationController
          @video_is_deleted = false
       end
 	  else
-      flash[:notice] = 'Video could not be deleted, video is in use by playlists'
-    	@video_is_deleted = false
+	    
+	    @video.active = false
+	    @video.save
+	    flash[:notice] = "Successfully deleted video."      
+	    @video_is_deleted = true
+      
+      # flash[:notice] = 'Video could not be deleted, video is in use by playlists'
+      # @video_is_deleted = false
+      
     end
         
     respond_to do |format|

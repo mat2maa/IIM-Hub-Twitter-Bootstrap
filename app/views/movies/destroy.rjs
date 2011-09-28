@@ -1,7 +1,15 @@
 #page.redirect_to movies_url
 
+  page.redirect_to movies_url if !@movie.active
+  
 if @movie_is_deleted
-  page.visual_effect :fade, "movie-#{@movie.id}"
+  
+  if @movie.active
+    page.visual_effect :fade, "movie-#{@movie.id}"
+  else
+    page.redirect_to movies_url
+  end
+  
 else
   page.replace "movie-#{@movie.id}",  :partial=>"movie", :object=>@movie
   page.replace_html :notice, flash[:notice]

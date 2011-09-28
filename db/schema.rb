@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101221065500) do
+ActiveRecord::Schema.define(:version => 20110928050648) do
 
   create_table "airline_rights_countries", :force => true do |t|
     t.string   "name"
@@ -286,6 +286,7 @@ ActiveRecord::Schema.define(:version => 20101221065500) do
     t.string   "aspect_ratio"
     t.string   "video_subtitles_2"
     t.string   "in_playlists"
+    t.boolean  "active",            :default => true
   end
 
   add_index "masters", ["video_id"], :name => "index_masters_on_video_id"
@@ -368,6 +369,7 @@ ActiveRecord::Schema.define(:version => 20101221065500) do
     t.string   "in_playlists"
     t.text     "language_tracks"
     t.text     "language_subtitles"
+    t.boolean  "active",                  :default => true
   end
 
   add_index "movies", ["laboratory_id"], :name => "index_movies_on_laboratory_id"
@@ -450,6 +452,7 @@ ActiveRecord::Schema.define(:version => 20101221065500) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "in_playlists"
+    t.boolean  "active",         :default => true
   end
 
   add_index "screeners", ["video_id"], :name => "index_screeners_on_video_id"
@@ -669,6 +672,7 @@ ActiveRecord::Schema.define(:version => 20101221065500) do
     t.string   "in_playlists"
     t.text     "language_tracks"
     t.text     "language_subtitles"
+    t.boolean  "active",                 :default => true
   end
 
   add_index "videos", ["laboratory_id"], :name => "index_videos_on_laboratory_id"

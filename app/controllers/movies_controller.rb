@@ -13,8 +13,10 @@ class MoviesController < ApplicationController
           @search = Movie.with_language_subtitle(params[:language][:subtitle]).with_language_track(params[:language][:track]).new_search(params[:search])      
         else
           @search = Movie.new_search(params[:search])
+          @search.conditions.active_equals = true
+          
           @search.conditions.or_movie_title_keywords = params[:search][:conditions][:or_movie_title_keywords].gsub(/\'s|\'t/, "")
-          @search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:or_movie_title_keywords].gsub(/\'s|\'t/, "")
+          @search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:or_movie_title_keywords].gsub(/\'s|\'t/, "")          
         end
         
         if params[:screener][:destroyed] == "1"
@@ -28,11 +30,19 @@ class MoviesController < ApplicationController
         
       else      
         @search = Movie.new_search(params[:search])
+        @search.conditions.active_equals = true
+        
       end      
     else
       #no search made yet
       @search = Movie.new_search(:order_by => :id, :order_as => "DESC")
+      @search.conditions.active_equals = true
+      
     end
+    
+    
+    @search.conditions.active_equals = true
+    
     @movies, @movies_count = @search.all, @search.count
     
     if @movies_count == 1
@@ -137,8 +147,12 @@ class MoviesController < ApplicationController
         @movie_is_deleted = false
       end
 	  else
-      flash[:notice] = 'Movie could not be deleted, movie is in use for by playlists'
-    	@movie_is_deleted = false
+	    @movie.active = false
+	    @movie.save
+	    flash[:notice] = "Successfully deleted movie."      
+	    @movie_is_deleted = true
+	    
+      #flash[:notice] = 'Movie could not be deleted, movie is in use for by playlists'
     end	
   	
     respond_to do |format|

@@ -2,7 +2,11 @@
 #page.redirect_to videos_url(CGI::unescape(videos_url(params[:search])))
 
 if @video_is_deleted
-  page.visual_effect :fade, "video-#{@video.id}"
+  if @video.active
+    page.visual_effect :fade, "video-#{@video.id}"
+  else
+    page.redirect_to videos_url    
+  end
 else
   page.replace "video-#{@video.id}",  :partial=>"video", :object=>@video
   page.replace_html :notice, flash[:notice]

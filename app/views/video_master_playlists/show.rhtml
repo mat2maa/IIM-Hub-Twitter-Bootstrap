@@ -92,7 +92,7 @@ jQuery(document).ready(function() {
 						<td valign="top"><strong>Mastering:</strong><br/>
 						</td>
 						<td  colspan="5">
-							<%=h video_master_playlist_item.mastering.gsub(/\n/,'<br/>') if !video_master_playlist_item.mastering.nil? %>
+							<%= video_master_playlist_item.mastering.gsub(/\n/,'<br/>') if !video_master_playlist_item.mastering.nil? %>
 						</td>
 						<th>Aspect Ratio:</th>
 						<td><%=h video_master_playlist_item.master.aspect_ratio %></td>

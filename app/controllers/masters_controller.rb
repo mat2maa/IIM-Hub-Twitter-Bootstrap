@@ -5,11 +5,14 @@ class MastersController < ApplicationController
   def index    
     if !params['search'].nil? 
       @search = Master.new_search(params[:search])
+      @search.conditions.active_equals = true      
       @search.conditions.video.programme_title_keywords = params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/, "")
       @search.conditions.episode_title_keywords = params[:search][:conditions][:episode_title_keywords].gsub(/\'s|\'t/, "")
     else
       #no search made yet
       @search = Master.new_search(:order_by => :id, :order_as => "DESC")
+      @search.conditions.active_equals = true
+      
     end
     @masters, @masters_count = @search.all, @search.count
     
@@ -107,8 +110,12 @@ class MastersController < ApplicationController
         @master_is_deleted = true
       end
 	  else
-      flash[:notice] = 'Master could not be deleted, master is in use by playlists'
-    	@master_is_deleted = false
+	    @master.active = false
+	    @master.save
+	    flash[:notice] = "Successfully deleted master."      
+	    
+      # flash[:notice] = 'Master could not be deleted, master is in use by playlists'
+      @master_is_deleted = true
     end	
     respond_to do |format|    
       format.html { redirect_to edit_video_url(@master.video.id) } 

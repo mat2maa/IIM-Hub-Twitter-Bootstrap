@@ -5,11 +5,14 @@ class ScreenersController < ApplicationController
   def index    
     if !params['search'].nil? 
       @search = Screener.new_search(params[:search])
+      @search.conditions.active_equals = true      
       @search.conditions.video.programme_title_keywords = params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/, "")
       @search.conditions.episode_title_keywords = params[:search][:conditions][:episode_title_keywords].gsub(/\'s|\'t/, "")      
     else
       #no search made yet
       @search = Screener.new_search(:order_by => :id, :order_as => "DESC")
+      @search.conditions.active_equals = true
+      
     end
     @screeners, @screeners_count = @search.all, @search.count
     
@@ -96,24 +99,35 @@ class ScreenersController < ApplicationController
   
   def destroy
     @screener = Screener.find(params[:id])
-    
-    #check if video is in any playlists
-    tot_playlists =ScreenerPlaylistItem.count(:conditions => 'screener_id=' + @screener.id.to_s )
-    
-    if tot_playlists.zero?
-      if permitted_to? :admin_delete, :screeners
+
+    if permitted_to? :admin_delete, :screeners
+      #check if video is in any playlists
+      tot_playlists =ScreenerPlaylistItem.count(:conditions => 'screener_id=' + @screener.id.to_s )
+
+      if tot_playlists.zero?
         @screener.destroy
         flash[:notice] = "Successfully deleted screener."
         @screener_is_deleted = true
-      end
-	  else
-      flash[:notice] = 'Screener could not be deleted, screener is in use by playlists'
-    	@screener_is_deleted = false
-    end	
+        
+  	  else
+  	    @screener.active = false
+  	    @screener.save
+  	    flash[:notice] = "Successfully deleted screener."      
+
+        # flash[:notice] = 'Screener could not be deleted, screener is in use by playlists'
+        @screener_is_deleted = true
+      end	
+      
+    end
+    
     
     respond_to do |format|    
       format.html { redirect_to edit_video_url(@screener.video.id) } 
-      format.js {render :layout => false}
+      format.js {
+        
+        render :layout => false
+        redirect_to videos_url
+      }
     end
   end
   

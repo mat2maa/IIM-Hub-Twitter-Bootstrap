@@ -33,7 +33,7 @@ set :deploy_via, :remote_cache
 set :repository, "ssh://iim@#{domain}:8000/home/#{user}/git/iim.git"
 #set :repository, "/home/#{user}/git/iim.git"
 set :branch, "master"
-set  :keep_releases,  3
+set  :keep_releases,  5
 
 # =============================================================================
 # SSH OPTIONS
