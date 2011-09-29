@@ -20,9 +20,9 @@
 			</td>
 			<td valign="top">	
 				Available Lang Track:<br/>
-				<%= select :language, :track, IIM::MOVIE_LANGUAGES, { :include_blank => true } %><br/>
+				<%= select :language, :track, @languages, { :include_blank => true } %><br/>
 			 	Available Lang Subtitles:<br/>
-				<%= select :language, :subtitle, IIM::MOVIE_LANGUAGES, { :include_blank => true } %>
+				<%= select :language, :subtitle, @languages, { :include_blank => true } %>
 			</td>
 			<td valign="top">
 				<% videos.fields_for videos.object.video_genres do |genres| %> 

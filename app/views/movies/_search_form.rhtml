@@ -43,9 +43,9 @@
 					<table><tr>
 						
 						<td>Languages:<br/>
-						<%= select :language, :track, IIM::MOVIE_LANGUAGES, { :include_blank => true } %></td>
+						<%= select :language, :track, @languages, { :include_blank => true } %></td>
 						<td>Subtitles:<br/>
-						<%= select :language, :subtitle, IIM::MOVIE_LANGUAGES, { :include_blank => true } %></td>
+						<%= select :language, :subtitle, @languages, { :include_blank => true } %></td>
 						
 					</tr></table>
 					<br/>

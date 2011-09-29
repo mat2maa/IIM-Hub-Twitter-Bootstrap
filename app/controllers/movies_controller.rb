@@ -2,7 +2,11 @@ class MoviesController < ApplicationController
   before_filter :require_user
   filter_access_to :all
     
-  def index    
+  def index   
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
+     
     if !params['search'].nil? 
       if !params[:language].nil?
         if params[:language][:track]!="" && params[:language][:subtitle]==""
@@ -76,6 +80,10 @@ class MoviesController < ApplicationController
       @movie.screener_destroyed_date = nil
       @movie.airline_release_date = nil
       @movie.personal_video_date = nil      
+      
+      @languages = MasterLanguage.find(:all, :order=>"name").collect{
+        |language| language.name
+      } 
   end
   
   def create
@@ -97,6 +105,10 @@ class MoviesController < ApplicationController
   end
   
   def edit
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
+    
     @search = Movie.new_search(:order_by => :id, :order_as => "DESC")
     @movies, @movies_count = @search.all, @search.count
       

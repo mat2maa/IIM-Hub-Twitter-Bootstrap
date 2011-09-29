@@ -68,6 +68,9 @@ class ScreenerPlaylistsController < ApplicationController
   
   #display overlay
   def add_screener_to_playlist
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
     @screener_playlist = ScreenerPlaylist.find(params[:id])
     
     if !params[:screener_playlists].nil?

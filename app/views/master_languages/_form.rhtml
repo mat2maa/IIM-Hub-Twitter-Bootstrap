@@ -1,0 +1,14 @@
+<% form_remote_tag :url => {:action => 'create'}, 
+                    :html => {:id => 'master_language_form'} do %>
+<table>
+  <tr>
+	<td>Language</td>
+    <td>
+      <%= text_field_tag 'master_language[name]' %>
+    </td>
+    <td colspan="2">
+      <%= submit_tag "Add New Language" %>
+    </td>
+  </tr>
+</table>
+<% end %>

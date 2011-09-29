@@ -2,7 +2,11 @@ class MastersController < ApplicationController
   before_filter :require_user
   filter_access_to :all
   
-  def index    
+  def index   
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
+     
     if !params['search'].nil? 
       @search = Master.new_search(params[:search])
       @search.conditions.active_equals = true      
@@ -23,7 +27,11 @@ class MastersController < ApplicationController
     session[:masters_search] = collection_to_id_array(@masters)
   end
   
-  def new  
+  def new
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
+      
     @master = Master.new
     @master.video_id = params[:id]
     # @master.language_track_1 = 'Eng'
@@ -52,6 +60,10 @@ class MastersController < ApplicationController
   end
   
   def edit
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
+    
     if !params['search'].nil? 
       @search = Master.new_search(params[:search])
     else

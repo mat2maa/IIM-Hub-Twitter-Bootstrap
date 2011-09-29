@@ -2,7 +2,11 @@ class VideosController < ApplicationController
   before_filter :require_user
   filter_access_to :all
   
-  def index    
+  def index
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
+        
     if !params['search'].nil? 
       if !params[:language].nil?
         #before search
@@ -55,7 +59,9 @@ class VideosController < ApplicationController
 
   def new
       @video_genres = VideoParentGenre.find(:all)
-      
+      @languages = MasterLanguage.find(:all, :order=>"name").collect{
+        |language| language.name
+      }       
       
       @video = Video.new
       if !params[:video_type].nil?
@@ -131,6 +137,10 @@ class VideosController < ApplicationController
   def edit
     @search = Video.new_search
     @videos, @videos_count = @search.all, @search.count
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
+    
       
     @video = Video.find(params[:id])
     @video_genres = VideoParentGenre.find(:all)

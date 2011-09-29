@@ -1,0 +1,17 @@
+<%= render :partial => 'header' %>
+<div id="content">
+<center>
+<%= render :partial => 'form' %>
+<br/>
+<table border="0" cellpadding="10" cellspacing="0" width="100%" id="master_languages">
+  <tr >
+    <td class="list-header">ID</td><td class="list-header">Language</td><td colspan="2" class="list-header">&nbsp;</td>
+  </tr>
+
+
+<%= render :partial => 'master_language', :collection => @master_languages %>
+
+</table>
+
+</center>
+</div>

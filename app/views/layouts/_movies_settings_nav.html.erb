@@ -30,6 +30,9 @@
 		<li <%= "id='curr-nav'" if (yield(:title).include?("Commercial Run Time"))%>>
 			<%= link_to "Commercial Run Time", :controller => "commercial_run_times"  %>
 		</li>
+		<li <%= "id='curr-nav'" if (yield(:title).include?("Languages"))%>>
+			<%= link_to "Languages", :controller => "master_languages"  %>
+		</li>
 	</ul>
 	<div id="clear"><br/></div>
 </div>

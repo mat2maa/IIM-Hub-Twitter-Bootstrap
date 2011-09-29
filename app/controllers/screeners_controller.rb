@@ -3,6 +3,10 @@ class ScreenersController < ApplicationController
   filter_access_to :all
   
   def index    
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
+    
     if !params['search'].nil? 
       @search = Screener.new_search(params[:search])
       @search.conditions.active_equals = true      
@@ -24,6 +28,10 @@ class ScreenersController < ApplicationController
   end
   
   def new
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
+    
     @screener = Screener.new
     @screener.video_id = params[:id]
     respond_to do |format|
@@ -50,6 +58,10 @@ class ScreenersController < ApplicationController
   end
   
   def edit
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
+    
     if !params['search'].nil? 
       @search = Screener.new_search(params[:search])
     else

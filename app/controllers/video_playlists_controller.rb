@@ -67,6 +67,10 @@ class VideoPlaylistsController < ApplicationController
   
   #display overlay
   def add_video_to_playlist
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
+    
     @video_playlist = VideoPlaylist.find(params[:id])
     
     if !params[:video_playlists].nil?

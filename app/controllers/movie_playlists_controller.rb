@@ -72,6 +72,9 @@ class MoviePlaylistsController < ApplicationController
   #display overlay
   def add_movie_to_playlist
     @movie_playlist = MoviePlaylist.find(params[:id])
+    @languages = MasterLanguage.find(:all, :order=>"name").collect{
+      |language| language.name
+    } 
     
     if !params[:movie_playlists].nil?
       @search = Movie.new_search(params[:movie_playlists])      

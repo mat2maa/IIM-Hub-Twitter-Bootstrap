@@ -59,10 +59,10 @@
 				<% end %>
 
 				<%= f.input :language_tracks, :input_html => {:tabindex => 12}, :label => "Available Language<br/>Tracks", :as => :check_boxes, 
-										:collection => IIM::MOVIE_LANGUAGES %>
+										:collection => @languages %>
 
 				<%= f.input :language_subtitles, :input_html => {:tabindex => 13}, :label => "Available Language<br/>Subtitles", :as => :check_boxes, 
-										:collection => IIM::MOVIE_LANGUAGES %>
+										:collection => @languages %>
 
 				<%= f.input :synopsis, :label=> "Programme Synopsis", :input_html => {:tabindex => 14}, 
 										:hint => "(<span id='char_count' ></span > characters)"%> 

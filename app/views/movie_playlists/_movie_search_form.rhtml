@@ -41,9 +41,9 @@
 				<td valign="top" colspan="2">
 					<table><tr>
 						<td>Languages:<br/>
-						<%= select :language, :track, IIM::MOVIE_LANGUAGES, { :include_blank => true } %></td>
+						<%= select :language, :track, @languages, { :include_blank => true } %></td>
 						<td>Subtitles:<br/>
-						<%= select :language, :subtitle, IIM::MOVIE_LANGUAGES, { :include_blank => true } %></td>
+						<%= select :language, :subtitle, @languages, { :include_blank => true } %></td>
 						<td>Theatrical Release Year:<br/>
 						<%= movies.select :theatrical_release_year_equals, movie_release_years, :include_blank => true %></td>
 					</tr></table>

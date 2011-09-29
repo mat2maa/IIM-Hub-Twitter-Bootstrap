@@ -138,9 +138,9 @@
 				
 		
 		<%= f.input :language_tracks, :input_html => {:tabindex => 22}, :label => "Available Language<br/>Tracks", :as => :check_boxes, 
-								:collection => IIM::MOVIE_LANGUAGES %>
+								:collection => @languages %>
 		<%= f.input :language_subtitles, :input_html => {:tabindex => 23}, :label => "Available Language<br/>Subtitles", :as => :check_boxes, 
-								:collection => IIM::MOVIE_LANGUAGES %>
+								:collection => @languages %>
     <%= f.input :movie_genres, :collection => MovieGenre.find(:all, :order => "name"), :input_html => {:tabindex => 24}, :label =>"Movie Genre", :as => :check_boxes %>
 		
 		<%= f.input :cast, :input_html => {:tabindex => 25} %>

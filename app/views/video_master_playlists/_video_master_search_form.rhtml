@@ -38,9 +38,9 @@
 			</td>
 			<td valign="top">	
 				Lang Track:<br/>
-				<%= select :language, :track, IIM::MOVIE_LANGUAGES, { :include_blank => true } %><br/>
+				<%= select :language, :track, @languages, { :include_blank => true } %><br/>
 			 	Lang Subtitles:<br/>
-				<%= select :language, :subtitle, IIM::MOVIE_LANGUAGES, { :include_blank => true } %><br/>
+				<%= select :language, :subtitle, @languages, { :include_blank => true } %><br/>
 				Tape Location Number:<br/>
 				<% video.fields_for video.object.masters do |masters| %>
 					<%= masters.text_field :location_equals, :size => 6  %><br/>

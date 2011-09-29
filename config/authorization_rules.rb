@@ -90,6 +90,7 @@ authorization do
 		has_permission_on :genres, :to => :manage
 		has_permission_on :labels, :to => :manage
 		has_permission_on :languages, :to => :manage
+		has_permission_on :master_languages, :to => :manage
 		has_permission_on :origins, :to => :manage
 		has_permission_on :programs, :to => :manage
 		
@@ -108,6 +109,7 @@ authorization do
 		has_permission_on :commercial_run_times, :to => :manage
 		has_permission_on :video_playlist_types, :to => :manage
 		has_permission_on :master_playlist_types, :to => :manage
+		has_permission_on :master_languages, :to => :manage
 		
 		has_permission_on :publishers, :to => :manage
 		has_permission_on :album_playlist_items, :to => :manage

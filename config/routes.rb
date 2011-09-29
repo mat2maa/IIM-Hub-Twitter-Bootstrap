@@ -62,6 +62,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :albums
   map.resources :tracks  
   map.resources :languages    
+  map.resources :master_languages    
   map.resources :origins  
   map.resources :categories    
   map.resources :supplier_categories    
