@@ -115,6 +115,8 @@ class MastersController < ApplicationController
     #check if video is in any playlists
     tot_playlists =VideoMasterPlaylistItem.count(:conditions => 'master_id=' + @master.id.to_s )
     
+    debugger
+    
     if tot_playlists.zero?
       if permitted_to? :admin_delete, :masters
         @master.destroy

@@ -77,6 +77,7 @@ class VideoMasterPlaylistsController < ApplicationController
       @search = Master.new_search(params[:video_master_playlists])      
       @search.conditions.video.programme_title_keywords = params[:video_master_playlists][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/, "")
       @search.conditions.episode_title_keywords = params[:video_master_playlists][:conditions][:episode_title_keywords].gsub(/\'s|\'t/, "")
+      @search.conditions.active = true
       if !params[:search].nil?
         search = params[:search]                
         @search.per_page = search[:per_page] if !search[:per_page].nil? 
