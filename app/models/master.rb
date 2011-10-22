@@ -50,4 +50,9 @@ class Master < ActiveRecord::Base
     convert_timecode_to_seconds(self.duration)
   end
   
+  def video_genres_string
+    genres = self.video_genres.collect{|genre| genre.name}
+    genres.nil? ? "" : genres.join(', ')
+  end
+  
 end
