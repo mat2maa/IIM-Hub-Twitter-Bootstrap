@@ -3,9 +3,7 @@ class MoviesController < ApplicationController
   filter_access_to :all
     
   def index   
-    @languages = MasterLanguage.find(:all, :order=>"name").collect{
-      |language| language.name
-    } 
+    @languages = IIM::MOVIE_LANGUAGES
      
     if !params['search'].nil? 
       if !params[:language].nil?
@@ -81,9 +79,7 @@ class MoviesController < ApplicationController
       @movie.airline_release_date = nil
       @movie.personal_video_date = nil      
       
-      @languages = MasterLanguage.find(:all, :order=>"name").collect{
-        |language| language.name
-      } 
+      @languages = IIM::MOVIE_LANGUAGES
   end
   
   def create
@@ -105,9 +101,7 @@ class MoviesController < ApplicationController
   end
   
   def edit
-    @languages = MasterLanguage.find(:all, :order=>"name").collect{
-      |language| language.name
-    } 
+    @languages = IIM::MOVIE_LANGUAGES
     
     @search = Movie.new_search(:order_by => :id, :order_as => "DESC")
     @movies, @movies_count = @search.all, @search.count
