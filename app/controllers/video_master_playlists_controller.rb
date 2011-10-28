@@ -256,7 +256,7 @@ class VideoMasterPlaylistsController < ApplicationController
           video_master_playlist_item.master.duration,  
           video_master_playlist_item.master.video.synopsis,  
           video_master_playlist_item.master.synopsis,
-          video_master_playlist_item.master.video.video_genres_string,
+          video_master_playlist_item.master.video.video_genres_string_with_parent,
           video_master_playlist_item.mastering,
           ]
         end
