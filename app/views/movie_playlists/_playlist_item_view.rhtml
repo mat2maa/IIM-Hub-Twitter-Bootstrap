@@ -8,32 +8,26 @@
 	<table width="100%" class="playlist" >
 		<tr>
 			<td width="150"><strong>Movie Title:</strong> </td>
-			<td>
-				<table width="100%">
-					<tr>
-						<td>
-							<%= link_to playlist_item_view.movie.movie_title, edit_movie_path(playlist_item_view.movie), :popup => true %>
-						</td>
-							<% if (!playlist_item_view.movie.foreign_language_title.nil? && playlist_item_view.movie.foreign_language_title!='')%>
-								<td>
-									<strong>Foreign Language Title:</strong>
-									<%= playlist_item_view.movie.foreign_language_title  %>
-								</td>
-								<td>
-									<strong>Movie Type:</strong> 
-									<%= playlist_item_view.movie.movie_type  %>
-								</td>
-							<% end %>
-						</td>
-					</tr>
-				</table>
-			</td>
+			<td><%= link_to playlist_item_view.movie.movie_title, edit_movie_path(playlist_item_view.movie), :popup => true %></td>
 			<td rowspan="8" width="160" align="center"><%= image_tag(playlist_item_view.movie.poster.url(:small)) %></td>
 		</tr>
+		<% if (!playlist_item_view.movie.foreign_language_title.nil? && playlist_item_view.movie.foreign_language_title!='')%>
 		<tr>
-			<td><strong>Distributor:</strong> </td>
-			<td><%=h playlist_item_view.movie.movie_distributor.company_name if !playlist_item_view.movie.movie_distributor.nil? %></td>
+			<td>
+				<strong>Foreign Language Title:</strong>
+			</td>
+			<td><table width="100%" class="no-padding" cellpadding="0" cellspacing="0">
+					<tr>
+						<td align="left"><%= playlist_item_view.movie.foreign_language_title  %></td>
+						<td align="left">
+							<strong>Movie Type:</strong> 
+							<%= playlist_item_view.movie.movie_type  %>
+						</td>
+					</tr>
+				</table>	
+			</td>
 		</tr>
+		<% end %>
 		<tr>
 			<td><strong>Production Studio:</strong> </td>
 			<td><%=h playlist_item_view.movie.production_studio.company_name if !playlist_item_view.movie.production_studio.nil? %></td>

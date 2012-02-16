@@ -589,6 +589,9 @@ table.playlist td{
 	padding:5px;
 }
 
+table.no-padding td{
+	padding:0;
+}
 /* videos */
 #language_track, #language_subtitle, #search_conditions_video_genres_video_parent_genre_id_equals, #search_conditions_video_genres_id_equals, #search_conditions_video_type_equals, #search_conditions_laboratory_id_equals, #search_conditions_video_distributor_id_equals, #search_conditions_or_programme_title_keywords, #search_conditions_production_year_equals{
 	width: 150px;
