@@ -239,7 +239,7 @@ class MoviePlaylistsController < ApplicationController
     
     # Movie Playlist Summary
     # header row
-    sheet.add_row ["Position", "Movie Title", "Theatrical Release Year", "Airline Release Date", "Distributor", 
+    sheet.add_row ["Position", "Movie Title", "Foreign Movie Title", "Theatrical Release Year", "Airline Release Date", "Distributor", 
       "Production Company", "Laboratory", "Genre", "Release Versions", "Theatrical Run Time", "Edited Run Time", 
       "Rating", "Cast", "Director", "Synopsis", 
       "Poster", "Critics Review"]
@@ -270,6 +270,7 @@ class MoviePlaylistsController < ApplicationController
 
       sheet.add_row [movie_playlist_item.position, 
         movie_playlist_item.movie.movie_title, 
+        movie_playlist_item.movie.foreign_language_title, 
         movie_playlist_item.movie.theatrical_release_year,
         airline_release_date,
         movie_distributor, 
