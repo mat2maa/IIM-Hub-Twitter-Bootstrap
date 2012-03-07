@@ -13,7 +13,7 @@
 				(<%= playlist_item_view.movie.movie_type.upcase %>)
 				<% end %>
 			</td>
-			<td rowspan="8" width="160" align="center"><%= image_tag(playlist_item_view.movie.poster.url(:small)) %></td>
+			<td rowspan="7" width="160" align="center"><%= image_tag(playlist_item_view.movie.poster.url(:small)) %></td>
 		</tr>
 		<% if (!playlist_item_view.movie.foreign_language_title.nil? && playlist_item_view.movie.foreign_language_title!='')%>
 		<tr>
