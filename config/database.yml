@@ -18,10 +18,10 @@ development:
   adapter: mysql
   encoding: utf8
   database: iim_development
-  username: root
+  username: iim_development
+  password: iim_development
   pool: 5
-  password: 
-  socket: /var/mysql/mysql.sock
+  socket: /tmp/mysql.sock
 	
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

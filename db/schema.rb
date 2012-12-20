@@ -40,8 +40,6 @@ ActiveRecord::Schema.define(:version => 20110929060612) do
     t.datetime "updated_at"
   end
 
-  add_index "album_playlist_items", ["album_playlist_id"], :name => "index_album_playlist_items_on_album_playlist_id"
-
   create_table "album_playlists", :force => true do |t|
     t.string   "client_playlist_code"
     t.integer  "airline_id"
@@ -111,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20110929060612) do
   end
 
   add_index "audio_playlist_tracks", ["audio_playlist_id"], :name => "index_audio_playlist_tracks_on_audio_playlist_id"
+  add_index "audio_playlist_tracks", ["track_id"], :name => "index_audio_playlist_tracks_on_track_id"
 
   create_table "audio_playlists", :force => true do |t|
     t.string   "client_playlist_code"
@@ -125,8 +124,8 @@ ActiveRecord::Schema.define(:version => 20110929060612) do
     t.boolean  "locked",               :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "program_cache",                           :null => false
-    t.string   "airline_cache",                           :null => false
+    t.string   "program_cache"
+    t.string   "airline_cache"
     t.string   "airline_duration"
   end
 
@@ -156,82 +155,6 @@ ActiveRecord::Schema.define(:version => 20110929060612) do
   end
 
   add_index "covers", ["album_id", "parent_id"], :name => "index_covers_on_album_id_and_parent_id"
-
-  create_table "filemaker_album_playlists", :id => false, :force => true do |t|
-    t.integer "id"
-    t.integer "airline_id"
-    t.string  "program"
-    t.string  "in_out"
-    t.string  "play_date_start_month"
-    t.integer "play_date_start_year"
-    t.string  "play_date_end_month"
-    t.integer "play_date_end_year"
-    t.integer "user_id"
-  end
-
-  create_table "filemaker_albums", :id => false, :force => true do |t|
-    t.integer "id"
-    t.string  "title_original"
-    t.string  "title_english"
-    t.string  "artist_original"
-    t.string  "artist_english"
-    t.string  "cd_code"
-    t.string  "disc_num"
-    t.string  "disc_count"
-    t.string  "release_year"
-    t.string  "label"
-    t.string  "publisher"
-    t.text    "genre"
-    t.text    "synopsis"
-    t.string  "live_album"
-    t.string  "explicit_lyrics"
-  end
-
-  create_table "filemaker_track_playlists", :id => false, :force => true do |t|
-    t.integer "id"
-    t.integer "airline_id"
-    t.string  "client_playlist_code"
-    t.string  "program"
-    t.string  "in_out"
-    t.string  "play_date_start_month"
-    t.integer "play_date_start_year"
-    t.string  "play_date_end_month"
-    t.integer "play_date_end_year"
-    t.string  "playlist_duration"
-    t.integer "total_minutes"
-    t.integer "total_seconds"
-    t.text    "mastering"
-    t.string  "programmer"
-    t.string  "vo"
-  end
-
-  create_table "filemaker_tracks", :id => false, :force => true do |t|
-    t.integer "id"
-    t.integer "album_id"
-    t.string  "title_english"
-    t.string  "title_original"
-    t.string  "artist_english"
-    t.string  "artist_original"
-    t.string  "composer"
-    t.string  "publisher"
-    t.string  "distributor"
-    t.string  "description"
-    t.string  "info"
-    t.string  "duration"
-    t.string  "ending"
-    t.string  "tempo_intro"
-    t.string  "tempo_outro"
-    t.string  "tempo"
-    t.integer "track_num"
-    t.text    "lyrics"
-    t.string  "language"
-    t.string  "gender"
-    t.string  "program_type"
-    t.string  "origin"
-    t.string  "genre"
-    t.integer "duration_min"
-    t.integer "duration_sec"
-  end
 
   create_table "genres", :force => true do |t|
     t.string   "name"
@@ -526,7 +449,7 @@ ActiveRecord::Schema.define(:version => 20110929060612) do
     t.string   "artist_original"
     t.string   "composer"
     t.string   "distributor"
-    t.integer  "duration",        :default => 0,     :null => false
+    t.integer  "duration"
     t.string   "ending"
     t.string   "tempo_intro"
     t.string   "tempo_outro"
@@ -539,9 +462,10 @@ ActiveRecord::Schema.define(:version => 20110929060612) do
     t.boolean  "to_delete",       :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "genre"
-    t.string   "language"
+    t.string   "genre",           :default => "",    :null => false
     t.string   "label"
+    t.string   "language"
+    t.text     "genres"
     t.text     "musicbrainz_id"
     t.boolean  "explicit_lyrics", :default => false
     t.boolean  "mp3_exists",      :default => false
