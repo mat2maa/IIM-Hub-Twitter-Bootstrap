@@ -1,54 +1,55 @@
-source :gemcutter
-gem "rails", "~> 2.3.11"
+source 'https://rubygems.org'
 
-#gems that need to be installed
-#bcrypt-ruby
-#ruby-ole
-#spreadsheet
-#ruby-aaws
-#ruby-debug
-#rbrainz
-#hirb
-#rack
+gem 'rails', '3.2.9'
 
-gem "searchlogic", "~>1.6.6"
-gem "mysql"
-gem "authlogic"
-gem "settingslogic"
-gem "fastercsv"
-gem 'formtastic', "~>1.2.3"
-#gem "pdfkit", :git => "https://huerlisi@github.com/huerlisi/PDFKit.git"
-gem "pdfkit", "0.4.6"
-gem "factory_girl"
-gem "capybara"
-gem "populator"
-gem "faker"
+# Bundle edge Rails instead:
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
+
+gem 'sqlite3'
+
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+
+  gem 'less-rails'
+  gem 'therubyracer', :platforms => :ruby
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer', :platforms => :ruby
+
+  gem 'uglifier', '>= 1.0.3'
+end
+
+gem 'mysql2'
+gem 'jquery-rails'
+gem 'settingslogic'
+gem 'authlogic'
+gem 'formtastic'
+gem 'pdfkit'
 gem "spreadsheet"
 gem "ruby-ole"
 gem "ruby-aaws"
 gem "rbrainz"
 gem "hirb"
 gem "rubyzip"
-gem "json_pure"
+# gem "json_pure"
 gem "mime-types"
-gem "bcrypt-ruby"
 
 
-group :development do
-	gem "ruby-debug"
-	gem "fakeweb"
-	gem "mongrel"
-end
+# To use ActiveModel has_secure_password
+# gem 'bcrypt-ruby', '~> 3.0.0'
 
-group :cucumber, :test do
-	gem 'capybara'
-	gem "faker"
-	gem 'rspec-rails', "~> 1.3.3"
-	gem 'cucumber-rails'
-	gem "pickle"
-	gem 'database_cleaner'
-	gem 'spork'
-	gem "ruby-debug"
-	gem "fakeweb"
-	gem "launchy"
-end
+# To use Jbuilder templates for JSON
+# gem 'jbuilder'
+
+# Use unicorn as the app server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger
+# gem 'debugger'
