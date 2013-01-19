@@ -1,10 +1,7 @@
 module Searchable
 
   def searchable_by(*column_names)
-    @search_columns = []
-    [column_names].flatten.each do |name|
-      @search_columns << name
-    end
+    @search_columns = column_names
   end
 
   def search(query, fields=nil, options={})

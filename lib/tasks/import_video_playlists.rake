@@ -1,7 +1,6 @@
 # Remember to delete first row if it contains column headers
 require 'nokogiri'
 require 'logger'
-require 'ruby-debug'
 
 namespace :db do
   task :import_video_playlists => :environment do

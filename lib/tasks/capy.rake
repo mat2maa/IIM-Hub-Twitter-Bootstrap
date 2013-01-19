@@ -1,4 +1,4 @@
 desc "Remove capybara files"
 task :capy do
-  Dir.foreach("#{RAILS_ROOT}"){|file| File.delete("#{RAILS_ROOT}/"+file) if (/^capybara-.+html$/).match(file)}
+  Dir.foreach("#{Rails.root}"){|file| File.delete("#{Rails.root}/"+file) if (/^capybara-.+html$/).match(file)}
 end

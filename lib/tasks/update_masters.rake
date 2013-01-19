@@ -1,12 +1,12 @@
 # Remember to delete first row if it contains column headers
-require 'fastercsv'
+require 'csv'
 require 'logger'
 
 namespace :db do
   task :update_masters => :environment do
     logger = Logger.new STDOUT 
             
-    FasterCSV.foreach("import/masters.csv") do |row|
+    CSV.foreach("import/masters.csv") do |row|
       
       if !row[0].nil?
 

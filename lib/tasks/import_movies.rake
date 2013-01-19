@@ -1,5 +1,5 @@
 # Remember to delete first row if it contains column headers
-require 'fastercsv'
+require 'csv'
 require 'logger'
 
 namespace :db do
@@ -10,7 +10,7 @@ namespace :db do
     
     Movie.destroy_all
     
-    FasterCSV.foreach("import/movies.csv") do |row|
+    CSV.foreach("import/movies.csv") do |row|
       
       if !row[0].nil?
 

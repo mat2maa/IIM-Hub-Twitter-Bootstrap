@@ -1,5 +1,5 @@
 # Remember to delete first row if it contains column headers
-require 'fastercsv'
+require 'csv'
 require 'logger'
 
 namespace :db do
@@ -9,7 +9,7 @@ namespace :db do
     @distributor_category = SupplierCategory.find_by_name("Movie Distributors")
     @laboratory_category = SupplierCategory.find_by_name('Laboratories')
     
-    FasterCSV.foreach("import/movie_types.csv") do |row|
+    CSV.foreach("import/movie_types.csv") do |row|
       
       if !row[0].nil?
 

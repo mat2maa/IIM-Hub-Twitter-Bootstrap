@@ -1,9 +1,9 @@
-require 'fastercsv'
+require 'csv'
 
 namespace :db do
   task :import_distributors => :environment do
 
-    FasterCSV.foreach("import/distributors.csv") do |row|    
+    CSV.foreach("import/distributors.csv") do |row|
       if !row[0].nil?
         
         categories = SupplierCategory.find(:all, :conditions => "name like '%Distributors%'")
