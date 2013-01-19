@@ -34,4 +34,15 @@ Iim::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  #
+
+end
+
+PDFKit.configure do |config|
+  config.wkhtmltopdf = '/usr/local/bin/wkhtmltopdf'
+end
+
+if $0 == 'irb'
+  require 'hirb'
+  Hirb.enable
 end
