@@ -43,6 +43,9 @@ gem "newrelic_rpm"
 gem "nokogiri"
 gem "test-unit"
 
+gem "paperclip", "~> 3.1"
+
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
