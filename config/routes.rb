@@ -21,12 +21,15 @@ Iim::Application.routes.draw do
       post 'unlock'
 
       get 'zip', action: 'mp3', as: 'audio_playlist_zip'
+
     end
-  end
-  #
-  #
-  #map.audio_playlist_zip 'audio_playlists/:id/zip', :controller => 'audio_playlists', :action => 'mp3'
+  end                                           #
+
+
+  ## map.audio_playlist_zip 'audio_playlists/:id/zip', :controller => 'audio_playlists', :action => 'mp3'
+
   #map.add_track_to_playlist '/add_track_to_playlist/:id', :controller => 'audio_playlists', :action => 'add_track_to_playlist'
+
   #map.add_album_to_playlist '/add_album_to_playlist/:id', :controller => 'album_playlists', :action => 'add_album_to_playlist'
   #map.add_movie_to_playlist '/add_movie_to_playlist/:id', :controller => 'movie_playlists', :action => 'add_movie_to_playlist'
   #map.add_video_to_playlist '/add_video_to_playlist/:id', :controller => 'video_playlists', :action => 'add_video_to_playlist'
