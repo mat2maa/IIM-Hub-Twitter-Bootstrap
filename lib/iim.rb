@@ -22,7 +22,7 @@ module Iim
   end
   
   def convert_to_two_digits(x)
-    if x < 10 :  x = "0#{x}"
+    if  x < 10  then   x = "0#{x}"
 	  end 
 	  x.to_s
   end

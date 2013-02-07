@@ -64,6 +64,10 @@ module Iim
 
     require 'pdfkit'
     config.middleware.use PDFKit::Middleware, :print_media_type => true
+
+    # authlogic needs this
+    config.filter_parameters += [:password, :password_confirmation]
+
   end
 end
 

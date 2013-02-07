@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper :all # include all helpers, all the time
-  filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user, :logged_in?
 
 
@@ -74,7 +73,7 @@ class ApplicationController < ActionController::Base
     end
     
     def store_location
-      session[:return_to] = request.request_uri
+      session[:return_to] = request.fullpath
     end
     
     def redirect_back_or_default(default)
@@ -91,11 +90,14 @@ class ApplicationController < ActionController::Base
 
         sec = sec%60
 
-        if sec < 10 :  sec = "0#{sec}"
+        if sec < 10
+          sec = "0#{sec}"
         end 
-        if sec == 0 :  sec = "00"
+        if sec == 0
+          sec = "00"
         end
-        if min == 0 :  min = "0"
+        if min == 0
+          min = "0"
         end
 
         t = "#{min}:#{sec}"

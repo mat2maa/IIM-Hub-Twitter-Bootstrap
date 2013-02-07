@@ -21,7 +21,7 @@ module TracksHelper
   def duration_min ms
     sec = ms/1000
     min = sec/60
-	  if min == 0 :  min = "0"
+	  if  min == 0  then   min = "0"
   	end
   	min
   end
@@ -30,9 +30,9 @@ module TracksHelper
     sec = ms/1000
     min = sec/60
 	  sec = sec%60
-  	if sec < 10 :  sec = "0#{sec}"
+  	if  sec < 10  then   sec = "0#{sec}"
   	end 
-  	if sec == 0 :  sec = "00"
+  	if  sec == 0  then   sec = "00"
   	end
   	sec
   end
@@ -50,11 +50,11 @@ module TracksHelper
   
       sec = sec%60
 
-      if sec < 10 :  sec = "0#{sec}"
+      if  sec < 10  then   sec = "0#{sec}"
       end 
-      if sec == 0 :  sec = "00"
+      if  sec == 0  then   sec = "00"
       end
-      if min == 0 :  min = "0"
+      if  min == 0  then   min = "0"
       end
 
       t = "#{min}:#{sec}"
