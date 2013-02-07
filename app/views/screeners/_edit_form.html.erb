@@ -1,7 +1,7 @@
 <% semantic_form_for(@screener, :html => { :class => 'ajaxForm' } ) do |f| %>
 	<div id="flash_notice"></div>
 
-	<%= f.error_messages %><br/>
+	<%= error_messages_for(f.object) %><br/>
 	
 	<% f.inputs do %>
 

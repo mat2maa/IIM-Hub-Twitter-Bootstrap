@@ -1,5 +1,5 @@
 <% semantic_form_for @movie, :html => { :multipart => true }  do |f| %>
-<%= f.error_messages %><br/>
+<%= error_messages_for(f.object) %><br/>
 
 
 <div id="poster-thumbnail">

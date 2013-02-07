@@ -4,7 +4,7 @@
 <h1>New Video Genre</h1>
 
 <% form_for(@video_parent_genre) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages_for(f.object) %>
 
   <p>
     <%= f.label :name %><br />

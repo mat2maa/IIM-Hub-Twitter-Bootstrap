@@ -1,5 +1,5 @@
 <% semantic_form_for @video, :html => { :multipart => true }  do |f| %>
-	<%= f.error_messages %><br/>
+	<%= error_messages_for(f.object) %><br/>
 
 	<div id="poster-thumbnail">
 		<%= link_to(image_tag(@video.poster.url(:small)), @video.poster.url, :popup => true) %>

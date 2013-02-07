@@ -34,7 +34,7 @@ Login
 </div>
 </div>
 <div id="content">
-<center>
+<center> bl;afasddwfsdafsdafsadfds
 <form action="/user_session" class="new_user_session" id="new_user_session" method="post">
   
   <label for="user_session_login">Login</label><br />

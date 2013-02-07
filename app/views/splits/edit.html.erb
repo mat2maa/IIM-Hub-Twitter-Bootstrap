@@ -4,7 +4,7 @@
 <h1>Edit split</h1>
 
 <% form_for(@split) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages_for(f.object) %>
 
   <p>
     <%= f.label :name %><br />

@@ -4,7 +4,7 @@
 <h1>New Right</h1>
 
 <% form_for :right, :url => { :action => "create" } do |f|  %>
-  <%= f.error_messages %>
+  <%= error_messages_for(f.object) %>
   <%= render :partial => "form", :object => f %>
   <%= f.submit "Register" %>
 <% end %>

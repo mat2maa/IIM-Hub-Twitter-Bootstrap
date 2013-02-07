@@ -4,7 +4,7 @@
 <h1>Edit Label</h1>
 
 <% form_for(@label) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages_for(f.object) %>
 
   <p>
     <%= f.label :name %><br />

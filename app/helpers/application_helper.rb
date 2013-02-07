@@ -17,5 +17,11 @@ module ApplicationHelper
     out = javascript_tag(function) # set current length
     out += observe_field(field_id, options.merge(:function => function)) # and observe it
   end
-  
+
+  def error_messages_for(object)
+    if object.errors.any?
+      render partial: "shared/errors", object: object.errors
+    end
+
+  end
 end

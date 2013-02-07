@@ -4,7 +4,7 @@
 <h1>Edit origin</h1>
 
 <% form_for(@origin) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages_for(f.object) %>
 
   <p>
     Name<br />

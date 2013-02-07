@@ -4,7 +4,7 @@
 <h1>New Language</h1>
 
 <% form_for(@master_language) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages_for(f.object) %>
 
   <p>
     Language<br />

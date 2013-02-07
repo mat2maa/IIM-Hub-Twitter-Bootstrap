@@ -4,7 +4,7 @@
 <h1>New airline_rights_country</h1>
 
 <% form_for(@airline_rights_country) do |f| %>
-  <%= f.error_messages %>
+  <%= error_messages_for(f.object) %>
 
   <p>
     <%= f.label :name %><br />

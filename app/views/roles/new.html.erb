@@ -3,7 +3,7 @@
 	<h2>New Role</h2>
 
 <% form_for :role, :url => { :action => "create" } do |f|  %>
-  <%= f.error_messages %>
+  <%= error_messages_for(f.object) %>
   <%= render :partial => "form", :object => f %>
   <%= f.submit "Register" %>
 <% end %>

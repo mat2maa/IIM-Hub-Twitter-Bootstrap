@@ -34,7 +34,7 @@ jQuery(document).ready(function() {
 <% semantic_form_for(@master, :html => { :class => 'ajaxForm' } ) do |f| %>
 	<div id="flash_notice"></div>
 
-	<%= f.error_messages %><br/>
+	<%= error_messages_for(f.object) %><br/>
 	
 	<% f.inputs do %>
 
