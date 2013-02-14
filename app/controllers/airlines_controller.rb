@@ -2,10 +2,13 @@ class AirlinesController < ApplicationController
   before_filter :require_user
   filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @airline = Airline.new
+  end
 
   def index
-    @airlines = Airline.find(:all, :order=>"name")
-    #@airlines = Airline.all_cached
+    @airlines = Airline.all
+
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -17,8 +20,6 @@ class AirlinesController < ApplicationController
   end
 
   def new
-    @airline = Airline.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @airline }
@@ -26,13 +27,17 @@ class AirlinesController < ApplicationController
   end
 
   def create
+    @airline = Airline.new params[:airline]
+
     respond_to do |format|
-      @airline = Airline.new params[:airline]
       if @airline.save
-        flash[:notice] = 'Airline was successfully created.'        
-        format.html  { redirect_to(airlines_path) }
+        format.html { redirect_to @airline, notice: 'Airline was successfully created.' }
+        format.json { render json: @airline, status: :created, location: @airline }
         format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @airline.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
