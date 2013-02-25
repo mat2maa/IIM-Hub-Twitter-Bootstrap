@@ -11,7 +11,7 @@
 <div id="content">
 <center>
 
-<% form_for (@track) do |form| %>
+<%= form_for (@track) do |form| %>
 <%= form.error_messages %>
 
 <%= render :partial => 'form', :object => form, :locals => {:track => 'track'} %>

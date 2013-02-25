@@ -15,7 +15,7 @@
 
 <div class="action-button"><%= link_to_show_overlay 'add album', add_album_to_playlist_path(@album_playlist.id) %></div><br/>
 <br/>
-<% form_for(@album_playlist) do |form| %> 
+<%= form_for(@album_playlist) do |form| %>
 
   <%= form.error_messages %>
 

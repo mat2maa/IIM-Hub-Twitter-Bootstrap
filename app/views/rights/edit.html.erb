@@ -3,7 +3,7 @@
 	<center>
 	<h2>Edit Right</h2>
 <%= error_messages_for :right -%>
-<% form_for @right, :url => { :action => "update", :id => @right.id } do |form| %>
+<%= form_for @right, :url => { :action => "update", :id => @right.id } do |form| %>
 <%= form.label :name %><br />
 <%= form.text_field :name %><br />
 <%= form.label :controller %><br />

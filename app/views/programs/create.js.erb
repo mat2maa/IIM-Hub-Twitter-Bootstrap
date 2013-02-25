@@ -1,0 +1,8 @@
+var $ = jQuery;
+
+var newRow = " <%= escape_javascript(render(partial: "program", object: @program)) %> ";
+
+$("#program_form")
+.find("input[type=text]").val("");
+
+$("#programs>tbody").append(newRow);

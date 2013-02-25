@@ -31,7 +31,7 @@ jQuery(document).ready(function() {
 <div class="action-button"><%= link_to_show_overlay 'add video', add_video_to_playlist_path(@video_playlist.id) %></div><br/>
 <br/>
 
-<% form_for(@video_playlist) do |form| %> 
+<%= form_for(@video_playlist) do |form| %>
 
   <%= form.error_messages %>
 

@@ -2,9 +2,14 @@ class ProgramsController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @program = Program.new
+  end
+
   def index
-    @programs = Program.find(:all, :order=>"name asc")	
-	respond_to do |format|
+    @programs = Program.all(:order=>"name asc")
+
+	  respond_to do |format|
       format.html # index.html.erb
     end
 	
@@ -15,21 +20,23 @@ class ProgramsController < ApplicationController
   end
 
   def new
-    @program = Program.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @program = Program.new params[:program]
+    @program = Program.new params[:program]
+
+  	respond_to do |format|
       if @program.save
-        flash[:notice] = 'Program was successfully created.'        
-        format.html  { redirect_to(programs_path) }
-		    format.js
+        format.html { redirect_to @program, notice: 'Program was successfully created.' }
+        format.json { render json: @program, status: :created, location: @program }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @program.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

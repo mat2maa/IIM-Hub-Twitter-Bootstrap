@@ -1,3 +1,0 @@
-page.insert_html :bottom, 'programs', :partial => 'program', :locals => {:program => @program}
-page[:program_form].reset
-flash.discard

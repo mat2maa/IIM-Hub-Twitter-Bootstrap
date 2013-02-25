@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
 
 <div class="action-button"><%= link_to_show_overlay 'add screener', add_screener_to_playlist_path(@screener_playlist.id) %></div><br/>
 <br/>
-<% form_for(@screener_playlist) do |form| %> 
+<%= form_for(@screener_playlist) do |form| %>
 
   <%= form.error_messages %>
 
