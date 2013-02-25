@@ -12,9 +12,9 @@ class AudioPlaylistsController < ApplicationController
 
   def index
     
-    if !params['search'].nil? 
+    if !params['search'].nil?
       @search = AudioPlaylist.new_search(params[:search])
-    else 
+    else
       @search = AudioPlaylist.new_search(:order_by => :id, :order_as => "DESC")
     end
     @audio_playlists, @audio_playlists_count = @search.all, @search.count
