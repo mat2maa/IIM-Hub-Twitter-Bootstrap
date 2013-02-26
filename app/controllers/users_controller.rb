@@ -3,22 +3,23 @@ class UsersController < ApplicationController
 	filter_access_to :all
   
   def index
-    conditions = params[:search]
-		
-    @search = User.new_search
+    conditions = params[:q]
+
+    @search = User.ransack(params[:q])
     if !params[:keywords].nil? && !params[:keywords].empty?
       keywords = params[:keywords]
       @search.conditions.or_login_keywords = keywords
     end
-		
-		if !params[:search].nil?
-			@search.per_page = conditions["per_page"] 
+
+		if !params[:q].nil?
+			@search.per_page = conditions["per_page"]
 			@search.page = conditions["page"]
 			@search.order_as = conditions["order_as"]
 			@search.order_by = conditions["order_by"]
 		end
 
-    @users, @users_count = @search.all, @search.count
+    @users = @search.result.paginate(:page => params[:page])
+    @users_count = @users.count
   end
   
   def new

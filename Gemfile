@@ -22,9 +22,9 @@ group :assets do
 end
 
 gem 'mysql2'
+gem 'ransack'
 gem 'activerecord-mysql-adapter'
 gem 'jquery-rails'
-gem 'ransack'
 gem 'settingslogic'
 gem 'authlogic'
 gem 'formtastic'
