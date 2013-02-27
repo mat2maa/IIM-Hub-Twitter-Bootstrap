@@ -4,8 +4,9 @@
 
             <h2>Users</h2>
 
-            <% search_form_for @search, :url => users_path do |f| %>
-                <%= text_field_tag :keywords %><%= f.submit "Search" %>
+            <%= search_form_for @search, :url => users_path do |f| %>
+                <%= f.text_field :login_cont %>
+                <%= f.submit "Search" %>
             <% end %>
 
             <% if @users_count > 0 %>

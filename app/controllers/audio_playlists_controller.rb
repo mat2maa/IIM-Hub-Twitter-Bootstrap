@@ -11,13 +11,13 @@ class AudioPlaylistsController < ApplicationController
   filter_access_to :all
 
   def index
-    
-    if !params['search'].nil?
-      @search = AudioPlaylist.new_search(params[:search])
+    @search = AudioPlaylist.ransack(params[:q])
+    if !params[:q].nil?
+      @audio_playlists = @search.result(:distinct => true)
     else
-      @search = AudioPlaylist.new_search(:order_by => :id, :order_as => "DESC")
+      @audio_playlists = @search.result(:distinct => true).order("id DESC")
     end
-    @audio_playlists, @audio_playlists_count = @search.all, @search.count
+    @audio_playlists_count = @audio_playlists.count
   end
 
   def show
