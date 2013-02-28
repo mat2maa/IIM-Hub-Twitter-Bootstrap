@@ -12,9 +12,8 @@
 
 <div id="content">
 
-    <% search_form_for @search,	:loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  do |f| %>
-        <%= render :partial => 'playlist_search_form', :locals => { :f => f } %>
-    <% end %>
+
+    <%= render :partial => 'playlist_search_form', object: @search  %>
 
     <div id="audio_playlists">
         <%= render :partial => "audio_playlists" %>

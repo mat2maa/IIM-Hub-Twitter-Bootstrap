@@ -3,8 +3,10 @@ class User < ActiveRecord::Base
     c.crypto_provider = Authlogic::CryptoProviders::BCrypt
   }
   serialize :roles, Array
-		
-	def roles
+
+  attr_accessible :login, :email, :password, :password_confirmation
+
+  def roles
 		(super || []).map {|r| r.to_sym}
 	end
 

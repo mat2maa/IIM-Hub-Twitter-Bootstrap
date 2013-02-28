@@ -5,7 +5,11 @@
 	<td><%=h user.last_request_at.strftime("%d-%m-%Y %H:%M") if !user.last_request_at.nil? %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td>
-        <%= link_to 'Disable', { :action => "disable", :id => user.id }, :confirm => 'Are you sure?' if user.id!=1 && user.enabled==true %>
-        <%= link_to 'Enable', { :action => "enable", :id => user.id }, :confirm => 'Are you sure?'  if user.id!=1 && user.enabled==false %>
+        <%=  link_to 'Disable', disable_user_path(user),
+                                data: { confirm: "Are you sure?" },
+                                method: :post if user.id != 1 && user.enabled == true  %>
+        <%= link_to 'Enable', enable_user_path(user),
+                              data: { confirm: "Are you sure?" },
+                              method: :post if user.id != 1 && user.enabled == false %>
     </td>
 </tr>

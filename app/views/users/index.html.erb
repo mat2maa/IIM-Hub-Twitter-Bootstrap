@@ -22,8 +22,7 @@
                   <%= render :partial => 'user', :collection => @users %>
                 </table>
 
-                <div id="admin-actions">
-                </div>
+                <%= will_paginate @users %>
             <% else %>
                 No entries were returned
             <% end %>

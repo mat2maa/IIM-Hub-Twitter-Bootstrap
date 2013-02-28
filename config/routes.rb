@@ -6,7 +6,12 @@ Iim::Application.routes.draw do
   # probably refers to "my account", we'll need to handle it differently
   # resource :account, :controller => "users"
 
-  resources :users
+  resources :users do
+    member do
+      post 'enable'
+      post 'disable'
+    end
+  end
   resource :user_session
 
   match "/account/edit_own_password" => "users#edit_own_password", as: :change_password
