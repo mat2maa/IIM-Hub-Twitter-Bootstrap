@@ -2,8 +2,12 @@ class CategoriesController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @category = Category.new
+  end
+
   def index
-    @categories = Category.find(:all, :order=>"name asc", :conditions=>"id!=1")	
+    @categories = Category.where("id!=1").order("name asc")
 	respond_to do |format|
       format.html # index.html.erb
     end
@@ -15,26 +19,28 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    @category = Category.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @category }
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @category = Category.new params[:category]
+    @category = Category.new params[:category]
+
+    respond_to do |format|
       if @category.save
-        flash[:notice] = 'Category was successfully created.'        
-        format.html  { redirect_to(categories_path) }
-		format.js
+        format.html { redirect_to @category, notice: 'Category was successfully created.' }
+        format.json { render json: @category, status: :created, location: @category }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @category.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
-  
+
   def update
     @category = Category.find(params[:id])
 
@@ -51,7 +57,7 @@ class CategoriesController < ApplicationController
   def destroy
     
 	
-	@album_playlist_items = AlbumPlaylistItem.find(:all, :conditions => ["category_id = ?", params[:id]] )	
+	@album_playlist_items = AlbumPlaylistItem.where("category_id = ?", params[:id])
 		
 	if  @album_playlist_items.length.zero? || params[:id]==1
   

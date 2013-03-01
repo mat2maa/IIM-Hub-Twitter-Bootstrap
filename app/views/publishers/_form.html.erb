@@ -1,14 +1,13 @@
-<% form_remote_tag :url => {:action => 'create'}, 
-                    :html => {:id => 'publisher_form'} do %>
-<table>
-  <tr>
-	<td>Publisher Name</td>
-    <td>
-      <%= text_field_tag 'publisher[name]' %>
-    </td>
-    <td colspan="2">
-      <%= submit_tag "Add New Publisher" %>
-    </td>
-  </tr>
-</table>
+<%= form_for @publisher, remote: true, html: { id: "publisher_form" } do |f| %>
+    <table>
+      <tr>
+        <td>Publisher Name</td>
+        <td>
+          <%= f.text_field :name %>
+        </td>
+        <td colspan="2">
+          <%= f.submit "Add New Publisher" %>
+        </td>
+      </tr>
+    </table>
 <% end %>

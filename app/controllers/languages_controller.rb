@@ -2,8 +2,12 @@ class LanguagesController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @language = Language.new
+  end
+
   def index
-    @languages = Language.find(:all, :order=>"name asc")	
+    @languages = Language.order("name asc")
 	respond_to do |format|
       format.html # index.html.erb
     end
@@ -15,21 +19,23 @@ class LanguagesController < ApplicationController
   end
 
   def new
-    @language = Language.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @language = Language.new params[:language]
+    @language = Language.new params[:language]
+
+    respond_to do |format|
       if @language.save
-        flash[:notice] = 'Language was successfully created.'        
-        format.html  { redirect_to(languages_path) }
-		format.js
+        format.html { redirect_to @language, notice: 'Language was successfully created.' }
+        format.json { render json: @language, status: :created, location: @language }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @language.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -52,7 +58,7 @@ class LanguagesController < ApplicationController
   def destroy
     
 	
-	@tracks = Track.find(:all, :conditions => ["language_id = ?", params[:id]] )	
+	@tracks = Track.where("language_id = ?", params[:id])
 		
 	if  @tracks.length.zero?
   

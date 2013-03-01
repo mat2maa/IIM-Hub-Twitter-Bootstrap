@@ -61,8 +61,8 @@ class AirlinesController < ApplicationController
 
     id = params[:id]
 
-    @audio_playlists = AudioPlaylist.find(:all, :conditions => ["airline_id = ?", id] )
-    @album_playlists = AlbumPlaylist.find(:all, :conditions => ["airline_id = ?", id] )
+    @audio_playlists = AudioPlaylist.where("airline_id = ?", id)
+    @album_playlists = AlbumPlaylist.where("airline_id = ?", id)
 
     if @audio_playlists.length.zero? && @album_playlists.length.zero?
       @airline = Airline.find(id)

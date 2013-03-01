@@ -3,9 +3,13 @@ class LabelsController < ApplicationController
   cache_sweeper :label_sweeper, :only => [:new, :create, :update, :destroy]
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @label = Label.new
+  end
+
   def index
-    @labels = Label.find(:all, :order=>"name asc")	
-	respond_to do |format|
+    @labels = Label.order("name asc")
+	  respond_to do |format|
       format.html # index.html.erb
     end
 	
@@ -16,21 +20,23 @@ class LabelsController < ApplicationController
   end
 
   def new
-    @label = Label.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @label = Label.new params[:label]
+    @label = Label.new params[:label]
+
+    respond_to do |format|
       if @label.save
-        flash[:notice] = 'Label was successfully created.'        
-        format.html  { redirect_to(labels_path) }
-		format.js
+        format.html { redirect_to @label, notice: 'Label was successfully created.' }
+        format.json { render json: @label, status: :created, location: @label }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @label.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -51,7 +57,7 @@ class LabelsController < ApplicationController
   def destroy
     
 	
-	@albums = Album.find(:all, :conditions => ["label_id = ?", params[:id]] )	
+	@albums = Album.where("label_id = ?", params[:id])
 		
 	if  @albums.length.zero?
   

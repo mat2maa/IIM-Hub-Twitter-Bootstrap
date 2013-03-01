@@ -1,3 +1,0 @@
-page.insert_html :bottom, 'vos', :partial => 'vo', :locals => {:vo => @vo}
-page[:vo_form].reset
-flash.discard

@@ -2,8 +2,12 @@ class VoDurationsController < ApplicationController
  before_filter :require_user
  filter_access_to :all
 
-  def index
-    @vo_durations = VoDuration.find(:all, :order=>"duration")
+ before_filter only: [:index, :new] do
+   @vo_duration = VoDuration.new
+ end
+
+ def index
+    @vo_durations = VoDuration.order("duration")
 	  respond_to do |format|
       format.html # index.html.erb
     end
@@ -15,26 +19,27 @@ class VoDurationsController < ApplicationController
   end
 
   def new
-    @vo_duration = VoDuration.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @vo_duration }
     end
   end
-  
-  def create    
-    
-	  respond_to do |format|
-      @vo_duration = VoDuration.new params[:vo_duration]      
-      if @vo_duration.save
-        flash[:notice] = 'VO Duration was successfully created.'        
-        format.html  { redirect_to(vo_durations_path) }
-		    format.js
-      else
-      end
-    end
-  end
+
+ def create
+   @vo_duration = VoDuration.new params[:vo_duration]
+
+   respond_to do |format|
+     if @vo_duration.save
+       format.html { redirect_to @vo_duration, notice: 'VO Duration was successfully created.' }
+       format.json { render json: @vo_duration, status: :created, location: @vo_duration }
+       format.js
+     else
+       format.html { render action: "new" }
+       format.json { render json: @vo_duration.errors, status: :unprocessable_entity }
+       format.js
+     end
+   end
+ end
   
   def update
     @vo_duration = VoDuration.find(params[:id])

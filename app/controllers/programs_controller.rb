@@ -7,7 +7,7 @@ class ProgramsController < ApplicationController
   end
 
   def index
-    @programs = Program.all(:order=>"name asc")
+    @programs = Program.order("name asc")
 
 	  respond_to do |format|
       format.html # index.html.erb
@@ -58,7 +58,7 @@ class ProgramsController < ApplicationController
   def destroy
     
 	  id = params[:id]
-		@audio_playlists = AudioPlaylist.find(:all, :conditions => ["program_id = ?", id] )
+		@audio_playlists = AudioPlaylist.where("program_id = ?", id)
 		if @audio_playlists.length.zero?  
       @program = Program.find(id)
       @program.destroy

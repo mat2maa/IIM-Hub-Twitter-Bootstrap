@@ -1,14 +1,13 @@
-<% form_remote_tag :url => {:action => 'create'}, 
-                    :html => {:id => 'language_form'} do %>
-<table>
-  <tr>
-	<td>Language</td>
-    <td>
-      <%= text_field_tag 'language[name]' %>
-    </td>
-    <td colspan="2">
-      <%= submit_tag "Add New Language" %>
-    </td>
-  </tr>
-</table>
+<%= form_for @language, remote: true, html: { id: "language_form" } do |f| %>
+    <table>
+      <tr>
+        <td>Language</td>
+        <td>
+          <%= f.text_field :name %>
+        </td>
+        <td colspan="2">
+          <%= f.submit "Add New Language" %>
+        </td>
+      </tr>
+    </table>
 <% end %>

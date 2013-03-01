@@ -2,8 +2,12 @@ class PublishersController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @publisher = Publisher.new
+  end
+
   def index
-    @publishers = Publisher.find(:all, :order=>"name asc")	
+    @publishers = Publisher.order("name asc")
 	respond_to do |format|
       format.html # index.html.erb
     end
@@ -15,21 +19,23 @@ class PublishersController < ApplicationController
   end
 
   def new
-    @publisher = Publisher.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @publisher = Publisher.new params[:publisher]
+    @publisher = Publisher.new params[:publisher]
+
+    respond_to do |format|
       if @publisher.save
-        flash[:notice] = 'Publisher was successfully created.'        
-        format.html  { redirect_to(publishers_path) }
-		format.js
+        format.html { redirect_to @publisher, notice: 'Publisher was successfully created.' }
+        format.json { render json: @publisher, status: :created, location: @publisher }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @publisher.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -50,7 +56,7 @@ class PublishersController < ApplicationController
   def destroy
     
 	
-	@albums = Album.find(:all, :conditions => ["publisher_id = ?", params[:id]] )	
+	@albums = Album.where("publisher_id = ?", params[:id])
 		
 	if  @albums.length.zero?
   

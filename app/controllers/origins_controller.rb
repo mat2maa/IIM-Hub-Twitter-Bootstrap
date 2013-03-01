@@ -2,8 +2,12 @@ class OriginsController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @origin = Origin.new
+  end
+
   def index
-    @origins = Origin.find(:all, :order=>"name asc")	
+    @origins = Origin.order("name asc")
 	respond_to do |format|
       format.html # index.html.erb
     end
@@ -15,21 +19,23 @@ class OriginsController < ApplicationController
   end
 
   def new
-    @origin = Origin.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @origin = Origin.new params[:origin]
+    @origin = Origin.new params[:origin]
+
+    respond_to do |format|
       if @origin.save
-        flash[:notice] = 'Origin was successfully created.'        
-        format.html  { redirect_to(origins_path) }
-				format.js
+        format.html { redirect_to @origin, notice: 'Origin was successfully created.' }
+        format.json { render json: @origin, status: :created, location: @origin }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @origin.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -50,7 +56,7 @@ class OriginsController < ApplicationController
   def destroy
    
 	
-	@tracks = Track.find(:all, :conditions => ["origin_id = ?", params[:id]] )	
+	@tracks = Track.where("origin_id = ?", params[:id])
 		
 	if  @tracks.length.zero?
   

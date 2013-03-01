@@ -1,3 +1,0 @@
-page.insert_html :bottom, 'origins', :partial => 'origin', :locals => {:origin => @origin}
-page[:origin_form].reset
-flash.discard

@@ -2,9 +2,13 @@ class GenresController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @genre = Genre.new
+  end
+
   def index
-    @genres = Genre.find(:all, :order=>"name asc")	
-	respond_to do |format|
+    @genres = Genre.order("name asc")
+  	respond_to do |format|
       format.html # index.html.erb
     end
 	
@@ -15,22 +19,24 @@ class GenresController < ApplicationController
   end
 
   def new
-    @genre = Genre.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @genre }
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @genre = Genre.new params[:genre]
+    @genre = Genre.new params[:genre]
+
+    respond_to do |format|
       if @genre.save
-        flash[:notice] = 'Genre was successfully created.'        
-        format.html  { redirect_to(genres_path) }
-		format.js
+        format.html { redirect_to @genre, notice: 'Genre was successfully created.' }
+        format.json { render json: @genre, status: :created, location: @genre }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @genre.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -40,7 +46,7 @@ class GenresController < ApplicationController
 
     respond_to do |format|
       if @genre.update_attributes(params[:genre])
-        @albums = Albums.find(:all, :conditions=>"genre like '%#{@genre.name}%'" )
+        @albums = Album.where("genre like '%#{@genre.name}%'")
         @albums.each do |album|
           album.genre = get_genres(album.genres)
         end
@@ -67,22 +73,22 @@ class GenresController < ApplicationController
 
     s
   end
-  
+
   def destroy
 
 
-	@albums = AlbumsGenre.find(:all, :conditions => ["genre_id = ?", params[:id]] )	
-	@tracks = TracksGenre.find(:all, :conditions => ["genre_id = ?", params[:id]] )
-		
+	@albums = AlbumsGenre.where("genre_id = ?", params[:id])
+	@tracks = TracksGenre.where("genre_id = ?", params[:id])
+
 	if  @tracks.length.zero? && @albums.length.zero?
-  
+
       @genre = Genre.find(params[:id])
       @genre.destroy
-	  
+
 	else
 	  flash[:notice] = 'Genre could not be deleted, genre is in use in some albums or tracks'
 	end
-	
+
 
     respond_to do |format|
       format.html { redirect_to(genres_url) }

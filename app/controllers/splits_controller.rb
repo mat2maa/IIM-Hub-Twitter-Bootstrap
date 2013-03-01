@@ -2,8 +2,12 @@ class SplitsController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @split = Split.new
+  end
+
   def index
-    @splits = Split.find(:all, :order=>"duration")
+    @splits = Split.order("duration")
 	  respond_to do |format|
       format.html # index.html.erb
     end
@@ -15,30 +19,30 @@ class SplitsController < ApplicationController
   end
 
   def new
-    @split = Split.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @split }
     end
   end
-  
-  def create    
-    
-	  respond_to do |format|
-      @split = Split.new params[:split]
-      @split.more_than = (params[:more_than_min].to_i * 60  *1000) + (params[:more_than_sec].to_i * 1000)
-      @split.less_than = (params[:less_than_min].to_i * 60  *1000) + (params[:less_than_sec].to_i * 1000)
-      
+
+  def create
+    @split = Split.new params[:split]
+    @split.more_than = (params[:more_than_min].to_i * 60  *1000) + (params[:more_than_sec].to_i * 1000)
+    @split.less_than = (params[:less_than_min].to_i * 60  *1000) + (params[:less_than_sec].to_i * 1000)
+
+    respond_to do |format|
       if @split.save
-        flash[:notice] = 'Split was successfully created.'        
-        format.html  { redirect_to(splits_path) }
-		    format.js
+        format.html { redirect_to @split, notice: 'Split was successfully created.' }
+        format.json { render json: @split, status: :created, location: @split }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @split.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
-  
+
   def update
     @split = Split.find(params[:id])
 

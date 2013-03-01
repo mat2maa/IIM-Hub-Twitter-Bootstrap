@@ -2,8 +2,12 @@ class VosController < ApplicationController
   before_filter :require_user
   filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @vo = Vo.new
+  end
+
   def index
-    @vos = Vo.find(:all, :order=>"name asc")	
+    @vos = Vo.order("name asc")
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -14,20 +18,23 @@ class VosController < ApplicationController
   end
 
   def new
-    @vo = Vo.new
     respond_to do |format|
       format.html # new.html.erb
     end
   end
 
   def create
+    @vo = Vo.new params[:vo]
+
     respond_to do |format|
-      @vo = Vo.new params[:vo]
       if @vo.save
-        flash[:notice] = 'Vo was successfully created.'        
-        format.html  { redirect_to(vos_path) }
+        format.html { redirect_to @vo, notice: 'VO was successfully created.' }
+        format.json { render json: @vo, status: :created, location: @vo }
         format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @vo.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -48,7 +55,7 @@ class VosController < ApplicationController
   def destroy
 
 
-    @playlists = AudioPlaylist.find(:all, :conditions => ["vos.id = ?", params[:id]], :include=>:vo )	
+    @playlists = AudioPlaylist.where("vos.id = ?", params[:id]).includes(:vo)
 
     if  @playlists.length.zero?
 
