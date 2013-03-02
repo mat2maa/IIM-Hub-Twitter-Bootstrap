@@ -2,12 +2,17 @@ class VideoPlaylistTypesController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @video_playlist_type = VideoPlaylistType.new
+  end
+
   def index
-    @video_playlist_types = VideoPlaylistType.find(:all, :order=>"name asc")	
-	  respond_to do |format|
+    @video_playlist_types = VideoPlaylistType.order("name asc")
+                                             .paginate(page: params[:page], per_page: 10)
+
+    respond_to do |format|
       format.html # index.html.erb
     end
-	
   end
   
   def edit
@@ -15,21 +20,23 @@ class VideoPlaylistTypesController < ApplicationController
   end
 
   def new
-    @video_playlist_type = VideoPlaylistType.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @video_playlist_type = VideoPlaylistType.new params[:video_playlist_type]
+    @video_playlist_type = VideoPlaylistType.new params[:video_playlist_type]
+
+    respond_to do |format|
       if @video_playlist_type.save
-        flash[:notice] = 'VideoPlaylistType was successfully created.'        
-        format.html  { redirect_to(video_playlist_types_path) }
-		    format.js
+        format.html { redirect_to @video_playlist_type, notice: 'Video Playlist Type was successfully created.' }
+        format.json { render json: @video_playlist_type, status: :created, location: @video_playlist_type }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @video_playlist_type.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -51,8 +58,8 @@ class VideoPlaylistTypesController < ApplicationController
   def destroy
     
 	  id = params[:id]
-		@master_playlists = VideoMasterPlaylistItem.find(:all, :conditions => ["video_playlist_type_id = ?", id] )
-		@screener_playlists = ScreenerPlaylistItem.find(:all, :conditions => ["video_playlist_type_id = ?", id] )
+		@master_playlists = VideoMasterPlaylistItem.where("video_playlist_type_id = ?", id)
+		@screener_playlists = ScreenerPlaylistItem.where("video_playlist_type_id = ?", id)
 		if @master_playlists.length.zero? &&  @screener_playlists.length.zero?  
       @video_playlist_type = VideoPlaylistType.find(id)
       @video_playlist_type.destroy
