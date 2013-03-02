@@ -3,11 +3,10 @@ class UsersController < ApplicationController
 	filter_access_to :all
   
   def index
-
     @search = User.ransack(params[:q])
 
     @users = @search.result(distinct: true)
-                    .paginate(page: params[:page], per_page: 2)
+                    .paginate(page: params[:page], per_page: 10)
     @users_count = @users.count
   end
   

@@ -21,7 +21,7 @@
                   </tr>
                   <%= render :partial => 'user', :collection => @users %>
                 </table>
-
+                <br />
                 <%= will_paginate @users %>
             <% else %>
                 No entries were returned

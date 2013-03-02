@@ -1,17 +1,19 @@
 <%= render :partial => 'header' %>
 <div id="content">
-<center>
-<%= render :partial => 'form' %>
-<br/>
-<table border="0" cellpadding="10" cellspacing="0" width="100%" id="genres">
-  <tr >
-    <td class="list-header">ID</td><td class="list-header">Genre Name</td><td colspan="2" class="list-header">&nbsp;</td>
-  </tr>
+    <center>
+        <%= render :partial => 'form' %>
+        <br/>
+        <table border="0" cellpadding="10" cellspacing="0" width="100%" id="genres">
+          <tr >
+            <td class="list-header">ID</td>
+            <td class="list-header">Genre Name</td>
+            <td colspan="2" class="list-header">&nbsp;</td>
+          </tr>
+        <%= render :partial => 'genre', :collection => @genres %>
+        </table>
 
+        <br />
+        <%= will_paginate @genres %>
 
-<%= render :partial => 'genre', :collection => @genres %>
-
-</table>
-
-</center>
+    </center>
 </div>

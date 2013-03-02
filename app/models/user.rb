@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   }
   serialize :roles, Array
 
-  attr_accessible :login, :email, :password, :password_confirmation
+  attr_accessible :login, :email, :password, :password_confirmation, :roles
 
   def roles
 		(super || []).map {|r| r.to_sym}
