@@ -1,14 +1,13 @@
-<% form_remote_tag :url => {:action => 'create'}, 
-                    :html => {:id => 'commercial_run_time_form'}  do %>
-<table>
-  <tr>
-	<td>Minutes</td>
-    <td>
-      <%= text_field_tag 'commercial_run_time[minutes]' %>
-    </td>
-    <td colspan="2">
-      <%= submit_tag "Add Minutes" %>
-    </td>
-  </tr>
-</table>
+<%= form_for @commercial_run_time, remote: true, html: { id: "commercial_run_time_form" } do |f| %>
+    <table>
+      <tr>
+        <td>Minutes</td>
+        <td>
+          <%= f.text_field :name %>
+        </td>
+        <td colspan="2">
+          <%= f.submit "Add Minutes" %>
+        </td>
+      </tr>
+    </table>
 <% end %>

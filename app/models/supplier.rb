@@ -6,13 +6,13 @@ class Supplier < ActiveRecord::Base
 
   validates_presence_of :company_name
 
-  named_scope :video_distributors, :include => :supplier_categories, 
+  scope :video_distributors, :include => :supplier_categories,
       :conditions => { 'supplier_categories.name' => "Video Distributors" }, :order => 'company_name asc'
-  named_scope :movie_distributors, :include => :supplier_categories, 
+  scope :movie_distributors, :include => :supplier_categories,
       :conditions => { 'supplier_categories.name' => "Movie Distributors" }, :order => 'company_name asc'
-  named_scope :laboratories, :include => :supplier_categories, 
+  scope :laboratories, :include => :supplier_categories,
       :conditions => { 'supplier_categories.name' => "Laboratories" }, :order => 'company_name asc'
-  named_scope :production_studios, :include => :supplier_categories, 
+  scope :production_studios, :include => :supplier_categories,
       :conditions => { 'supplier_categories.name' => "Production Studios" }, :order => 'company_name asc'
   
   def categories_to_s

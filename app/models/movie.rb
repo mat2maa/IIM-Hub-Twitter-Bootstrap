@@ -32,7 +32,7 @@ class Movie < ActiveRecord::Base
   validates_attachment_size :poster, :less_than => 5.megabytes
   validates_attachment_content_type :poster, :content_type => ['image/jpeg', 'image/png']
   
-  named_scope :with_release_version, lambda { |release_version| {:conditions => "release_versions_mask & #{2**RELEASE_VERSIONS.index(release_version.to_s)} > 0"} }
+  scope :with_release_version, lambda { |release_version| {:conditions => "release_versions_mask & #{2**RELEASE_VERSIONS.index(release_version.to_s)} > 0"} }
   
   RELEASE_VERSIONS = ["Th", "Ed", "M1", "M2", "W2", "M4", "W4"]
   
@@ -45,11 +45,11 @@ class Movie < ActiveRecord::Base
   serialize   :language_tracks
   serialize   :language_subtitles
   
-  named_scope :with_language_track, lambda { |language_track|
+  scope :with_language_track, lambda { |language_track|
         { :conditions => "language_tracks like '%#{sanitize_sql(language_track)}%'"  }
       }
       
-  named_scope :with_language_subtitle, lambda { |language_subtitle|
+  scope :with_language_subtitle, lambda { |language_subtitle|
         { :conditions => "language_subtitles like '%#{sanitize_sql(language_subtitle)}%'"  }
       }
       
@@ -96,7 +96,7 @@ class Movie < ActiveRecord::Base
     release_versions.map(&:to_sym)
   end
   
-  named_scope :with_screener_remark, lambda { |screener_remark| {:conditions => "screener_remarks_mask & #{2**SCREENER_REMARKS.index(screener_remark.to_s)} > 0"} }
+  scope :with_screener_remark, lambda { |screener_remark| {:conditions => "screener_remarks_mask & #{2**SCREENER_REMARKS.index(screener_remark.to_s)} > 0"} }
   
   SCREENER_REMARKS = ["VHS", "VHS B&W", "VHS Chinese Subs", "DVD B&W", "DVD Chinese Subs", "Other"]
   
@@ -112,7 +112,7 @@ class Movie < ActiveRecord::Base
     screener_remarks.map(&:to_sym)
   end
   
-  # named_scope :with_old_language_track, lambda { |language_track| {:conditions => "language_tracks_mask & #{2**IIM::MOVIE_LANGUAGES.index(old_language_track.to_s)} > 0"} }
+  # scope :with_old_language_track, lambda { |language_track| {:conditions => "language_tracks_mask & #{2**IIM::MOVIE_LANGUAGES.index(old_language_track.to_s)} > 0"} }
   #        
   #      def old_language_tracks=(old_language_tracks)
   #        self.language_tracks_mask = (old_language_tracks & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum
@@ -126,7 +126,7 @@ class Movie < ActiveRecord::Base
   #        old_language_tracks.map(&:to_sym)
   #      end
   #   
-  #   named_scope :with_language_subtitle, lambda { |language_subtitle| {:conditions => "language_subtitles_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_subtitle.to_s)} > 0"} }
+  #   scope :with_language_subtitle, lambda { |language_subtitle| {:conditions => "language_subtitles_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_subtitle.to_s)} > 0"} }
   #     
   #   def old_language_subtitles=(old_language_subtitles)
   #     self.language_subtitles_mask = (old_language_subtitles & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum

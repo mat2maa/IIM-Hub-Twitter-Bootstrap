@@ -1,0 +1,8 @@
+var $ = jQuery;
+
+var newRow = " <%= escape_javascript(render(partial: "master_playlist_type", object: @master_playlist_type)) %> ";
+
+$("#master_playlist_type_form")
+        .find("input[type=text]").val("");
+
+$("#master_playlist_types>tbody").append(newRow);

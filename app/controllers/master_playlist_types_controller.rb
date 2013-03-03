@@ -2,12 +2,16 @@ class MasterPlaylistTypesController < ApplicationController
   before_filter :require_user
   filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @master_playlist_type = MasterPlaylistType.new
+  end
+
   def index
-    @master_playlist_types = MasterPlaylistType.find(:all, :order=>"name asc")
+    @master_playlist_types = MasterPlaylistType.order("name asc")
+                                               .paginate(page: params[:page], per_page: 10)
     respond_to do |format|
       format.html # index.html.erb
     end
-
   end
 
   def edit
@@ -15,21 +19,23 @@ class MasterPlaylistTypesController < ApplicationController
   end
 
   def new
-    @master_playlist_type = MasterPlaylistType.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
   end
 
   def create
+    @master_playlist_type = MasterPlaylistType.new params[:master_playlist_type]
+
     respond_to do |format|
-      @master_playlist_type = MasterPlaylistType.new params[:master_playlist_type]
       if @master_playlist_type.save
-        flash[:notice] = 'MasterPlaylistType was successfully created.'
-        format.html  { redirect_to(master_playlist_types_path) }
+        format.html { redirect_to @master_playlist_type, notice: 'Master Playlist Type was successfully created.' }
+        format.json { render json: @master_playlist_type, status: :created, location: @master_playlist_type }
         format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @master_playlist_type.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -51,7 +57,7 @@ class MasterPlaylistTypesController < ApplicationController
   def destroy
 
     id = params[:id]
-    @master_playlists = VideoMasterPlaylist.find(:all, :conditions => ["master_playlist_type_id = ?", id] )
+    @master_playlists = VideoMasterPlaylist.where("master_playlist_type_id = ?", id)
     if @master_playlists.length.zero? 
       @master_playlist_type = MasterPlaylistType.find(id)
       @master_playlist_type.destroy

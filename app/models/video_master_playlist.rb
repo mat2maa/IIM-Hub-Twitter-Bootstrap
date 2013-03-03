@@ -7,7 +7,7 @@ class VideoMasterPlaylist < ActiveRecord::Base
   belongs_to :airline
   belongs_to :user
   
-  named_scope :with_same_airline_and_master, lambda { |video_master_id, airline_id| {
+  scope :with_same_airline_and_master, lambda { |video_master_id, airline_id| {
     :select=>"video_master_playlists.id, video_master_playlists.airline_id, video_master_playlists.start_cycle", 
     :conditions=>"video_master_playlist_items.master_id=#{video_master_id} AND video_master_playlists.airline_id='#{airline_id}'",
     :joins=>"LEFT JOIN video_master_playlist_items on video_master_playlists.id=video_master_playlist_items.video_master_playlist_id"} }
@@ -21,6 +21,6 @@ class VideoMasterPlaylist < ActiveRecord::Base
   end
   
   def video_master_playlist_items_sorted
-    return VideoMasterPlaylistItem.find(:all, :conditions=>{:video_master_playlist_id => self.id}, :order_by=>:position)
+    return VideoMasterPlaylistItem.where(:video_master_playlist_id => self.id).order(:position)
 	end
 end

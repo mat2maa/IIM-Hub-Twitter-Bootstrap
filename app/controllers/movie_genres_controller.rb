@@ -2,12 +2,16 @@ class MovieGenresController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @movie_genre = MovieGenre.new
+  end
+
   def index
-    @movie_genres = MovieGenre.find(:all, :order=>"name asc")	
+    @movie_genres = MovieGenre.order("name asc")
+                              .paginate(page: params[:page], per_page: 10)
 	  respond_to do |format|
       format.html # index.html.erb
     end
-	
   end
   
   def edit
@@ -15,21 +19,23 @@ class MovieGenresController < ApplicationController
   end
 
   def new
-    @movie_genre = MovieGenre.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @movie_genre = MovieGenre.new params[:movie_genre]
+    @movie_genre = MovieGenre.new params[:movie_genre]
+
+    respond_to do |format|
       if @movie_genre.save
-        flash[:notice] = 'MovieGenre was successfully created.'        
-        format.html  { redirect_to(movie_genres_path) }
-		    format.js
+        format.html { redirect_to @movie_genre, notice: 'Movie Genre was successfully created.' }
+        format.json { render json: @movie_genre, status: :created, location: @movie_genre }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @movie_genre.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -51,7 +57,7 @@ class MovieGenresController < ApplicationController
   def destroy
     
 	  id = params[:id]
-		@movies = Movie.find(:all, :conditions => ["movie_genre_id = ?", id] )
+		@movies = Movie.where("movie_genre_id = ?", id)
 		if @movies.length.zero?  
       @movie_genre = MovieGenre.find(id)
       @movie_genre.destroy

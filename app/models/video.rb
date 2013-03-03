@@ -33,11 +33,11 @@ class Video < ActiveRecord::Base
   serialize :language_tracks
   serialize :language_subtitles
   
-  named_scope :with_language_track, lambda { |language_track|
+  scope :with_language_track, lambda { |language_track|
         { :conditions => "language_tracks like '%#{sanitize_sql(language_track)}%'"  }
       }
       
-  named_scope :with_language_subtitle, lambda { |language_subtitle|
+  scope :with_language_subtitle, lambda { |language_subtitle|
         { :conditions => "language_subtitles like '%#{sanitize_sql(language_subtitle)}%'"  }
       }
    
@@ -79,7 +79,7 @@ class Video < ActiveRecord::Base
 
 
 
-  #  named_scope :with_language_track, lambda { |language_track| {:conditions => "language_tracks_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_track.to_s)} > 0"} } 
+  #  scope :with_language_track, lambda { |language_track| {:conditions => "language_tracks_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_track.to_s)} > 0"} }
   # def old_language_tracks=(old_language_tracks)
   #   self.language_tracks_mask = (old_language_tracks & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum
   # end
@@ -92,7 +92,7 @@ class Video < ActiveRecord::Base
   #   old_language_tracks.map(&:to_sym)
   # end
   # 
-  # named_scope :with_language_subtitle, lambda { |language_subtitle| {:conditions => "language_subtitles_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_subtitle.to_s)} > 0"} }
+  # scope :with_language_subtitle, lambda { |language_subtitle| {:conditions => "language_subtitles_mask & #{2**IIM::MOVIE_LANGUAGES.index(language_subtitle.to_s)} > 0"} }
   #   
   # def old_language_subtitles=(old_language_subtitles)
   #   self.language_subtitles_mask = (old_language_subtitles & IIM::MOVIE_LANGUAGES).map { |r| 2**IIM::MOVIE_LANGUAGES.index(r) }.sum

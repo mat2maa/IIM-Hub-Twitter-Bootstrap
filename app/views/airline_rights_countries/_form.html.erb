@@ -1,14 +1,13 @@
-<% form_remote_tag :url => {:action => 'create'}, 
-                    :html => {:id => 'airline_rights_country_form'}  do %>
-<table>
-  <tr>
-	<td>Airline Rights Country Name</td>
-    <td>
-      <%= text_field_tag 'airline_rights_country[name]' %>
-    </td>
-    <td colspan="2">
-      <%= submit_tag "Add New Airline Rights Country" %>
-    </td>
-  </tr>
-</table>
+<%= form_for @airline_rights_country, remote: true, html: { id: "airline_rights_country_form" } do |f| %>
+    <table>
+      <tr>
+        <td>Airline Rights Country Name</td>
+        <td>
+          <%= f.text_field :name %>
+        </td>
+        <td colspan="2">
+          <%= f.submit "Add New Airline Rights Country" %>
+        </td>
+      </tr>
+    </table>
 <% end %>
