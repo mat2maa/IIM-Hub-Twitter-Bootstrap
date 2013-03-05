@@ -3,5 +3,5 @@ class SupplierCategory < ActiveRecord::Base
   
   validates_presence_of :name, :remarks
   
-  
+  attr_accessible :name, :remarks
 end

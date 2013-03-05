@@ -1,3 +1,0 @@
-page.insert_html :bottom, 'movie_distributors', :partial => 'movie_distributor', :locals => {:movie_distributor => @movie_distributor}
-page[:movie_distributor_form].reset
-flash.discard

@@ -3,4 +3,6 @@ class VideoGenre < ActiveRecord::Base
   belongs_to :video_parent_genre
   
   validates_presence_of :name
+
+  attr_accessible :name, :video_parent_genre_id
 end

@@ -1,3 +1,0 @@
-page.insert_html :bottom, 'master_languages', :partial => 'master_language', :locals => {:master_language => @master_language}
-page[:master_language_form].reset
-flash.discard

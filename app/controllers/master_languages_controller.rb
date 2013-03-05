@@ -2,12 +2,15 @@ class MasterLanguagesController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @master_language = MasterLanguage.new
+  end
+
   def index
-    @master_languages = MasterLanguage.find(:all, :order=>"name asc")	
-	respond_to do |format|
+    @master_languages = MasterLanguage.order("name asc")	
+  	respond_to do |format|
       format.html # index.html.erb
     end
-
   end
 
   def edit
@@ -15,21 +18,23 @@ class MasterLanguagesController < ApplicationController
   end
 
   def new
-    @master_language = MasterLanguage.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
   end
 
   def create
-	respond_to do |format|
-      @master_language = MasterLanguage.new params[:master_language]
+    @master_language = MasterLanguage.new params[:master_language]
+
+    respond_to do |format|
       if @master_language.save
-        flash[:notice] = 'MasterLanguage was successfully created.'        
-        format.html  { redirect_to(master_languages_path) }
-		format.js
+        format.html { redirect_to @master_language, notice: 'Mater Language was successfully created.' }
+        format.json { render json: @master_language, status: :created, location: @master_language }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @master_language.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -69,18 +74,18 @@ class MasterLanguagesController < ApplicationController
     @master_language = MasterLanguage.find(params[:id])
     
     @count = 0
-  	@count  += Master.find(:all, :conditions => ["language_track_1 = ?", @master_language.name] ).count
-  	@count  += Master.find(:all, :conditions => ["language_track_2 = ?", @master_language.name] ).count
-  	@count  += Master.find(:all, :conditions => ["language_track_3 = ?", @master_language.name] ).count
-  	@count  += Master.find(:all, :conditions => ["language_track_4 = ?", @master_language.name] ).count
-  	@count  += Master.find(:all, :conditions => ["video_subtitles_1 = ?", @master_language.name] ).count
-  	@count  += Master.find(:all, :conditions => ["video_subtitles_2 = ?", @master_language.name] ).count
+  	@count  += Master.where("language_track_1 = ?", @master_language.name).count
+  	@count  += Master.where("language_track_2 = ?", @master_language.name).count
+  	@count  += Master.where("language_track_3 = ?", @master_language.name).count
+  	@count  += Master.where("language_track_4 = ?", @master_language.name).count
+  	@count  += Master.where("video_subtitles_1 = ?", @master_language.name).count
+  	@count  += Master.where("video_subtitles_2 = ?", @master_language.name).count
   	
-  	@count  += Movie.find(:all, :conditions => "language_tracks like '%#{@master_language.name}%'").count
-  	@count  += Movie.find(:all, :conditions => "language_subtitles like '%#{@master_language.name}%'").count
+  	@count  += Movie.where("language_tracks like '%#{@master_language.name}%'").count
+  	@count  += Movie.where("language_subtitles like '%#{@master_language.name}%'").count
 
-  	@count  += Video.find(:all, :conditions => "language_tracks like '%#{@master_language.name}%'").count
-  	@count  += Video.find(:all, :conditions => "language_subtitles like '%#{@master_language.name}%'").count
+  	@count  += Video.where("language_tracks like '%#{@master_language.name}%'").count
+  	@count  += Video.where("language_subtitles like '%#{@master_language.name}%'").count
 
 
   	if  @count.zero?

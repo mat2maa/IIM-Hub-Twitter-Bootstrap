@@ -1,13 +1,15 @@
 <div class="settings-forms">
-<% semantic_form_for @category do |form| %>
-	<%= form.semantic_errors %>
-	<% form.inputs do %>
-    <%= form.input :name %>
-    <%= form.input :remarks%>
+    <%= semantic_form_for @category do |form| %>
+        <%= form.semantic_errors %>
 
-  <% end %>
-  <% form.buttons do %>
-    <%= form.commit_button %>
-  <% end %>
-<% end %>
+        <%= form.inputs do %>
+            <%= form.input :name %>
+            <%= form.input :remarks%>
+        <% end %>
+
+      <%= form.actions do %>
+          <%= form.action :submit, :as => :button %>
+      <% end %>
+
+    <% end %>
 </div>

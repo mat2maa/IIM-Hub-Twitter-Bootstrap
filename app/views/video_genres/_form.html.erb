@@ -6,7 +6,7 @@
           <%= f.text_field :name %>
         </td>
         <td>
-          <%= select_tag('video_genre[video_parent_genre_id]', options_from_collection_for_select(VideoParentGenre.all, :id, :name)) %>
+          <%= f.select(:video_parent_genre_id, options_from_collection_for_select(VideoParentGenre.all, :id, :name)) %>
         </td>
         <td colspan="2">
           <%= f.submit "Add New Video Genre" %>

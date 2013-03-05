@@ -2,37 +2,41 @@ class SupplierCategoriesController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @category = SupplierCategory.new
+  end
+
   def index
-    @category = SupplierCategory.new  
-    @categories = SupplierCategory.find(:all, :order=>"name asc")	
+    @categories = SupplierCategory.order("name asc")
 	  respond_to do |format|
       format.html # index.html.erb
     end
-	
   end
   
 
   def new
-    @category = SupplierCategory.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @category }
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @category = SupplierCategory.new params[:supplier_category]
+    @category = SupplierCategory.new params[:category]
+
+    respond_to do |format|
       if @category.save
-        flash[:notice] = 'Category was successfully created.'        
-        format.html  { redirect_to(supplier_categories_url) }
-		    format.js
+        format.html { redirect_to @category, notice: 'Category was successfully created.' }
+        format.json { render json: @category, status: :created, location: @category }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @category.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
-  
+
   def edit
     @category = SupplierCategory.find(params[:id])
   end
@@ -52,7 +56,7 @@ class SupplierCategoriesController < ApplicationController
   
   def destroy
 	
-	count = Supplier.count(:from => :supplier_categories_suppliers, :conditions => ["supplier_category_id=?", params[:id]])	
+	count = Supplier.where("supplier_category_id=?", params[:id]).count(:from => :supplier_categories_suppliers)
 		
 	if  count.zero?
 	  

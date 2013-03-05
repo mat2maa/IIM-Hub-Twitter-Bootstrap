@@ -2,12 +2,16 @@ class VideoGenresController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @video_genre = VideoGenre.new
+  end
+
   def index
-    @video_genres = VideoGenre.find(:all, :order=>"name asc")	
+    @video_genres = VideoGenre.order("name asc")
+                              .paginate(page: params[:page], per_page: 10)
 	  respond_to do |format|
       format.html # index.html.erb
     end
-	
   end
   
   def edit
@@ -15,25 +19,27 @@ class VideoGenresController < ApplicationController
   end
 
   def new
-    @video_genre = VideoGenre.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @video_genre = VideoGenre.new params[:video_genre]
+    @video_genre = VideoGenre.new params[:video_genre]
+
+    respond_to do |format|
       if @video_genre.save
-        flash[:notice] = 'VideoGenre was successfully created.'        
-        format.html  { redirect_to(video_genres_path) }
-		    format.js
+        format.html { redirect_to @video_genre, notice: 'Video Genre was successfully created.' }
+        format.json { render json: @video_genre, status: :created, location: @video_genre }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @video_genre.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
-  
+
   def update
     @video_genre = VideoGenre.find(params[:id])
 
@@ -51,7 +57,7 @@ class VideoGenresController < ApplicationController
   def destroy
     
 	  id = params[:id]
-		@videos = Video.find(:all, :conditions => ["video_genres_videos.video_genre_id = ?", id], :include => :video_genres )
+		@videos = Video.includes(:video_genres).where("video_genres_videos.video_genre_id = ?", id)
 		if @videos.length.zero?  
       @video_genre = VideoGenre.find(id)
       @video_genre.destroy

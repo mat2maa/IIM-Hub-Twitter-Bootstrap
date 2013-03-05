@@ -1,3 +1,0 @@
-page.insert_html :bottom, 'airline_rights_countries', :partial => 'airline_rights_country', :locals => {:airline_rights_country => @airline_rights_country}
-page[:airline_rights_country_form].reset
-flash.discard

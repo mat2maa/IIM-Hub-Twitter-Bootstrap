@@ -14,8 +14,11 @@ class AudioPlaylistsController < ApplicationController
     @search = AudioPlaylist.ransack(params[:q])
     if !params[:q].nil?
       @audio_playlists = @search.result(:distinct => true)
+                                .paginate(page: params[:page], per_page: 10)
     else
-      @audio_playlists = @search.result(:distinct => true).order("id DESC")
+      @audio_playlists = @search.result(:distinct => true)
+                                .order("id DESC")
+                                .paginate(page: params[:page], per_page: 10)
     end
     @audio_playlists_count = @audio_playlists.count
   end

@@ -2,10 +2,17 @@ class SuppliersController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
 
+  before_filter only: [:index, :new] do
+    @supplier = Supplier.new
+  end
+
   def index
     #@suppliers = Supplier.find(:all, :order=>"company_name asc")	
-    @search = Supplier.new_search(params[:search])
-    @suppliers, @suppliers_count = @search.all, @search.count
+    @search = Supplier.ransack(params[:q])
+    @suppliers = @search.result(:distinct => true)
+                        .paginate(page: params[:page], per_page: 10)
+    @suppliers_count = @suppliers.count
+    @search.build_condition
     
 	  respond_to do |format|
       format.html # index.html.erb
@@ -13,31 +20,33 @@ class SuppliersController < ApplicationController
     end
 	
   end
-  
+
   def edit
     @supplier = Supplier.find(params[:id])
   end
 
   def new
-    @supplier = Supplier.new
-
     respond_to do |format|
       format.html # new.html.erb
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @supplier = Supplier.new params[:supplier]
+    @supplier = Supplier.new params[:supplier]
+
+    respond_to do |format|
       if @supplier.save
-        flash[:notice] = 'Supplier was successfully created.'        
-        format.html  { redirect_to(suppliers_path) }
-		    format.js
+        format.html { redirect_to @supplier, notice: 'Supplier was successfully created.' }
+        format.json { render json: @supplier, status: :created, location: @supplier }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @supplier.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
-  
+
   def update
     @supplier = Supplier.find(params[:id])
 
@@ -53,7 +62,7 @@ class SuppliersController < ApplicationController
   
   def destroy
 	  id = params[:id]
-		@movies = Movie.find(:all, :conditions => ["movie_distributor_id = ? OR laboratory_id = ? OR production_studio_id = ?", id,id,id] )
+		@movies = Movie.where("movie_distributor_id = ? OR laboratory_id = ? OR production_studio_id = ?", id,id,id)
 		if @movies.length.zero?  
       @supplier = Supplier.find(id)
       @supplier.destroy

@@ -1,3 +1,0 @@
-page.insert_html :bottom, 'commercial_run_times', :partial => 'commercial_run_time', :locals => {:commercial_run_time => @commercial_run_time}
-page[:commercial_run_time_form].reset
-flash.discard

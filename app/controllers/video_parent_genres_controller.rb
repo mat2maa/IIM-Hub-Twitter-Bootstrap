@@ -2,12 +2,16 @@ class VideoParentGenresController < ApplicationController
     before_filter :require_user
   	filter_access_to :all
 
+    before_filter only: [:index, :new] do
+      @video_parent_genre = VideoParentGenre.new
+    end
+
     def index
-      @video_parent_genres = VideoParentGenre.find(:all, :order=>"name asc")	
+      @video_parent_genres = VideoParentGenre.order("name asc")
+                                             .paginate(page: params[:page], per_page: 10)
   	  respond_to do |format|
         format.html # index.html.erb
       end
-
     end
 
     def edit
@@ -15,21 +19,23 @@ class VideoParentGenresController < ApplicationController
     end
 
     def new
-      @video_parent_genre = VideoParentGenre.new
-
       respond_to do |format|
         format.html # new.html.erb
       end
     end
 
     def create
-  	respond_to do |format|
-        @video_parent_genre = VideoParentGenre.new params[:video_parent_genre]
+      @video_parent_genre = VideoParentGenre.new params[:video_parent_genre]
+
+      respond_to do |format|
         if @video_parent_genre.save
-          flash[:notice] = 'VideoParentGenre was successfully created.'        
-          format.html  { redirect_to(video_parent_genres_path) }
-  		    format.js
+          format.html { redirect_to @video_parent_genre, notice: 'Video Parent Genre was successfully created.' }
+          format.json { render json: @video_parent_genre, status: :created, location: @video_parent_genre }
+          format.js
         else
+          format.html { render action: "new" }
+          format.json { render json: @video_parent_genre.errors, status: :unprocessable_entity }
+          format.js
         end
       end
     end
@@ -51,7 +57,7 @@ class VideoParentGenresController < ApplicationController
     def destroy
 
   	  id = params[:id]
-  		@videos = VideoGenre.find(:all, :conditions => ["video_parent_genre_id = ?", id] )
+  		@videos = VideoGenre.where("video_parent_genre_id = ?", id)
   		if @videos.length.zero?  
         @video_genre = VideoParentGenre.find(id)
         @video_genre.destroy

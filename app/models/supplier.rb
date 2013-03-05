@@ -18,5 +18,9 @@ class Supplier < ActiveRecord::Base
   def categories_to_s
     supplier_categories.collect {|category| category.name}.join(', ')
   end
+  
+  attr_accessible :company_name, :supplier_category_ids, :contact_name_1, :position_1, :tel_1, :fax_1, :hp_1,
+                  :email_1, :contact_name_2, :position_2, :tel_2, :fax_2, :hp_2, :email_2, :address, :website,
+                  :remarks, :bank, :bank_branch, :beneficiary_name, :bank_account, :aba_routing
 
 end

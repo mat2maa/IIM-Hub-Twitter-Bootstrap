@@ -1,0 +1,8 @@
+var $ = jQuery;
+
+var newRow = " <%= escape_javascript(render(partial: "supplier", object: @supplier)) %> ";
+
+$("#supplier_form")
+        .find("input[type=text]").val("");
+
+$("#suppliers>tbody").append(newRow);

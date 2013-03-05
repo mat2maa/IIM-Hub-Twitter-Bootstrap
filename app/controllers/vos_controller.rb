@@ -57,7 +57,7 @@ class VosController < ApplicationController
   def destroy
 
 
-    @playlists = AudioPlaylist.where("vos.id = ?", params[:id]).includes(:vo)
+    @playlists = AudioPlaylist.includes(:vo).where("vos.id = ?", params[:id])
 
     if  @playlists.length.zero?
 

@@ -1,13 +1,16 @@
 class CommercialRunTimesController < ApplicationController
   before_filter :require_user
 	filter_access_to :all
+  
+  before_filter only: [:index, :new] do
+    @commercial_run_time = CommercialRunTime.new
+  end
 
   def index
-    @commercial_run_times = CommercialRunTime.find(:all, :order=>"minutes asc")	
+    @commercial_run_times = CommercialRunTime.order("minutes asc")	
 	  respond_to do |format|
       format.html # index.html.erb
     end
-	
   end
   
   def edit
@@ -21,15 +24,19 @@ class CommercialRunTimesController < ApplicationController
       format.html # new.html.erb
     end
   end
-  
+
   def create
-	respond_to do |format|
-      @commercial_run_time = CommercialRunTime.new params[:commercial_run_time]
+    @commercial_run_time = CommercialRunTime.new params[:commercial_run_time]
+
+    respond_to do |format|
       if @commercial_run_time.save
-        flash[:notice] = 'CommercialRunTime was successfully created.'        
-        format.html  { redirect_to(commercial_run_times_path) }
-		    format.js
+        format.html { redirect_to @commercial_run_time, notice: 'Commercial Run Time was successfully created.' }
+        format.json { render json: @commercial_run_time, status: :created, location: @commercial_run_time }
+        format.js
       else
+        format.html { render action: "new" }
+        format.json { render json: @commercial_run_time.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -50,7 +57,7 @@ class CommercialRunTimesController < ApplicationController
   def destroy
     
 	  id = params[:id]
-		@videos = Video.find(:all, :conditions => ["commercial_run_time_id = ?", id] )
+		@videos = Video.where("commercial_run_time_id = ?", id)
 		if @videos.length.zero?  
       @commercial_run_time = CommercialRunTime.find(id)
       @commercial_run_time.destroy

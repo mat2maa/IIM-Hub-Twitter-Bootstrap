@@ -1,7 +1,7 @@
   <fieldset>
         <legend>Search Songs Playlists</legend>
 
-    <%= search_form_for playlist_search_form,
+    <%= search_form_for @search,
                         :remote => true,
                         :loading => "Element.show('spinner')",
                         :complete => "Element.hide('spinner')" do |audio_playlists| %>
@@ -20,7 +20,7 @@
                  <td valign="top">
                     Program:<br />
                     <%= audio_playlists.select :program_id_eq, Program.order("name asc")
-                                                                       .collect {|p| [p.name, p.id] }, { :include_blank => true } %>
+                                                                      .collect {|p| [p.name, p.id] }, { :include_blank => true } %>
                  </td>
                  <td valign="top">
                    Airline:
@@ -32,15 +32,18 @@
                     Start Playdate:
                     <br />
                     <%= audio_playlists.date_select :start_playdate_matches,  {:discard_day => true,
-                                                                               :order => [:month,
-                                                                                                          :year],:include_blank => true, :default=>""}  %><br />
+                                                                               :order => [:month, :year],
+                                                                               :include_blank => true,
+                                                                               :default=>""}  %><br />
                  </td>
 
                  <td>
                     End Playdate:
                     <br />
-                    <%= audio_playlists.date_select :end_playdate_matches,  {:discard_day => true, :order => [:month,
-                                                                                                        :year],:include_blank => true, :default=>""}  %><br />
+                    <%= audio_playlists.date_select :end_playdate_matches,  {:discard_day => true,
+                                                                             :order => [:month, :year],
+                                                                             :include_blank => true,
+                                                                             :default=>""}  %><br />
                  </td>
                  <td valign="bottom">
                     <%= audio_playlists.submit "Search" %>
