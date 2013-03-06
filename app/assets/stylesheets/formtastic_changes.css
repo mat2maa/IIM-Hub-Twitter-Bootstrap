@@ -12,10 +12,10 @@ form.formtastic fieldset ol li p.inline-hints { color:#333; }
 
 /*form.formtastic{ width:800px;}*/
 form.formtastic select { float:left; }
-form.formtastic fieldset ol li label { 
+form.formtastic fieldset ol li.fragment {float:left }
+form.formtastic fieldset ol li label {
 	text-align:left;
 }
-
 form.formtastic fieldset ol li label { display:block; width:150px;  padding:0; }
 
 form.formtastic fieldset ol li fieldset ol {width:100%;}

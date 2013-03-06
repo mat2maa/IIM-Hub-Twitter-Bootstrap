@@ -103,10 +103,12 @@ class MoviesController < ApplicationController
   
   def edit
     @languages = IIM::MOVIE_LANGUAGES
-    
-    @search = Movie.new_search(:order_by => :id, :order_as => "DESC")
-    @movies, @movies_count = @search.all, @search.count
-      
+
+    @search = Movie.ransack(params[:q])
+    @movies = @search.result(distinct: true)
+    .order("id DESC")
+    @movies_count = @movies.count
+
     @movie = Movie.find(params[:id])    
     if !session[:movies_search].nil?
       ids = session[:movies_search] 

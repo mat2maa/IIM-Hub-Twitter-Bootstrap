@@ -91,22 +91,23 @@
                         <%= f.input :movie_distributor,
                                     include_blank:  true,
                                     input_html:  {tabindex:  4},
-                                    label:  "Distributor " + link_to("[edit]", suppliers_path, popup: true),
+                                    label:  ("Distributor " + link_to("[edit]", suppliers_path,
+                                                                      popup: true)).html_safe,
                                     collection:  Supplier.movie_distributors.collect {|p| [ p.company_name, p.id ] } %>
                     </td>
                     <td>
                         <%= f.input :production_studio,
                                     input_html:  {tabindex:  5},
                                     include_blank:  true,
-                                    label:  "Production Studio " + link_to("[edit]", suppliers_path, popup: true),
+                                    label:  ("Production Studio " + link_to("[edit]", suppliers_path,
+                                                                            popup: true)).html_safe,
                                     collection:  Supplier.production_studios.collect {|p| [ p.company_name, p.id ] } %>
                     </td>
                     <td>
                         <%= f.input :laboratory,
                                     input_html:  {tabindex:  6},
-                                    label: "Laboratory",
                                     include_blank:  true,
-                                    label:  "Laboratory "+ link_to("[edit]", suppliers_path, popup: true),
+                                    label:  ("Laboratory " + link_to("[edit]", suppliers_path, popup: true)).html_safe,
                                     collection:  Supplier.laboratories.collect {|p| [ p.company_name, p.id ] } %>
                     </td>
                 </tr>
@@ -114,7 +115,8 @@
                     <td>Airline Release Date
                         <%= f.input :airline_release_date,
                                     input_html:  {tabindex:  7},
-                                    label:  false,
+                                    label: false,
+                                    labels: {month: false, year: false},
                                     order:  [:month, :year],
                                     discard_day:  true,
                                     include_blank:  true,
@@ -127,6 +129,7 @@
                         <%= f.input :personal_video_date,
                                     input_html:  {tabindex:  8},
                                     label: false,
+                                    labels: {month: false, year: false},
                                     order:  [:month, :year],
                                     discard_day:  true,
                                     include_blank:  true,
@@ -150,6 +153,7 @@
                         <%= f.input :screener_received_date,
                                     input_html:  {tabindex:  10},
                                     label:  false,
+                                    labels: {day: false, month: false, year: false},
                                     include_blank:  true,
                                     order:  [:day, :month, :year] ,
                                     use_short_month:  true %>
@@ -164,6 +168,7 @@
                                     input_html:  {tabindex:  11},
                                     order:  [:day, :month, :year],
                                     label:  false,
+                                    labels: {day: false, month: false, year: false},
                                     use_short_month:  true,
                                     include_blank:  true  %>
                     </td>
@@ -254,12 +259,12 @@
 
             <%= f.input :language_tracks,
                         input_html:  {tabindex:  22},
-                        label:  "Available Language<br/>Tracks",
+                        label:  ("Available Language<br/>Tracks").html_safe,
                         as:  :check_boxes,
                         collection:  @languages %>
             <%= f.input :language_subtitles,
                         input_html:  {tabindex:  23},
-                        label:  "Available Language<br/>Subtitles",
+                        label:  ("Available Language<br/>Subtitles").html_safe,
                         as:  :check_boxes,
                         collection:  @languages %>
             <%= f.input :movie_genres,
@@ -274,15 +279,15 @@
                         input_html:  {tabindex:  26} %>
             <%= f.input :synopsis,
                         input_html:  {tabindex:  27},
-                        hint:  "(<span id='char_count' ></span > characters)" %>
+                        hint:  ("(<span id='char_count' ></span > characters)").html_safe %>
             <!--TODO: Make character_count work with UJS -->
-            <#%= character_count('movie_synopsis',
+            <%#= character_count('movie_synopsis',
                                 'char_count',
                                 frequency:  0.10) %>
 
             <%= f.input :critics_review,
                         input_html:  {tabindex:  28},
-                        label: "Critics Review<br/>
+                        label: ("Critics Review<br/>
                                   <a href='http://mingyi.org/T2F3' target='_blank'>Install TableTools</a>
                                   <br/>
                                   <br/>
@@ -291,7 +296,7 @@
                                   <br/>
                                   2. Click on
                                   <br/>
-                                  Other Table Operations > Copy Filtered As HTML" %>
+                                  Other Table Operations > Copy Filtered As HTML").html_safe %>
 
             <%= f.input :remarks,
                         input_html:  {tabindex:  29,

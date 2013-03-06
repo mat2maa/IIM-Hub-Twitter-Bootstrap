@@ -16,6 +16,15 @@ class Movie < ActiveRecord::Base
 
   has_and_belongs_to_many :airline_rights_countries
   has_and_belongs_to_many :movie_genres
+
+  attr_accessible :movie_title, :movie_type, :movie_distributor_id, :production_studio_id, :laboratory_id,
+                  :airline_release_date, :airline_release_date, :airline_release_date, :personal_video_date,
+                  :personal_video_date, :personal_video_date, :theatrical_release_year, :screener_received_date,
+                  :screener_received_date, :screener_received_date, :screener_destroyed_date,
+                  :screener_destroyed_date, :screener_destroyed_date, :has_press_kit, :has_poster, :poster_quantity,
+                  :rating, :theatrical_runtime, :edited_runtime, :release_versions, :screener_remarks,
+                  :airline_rights, :language_tracks, :language_subtitles, :movie_genre_ids, :cast, :director,
+                  :synopsis, :critics_review, :remarks
     
   has_attached_file :poster, :styles => { 
                     :small => "160x237>",

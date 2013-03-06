@@ -1,7 +1,7 @@
 <fieldset>
     <legend>Search Movies</legend>
 
-    <% search_form_for @search,
+    <%= search_form_for @search,
                        remote: true,
                        loading: "Element.show('spinner')",
                        complete: "Element.hide('spinner')" do |movies| %>

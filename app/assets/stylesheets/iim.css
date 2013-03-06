@@ -467,10 +467,10 @@ table.splits{
 	width:95px;
 }
 #movie_theatrical_release_year, #movie_theatrical_runtime, #movie_edited_runtime, #video_production_year, #video_episodes_available{
-	width:28px;
+	width:42px;
 }
 #movie_poster_quantity{
-	width:15px;
+	width:29px;
 }
 #movie_poster_quantity_input label{
 	width:30px;
