@@ -1,65 +1,93 @@
+<fieldset>
+    <legend>Search Movies</legend>
 
-		<fieldset>
-			<legend>Search Movies</legend><% f.fields_for @search.conditions do |movies| %>
-		<!--Match ANY or ALL of the conditions:<br />-->
+    <% search_form_for @search,
+                       remote: true,
+                       loading: "Element.show('spinner')",
+                       complete: "Element.hide('spinner')" do |movies| %>
+
+        <!--Match ANY or ALL of the conditions:<br />-->
           <%#= movies.select :any, [["All", false], ["Any", true]] %><br />
-			<%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
-			<table>
-				<tr>
-					<td valign="top">
-						Movie Title:<br/>
-						<%= movies.text_field :or_movie_title_keywords %><br/>
-						Cast:<br/>
-						<%= movies.text_field :cast_keywords%>
-					</td>
-					<td valign="top">
-						Director:<br/>
-						<%= movies.text_field :director_keywords, :size => 17 %>
-						<br/>
-						<%= check_box :screener, :destroyed %>Screener Destroyed
-						<br/>
-						<%= check_box :screener, :held %>Screener Held
-				</td>
-					<td valign="top">
-							Movie Distributor:<br/>
-							<%= movies.select :movie_distributor_id_equals, Supplier.movie_distributors.collect {|p| [ p.company_name, p.id ] }, :include_blank => true  %><br/>
-							Laboratory:<br/>
-							<%= movies.select :laboratory_id_equals, Supplier.laboratories.collect {|p| [ p.company_name, p.id ] } , :include_blank => true  %><br/>
-					</td>
-					<td valign="top">
-						Movie type:<br/>			
-						<%= movies.select :movie_type_equals, Movie::MOVIE_TYPE, { :include_blank => true } %> <br/>
-						Genre:<br/>
-						<% movies.fields_for movies.object.movie_genres do |genres| %> 
-							<%= genres.select :id_equals, MovieGenre.find(:all).collect {|p| [p.name, p.id] }, { :include_blank => true } %> 
-						<% end %>
-						
-					</td>
-					<td valign="top">
-					Airline Release Date (MM-YYYY)<br/>					
-					<%= movies.date_select :airline_release_date_gte, :order => [:month, :year], :discard_day => true, :include_blank => true, :use_month_numbers => true, :start_year => Date.today.year + 2, :end_year => 1900  %>
-					to
-					<%= movies.date_select :airline_release_date_lte, :order => [:month, :year], :discard_day => true, :include_blank => true, :use_month_numbers => true, :start_year => Date.today.year + 2, :end_year => 1900    %> <br/>
-					<table><tr>
-						
-						<td>Languages:<br/>
-						<%= select :language, :track, @languages, { :include_blank => true } %></td>
-						<td>Subtitles:<br/>
-						<%= select :language, :subtitle, @languages, { :include_blank => true } %></td>
-						
-					</tr></table>
-					<br/>
-					</td>
-					<td valign="top">
-						Movie ID:<br/>
-						<%= movies.text_field :id, :size => 5 %><br/>
-						Theatrical Release Year:<br/>
-						<%= movies.select :theatrical_release_year_equals, movie_release_years, :include_blank => true %></td>
-					</td>
-				
-				</tr>
-			</table>
-			<%= movies.submit "Search" %><input type="reset" value="Reset">
-			<% end %>
-			
-		</fieldset>
+        <%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
+        <table>
+            <tr>
+                <td valign="top">
+                    Movie Title:<br/>
+                    <%= movies.text_field :movie_title_cont %><br/>
+                    Cast:<br/>
+                    <%= movies.text_field :cast_cont%>
+                </td>
+                <td valign="top">
+                    Director:<br/>
+                    <%= movies.text_field :director_cont, :size => 17 %>
+                    <br/>
+                    <%= check_box :screener, :destroyed %>Screener Destroyed
+                    <br/>
+                    <%= check_box :screener, :held %>Screener Held
+            </td>
+                <td valign="top">
+                        Movie Distributor:<br/>
+                        <%= movies.select :movie_distributor_id_eq,
+                                          Supplier.movie_distributors.collect {|p| [ p.company_name, p.id ] },
+                                          include_blank: true  %><br/>
+                        Laboratory:<br/>
+                        <%= movies.select :laboratory_id_eq,
+                                          Supplier.laboratories.collect {|p| [ p.company_name, p.id ] } ,
+                                          include_blank: true  %><br/>
+                </td>
+                <td valign="top">
+                    Movie type:<br/>
+                    <%= movies.select :movie_type_eq,
+                                      Movie::MOVIE_TYPE,
+                                      include_blank: true %> <br/>
+                    Genre:<br/>
+                    <%= movies.select :id_eq,
+                                      MovieGenre.all
+                                                .collect {|p| [p.name, p.id] },
+                                      include_blank: true %>
+
+                </td>
+                <td valign="top">
+                Airline Release Date (MM-YYYY)<br/>
+                <%= movies.date_select :airline_release_date_gteq,
+                                       order: [:month, :year],
+                                       discard_day: true,
+                                       include_blank: true,
+                                       use_month_numbers: true,
+                                       start_year: Date.today.year + 2,
+                                       end_year: 1900  %>
+                to
+                <%= movies.date_select :airline_release_date_lteq,
+                                       order: [:month, :year],
+                                       discard_day: true,
+                                       include_blank: true,
+                                       use_month_numbers: true,
+                                       start_year: Date.today.year + 2,
+                                       end_year: 1900    %> <br/>
+                <table><tr>
+
+                    <td>Languages:<br/>
+                    <%= select :language, :track, @languages, { :include_blank => true } %></td>
+                    <td>Subtitles:<br/>
+                    <%= select :language, :subtitle, @languages, { :include_blank => true } %></td>
+
+                </tr></table>
+                <br/>
+                </td>
+                <td valign="top">
+                    Movie ID:<br/>
+                    <%= movies.text_field :id,
+                                          size: 5 %><br/>
+                    Theatrical Release Year:<br/>
+                    <%= movies.select :theatrical_release_year_eq,
+                                      movie_release_years,
+                                      include_blank: true %></td>
+                </td>
+
+            </tr>
+        </table>
+        <%= movies.submit "Search" %><input type="reset" value="Reset">
+    <% end %>
+
+</fieldset>
+

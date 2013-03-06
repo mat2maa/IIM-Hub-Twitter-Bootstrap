@@ -10,23 +10,27 @@ class AlbumsController < ApplicationController
   cache_sweeper :album_sweeper
 
   def index
-    if !params['search'].nil? 
-      @search = Album.new_search(params[:search])
-    else 
-      @search = Album.new_search(:order_by => :id, :order_as => "DESC")
+    @search = Album.ransack(params[:q])
+    if !params[:q].nil?
+      @albums = @search.result(:distinct => true)
+                       .paginate(page: params[:page], per_page: 10)
+    else
+      @albums = @search.result(:distinct => true)
+                       .order("id DESC")
+                       .paginate(page: params[:page], per_page: 10)
     end
-    @albums, @albums_count = @search.all, @search.count
+    @albums_count = @albums.count
   end
 
-  def show    
+  def show
     @album = Album.find(params[:id])
-    @tracks = Track.find(:all, :conditions => {:album_id => params[:id]})
-    @playlists = AlbumPlaylistItem.find(:all, :conditions=>['album_id=?', params[:id]])
+    @tracks = Track.where(:album_id => params[:id])
+    @playlists = AlbumPlaylistItem.where('album_id=?', params[:id])
   end
 
   def edit
     @album = Album.find(params[:id])
-    @tracks = Track.find(:all, :order=> 'track_num', :conditions => {:album_id => params[:id]})
+    @tracks = Track.where(:album_id => params[:id]).order('track_num')
   end
 
   def amazon_cd_covers
@@ -129,7 +133,7 @@ class AlbumsController < ApplicationController
         flash[:notice] = 'Album was successfully updated.'
         format.html { redirect_to edit_album_path(@album) }
       else
-        @tracks = Track.find(:all, :order=> 'track_num', :conditions => {:album_id => params[:id]})
+        @tracks = Track.where(:album_id => params[:id]).order('track_num')
         format.html { render :action => "edit" }
       end
 
@@ -200,7 +204,7 @@ class AlbumsController < ApplicationController
   end
 
   def show_genre
-    @genres = Genre.find(:all)    
+    @genres = Genre.all
     @album = Album.find(params[:id])
   end
 
@@ -209,16 +213,16 @@ class AlbumsController < ApplicationController
   end
 
   def show_tracks
-    @tracks = Track.find(:all, :conditions => {:album_id => params[:id]})  
+    @tracks = Track.where(:album_id => params[:id])
   end
 
   def show_playlists
-    @tracks = Track.find(:all, :conditions => {:album_id => params[:id]})  
-    @playlists = AlbumPlaylistItem.find(:all, :conditions=>['album_id=?', params[:id]], :group=>:album_playlist_id)
+    @tracks = Track.where(:album_id => params[:id])
+    @playlists = AlbumPlaylistItem.where('album_id=?', params[:id]).group(:album_playlist_id)
   end
 
   def show_tracks_translation
-    @tracks = Track.find(:all, :conditions => {:album_id => params[:id]})  
+    @tracks = Track.where(:album_id => params[:id])
   end
 
 

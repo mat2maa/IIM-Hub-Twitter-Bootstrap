@@ -1,35 +1,34 @@
-    <fieldset>
-        <legend>Search Tracks</legend>
-        <% f.fields_for @search.conditions do |tracks| %>
-			Match ANY or ALL of the conditions:<br />
-            <%= tracks.select :any, [["All", false], ["Any", true]] %><br />
-            <br />
-			<table><tr><td>
-            Title Original:<br/>
-			<%= tracks.text_field :title_original_like %><br />
-			Artist Original:<br />
-            <%= tracks.text_field :artist_original_like %><br />
-			<% tracks.fields_for tracks.object.album do |album| %>	
-	 			CD Code:<br />
-	            <%= album.text_field :cd_code_contains %><br />
-			<% end %>
-			Duration:<br />
-            <%= text_field_tag 'dur_min_min', '', :size => 3 %>:<%= text_field_tag 'dur_min_sec', '', :size => 3 %> to
-			<%= text_field_tag 'dur_max_min', '', :size => 3 %>:<%= text_field_tag 'dur_max_sec', '', :size => 3 %><br />
-			</td>
-			<td valign="top">
-            Title (Translated):<br/>
-			<%= tracks.text_field :title_english_keywords %><br />
-	        Artist (Translated):<br />
-            <%= tracks.text_field :artist_english_keywords %><br />	
-			Label:<br />
-			<% tracks.fields_for tracks.object.album do |album| %>	
-	            <%= album.select :label_id_equals, Label.find(:all).collect {|p| [p.name, p.id] }, { :include_blank => true } %><br />
-            <% end %>		
-			</td>
-			</tr>
-			</table>
+<fieldset>
+    <legend>Search Tracks</legend>
+    <% f.fields_for @search.conditions do |tracks| %>
+        Match ANY or ALL of the conditions:<br />
+        <%= tracks.select :any, [["All", false], ["Any", true]] %><br />
+        <br />
+        <table><tr><td>
+        Title Original:<br/>
+        <%= tracks.text_field :title_original_like %><br />
+        Artist Original:<br />
+        <%= tracks.text_field :artist_original_like %><br />
+        <% tracks.fields_for tracks.object.album do |album| %>
+            CD Code:<br />
+            <%= album.text_field :cd_code_contains %><br />
         <% end %>
-    </fieldset>
-    <%= f.submit "Search" %> <input type="reset" value="Reset">
-
+        Duration:<br />
+        <%= text_field_tag 'dur_min_min', '', :size => 3 %>:<%= text_field_tag 'dur_min_sec', '', :size => 3 %> to
+        <%= text_field_tag 'dur_max_min', '', :size => 3 %>:<%= text_field_tag 'dur_max_sec', '', :size => 3 %><br />
+        </td>
+        <td valign="top">
+        Title (Translated):<br/>
+        <%= tracks.text_field :title_english_keywords %><br />
+        Artist (Translated):<br />
+        <%= tracks.text_field :artist_english_keywords %><br />
+        Label:<br />
+        <% tracks.fields_for tracks.object.album do |album| %>
+            <%= album.select :label_id_equals, Label.find(:all).collect {|p| [p.name, p.id] }, { :include_blank => true } %><br />
+        <% end %>
+        </td>
+        </tr>
+        </table>
+    <% end %>
+</fieldset>
+<%= f.submit "Search" %> <input type="reset" value="Reset">

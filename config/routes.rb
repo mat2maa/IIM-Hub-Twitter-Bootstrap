@@ -75,24 +75,57 @@ Iim::Application.routes.draw do
     end
   end
 
-  # TODO convert these to nested style as above
   resources :movie_playlist_items
-  resources :video_playlists, :member => {:duplicate => :post, :lock => :post, :unlock => :post},
-            :collection => { :add_multiple_videos => :put }
+
+  resources :video_playlists do
+    member do
+      post :duplicate
+      post :lock
+      post :unlock
+    end
+    collection do
+      put :add_multiple_videos
+      end
+  end
 
   resources :video_playlist_items
 
-  resources :video_master_playlists, :member => {:duplicate => :post, :lock => :post, :unlock => :post},
-            :collection => { :add_multiple_masters => :put }
+  resources :video_master_playlists do
+    member do
+      post :duplicate
+      post :lock
+      post :unlock
+    end
+    collection do
+      put :add_multiple_masters
+    end
+  end
 
   resources :video_master_playlist_items
 
-  resources :screener_playlists, :member => {:duplicate => :post, :lock => :post, :unlock => :post},
-            :collection => { :add_multiple_screeners => :put }
+  resources :screener_playlists do
+    member do
+      post :duplicate
+      post :lock
+      post :unlock
+    end
+    collection do
+      put :add_multiple_screeners
+    end
+  end
+
   resources :screener_playlist_items
 
-  resources :import_album, :collection => {:find_albums => :post,:cddb_import => :post, :update_album_mp3_exists => :post},
-            :member => {:itunes_import => :post}
+  resources :import_album do
+    member do
+      post :itunes_import
+    end
+    collection do
+      post :find_albums
+      post :cddb_import
+      post :update_album_mp3_exists
+    end
+  end
 
   resources :publishers
   resources :vos
@@ -107,8 +140,14 @@ Iim::Application.routes.draw do
   resources :find_albums
   resources :find_songs
 
-  resources :movies, :new => {:check_airline_rights => :post, :check_screener_remarks => :post,
-                              :check_movie_type => :post, :update_date => :post}
+  resources :movies do
+    new do
+      post :check_airline_rights
+      post :check_screener_remarks
+      post :check_movie_type
+      post :update_date
+    end
+  end
 
   resources :suppliers
   resources :airline_rights_countries
@@ -121,8 +160,18 @@ Iim::Application.routes.draw do
   resources :video_playlist_types
   resources :master_playlist_types
 
-  resources :masters, :member => {:duplicate => :post}
-  resources :screeners, :member => {:duplicate => :post}
+  resources :masters do
+    member do
+      post :duplicate
+    end
+  end
+
+  resources :screeners do
+    member do
+      post :duplicate
+    end
+  end
+
 
 
   # See how all your routes lay out with "rake routes"

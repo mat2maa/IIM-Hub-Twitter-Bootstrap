@@ -3,9 +3,12 @@
     <center>
         <table border="0" cellpadding="10" cellspacing="0" width="100%" id="categories">
           <tr >
-            <td class="list-header">ID</td><td class="list-header">Category Name</td><td colspan="2" class="list-header">&nbsp;</td>
+            <td class="list-header">ID</td>
+            <td class="list-header">Category Name</td>
+            <td colspan="2" class="list-header">&nbsp;</td>
           </tr>
           <%= render :partial => 'category', :collection => @categories %>
         </table>
+        <%= will_paginate @categories %>
     </center>
 </div>

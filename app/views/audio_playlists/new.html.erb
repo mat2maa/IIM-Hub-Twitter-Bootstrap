@@ -10,14 +10,7 @@
 <center>
 <h1>New Songs Playlist</h1>
 
-<% form_for(@audio_playlist) do |form| %>
-  <%= form.error_messages %>
-
-  <%= render :partial => 'form', :object => form %>
-  <p>
-    <%= form.submit "Next" %>
-  </p>
-<% end %>
+<%= render 'form' %>
 
 </center>
 <br/><br/>

@@ -6,10 +6,16 @@ class AudioPlaylist < ActiveRecord::Base
   belongs_to :vo  
   belongs_to :airline
   belongs_to :user
-	
+
+  attr_accessible :client_playlist_code, :airline_id, :program_id, :in_out, :vo_id, :start_playdate,
+                  :start_playdate, :start_playdate, :end_playdate, :end_playdate, :end_playdate, :airline_duration,
+                  :vo, :user_id, :airline_cache, :program_cache
+
 	def audio_playlist_tracks_sorted
 		#self.audio_playlist_tracks.sort_by {|a| [a.position]}
-    return AudioPlaylistTrack.find(:all, :include=>[:track, {:track=>:album},{:track=>{:album=>:label}}], :conditions=>{:audio_playlist_id => self.id}, :order=>:position)
+    AudioPlaylistTrack.includes(:track, {:track=>:album},{:track=>{:album=>:label}})
+                      .where({:audio_playlist_id => self.id})
+                      .order(:position)
 	end
 	
   def total_duration_cached

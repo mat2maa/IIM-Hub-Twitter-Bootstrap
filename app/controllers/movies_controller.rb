@@ -37,15 +37,16 @@ class MoviesController < ApplicationController
       end      
     else
       #no search made yet
-      @search = Movie.new_search(:order_by => :id, :order_as => "DESC")
-      @search.conditions.active_equals = true
-      
+      @search = Movie.ransack(params[:q])
+      @movies = @search.result(distinct: true)
+                       .order("id DESC")
+      #@search.conditions.active_equals = true
     end
     
     
-    @search.conditions.active_equals = true
+    #@search.conditions.active_equals = true
     
-    @movies, @movies_count = @search.all, @search.count
+    @movies_count = @movies.count
     
     if @movies_count == 1
       redirect_to(edit_movie_path(@movies.first))

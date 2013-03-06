@@ -1,17 +1,16 @@
 <%= render :partial => 'header' %>
 <div id="content">
-<center>
-<%= render :partial => 'form' %>
-<br/>
-<table border="0" cellpadding="10" cellspacing="0" width="100%" id="airline_rights_countries">
-  <tr >
-    <td class="list-header">ID</td><td class="list-header">Airline Rights Country Name</td><td colspan="2" class="list-header">&nbsp;</td>
-  </tr>
-
-
-<%= render :partial => 'airline_rights_country', :collection => @airline_rights_countries %>
-
-</table>
-
-</center>
+    <center>
+        <%= render :partial => 'form' %>
+        <br/>
+        <table border="0" cellpadding="10" cellspacing="0" width="100%" id="airline_rights_countries">
+            <tr >
+                <td class="list-header">ID</td>
+                <td class="list-header">Airline Rights Country Name</td>
+                <td colspan="2" class="list-header">&nbsp;</td>
+            </tr>
+            <%= render :partial => 'airline_rights_country', :collection => @airline_rights_countries %>
+        </table>
+        <%= will_paginate @airline_rights_countries %>
+    </center>
 </div>

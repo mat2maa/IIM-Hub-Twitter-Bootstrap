@@ -10,15 +10,16 @@ before_filter :require_user
 filter_access_to :all
 
   def index
-
-    if !params['search'].nil?
-      @search = AlbumPlaylist.new_search(params[:search])
-
-    else 
-      @search = AlbumPlaylist.new_search(:order_by => :id, :order_as => "DESC")
+    @search = AlbumPlaylist.ransack(params[:q])
+    if !params[:q].nil?
+      @album_playlists = @search.result(:distinct => true)
+                                .paginate(page: params[:page], per_page: 10)
+    else
+      @album_playlists = @search.result(:distinct => true)
+                                .order("id DESC")
+                                .paginate(page: params[:page], per_page: 10)
     end
-
-    @album_playlists, @album_playlists_count = @search.all, @search.count
+    @album_playlists_count = @album_playlists.count
   end
 
   def new

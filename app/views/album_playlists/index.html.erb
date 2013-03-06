@@ -1,21 +1,25 @@
 <%= render :partial => 'layouts/albumplaylist_header' %>
-<center><p style="color: green" id="notice"><%= flash[:notice] %></p></center>
+<center>
+  <p style="color: green" id="notice">
+    <%= flash[:notice] %>
+  </p>
+</center>
+
 <div id="content-header-wrapper">
-<div id="content-header-actions">
-<% if permitted_to? :create, :album_playlists %>	
-<%= link_to "Export by airline", "/export_by_airline" %>
-<%= link_to "Create a playlist", new_album_playlist_path %>
-<% end %>
-</div>
-<div id="content-header">Album Playlists</div>
+    <div id="content-header-actions">
+        <% if permitted_to? :create, :album_playlists %>
+            <%= link_to "Export by airline", "/export_by_airline" %>
+            <%= link_to "Create a playlist", new_album_playlist_path %>
+        <% end %>
+    </div>
+
+    <div id="content-header">Album Playlists</div>
 </div>
 
 <div id="content">
-<% remote_form_for @search ,	:loading => "Element.show('spinner')", :complete => "Element.hide('spinner')" do |f| %>
-  <%= render :partial => 'search_form', :locals => { :f => f } %>
-<% end %>  
+    <%= render :partial => 'search_form', object: @search %>
 
-<div id="album_playlists">
-  <%= render :partial => "album_playlists" %>
-</div>
+    <div id="album_playlists">
+      <%= render :partial => "album_playlists" %>
+    </div>
 </div>
