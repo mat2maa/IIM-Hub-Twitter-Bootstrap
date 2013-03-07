@@ -13,7 +13,7 @@
         </th>
 		<th>
           <%= sort_link(@search, :movie_type, "Movie Type") %>
-          /th>
+        </th>
 		<th>
           <%= sort_link(@search, :airline_release_date, "Airline Release Date") %>
         </th>
@@ -23,15 +23,12 @@
 		<th colspan="2"></th>			
 	</tr>
 	
-	<%= render :partial => "movie", :collection => @movies %>
+	<%= render partial: "movie",
+               collection: @movies %>
 	</table>
 	
-  <% if @search.page_count > 1 %>
-		<br/><br/>
-		<div class="page_links">
-			<%=	page_links()%>
-		</div>
-  <% end %>
+    <%= will_paginate @movies %>
+
 <% else %>
 	
 	No movies were found

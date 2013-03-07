@@ -2,7 +2,6 @@
     <legend>Search Movies</legend>
 
     <%= search_form_for @search,
-                       remote: true,
                        loading: "Element.show('spinner')",
                        complete: "Element.hide('spinner')" do |movies| %>
 
@@ -76,7 +75,7 @@
                 </td>
                 <td valign="top">
                     Movie ID:<br/>
-                    <%= movies.text_field :id,
+                    <%= movies.text_field :id_eq,
                                           size: 5 %><br/>
                     Theatrical Release Year:<br/>
                     <%= movies.select :theatrical_release_year_eq,

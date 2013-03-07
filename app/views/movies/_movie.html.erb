@@ -1,6 +1,6 @@
 <tr id="movie-<%= movie.id %>">
   <% cache([movie, "movie_playlists"]) do %>
-	<td><%= link_to(movie.id, movie_path(:id => movie.id ), :popup => true) %></td>
+	<td><%= link_to(movie.id, movie_path(id: movie.id ), popup: true) %></td>
 	<td><%= movie.movie_title %></td>
 	<td><%= movie.movie_distributor.company_name if !movie.movie_distributor.nil? %>&nbsp;</td>
 	<td><%= movie.movie_type %></td>
@@ -10,27 +10,44 @@
 	<% if (params[:playlist_id] || params["action"]=="add_movie_to_playlist")  %>
 		<td>
 		<% if !movie.to_delete %>
-		<%= link_to_remote "add to playlist", 
-			:url      => {:controller => "movie_playlists", 
-			:action   => "add_movie", 
-			:id       => params[:id], 
-			:movie_id => movie.id},
-			:loading  => "Element.show('spinner')",
-			:complete => "Element.hide('spinner')" %>
+            <%= link_to "add to playlist",
+                        remote: true,
+                        url: {controller: "movie_playlists",
+                              action: "add_movie",
+                              id: params[:id],
+                              movie_id: movie.id},
+                        loading: "Element.show('spinner')",
+                        complete: "Element.hide('spinner')" %>
 		<% else %>
 			Pending Deletion
 		<% end %>
 		</td>
 	<% else %>
-		<td><%= link_to 'Edit', edit_movie_path(movie), :popup => true %></td>
+		<td><%= link_to 'Edit', edit_movie_path(movie), popup: true %></td>
 		<td>
 			<% if !movie.to_delete %>
-			<%= link_to_remote 'Delete', 	:url  => movie_url(movie), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>
-			<% else %>
-			<% if permitted_to? :admin_delete, :movies %>
-			<%= link_to_remote 'Delete', 	:url  => movie_url(movie), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>
+                <%= link_to 'Delete',
+                            remote: true,
+                            url: movie_url(movie),
+                            method: :delete,
+                            confirm: 'Are you sure?',
+                            loading: "Element.show('spinner')",
+                            complete: "Element.hide('spinner')"  %>
+			<% else if permitted_to? :admin_delete, :movies %>
+                <%= link_to 'Delete',
+                            remote: true,
+                            url: movie_url(movie),
+                            method: :delete,
+                            confirm: 'Are you sure?',
+                            loading: "Element.show('spinner')",
+                            complete: "Element.hide('spinner')"  %>
 			<% end %>
-			<%= link_to_remote 'Restore', :url => { :action => "restore", :id => movie.id }, :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>
+			<%= link_to 'Restore',
+                        remote: true,
+                        url: { action: "restore",
+                                  id: movie.id },
+                        loading: "Element.show('spinner')",
+                        complete: "Element.hide('spinner')"  %>
 			<% end %>
 		</td>	
 		<% end %>			

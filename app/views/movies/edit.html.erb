@@ -7,10 +7,10 @@
 
 <div id="content-header-wrapper">
     <div id="content-header-actions">
-        <%= "[" if !@prev_id.nil? & !@next_id.nil? %>
+        <%= "[" if !@prev_id.nil? || !@next_id.nil? %>
         <%= link_to "Prev", edit_movie_path(@prev_id) if !@prev_id.nil? %>
         <%= link_to "Next", edit_movie_path(@next_id) if !@next_id.nil? %>
-        <%= "]" if !@prev_id.nil? & !@next_id.nil? %>
+        <%= "]" if !@prev_id.nil? || !@next_id.nil? %>
         <%= link_to 'View Movie', movie_path(@movie)%> |
         <%= link_to "New Movie", new_movie_path %> |
         <% if permitted_to? :admin_delete, :movies %>

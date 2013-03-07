@@ -19,7 +19,8 @@
                     <th>Last Request Date</th>
                     <th colspan="2">&nbsp;</th>
                   </tr>
-                  <%= render :partial => 'user', :collection => @users %>
+                  <%= render partial: 'user',
+                             collection: @users %>
                 </table>
                 <br />
                 <%= will_paginate @users %>

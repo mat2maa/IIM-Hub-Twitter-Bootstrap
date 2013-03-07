@@ -2,7 +2,6 @@
     <legend>Search Songs Playlists</legend>
 
     <%= search_form_for @search,
-                    remote: true,
                     loading: "Element.show('spinner')",
                     complete: "Element.hide('spinner')" do |audio_playlists| %>
 

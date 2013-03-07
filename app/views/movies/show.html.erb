@@ -2,9 +2,11 @@
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
 <div id="content-header-actions">
-	
-	[ <%= link_to "Prev", movie_path(@prev_id) if !@prev_id.nil?%>
-	<%= link_to "Next", movie_path(@next_id) if !@next_id.nil?%> ]
+
+    <%= "[" if !@prev_id.nil? || !@next_id.nil? %>
+	<%= link_to "Prev", movie_path(@prev_id) if !@prev_id.nil?%>
+	<%= link_to "Next", movie_path(@next_id) if !@next_id.nil?%>
+    <%= "]" if !@prev_id.nil? || !@next_id.nil? %>
 	<%= link_to 'Edit Movie', edit_movie_path(@movie) if permitted_to? :edit, :movies%> |
 	<%= link_to "New Movie", new_movie_path %>
 </div>
@@ -15,7 +17,7 @@
 <center>
 <h1>View Movie</h1>
 <div id="poster-thumbnail">
-<%= link_to (image_tag(@movie.poster.url(:small)), @movie.poster.url, :popup => true) %>
+<%= link_to(image_tag(@movie.poster.url(:small)), @movie.poster.url, :popup => true) %>
 <br/><br/>
 <%= link_to("Search Box Office Mojo", "http://www.boxofficemojo.com/search/?q=" + @movie.movie_title.to_s 	, :popup => true) %><br/>
 <%= link_to("Search Yahoo Movies", "http://movies.yahoo.com/mv/search?fr=ush-movies&toggle=1&cop=&ei=UTF-8&p=" + @movie.movie_title.to_s 	, :popup => true) %><br/>

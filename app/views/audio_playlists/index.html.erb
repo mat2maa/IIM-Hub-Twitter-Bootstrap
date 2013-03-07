@@ -13,10 +13,11 @@
 <div id="content">
 
 
-    <%= render :partial => 'playlist_search_form', object: @search  %>
+    <%= render partial: 'playlist_search_form',
+               object: @search  %>
 
     <div id="audio_playlists">
-        <%= render :partial => "audio_playlists" %>
+        <%= render partial: "audio_playlists" %>
     </div>
     <br/>
 
