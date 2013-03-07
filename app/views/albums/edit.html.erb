@@ -8,7 +8,7 @@
 	<%= link_to "Wikipedia", "http://www.wikipedia.org/wiki/#{@album.artist_original.sub(/ /, '_')}", :popup => true %> |
 	<%= link_to "YesAsia", "http://www.yesasia.com", :popup => true %> | <%= link_to "Import Album from MusicBrainz", :controller => "import_album"  %>
 </div>
-<div id="content-header">Edit Album : <%=h @album.title_original %><br />
+<div id="content-header">Edit Album : <%= @album.title_original %><br />
 </div>
 
 </div>

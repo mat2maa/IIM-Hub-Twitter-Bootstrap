@@ -15,53 +15,53 @@
  <table width="80%" class="show">
   <tr>
     <td class="show-title" width="20%">Album Title (Original)</td>
-    <td width="25%"><%=h @album.title_original %></td>
+    <td width="25%"><%= @album.title_original %></td>
 	<td class="show-title" width="15%">Label</td>
-	<td><%=h @album.label.name if !@album.label.nil? %></td>
+	<td><%= @album.label.name if !@album.label.nil? %></td>
 	<th>Album Playlists this album is in:</th>
   </tr>
   <tr>
     <td class="show-title" >Album Title (Translated)</td>
-    <td><%=h @album.title_english %></td>
+    <td><%= @album.title_english %></td>
 	<td class="show-title" >Release Year</td>
-	<td><%=h @album.release_year %></td>
+	<td><%= @album.release_year %></td>
 	<td rowspan="9" valign="top">
 		
 	<% @playlists.each do |playlist| %>
 	<%= link_to playlist.album_playlist_id, album_playlist_path(:id => playlist.album_playlist_id ) if !playlist.album_playlist.nil?%> 
-	<%=h playlist.album_playlist.client_playlist_code if !playlist.album_playlist.nil? && !playlist.album_playlist.client_playlist_code.nil?  %><br/>
+	<%= playlist.album_playlist.client_playlist_code if !playlist.album_playlist.nil? && !playlist.album_playlist.client_playlist_code.nil?  %><br/>
 	<% end %>
 	
 	<% @album.audio_playlist_tracks.each do |playlist| %>
 	<%= link_to playlist.audio_playlist_id, audio_playlist_path(:id => playlist.audio_playlist_id ) if !playlist.audio_playlist.nil?%> 
-	<%=h playlist.audio_playlist.client_playlist_code if !playlist.audio_playlist.nil? && !playlist.audio_playlist.client_playlist_code.nil?  %><br/>
+	<%= playlist.audio_playlist.client_playlist_code if !playlist.audio_playlist.nil? && !playlist.audio_playlist.client_playlist_code.nil?  %><br/>
 	<% end %>
 	
 	</td>
   </tr>
   <tr>
     <td class="show-title" >Artist (Original)</td>
-    <td><%=h @album.artist_original %></td>
+    <td><%= @album.artist_original %></td>
 	<td class="show-title" >Publisher</td>
-	<td><%=h @album.publisher.name if !@album.publisher.nil?  %></td>
+	<td><%= @album.publisher.name if !@album.publisher.nil?  %></td>
   </tr>
   <tr>
     <td class="show-title" >Artist (Translated)</td>
-    <td><%=h @album.artist_english %></td>
+    <td><%= @album.artist_english %></td>
 	<td class="show-title" >Disc</td>
-	<td><%=h @album.disc_num %> of <%=h @album.disc_count %></td>
+	<td><%= @album.disc_num %> of <%= @album.disc_count %></td>
   </tr>
   <tr>
     <td class="show-title" >CD Code</td>
-    <td><%=h @album.cd_code %></td>
+    <td><%= @album.cd_code %></td>
 	<td class="show-title" >Live Album</td>
 	<td><%= check_box("album", "live_album", :disabled => true) %>
-				<strong>Total Duration:</strong> <%=h @album.duration_in_min %>
+				<strong>Total Duration:</strong> <%= @album.duration_in_min %>
 		</td>
   </tr>
   <tr>
     <td class="show-title" >Genre</td>
-    <td><%=h show_genres @album.genres if !@album.genres.count.zero? %></td>
+    <td><%= show_genres @album.genres if !@album.genres.count.zero? %></td>
     <td class="show-title" >Explicit Lyrics </td>
     <td><%= check_box("album", "explicit_lyrics", :disabled => true) %>
 	<strong>Compilation</strong> <%= check_box("album", "compilation", :disabled => true) %>
@@ -69,7 +69,7 @@
   </tr>
   <tr>
     <td class="show-title" >Synopsis</td>
-    <td colspan="3"><%=h @album.synopsis %></td>
+    <td colspan="3"><%= @album.synopsis %></td>
   </tr>
   </table> 
   

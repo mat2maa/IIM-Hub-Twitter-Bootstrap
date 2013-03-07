@@ -11,13 +11,13 @@
 		<th colspan="4"></th>			
 	</tr>
 	<% @video_master_playlists.each do |video_master_playlist| %>
-		<tr id="video_master_playlist-<%=h video_master_playlist.id %>">
+		<tr id="video_master_playlist-<%= video_master_playlist.id %>">
 			<% cache([video_master_playlist]) do %>
 				<td><%= link_to video_master_playlist.id, video_master_playlist_path(:id => video_master_playlist.id ), :popup => true %></td>
-				<td><%=h video_master_playlist.airline.name if !video_master_playlist.airline_id.nil? %></td>
-				<td><%=h video_master_playlist.start_cycle.strftime("%m-%Y") if !video_master_playlist.start_cycle.nil? %>&nbsp;</td>
-				<td><%=h video_master_playlist.end_cycle.strftime("%m-%Y") if !video_master_playlist.end_cycle.nil?  %>&nbsp;</td>
-				<td><%=h video_master_playlist.master_playlist_type.name if !video_master_playlist.master_playlist_type.nil?  %>&nbsp;</td>
+				<td><%= video_master_playlist.airline.name if !video_master_playlist.airline_id.nil? %></td>
+				<td><%= video_master_playlist.start_cycle.strftime("%m-%Y") if !video_master_playlist.start_cycle.nil? %>&nbsp;</td>
+				<td><%= video_master_playlist.end_cycle.strftime("%m-%Y") if !video_master_playlist.end_cycle.nil?  %>&nbsp;</td>
+				<td><%= video_master_playlist.master_playlist_type.name if !video_master_playlist.master_playlist_type.nil?  %>&nbsp;</td>
 			<% end %>
 					<td><%= link_to('Edit', edit_video_master_playlist_path(video_master_playlist), :popup => true) if video_master_playlist.locked!=true %></td>
 					<% if permitted_to? :delete, :video_master_playlists %>

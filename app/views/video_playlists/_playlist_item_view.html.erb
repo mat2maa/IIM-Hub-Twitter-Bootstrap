@@ -1,8 +1,8 @@
 <% @video = playlist_item_view.video %>
 <% @video_playlist_item = playlist_item_view %>
-<tr id="item_<%=h playlist_item_view.id %>">
+<tr id="item_<%= playlist_item_view.id %>">
 	<% if playlist_item_view.video.nil? %>
-    <td colspan="2">Missing video <%=h playlist_item_view.video_id %></td>
+    <td colspan="2">Missing video <%= playlist_item_view.video_id %></td>
 
 <% else %>
 	
@@ -15,26 +15,26 @@
 		</tr>
 		<tr>
 			<td><strong>Distributor:</strong> </td>
-			<td><%=h playlist_item_view.video.video_distributor.company_name if !playlist_item_view.video.video_distributor.nil? %></td>
+			<td><%= playlist_item_view.video.video_distributor.company_name if !playlist_item_view.video.video_distributor.nil? %></td>
 		</tr>
 		<tr>
 			<td><strong>Full Genre:</strong> </td>
-			<td><%=h playlist_item_view.video.video_genres_string_with_parent %></td>
+			<td><%= playlist_item_view.video.video_genres_string_with_parent %></td>
 		</tr>
 		<tr>
 			<td><strong>Commercial Runtime:</strong> </td>
-			<td><%=h playlist_item_view.video.commercial_run_time.minutes if !playlist_item_view.video.commercial_run_time.nil? %> min</td>
+			<td><%= playlist_item_view.video.commercial_run_time.minutes if !playlist_item_view.video.commercial_run_time.nil? %> min</td>
 		</tr>	
 		<tr>
 			<td><strong>Lang Tracks:</strong> </td>
-			<td><%=h playlist_item_view.video.language_tracks.join(', ') if !playlist_item_view.video.language_tracks.nil? %></td>
+			<td><%= playlist_item_view.video.language_tracks.join(', ') if !playlist_item_view.video.language_tracks.nil? %></td>
 		</tr>	
 		<tr>
 			<td><strong>Lang Subtitles:</strong> </td>
-			<td><%=h playlist_item_view.video.language_subtitles.join(', ') if !playlist_item_view.video.language_subtitles.nil? %></td>
+			<td><%= playlist_item_view.video.language_subtitles.join(', ') if !playlist_item_view.video.language_subtitles.nil? %></td>
 		</tr>	
 		<tr>
-			<td colspan="3"><strong>Synopsis:</strong><br/><%=h playlist_item_view.video.synopsis %></td>
+			<td colspan="3"><strong>Synopsis:</strong><br/><%= playlist_item_view.video.synopsis %></td>
 		</tr>
 	</table>
 	<br/><br/>

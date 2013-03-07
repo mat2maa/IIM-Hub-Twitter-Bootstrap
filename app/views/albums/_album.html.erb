@@ -1,11 +1,11 @@
-<tr id="album-<%=h album.id %>">
+<tr id="album-<%= album.id %>">
   <% cache([album, "album_playlists"]) do %>
 	<td><%= link_to album.id, album_path(:id => album.id ) %></td>
-	<td><%=h album.title_original %><br/><%=h album.title_english %></td>
-	<td><%=h album.artist_original %><br/><%=h album.artist_english %></td>
-	<td><%=h album.label.name if !album.label_id.nil? || !album.label.nil? %></td>
-	<td><%=h album.release_year %>&nbsp;</td>
-	<td><%=h album.cd_code %>&nbsp;</td>
+	<td><%= album.title_original %><br/><%= album.title_english %></td>
+	<td><%= album.artist_original %><br/><%= album.artist_english %></td>
+	<td><%= album.label.name if !album.label_id.nil? || !album.label.nil? %></td>
+	<td><%= album.release_year %>&nbsp;</td>
+	<td><%= album.cd_code %>&nbsp;</td>
   <% end %>
 	<% if (params[:playlist_id] || params["action"]=="add_album_to_playlist")  %>
 		<td>

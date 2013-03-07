@@ -20,10 +20,10 @@
               <%# cache([video]) do %>
 								<td><%= check_box_tag "master_ids[]", master.id %></td>
                 <td><%= master.id %></td>
-                <td><%=h master.video.programme_title %></td>
-                <td><%=h master.episode_title %></td>
-                <td><%=h master.episode_number %></td>
-                <td><%=h master.video.video_type %></td>
+                <td><%= master.video.programme_title %></td>
+                <td><%= master.episode_title %></td>
+                <td><%= master.episode_number %></td>
+                <td><%= master.video.video_type %></td>
 								<td>
 									<span id="exists">
 										<% if(master.in_playlists!="" && !master.in_playlists.nil?) %>

@@ -18,9 +18,9 @@
               <% cache([movie]) do %>
 								<td><%= check_box_tag "movie_ids[]", movie.id %></td>
                 <td><%= link_to movie.id, movie_path(:id => movie.id ), :popup => true %></td>
-                <td><%=h movie.movie_title %></td>
-                <td><%=h movie.movie_type %></td>
-                <td><%=h movie.airline_release_date.strftime("%m-%Y") if !movie.airline_release_date.nil? %></td>
+                <td><%= movie.movie_title %></td>
+                <td><%= movie.movie_type %></td>
+                <td><%= movie.airline_release_date.strftime("%m-%Y") if !movie.airline_release_date.nil? %></td>
               <% end %>
 								<td>
 									<span id="exists">

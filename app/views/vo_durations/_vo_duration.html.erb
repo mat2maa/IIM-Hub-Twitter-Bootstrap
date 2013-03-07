@@ -1,7 +1,7 @@
-  <tr id="vo_duration-row-<%=h vo_duration.id %>">
-    <td class="list-item"><%=h vo_duration.id %></td>
-    <td class="list-item"><%=h vo_duration.name %></td>
-		<td class="list-item"><%=h vo_duration.duration %></td>
+  <tr id="vo_duration-row-<%= vo_duration.id %>">
+    <td class="list-item"><%= vo_duration.id %></td>
+    <td class="list-item"><%= vo_duration.name %></td>
+		<td class="list-item"><%= vo_duration.duration %></td>
 		<td class="list-item"><%= link_to 'Edit', edit_vo_duration_path(vo_duration) %></td>
     <td class="list-item"><%= link_to 'Delete', vo_duration, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

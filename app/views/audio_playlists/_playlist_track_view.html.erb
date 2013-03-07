@@ -1,38 +1,38 @@
-<tr id="item_<%=h playlist_track_view.id %>">
+<tr id="item_<%= playlist_track_view.id %>">
 <td>
 	<% if playlist_track_view.track.nil? %>
-	Missing Track <%=h playlist_track_view.track_id %>
+	Missing Track <%= playlist_track_view.track_id %>
 	<% else %>
 <table width="100%">
 <tr>
-<td class="pl-title" width="161">(<%=h playlist_track_view.position %>)Track Title:</td>
-<td width="221"><%=h playlist_track_view.track.title_original %></td>
+<td class="pl-title" width="161">(<%= playlist_track_view.position %>)Track Title:</td>
+<td width="221"><%= playlist_track_view.track.title_original %></td>
 <td class="pl-title" width="115">Intro Tempo:</td>
-<td width="46"><%=h playlist_track_view.track.tempo_intro %></td>
+<td width="46"><%= playlist_track_view.track.tempo_intro %></td>
 <td class="pl-title" width="159">Composer:</td>
-<td width="81"><%=h playlist_track_view.track.composer %></td>
+<td width="81"><%= playlist_track_view.track.composer %></td>
 <td class="pl-title" width="84">Label:</td>
-<td width="100"><%=h playlist_track_view.track.album.label.name if !playlist_track_view.track.album.label_id.nil?%></td>
+<td width="100"><%= playlist_track_view.track.album.label.name if !playlist_track_view.track.album.label_id.nil?%></td>
 </tr>
 <tr>
 <td class="pl-title" width="161">Track Title(Translated):</td>
-<td width="221"><%=h playlist_track_view.track.title_english %></td>
+<td width="221"><%= playlist_track_view.track.title_english %></td>
 <td class="pl-title" width="115">Tempo</td>
-<td width="46"><%=h playlist_track_view.track.tempo %></td>
+<td width="46"><%= playlist_track_view.track.tempo %></td>
 <td class="pl-title" width="159">Track Num:</td>
-<td width="81"><%=h playlist_track_view.track.track_num %></td>
+<td width="81"><%= playlist_track_view.track.track_num %></td>
 <td class="pl-title">Origin:</td>
-<td width="100"><%=h playlist_track_view.track.origin.name if (!playlist_track_view.track.origin_id.nil? && playlist_track_view.track.origin_id!=0) %></td>
+<td width="100"><%= playlist_track_view.track.origin.name if (!playlist_track_view.track.origin_id.nil? && playlist_track_view.track.origin_id!=0) %></td>
 </tr>
 <tr>
 <td class="pl-title" width="161">Artist:</td>
-<td width="221"><%=h playlist_track_view.track.artist_original %></td>
+<td width="221"><%= playlist_track_view.track.artist_original %></td>
 <td class="pl-title" width="115">Outro Tempo:</td>
-<td width="46"><%=h playlist_track_view.track.tempo_outro %></td>
+<td width="46"><%= playlist_track_view.track.tempo_outro %></td>
 <td class="pl-title" width="159">Duration:</td>
-<td width="81"><%=h duration(playlist_track_view.track.duration) %></td>
+<td width="81"><%= duration(playlist_track_view.track.duration) %></td>
 <td class="pl-title" >CD Code</td>
-<td width="100"><%=h playlist_track_view.track.album.cd_code %></td>
+<td width="100"><%= playlist_track_view.track.album.cd_code %></td>
 </tr>
 
 <%
@@ -53,9 +53,9 @@
 </tr>
 <tr>
   <td class="pl-title" align="LEFT">Mastering:</td>
-  <td colspan="5" ><%=h playlist_track_view.mastering %></td>
+  <td colspan="5" ><%= playlist_track_view.mastering %></td>
   <td class="pl-title" width="84">Genre:</td>
-  <td width="100"><%=h playlist_track_view.track.genre %></td>
+  <td width="100"><%= playlist_track_view.track.genre %></td>
 </tr>
 <% 
 

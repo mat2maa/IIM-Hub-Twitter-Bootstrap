@@ -1,9 +1,9 @@
 
 	<tr>
-		<td><%=h track.title_original %><br/><%=h track.title_english %></td>
-		<td><%=h track.artist_original %><br/><%=h track.artist_english %></td>
-		<td>Intro: <%=h track.tempo_intro %><br/>Outro:<%=h track.tempo_outro %></td>
-		<td><%=h track.album.release_year %></td>
+		<td><%= track.title_original %><br/><%= track.title_english %></td>
+		<td><%= track.artist_original %><br/><%= track.artist_english %></td>
+		<td>Intro: <%= track.tempo_intro %><br/>Outro:<%= track.tempo_outro %></td>
+		<td><%= track.album.release_year %></td>
 		<td><%= image_tag("arrow_move.png") %></td>
 		<td><%= link_to_remote "Delete",
 		:url => { :controller => "audio_playlist_tracks", :action => "destroy", :id => track.audio_playlist_track.id } %></td>

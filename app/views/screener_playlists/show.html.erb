@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
 <div id="content">
 <center>
 
-<h2><%=h @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%=h @screener_playlist.start_cycle.strftime("%m%y") %> Screener Playlist</h2>
+<h2><%= @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%= @screener_playlist.start_cycle.strftime("%m%y") %> Screener Playlist</h2>
 <%= "Video Playlist Type: #{@screener_playlist.video_playlist_type.name} " if !@screener_playlist.video_playlist_type.nil?%><br/>
 <strong>Media Instruction:</strong><br/>
 <%= @screener_playlist.media_instruction.gsub(/\n/,'<br/>') %>

@@ -11,13 +11,13 @@
 		<th colspan="4"></th>			
 	</tr>
 	<% @screener_playlists.each do |screener_playlist| %>
-		<tr id="screener_playlist-<%=h screener_playlist.id %>">
+		<tr id="screener_playlist-<%= screener_playlist.id %>">
 			<% cache([screener_playlist]) do %>
 				<td><%= link_to screener_playlist.id, screener_playlist_path(:id => screener_playlist.id ), :popup => true %></td>
-				<td><%=h screener_playlist.airline.name if !screener_playlist.airline_id.nil? %></td>
-				<td><%=h screener_playlist.start_cycle.strftime("%m-%Y") if !screener_playlist.start_cycle.nil? %>&nbsp;</td>
-				<td><%=h screener_playlist.end_cycle.strftime("%m-%Y") if !screener_playlist.end_cycle.nil?  %>&nbsp;</td>
-				<td><%=h screener_playlist.video_playlist_type.name if !screener_playlist.video_playlist_type.nil?  %>&nbsp;</td>
+				<td><%= screener_playlist.airline.name if !screener_playlist.airline_id.nil? %></td>
+				<td><%= screener_playlist.start_cycle.strftime("%m-%Y") if !screener_playlist.start_cycle.nil? %>&nbsp;</td>
+				<td><%= screener_playlist.end_cycle.strftime("%m-%Y") if !screener_playlist.end_cycle.nil?  %>&nbsp;</td>
+				<td><%= screener_playlist.video_playlist_type.name if !screener_playlist.video_playlist_type.nil?  %>&nbsp;</td>
 			<% end %>
 					<td><%= link_to('Edit', edit_screener_playlist_path(screener_playlist), :popup => true) if screener_playlist.locked!=true %></td>
 					<% if permitted_to? :delete, :screener_playlists %>

@@ -7,6 +7,6 @@
     <td class="pl-title">Movie Type :</td>
 		<td><%= select("movie_playlist", "movie_type", MoviePlaylist::MOVIE_TYPE, { :include_blank => true }) %></td>
 		<td class="pl-title">Programmer :</td>
-    <td><%=h @movie_playlist.user.login if !@movie_playlist.user_id.nil? %></td>
+    <td><%= @movie_playlist.user.login if !@movie_playlist.user_id.nil? %></td>
   </tr>
 </table>

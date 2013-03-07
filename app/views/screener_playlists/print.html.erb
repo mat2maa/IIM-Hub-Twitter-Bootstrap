@@ -2,7 +2,7 @@
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-				<title>Images in Motion - <%=h @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%=h @screener_playlist.start_cycle.strftime("%m%y") %> Screeners Playlist</title>
+				<title>Images in Motion - <%= @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%= @screener_playlist.start_cycle.strftime("%m%y") %> Screeners Playlist</title>
 				<%= stylesheet_link_tag 'print' , :media => 'print' %>
 				<%= stylesheet_link_tag 'print' , :media => 'screen' %>
 </head>
@@ -10,7 +10,7 @@
 <div class="print">
 	<center><img src="/images/iim-logo.jpg" /></center>
 	<br/>
-	<h2><%=h @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%=h @screener_playlist.start_cycle.strftime("%m%y") %> Screener Playlist</h2>
+	<h2><%= @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%= @screener_playlist.start_cycle.strftime("%m%y") %> Screener Playlist</h2>
 
 	<div id="playlist">
 		<table width="900">

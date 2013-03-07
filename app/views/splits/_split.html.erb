@@ -1,9 +1,9 @@
-  <tr id="split-row-<%=h split.id %>">
-    <td class="list-item"><%=h split.id %></td>
-    <td class="list-item"><%=h split.name %></td>
-		<td class="list-item"><%=h split.duration %></td>
-		<td class="list-item"><%=h duration(split.more_than) %></td>
-		<td class="list-item"><%=h duration(split.less_than) %></td>
+  <tr id="split-row-<%= split.id %>">
+    <td class="list-item"><%= split.id %></td>
+    <td class="list-item"><%= split.name %></td>
+		<td class="list-item"><%= split.duration %></td>
+		<td class="list-item"><%= duration(split.more_than) %></td>
+		<td class="list-item"><%= duration(split.less_than) %></td>
     <td class="list-item"><%= link_to 'Edit', edit_split_path(split) %></td>
     <td class="list-item"><%= link_to 'Delete', split, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

@@ -1,6 +1,6 @@
-  <tr id="label-row-<%=h label.id %>">
-    <td class="list-item"><%=h label.id %></td>
-    <td class="list-item"><%=h label.name %></td>
+  <tr id="label-row-<%= label.id %>">
+    <td class="list-item"><%= label.id %></td>
+    <td class="list-item"><%= label.name %></td>
     <td class="list-item"><%= link_to 'Edit', edit_label_path(label) %></td>
     <td class="list-item"><%= link_to 'Delete', label, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

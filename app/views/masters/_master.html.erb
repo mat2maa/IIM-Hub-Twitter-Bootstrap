@@ -1,9 +1,9 @@
-<tr id="master-<%=h master.id %>">
-	<td><%=h master.id %></td>
-	<td><%=h master.video.programme_title %></td>
-	<td><%=h master.episode_title %></td>
-	<td><%=h master.episode_number %></td>
-	<td><%=h master.location %></td>
+<tr id="master-<%= master.id %>">
+	<td><%= master.id %></td>
+	<td><%= master.video.programme_title %></td>
+	<td><%= master.episode_title %></td>
+	<td><%= master.episode_number %></td>
+	<td><%= master.location %></td>
 	<td><%= link_to 'Edit', edit_master_path(master), :popup => true %></td>
 	<td>
 		<%= link_to_remote 'Delete', 	:url  => master_url(master), :popup => true, :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>

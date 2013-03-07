@@ -1,6 +1,6 @@
 <tr>
-  <td><%=h role.id %></td>
-  <td><%=h role.name %></td>
+  <td><%= role.id %></td>
+  <td><%= role.name %></td>
   <td><%= link_to 'Edit', edit_role_path(role) %></td>
   <td>
 	<%= link_to 'Delete', { :action => "destroy", :id => role.id }, :confirm => 'Are you sure?', :method => :delete if role.id != 1 %>

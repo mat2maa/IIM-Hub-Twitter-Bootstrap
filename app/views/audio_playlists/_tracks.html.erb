@@ -18,13 +18,13 @@
 	<tr>
     <% cache([track, track.album, "audio_playlists"]) do %>
 		<td><%= link_to track.id, track_path(:id => track.id ), :popup=>true %></td>
-		<td>(<%=h track.track_num%>) 
-		<%=h track.title_original %>
-		<br/><%=h track.title_english %></td>
-		<td><%=h track.artist_original %><br/><%=h track.artist_english %></td>
-		<td><%=h track.label_cached if !track.album.label_id.nil? %></td>								
-		<td><%=h track.album.cd_code %>&nbsp;</td>
-		<td><%=h duration(track.duration) %></td>
+		<td>(<%= track.track_num%>)
+		<%= track.title_original %>
+		<br/><%= track.title_english %></td>
+		<td><%= track.artist_original %><br/><%= track.artist_english %></td>
+		<td><%= track.label_cached if !track.album.label_id.nil? %></td>
+		<td><%= track.album.cd_code %>&nbsp;</td>
+		<td><%= duration(track.duration) %></td>
     <% end %>
 		<td><%= check_box(:track, :explicit_lyrics, :disabled => true) %></td>    
 		<td>

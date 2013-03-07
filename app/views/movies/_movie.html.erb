@@ -1,11 +1,11 @@
-<tr id="movie-<%=h movie.id %>">
+<tr id="movie-<%= movie.id %>">
   <% cache([movie, "movie_playlists"]) do %>
 	<td><%= link_to(movie.id, movie_path(:id => movie.id ), :popup => true) %></td>
-	<td><%=h movie.movie_title %></td>
-	<td><%=h movie.movie_distributor.company_name if !movie.movie_distributor.nil? %>&nbsp;</td>
-	<td><%=h movie.movie_type %></td>
-	<td><%=h movie.airline_release_date.strftime("%m-%Y") if !movie.airline_release_date.nil? %></td>
-	<td><%=h movie.screener_received_date.strftime("%d-%m-%Y") if !movie.screener_received_date.nil? %></td>
+	<td><%= movie.movie_title %></td>
+	<td><%= movie.movie_distributor.company_name if !movie.movie_distributor.nil? %>&nbsp;</td>
+	<td><%= movie.movie_type %></td>
+	<td><%= movie.airline_release_date.strftime("%m-%Y") if !movie.airline_release_date.nil? %></td>
+	<td><%= movie.screener_received_date.strftime("%d-%m-%Y") if !movie.screener_received_date.nil? %></td>
   <% end %>
 	<% if (params[:playlist_id] || params["action"]=="add_movie_to_playlist")  %>
 		<td>

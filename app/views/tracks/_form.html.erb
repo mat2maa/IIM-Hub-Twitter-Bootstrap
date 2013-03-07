@@ -46,21 +46,21 @@
   </tr>
   <tr>
     <th>Publisher</th>
-    <td><%=h @track.album.publisher.name if !@track.album.publisher.nil? %></td>
+    <td><%= @track.album.publisher.name if !@track.album.publisher.nil? %></td>
 	<th>Duration</th>
 	<td><%= text_field_tag :dur_min, duration_min(@track.duration), :size => 3 %> : <%= text_field_tag :dur_sec, duration_sec(@track.duration), :size => 3  %></td>
   </tr>
   <tr>
 	<th>Label</th>
-    <td><%=h @track.album.label.name if !@track.album.label.nil? %></td>
+    <td><%= @track.album.label.name if !@track.album.label.nil? %></td>
 				<th>Explicit Lyrics </th>
     <td><%= check_box("track", "explicit_lyrics") %></td>
   </tr>
   <tr>
     <th>Release Year</th>
-    <td><%=h @track.album.release_year %></td>
+    <td><%= @track.album.release_year %></td>
 		<th>CD Code</th>
-	<td><%=h @track.album.cd_code %></td>
+	<td><%= @track.album.cd_code %></td>
   </tr>
 </table> 
 <%= hidden_field_tag 'track[album_id]', @track.album_id %>

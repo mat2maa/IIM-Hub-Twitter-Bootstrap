@@ -1,46 +1,46 @@
 	<% @master = video_master_playlist_item.master %>
 	<% @video_master_playlist_item = video_master_playlist_item %>
-  	<tr id="item_<%=h video_master_playlist_item.id %>">
+  	<tr id="item_<%= video_master_playlist_item.id %>">
 	<% if video_master_playlist_item.master.nil? %>
-    <td colspan="2">Missing master <%=h video_master_playlist_item.master_id %> id = <%=h video_master_playlist_item.id %></td>
+    <td colspan="2">Missing master <%= video_master_playlist_item.master_id %> id = <%= video_master_playlist_item.id %></td>
 	<% else %>
 		<td>
 			<table width="100%">
 				<tr>
-					<th width="170">(<%=h video_master_playlist_item.position %>) Programme Title [<%= link_to "Edit", edit_video_path(video_master_playlist_item.master.video.id), :popup => true %>]:</th>
+					<th width="170">(<%= video_master_playlist_item.position %>) Programme Title [<%= link_to "Edit", edit_video_path(video_master_playlist_item.master.video.id), :popup => true %>]:</th>
 					<td width="200"><%= video_master_playlist_item.master.video.programme_title %></td>
 					<th width="85">Lang Track 1:</th>
-					<td width="50"><%=h video_master_playlist_item.master.language_track_1 %></td>
+					<td width="50"><%= video_master_playlist_item.master.language_track_1 %></td>
 					<th width="85">Lang Track 2:</th>
-					<td width="50"><%=h video_master_playlist_item.master.language_track_2 %></td>
+					<td width="50"><%= video_master_playlist_item.master.language_track_2 %></td>
 					<th width="85">Lang Track 3:</th>
-					<td width="85"><%=h video_master_playlist_item.master.language_track_3 %></td>
+					<td width="85"><%= video_master_playlist_item.master.language_track_3 %></td>
 					<th width="85">Lang Track 4:</th>
-					<td><%=h video_master_playlist_item.master.language_track_4 %></td>
+					<td><%= video_master_playlist_item.master.language_track_4 %></td>
 				</tr>
 				<tr>
 					<th width="130">Episode Title [<%= link_to "Edit", edit_master_path(video_master_playlist_item.master.id), :popup => true %>]:</th>
 					<td width="200"><%= video_master_playlist_item.master.episode_title %></td>
 					<th>Episode #:</th>
-					<td><%=h video_master_playlist_item.master.episode_number %></td>
+					<td><%= video_master_playlist_item.master.episode_number %></td>
 					<th>Tape #:</th>
-					<td><%=h video_master_playlist_item.master.location %></td>
+					<td><%= video_master_playlist_item.master.location %></td>
 					<th>Lang Subs 1:</th>
-					<td><%=h video_master_playlist_item.master.video_subtitles_1 %></td>
+					<td><%= video_master_playlist_item.master.video_subtitles_1 %></td>
 					<th>Lang Subs 2:</th>
-					<td><%=h video_master_playlist_item.master.video_subtitles_2 %></td>
+					<td><%= video_master_playlist_item.master.video_subtitles_2 %></td>
 				</tr>
 				<tr>
 					<th>Tape Media:</th>
-					<td><%=h video_master_playlist_item.master.tape_media %></td>
+					<td><%= video_master_playlist_item.master.tape_media %></td>
 					<th>Tape Format:</th>
-					<td><%=h video_master_playlist_item.master.tape_format %></td>
+					<td><%= video_master_playlist_item.master.tape_format %></td>
 					<th>Tape Size:</th>
-					<td><%=h video_master_playlist_item.master.tape_size %></td>
+					<td><%= video_master_playlist_item.master.tape_size %></td>
 					<th>Time In:</th>
-					<td><%=h video_master_playlist_item.master.time_in %></td>
+					<td><%= video_master_playlist_item.master.time_in %></td>
 					<th>Time Out:</th>
-					<td><%=h video_master_playlist_item.master.time_out %></td>
+					<td><%= video_master_playlist_item.master.time_out %></td>
 				</tr>
 				<tr>
 					<td valign="top"><strong>Mastering:</strong><br/>
@@ -49,9 +49,9 @@
 						<%=in_place_text_area :video_master_playlist_item, :mastering, {:rows=>"2"} %>
 					</td>
 					<th>Aspect Ratio:</th>
-					<td><%=h video_master_playlist_item.master.aspect_ratio %></td>
+					<td><%= video_master_playlist_item.master.aspect_ratio %></td>
 					<th>Duration:</th>
-					<td><%=h video_master_playlist_item.master.duration %></td>					
+					<td><%= video_master_playlist_item.master.duration %></td>
 				</tr>
 			</table>
 		</td>

@@ -13,34 +13,34 @@
 <table class="show">
   <tr>
     <td class="show-title">Client Playlist Code</td>
-    <td><%=h @audio_playlist.client_playlist_code %></td>
+    <td><%= @audio_playlist.client_playlist_code %></td>
 	<td class="show-title">Programmer</td>
-	<td><%=h @audio_playlist.user.login if !@audio_playlist.user_id.nil? && @audio_playlist.user_id!=0 %></td>
+	<td><%= @audio_playlist.user.login if !@audio_playlist.user_id.nil? && @audio_playlist.user_id!=0 %></td>
   </tr>
   <tr>
     <td class="show-title">Program</td>
-    <td><%=h @audio_playlist.program.name if !@audio_playlist.program.nil?%></td>
+    <td><%= @audio_playlist.program.name if !@audio_playlist.program.nil?%></td>
 	<td class="show-title">VO</td>
-	<td><%=h @audio_playlist.vo.name if !@audio_playlist.vo_id.nil? %></td>
+	<td><%= @audio_playlist.vo.name if !@audio_playlist.vo_id.nil? %></td>
   </tr>
   <tr>
     <td class="show-title">Airline</td>
-    <td><%=h @audio_playlist.airline.name if !@audio_playlist.airline_id.nil? %></td>
+    <td><%= @audio_playlist.airline.name if !@audio_playlist.airline_id.nil? %></td>
 	<td></td>
 	<td></td>
   </tr>
   <tr>
     <td class="show-title">IN/OUT</td>
-    <td><%=h @audio_playlist.in_out %></td>
+    <td><%= @audio_playlist.in_out %></td>
 	<td></td>
 	<td></td>
   </tr>
   <tr>
     <td class="show-title">Play Date</td>
     <td>
-	  <%=h @audio_playlist.start_playdate.strftime("%B %Y") %>
+	  <%= @audio_playlist.start_playdate.strftime("%B %Y") %>
 	  to
-	  <%=h @audio_playlist.end_playdate.strftime("%B %Y") %>
+	  <%= @audio_playlist.end_playdate.strftime("%B %Y") %>
 	</td>
 	<td></td>
 	<td></td>

@@ -52,7 +52,7 @@
 				<td><%= select("album", "origin_id", Origin.find(:all, :order=>"name").collect {|p| [p.name, p.id] }, { :include_blank => true }) %>
 					<%= link_to "+", origins_path, :id => 'add', :popup => true %></td>
 					<th>Total Duration:</th>
-					<td><%=h @album.duration_in_min %></td>
+					<td><%= @album.duration_in_min %></td>
 				</tr>
 			</table> 
 

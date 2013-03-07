@@ -11,13 +11,13 @@
 		<th colspan="4"></th>			
 	</tr>
 	<% @movie_playlists.each do |movie_playlist| %>
-		<tr id="movie_playlist-<%=h movie_playlist.id %>">
+		<tr id="movie_playlist-<%= movie_playlist.id %>">
 			<% cache([movie_playlist]) do %>
 				<td><%= link_to movie_playlist.id, movie_playlist_path(:id => movie_playlist.id ), :popup => true %></td>
-				<td><%=h movie_playlist.airline.name if !movie_playlist.airline.nil? %></td>
-				<td><%=h movie_playlist.start_cycle.strftime("%m-%Y") if !movie_playlist.start_cycle.nil? %>&nbsp;</td>
-				<td><%=h movie_playlist.end_cycle.strftime("%m-%Y") if !movie_playlist.end_cycle.nil?  %>&nbsp;</td>
-				<td><%=h movie_playlist.movie_type %>&nbsp;</td>
+				<td><%= movie_playlist.airline.name if !movie_playlist.airline.nil? %></td>
+				<td><%= movie_playlist.start_cycle.strftime("%m-%Y") if !movie_playlist.start_cycle.nil? %>&nbsp;</td>
+				<td><%= movie_playlist.end_cycle.strftime("%m-%Y") if !movie_playlist.end_cycle.nil?  %>&nbsp;</td>
+				<td><%= movie_playlist.movie_type %>&nbsp;</td>
 			<% end %>
 					<td><%= link_to('Edit', edit_movie_playlist_path(movie_playlist), :popup => true) if movie_playlist.locked!=true %></td>
 					<% if permitted_to? :delete, :movie_playlists %>

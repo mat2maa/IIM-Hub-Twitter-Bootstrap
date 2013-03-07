@@ -4,7 +4,7 @@
 	<div id="content-header-actions">
 	<%= link_to "Edit Track |", edit_track_path(@track) if permitted_to? :edit, :tracks %> <%= link_to "Search Baidu", "http://www.baidu.com", :popup => true %>
 </div>
-<div id="content-header">Track : <%=h @track.title_original %><br />
+<div id="content-header">Track : <%= @track.title_original %><br />
 </div>
 
 </div>
@@ -20,39 +20,39 @@
 			</tr>
 			<tr>
 				<th>Track Title (Translated)</th>
-				<td><%=h @track.title_english %></td>
+				<td><%= @track.title_english %></td>
 				<th>Tempo</th>
-				<td><%=h @track.tempo  %></td>
+				<td><%= @track.tempo  %></td>
 				<td rowspan="9" valign="top">
 					<% @playlists.each do |playlist| %>
 					<%= link_to playlist.audio_playlist_id, audio_playlist_path(:id => playlist.audio_playlist_id ) if !playlist.audio_playlist.nil? %> 
-					<%=h playlist.audio_playlist.program.name if !playlist.audio_playlist.nil? && !playlist.audio_playlist.program_id.nil? %><br/>
+					<%= playlist.audio_playlist.program.name if !playlist.audio_playlist.nil? && !playlist.audio_playlist.program_id.nil? %><br/>
 					<% end %>
 				</td>
 			</tr>
 			<tr>
 				<th>Artist (Original)</th>
-				<td><%=h @track.artist_original %></td>
+				<td><%= @track.artist_original %></td>
 				<th>Intro Tempo</th> 
-				<td><%=h @track.tempo_intro %></td>	
+				<td><%= @track.tempo_intro %></td>
 			</tr>
 			<tr>
 				<th>Artist (Translated)</th>
-				<td><%=h @track.artist_english %></td>
+				<td><%= @track.artist_english %></td>
 				<th>Outro Tempo</th>
-				<td><%=h @track.tempo_outro %></td>
+				<td><%= @track.tempo_outro %></td>
 			</tr>
 			<tr>
 				<th>Composer</th>
-				<td><%=h @track.composer %></td>  
+				<td><%= @track.composer %></td>
 				<th>Gender</th>
-				<td><%=h @track.gender %></td>
+				<td><%= @track.gender %></td>
 			</tr>
 			<tr>
 				<th>Distributor</th>
-				<td><%=h @track.distributor %></td>
+				<td><%= @track.distributor %></td>
 				<th>Language</th>
-				<td><%=h @track.language.name if !@track.language_id.nil? %></td>
+				<td><%= @track.language.name if !@track.language_id.nil? %></td>
 			</tr>
 			<tr>
 				<th>Album</th>
@@ -62,28 +62,28 @@
 			</tr>
 			<tr>
 				<th>Publisher</th>
-				<td><%=h @track.album.publisher.name if !@track.album.publisher_id.nil?  %></td>
+				<td><%= @track.album.publisher.name if !@track.album.publisher_id.nil?  %></td>
 				<th>Origin</th>
 				<td>
-					<%=h @track.origin.name if !@track.origin_id.nil?  %></td>
+					<%= @track.origin.name if !@track.origin_id.nil?  %></td>
 			</tr>
 			<tr>
 				<th>Label</th>
-				<td><%=h @track.album.label.name if !@track.album.label.nil? %></td>
+				<td><%= @track.album.label.name if !@track.album.label.nil? %></td>
 				<th>Duration</th>
-				<td><%=h duration_min(@track.duration) %> : <%=h duration_sec(@track.duration)  %></td>
+				<td><%= duration_min(@track.duration) %> : <%= duration_sec(@track.duration)  %></td>
 			</tr>
 			<tr>
 				<th>Release Year</th>
-				<td><%=h @track.album.release_year %></td>
+				<td><%= @track.album.release_year %></td>
 				<th >Explicit Lyrics </th>
 				<td><%= check_box("track", "explicit_lyrics", :disabled => true) %></td>
 			</tr>
 			<tr>
 				<th>CD Code</th>
-				<td><%=h @track.album.cd_code %></td>
+				<td><%= @track.album.cd_code %></td>
 				<th>Genre</th>
-				<td><%=h show_genres @track.genres if !@track.genres.count.zero? %></td>
+				<td><%= show_genres @track.genres if !@track.genres.count.zero? %></td>
 
 			</tr>
 		</table> 

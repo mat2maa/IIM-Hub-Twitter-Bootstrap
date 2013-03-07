@@ -1,5 +1,5 @@
 <% if @notice=="" %>
-"<%=h @album_to_add.title_original %>" added to playlist
+"<%= @album_to_add.title_original %>" added to playlist
 <% else %>
 <%= @notice %>
 <%= link_to_remote "Continue adding to playlist", 

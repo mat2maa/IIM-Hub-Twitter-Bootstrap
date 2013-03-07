@@ -1,9 +1,9 @@
-<tr id="screener-<%=h screener.id %>">
-	<td><%=h screener.id %></td>
-	<td><%=h screener.video.programme_title if !screener.video.nil? %></td>
-	<td><%=h screener.episode_title %></td>
-	<td><%=h screener.episode_number %></td>
-	<td><%=h screener.location %></td>
+<tr id="screener-<%= screener.id %>">
+	<td><%= screener.id %></td>
+	<td><%= screener.video.programme_title if !screener.video.nil? %></td>
+	<td><%= screener.episode_title %></td>
+	<td><%= screener.episode_number %></td>
+	<td><%= screener.location %></td>
 	<td><%= link_to 'Edit', edit_screener_path(screener), :popup => true %></td>
 	<td>
 		<%= link_to_remote 'Delete', 	:url  => screener_url(screener), :method => :delete, :confirm => 'Are you sure?', :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')"  %>

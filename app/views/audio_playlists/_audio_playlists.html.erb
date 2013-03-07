@@ -25,28 +25,28 @@
             <th colspan="4"></th>
         </tr>
         <% @audio_playlists.each do |audio_playlist| %>
-        <tr id="audio_playlist-<%=h audio_playlist.id %>">
+        <tr id="audio_playlist-<%= audio_playlist.id %>">
             <% cache([audio_playlist]) do %>
             <td>
               <%= link_to audio_playlist.id, audio_playlist_path(:id => audio_playlist.id ) %>
             </td>
             <td>
-              <%=h audio_playlist.program_cache if !audio_playlist.program_id.nil? %>
+              <%= audio_playlist.program_cache if !audio_playlist.program_id.nil? %>
             </td>
             <td>
-              <%=h audio_playlist.airline_cache if !audio_playlist.airline_id.nil? %>
+              <%= audio_playlist.airline_cache if !audio_playlist.airline_id.nil? %>
             </td>
             <td>
-              <%=h audio_playlist.in_out %>&nbsp;
+              <%= audio_playlist.in_out %>&nbsp;
             </td>
             <td>
-              <%=h audio_playlist.start_playdate.strftime("%B %Y") if !audio_playlist.start_playdate.nil? %>&nbsp;
+              <%= audio_playlist.start_playdate.strftime("%B %Y") if !audio_playlist.start_playdate.nil? %>&nbsp;
             </td>
             <td>
-              <%=h audio_playlist.end_playdate.strftime("%B %Y") if !audio_playlist.end_playdate.nil? %>&nbsp;
+              <%= audio_playlist.end_playdate.strftime("%B %Y") if !audio_playlist.end_playdate.nil? %>&nbsp;
             </td>
             <td>
-              <%=h audio_playlist.total_duration_cached if !audio_playlist.total_duration.nil? %>
+              <%= audio_playlist.total_duration_cached if !audio_playlist.total_duration.nil? %>
             </td>
             <% end %>
             <% if permitted_to? :edit, :audio_playlists %>

@@ -12,14 +12,14 @@
 		<th colspan="4"></th>			
 	</tr>
 	<% @album_playlists.each do |album_playlist| %>
-		<tr id="album_playlist-<%=h album_playlist.id %>">
+		<tr id="album_playlist-<%= album_playlist.id %>">
 			<% cache([album_playlist]) do %>
 				<td><%= link_to album_playlist.id, album_playlist_path(:id => album_playlist.id ) %></td>
-				<td><%=h album_playlist.client_playlist_code %>
-				<td><%=h album_playlist.airline.name if !album_playlist.airline_id.nil? %></td>
-				<td><%=h album_playlist.in_out %>&nbsp;</td>
-				<td><%=h album_playlist.start_playdate.strftime("%B %Y") if !album_playlist.start_playdate.nil? %>&nbsp;</td>
-				<td><%=h album_playlist.end_playdate.strftime("%B %Y") if !album_playlist.end_playdate.nil?  %>&nbsp;</td>
+				<td><%= album_playlist.client_playlist_code %>
+				<td><%= album_playlist.airline.name if !album_playlist.airline_id.nil? %></td>
+				<td><%= album_playlist.in_out %>&nbsp;</td>
+				<td><%= album_playlist.start_playdate.strftime("%B %Y") if !album_playlist.start_playdate.nil? %>&nbsp;</td>
+				<td><%= album_playlist.end_playdate.strftime("%B %Y") if !album_playlist.end_playdate.nil?  %>&nbsp;</td>
 			<% end %>
 				<% if permitted_to? :edit, :album_playlists %>
 					<td><%= link_to 'Edit', edit_album_playlist_path(album_playlist) if album_playlist.locked!=true %></td>

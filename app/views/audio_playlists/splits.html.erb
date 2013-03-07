@@ -18,9 +18,9 @@
 	</tr>
 	<% @splits.each do |split| %>
 	<tr>
-		<td><%=h split.name %></td>
-		<td><%=h duration(split.more_than) %></td>
-		<td><%=h duration(split.less_than) %></td>
+		<td><%= split.name %></td>
+		<td><%= duration(split.more_than) %></td>
+		<td><%= duration(split.less_than) %></td>
 	<% end %>
 	</table>
 </center>
