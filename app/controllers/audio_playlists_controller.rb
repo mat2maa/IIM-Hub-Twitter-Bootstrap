@@ -13,10 +13,10 @@ class AudioPlaylistsController < ApplicationController
   def index
     @search = AudioPlaylist.ransack(params[:q])
     if !params[:q].nil?
-      @audio_playlists = @search.result(:distinct => true)
+      @audio_playlists = @search.result(distinct: true)
                                 .paginate(page: params[:page], per_page: 10)
     else
-      @audio_playlists = @search.result(:distinct => true)
+      @audio_playlists = @search.result(distinct: true)
                                 .order("id DESC")
                                 .paginate(page: params[:page], per_page: 10)
     end
@@ -75,9 +75,9 @@ class AudioPlaylistsController < ApplicationController
     end
   end
 
-  def edit 
-    @audio_playlist = AudioPlaylist.find(params[:id]) 	
-  end 
+  def edit
+    @audio_playlist = AudioPlaylist.find(params[:id])
+  end
 
   def update
     @audio_playlist = AudioPlaylist.find(params[:id])
@@ -151,7 +151,7 @@ class AudioPlaylistsController < ApplicationController
     :program_id => @playlist.program_id,
     :user_id => current_user.id ,
     :airline_cache => @playlist.airline_cache,
-    :program_cache => @playlist.program_cache      
+    :program_cache => @playlist.program_cache
 
     )
 
@@ -175,14 +175,14 @@ class AudioPlaylistsController < ApplicationController
     conditions = ""
     if !params['min_dur_min'].empty? || !params['min_dur_sec'].empty?
       tot_dur = dur_to_ms params['min_dur_min'], params['min_dur_sec']
-      conditions = "duration > #{tot_dur}" 
+      conditions = "duration > #{tot_dur}"
     end
     if !params['max_dur_min'].empty? || !params['max_dur_sec'].empty?
       if conditions != ""
         conditions += " AND "
       end
       tot_dur = dur_to_ms params['max_dur_min'], params['max_dur_sec']
-      conditions += "duration < #{tot_dur}" 
+      conditions += "duration < #{tot_dur}"
 
     end
 
@@ -190,7 +190,7 @@ class AudioPlaylistsController < ApplicationController
 
       @tracks = Track.search(params['title'], ['tracks.title_original', 'tracks.title_english', 'tracks.artist_original', 'tracks.artist_english', 'labels.name'], {:conditions => conditions, :from => '(tracks left join albums on albums.id=tracks.album_id) left join labels on albums.label_id=labels.id', :select=>'tracks.*'})
 
-    end  
+    end
 
   end
 
@@ -202,7 +202,7 @@ class AudioPlaylistsController < ApplicationController
 
     if !params[:audio_playlists].nil?
 
-      @search = Track.new_search(params[:audio_playlists])
+      @search = Track.ransack(params[:q])
       @search.conditions.to_delete_equals=0
       @search.conditions.duration_greater_than = dur_min
       if !dur_max.zero?
@@ -211,27 +211,30 @@ class AudioPlaylistsController < ApplicationController
 
       if !params[:search].nil?
         search = params[:search]
-        @search.per_page = search[:per_page] if !search[:per_page].nil? 
+        @search.per_page = search[:per_page] if !search[:per_page].nil?
         @search.page = search[:page] if !search[:page].nil?
       end
-      @tracks, @tracks_count = @search.all, @search.count
+
+      @tracks = @search.result(distinct: true)
+                       .paginate(page: params[:page], per_page: 10)
+      @tracks_count = @tracks.count
 
     else
-      @search = Track.new_search
+      @search = Track.ransack(params[:q])
       @tracks = nil
       @tracks_count = 0
-    end         
+    end
 
     respond_to do |format|
-      format.html 
+      format.html
       format.js {
         if params[:audio_playlists].nil? && params[:search].nil?
-          render :action => 'add_track_to_playlist.rhtml', :layout => false
+          render :action => 'add_track_to_playlist.html.erb', :layout => false
         else
-          render :update do |page| 
+          render :update do |page|
             page.replace_html "tracks", :partial => "tracks"
           end
-        end      
+        end
       }
     end
   end
@@ -239,13 +242,13 @@ class AudioPlaylistsController < ApplicationController
 
   def add_track
 
-    @audio_playlist = AudioPlaylist.find(params[:id])  
+    @audio_playlist = AudioPlaylist.find(params[:id])
     @audio_playlist.updated_at_will_change!
-    @audio_playlist.save  
+    @audio_playlist.save
     @audio_playlist_track = AudioPlaylistTrack.new(:audio_playlist_id => params[:id], :track_id => params[:track_id], :position => @audio_playlist.tracks.count + 1)
 
-    #check if track has been added to a previous playlist before   
-    @playlists_with_track = AudioPlaylistTrack.find(:all, 
+    #check if track has been added to a previous playlist before
+    @playlists_with_track = AudioPlaylistTrack.find(:all,
     :conditions=>"track_id=#{params[:track_id]}",
     :group=>"audio_playlist_id")
 
@@ -256,10 +259,10 @@ class AudioPlaylistsController < ApplicationController
     if !@playlists_with_track.empty? && params[:add].nil?
       @playlists_with_track.each do |playlist_track|
         @notice += "<br/><div id='exists'>Note! This track exists in playlist <a href='/audio_playlists/#{playlist_track.audio_playlist_id.to_s}' target='_blank'>#{playlist_track.audio_playlist_id.to_s}</a> (#{playlist_track.audio_playlist.client_playlist_code.to_s})</div>"
-      end      
-    else				      
+      end
+    else
       if @audio_playlist_track.save
-        flash[:notice] = 'Track was successfully added.'					
+        flash[:notice] = 'Track was successfully added.'
       end
     end
 
@@ -283,7 +286,7 @@ class AudioPlaylistsController < ApplicationController
 
     book = Spreadsheet::Workbook.new
     sheet = SheetWrapper.new(book.create_worksheet)
-    sheet.add_row [ "Airline Code", "Airline Name", "Playdate Start Month", "Playdate Start Year", 
+    sheet.add_row [ "Airline Code", "Airline Name", "Playdate Start Month", "Playdate Start Year",
                     "Playdate End Month", "Playdate End Year", "VO", "Total Duration", "Airline Duration"]
 
     # header row
@@ -296,8 +299,8 @@ class AudioPlaylistsController < ApplicationController
       airline_name = @audio_playlist.airline.name
     end
     vo = @audio_playlist.vo.name if !@audio_playlist.vo_id.nil?
-    sheet.add_row [airline_code, airline_name, @audio_playlist.start_playdate.strftime("%B"),  
-        @audio_playlist.start_playdate.strftime("%Y"), @audio_playlist.end_playdate.strftime("%B"),  
+    sheet.add_row [airline_code, airline_name, @audio_playlist.start_playdate.strftime("%B"),
+        @audio_playlist.start_playdate.strftime("%Y"), @audio_playlist.end_playdate.strftime("%B"),
         @audio_playlist.end_playdate.strftime("%Y"), vo, @audio_playlist.total_duration_cached, @audio_playlist.airline_duration ]
 
     sheet.add_lines(1)

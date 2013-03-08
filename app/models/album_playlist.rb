@@ -9,7 +9,9 @@ class AlbumPlaylist < ActiveRecord::Base
 	
 	def album_playlist_items_sorted
 		#self.album_playlist_items.sort_by {|a| [a.position, a]}
-    return AlbumPlaylistItem.find(:all, :conditions=>{:album_playlist_id => self.id}, :order_by=>:position)
+    return AlbumPlaylistItem.where(:album_playlist_id => self.id).order(:position)
 	end
 	
+  attr_accessible :client_playlist_code, :in_out, :start_playdate, :start_playdate, :start_playdate, :end_playdate,
+                  :end_playdate, :end_playdate, :airline_id
 end

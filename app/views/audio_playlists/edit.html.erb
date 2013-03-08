@@ -17,7 +17,7 @@
 		<div class="action-button"><%= link_to_show_overlay 'add track', add_track_to_playlist_path(@audio_playlist.id) %></div>
 		<br/>
 		<%= form_for(@audio_playlist) do |form| %>
-		  <%= form.error_messages %>
+          <%= error_messages_for(form.object) %>
 		  <%= render :partial => 'form', :object => form %>
 		  <p><%= submit_tag "Update" %></p>
 		<% end %>

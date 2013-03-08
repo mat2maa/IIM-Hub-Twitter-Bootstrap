@@ -12,5 +12,6 @@
  *= require_tree .
  *= require formtastic
  *= require formtastic_changes
+ *= require jquery.ui.all
  */
 

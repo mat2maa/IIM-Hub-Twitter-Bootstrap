@@ -56,8 +56,10 @@
             <td>
               <%= link_to 'Delete',
                         remote: true,
-                        url: audio_playlist_url(audio_playlist), :method => :delete,
-                        confirm: 'Are you sure?', :loading => "Element.show('spinner')",
+                        url: audio_playlist_url(audio_playlist),
+                        method: :delete,
+                        confirm: 'Are you sure?',
+                        loading: "Element.show('spinner')",
                         complete: "Element.hide('spinner')"  if audio_playlist.locked!=true  %>
             </td>
             <td>

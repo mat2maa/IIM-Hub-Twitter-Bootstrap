@@ -9,11 +9,10 @@ class SuppliersController < ApplicationController
   def index
     #@suppliers = Supplier.find(:all, :order=>"company_name asc")	
     @search = Supplier.ransack(params[:q])
-    @suppliers = @search.result(:distinct => true)
+    @suppliers = @search.result(distinct: true)
                         .paginate(page: params[:page], per_page: 10)
     @suppliers_count = @suppliers.count
-    @search.build_condition
-    
+
 	  respond_to do |format|
       format.html # index.html.erb
       format.js  

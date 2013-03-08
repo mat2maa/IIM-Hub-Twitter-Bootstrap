@@ -12,10 +12,10 @@ filter_access_to :all
   def index
     @search = AlbumPlaylist.ransack(params[:q])
     if !params[:q].nil?
-      @album_playlists = @search.result(:distinct => true)
+      @album_playlists = @search.result(distinct: true)
                                 .paginate(page: params[:page], per_page: 10)
     else
-      @album_playlists = @search.result(:distinct => true)
+      @album_playlists = @search.result(distinct: true)
                                 .order("id DESC")
                                 .paginate(page: params[:page], per_page: 10)
     end
@@ -81,19 +81,25 @@ filter_access_to :all
   def add_album_to_playlist
 
     if !params[:album_playlists].nil?
-      @search = Album.new_search(params[:album_playlists])
+
+      @search = Album.ransack(params[:q])
+
       @search.conditions.to_delete_equals=0
+
       if !params[:search].nil?
         search = params[:search]
         @search.per_page = search[:per_page] if !search[:per_page].nil? 
         @search.page = search[:page] if !search[:page].nil?
       end
-      @albums, @albums_count = @search.all, @search.count
+
+      @albums = @search.result(distinct: true)
+                       .paginate(page: params[:page], per_page: 10)
+      @albums_count = @albums.count
 
     else
       @albums = nil
       @albums_count = 0
-      @search = Album.new_search
+      @search = Album.ransack(params[:q])
     end
     # @search.conditions.to_delete_equals=0
     #     if params[:album_playlists].nil? && params[:search].nil?
@@ -107,7 +113,7 @@ filter_access_to :all
 
       format.js {
         if params[:album_playlists].nil? && params[:search].nil?
-          render :action => 'add_album_to_playlist.rhtml', :layout => false 
+          render :action => 'add_album_to_playlist.html.erb', :layout => false
         else
           render :update do |page| 
             page.replace_html "albums", :partial => "albums"

@@ -12,10 +12,10 @@ class AlbumsController < ApplicationController
   def index
     @search = Album.ransack(params[:q])
     if !params[:q].nil?
-      @albums = @search.result(:distinct => true)
+      @albums = @search.result(distinct: true)
                        .paginate(page: params[:page], per_page: 10)
     else
-      @albums = @search.result(:distinct => true)
+      @albums = @search.result(distinct: true)
                        .order("id DESC")
                        .paginate(page: params[:page], per_page: 10)
     end

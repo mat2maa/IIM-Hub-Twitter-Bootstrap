@@ -6,17 +6,25 @@ class TracksController < ApplicationController
     dur_min = (params[:dur_min_min].to_i * 60  *1000) + (params[:dur_min_sec].to_i * 1000)
 	  dur_max = (params[:dur_max_min].to_i * 60  *1000) + (params[:dur_max_sec].to_i * 1000)
   	if !params['search'].nil? 
-  	    @search = Track.new_search(params[:search])
+  	    @search = Track.ransack(params[:q])
+        @tracks = @search.result(distinct: true)
+                         .paginate(page: params[:page], per_page: 10)
+
   	else 
-  		@search = Track.new_search(:order_by => :id, :order_as => "DESC")
+  		@search = Track.ransack(params[:q])
+      @tracks = @search.result(distinct: true)
+                       .order("id DESC")
+                       .paginate(page: params[:page], per_page: 10)
   	end
-  
-  	if !dur_max.zero?
+
+    @search.build_condition if @search.conditions.empty?
+    @search.build_sort if @search.sorts.empty?
+    @tracks_count = @tracks.count
+
+    if !dur_max.zero?
   	    @search.conditions.duration_greater_than = dur_min
     	  @search.conditions.duration_less_than = dur_max
-  	end
-      @tracks, @tracks_count = @search.all, @search.count
-	
+    end
   end
   
   def new

@@ -20,7 +20,7 @@
 
                 <%= suppliers.select :id_eq, SupplierCategory.all
                                                              .collect {|p| [p.name, p.id] },
-                                                                      { :include_blank => true } %>
+                                                             { :include_blank => true } %>
 
             </td>
         </tr>

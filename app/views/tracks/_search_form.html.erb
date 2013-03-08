@@ -1,31 +1,64 @@
-<fieldset>
-	<legend>Search Tracks</legend> <% f.fields_for @search.conditions do |tracks| %> Match ANY or ALL of the conditions: <%= tracks.select :any, [["All", false], ["Any", true]] %><%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
-	<table>
-		<tr>
-			<td valign="top">
-				Title Original:<br>
-				<%= tracks.text_field :title_original_like %><br>
-				Artist Original:<br>
-				<%= tracks.text_field :artist_original_like %><br>
-				Duration:<br>
-				<%= text_field_tag 'dur_min_min', '', :size => 3 %>:<%= text_field_tag 'dur_min_sec', '', :size => 3 %> to <%= text_field_tag 'dur_max_min', '', :size => 3 %>:<%= text_field_tag 'dur_max_sec', '', :size => 3 %><br>
-			</td>
-			<td valign="top">
-				Title (Translated):<br>
-				<%= tracks.text_field :title_english_keywords %><br>
-				Artist (Translated):<br>
-				<%= tracks.text_field :artist_english_keywords %><br/><br/>
-				Pending Delete: <%= tracks.check_box :to_delete_equals  %>
-			</td>
-			<td valign="top">
-				Label:<br>
-				<% tracks.fields_for tracks.object.album do |album| %> <%= album.select :label_id_equals, Label.find(:all).collect {|p| [p.name, p.id] }, { :include_blank => true } %><% end %><br>
-				<% tracks.fields_for tracks.object.album do |album| %> CD Code:<br>
-				<%= album.text_field :cd_code_contains %><br>
-				<% end %>
-				<br/><br/>
-				<%= f.submit "Search" %>
-			</td>
-		</tr>
-	</table><% end %>
-</fieldset>
+<%= search_form_for @search,
+                   loading: "Element.show('spinner')",
+                   complete: "Element.hide('spinner')" do |tracks| %>
+
+    <fieldset>
+        <legend>Search Tracks</legend>
+        Match ANY or ALL of the conditions:
+        <%=  tracks.combinator_select %>
+        <%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
+
+        <table>
+            <tr>
+                <td valign="top">
+                    Title Original:<br>
+                    <%= tracks.text_field :title_original_matches %><br>
+                    Artist Original:<br>
+                    <%= tracks.text_field :artist_original_matches %><br>
+                    Duration:<br>
+                    <%= text_field_tag 'dur_min_min',
+                                       '',
+                                       size: 3 %>
+                    :
+                    <%= text_field_tag 'dur_min_sec',
+                                       '',
+                                       size: 3 %>
+                    to
+                    <%= text_field_tag 'dur_max_min','',
+                                       size: 3 %>
+                    :
+                    <%= text_field_tag 'dur_max_sec',
+                                       '',
+                                       size: 3 %><br>
+                </td>
+
+                <td valign="top">
+                    Title (Translated):<br>
+                    <%= tracks.text_field :title_english_cont %><br>
+
+                    Artist (Translated):<br>
+                    <%= tracks.text_field :artist_english_cont %><br/><br/>
+
+                    Pending Delete: <%= tracks.check_box :to_delete_eq  %>
+                </td>
+
+                <td valign="top">
+                    Label:<br>
+                    <% tracks.fields_for tracks.object.album do |album| %>
+                        <%= album.select :label_id_eq,
+                                         Label.collect {|p| [p.name, p.id] },
+                                         { :include_blank => true } %>
+                    <% end %><br>
+
+                    <% tracks.fields_for tracks.object.album do |album| %>
+                        CD Code:<br>
+                        <%= album.text_field :cd_code_cont %><br>
+                    <% end %>
+                    <br/><br/>
+                    <%= tracks.submit "Search" %>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+<% end %>
