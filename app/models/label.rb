@@ -6,9 +6,5 @@ class Label < ActiveRecord::Base
   def self.all_cached
     Rails.cache.fetch('Label.all') { all }
   end
-  
-  def self.all
-    self.all
-  end
-  
+
 end

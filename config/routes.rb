@@ -25,6 +25,7 @@ Iim::Application.routes.draw do
   match "/audio_playlists/print/:id" => "audio_playlists#print", as: :print
   match "/album_playlists/export_to_excel/:id" => "album_playlists#export_to_excel", as: :export_to_excel
   match "/album_playlists/print/:id" => "album_playlists#print", as: :print
+  match "/albums/amazon_cd_covers" => "albums#amazon_cd_covers", as: :amazon_cd_covers
 
   resources :users do
     member do

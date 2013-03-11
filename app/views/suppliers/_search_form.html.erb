@@ -18,9 +18,11 @@
             <td valign="top">
                 Categories:<br/>
 
-                <%= suppliers.select :id_eq, SupplierCategory.all
-                                                             .collect {|p| [p.name, p.id] },
-                                                             { :include_blank => true } %>
+                <%= suppliers.fields_for :supplier_categories do |categories| %>
+                    <%= categories.select :id_eq, SupplierCategory.all
+                                                                  .collect {|p| [p.name, p.id] },
+                                                                  { :include_blank => true } %>
+                <% end %>
 
             </td>
         </tr>

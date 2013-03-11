@@ -17,8 +17,6 @@ class TracksController < ApplicationController
                        .paginate(page: params[:page], per_page: 10)
   	end
 
-    @search.build_condition if @search.conditions.empty?
-    @search.build_sort if @search.sorts.empty?
     @tracks_count = @tracks.count
 
     if !dur_max.zero?

@@ -6,9 +6,23 @@
 </center>
 <div id="content-header-wrapper">
     <div id="content-header-actions">
-        <%= link_to "Print Playlist", {:controller => "album_playlists", :action => "print",  :id => @album_playlist}, :popup =>true %> |
-        <%= link_to "Export as Excel", :controller => "album_playlists", :action => "export_to_excel",  :id => @album_playlist %> |
-        <%= link_to_show_overlay 'Download Playlist MP3s', "/download_album_mp3/" + @album_playlist.id.to_s %>
+        <%= link_to "Print Playlist",
+                    {controller: "album_playlists",
+                     action: "print",
+                     id: @album_playlist},
+                    popup: true %>
+
+        |
+
+        <%= link_to "Export as Excel",
+                    controller: "album_playlists",
+                    action: "export_to_excel",
+                    id: @album_playlist %>
+
+        |
+
+        <%= link_to_show_overlay 'Download Playlist MP3s',
+                                 "/download_album_mp3/" + @album_playlist.id.to_s %>
     </div>
     <div id="content-header">Album Playlists</div>
 </div>

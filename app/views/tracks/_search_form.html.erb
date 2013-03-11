@@ -5,7 +5,7 @@
     <fieldset>
         <legend>Search Tracks</legend>
         Match ANY or ALL of the conditions:
-        <%=  tracks.combinator_select %>
+        <%= tracks.combinator_select %>
         <%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
 
         <table>
@@ -44,13 +44,13 @@
 
                 <td valign="top">
                     Label:<br>
-                    <% tracks.fields_for tracks.object.album do |album| %>
+                    <%= tracks.fields_for :album do |album| %>
                         <%= album.select :label_id_eq,
-                                         Label.collect {|p| [p.name, p.id] },
+                                         Label.all.collect {|p| [p.name, p.id] },
                                          { :include_blank => true } %>
                     <% end %><br>
 
-                    <% tracks.fields_for tracks.object.album do |album| %>
+                    <%= tracks.fields_for :album do |album| %>
                         CD Code:<br>
                         <%= album.text_field :cd_code_cont %><br>
                     <% end %>

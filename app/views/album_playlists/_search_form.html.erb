@@ -2,7 +2,6 @@
 	<legend>Search Albums Playlists</legend>
 
   <%= search_form_for @search,
-                      :remote => true,
                       :loading => "Element.show('spinner')",
                       :complete => "Element.hide('spinner')" do |album_playlists| %>
 
