@@ -6,10 +6,10 @@
               <%= sort_link(@search, :id, "ID") %>
             </th>
             <th>
-              <%= sort_link(@search, :program, "Program") %>
+              <%= sort_link(@search, :program_name, "Program") %>
             </th>
             <th>
-              <%= sort_link(@search, :airline, "Airline") %>
+              <%= sort_link(@search, :airline_name, "Airline Name") %>
             </th>
             <th>
               <%= sort_link(@search, :in_out, "In/Out") %>
@@ -81,6 +81,8 @@
         <% end %>
     </table>
 
+    <br />
+    <br />
     <%= will_paginate @audio_playlists %>
 
 <% else %>

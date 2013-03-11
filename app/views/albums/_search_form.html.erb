@@ -28,17 +28,15 @@
                 </td>
                 <td valign="top">
                     Label:<br>
-                    <%= albums.fields_for :labels do |label| %>
-                        <%= label.select :id_eq, Label.all
-                                                      .collect {|p| [p.name, p.id] },
-                                                      { :include_blank => true } %>
-                    <% end %><br/>
+                    <%= albums.select :label_id_eq, Label.all
+                                                         .collect {|p| [p.name, p.id] },
+                                                         { :include_blank => true } %>
+                    <br/>
                     Genre:<br>
-                    <%= albums.fields_for :genres do |genres| %>
-                        <%= genres.select :id_eq, Genre.all
-                                                       .collect {|p| [p.name, p.id] },
-                                                       { :include_blank => true } %>
-                    <% end %>
+                    <%= albums.select :genres_id_eq, Genre.all
+                                                         .collect {|p| [p.name, p.id] },
+                                                         { :include_blank => true } %>
+
                     Pending Delete: <%= albums.check_box :to_delete_eq %>
                 </td>
             </tr>

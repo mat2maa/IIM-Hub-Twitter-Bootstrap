@@ -44,16 +44,13 @@
 
                 <td valign="top">
                     Label:<br>
-                    <%= tracks.fields_for :album do |album| %>
-                        <%= album.select :label_id_eq,
-                                         Label.all.collect {|p| [p.name, p.id] },
-                                         { :include_blank => true } %>
-                    <% end %><br>
+                    <%= tracks.select :album_label_id_eq,
+                                      Label.all.collect {|p| [p.name, p.id] },
+                                      { :include_blank => true } %>
+                    <br>
 
-                    <%= tracks.fields_for :album do |album| %>
-                        CD Code:<br>
-                        <%= album.text_field :cd_code_cont %><br>
-                    <% end %>
+                    CD Code:<br>
+                    <%= tracks.text_field :album_cd_code_cont %><br>
                     <br/><br/>
                     <%= tracks.submit "Search" %>
                 </td>

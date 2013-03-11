@@ -10,7 +10,7 @@
           <%= sort_link(@search, :client_playlist_code, "Client Playlist Code") %>
         </th>
 		<th>
-          <%= sort_link(@search, :airline, "Airline Name") %>
+          <%= sort_link(@search, :airline_name, "Airline Name") %>
         </th>
 		<th>
           <%= sort_link(@search, :in_out, "In/Out") %>
@@ -75,6 +75,8 @@
 		<% end %>
 	</table>
 
+    <br />
+    <br />
     <%= will_paginate @album_playlists %>
 
     <% else %>
