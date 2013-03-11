@@ -2,12 +2,44 @@
 <%= @albums_count %> albums found
 <table cellspacing="0" width="100%">
 	<tr>
-		<th><%= remote_order_by_link :id, :params=>{:hello=>"there"} %></th>
-		<th><%= remote_order_by_link :title_original %></th>
-		<th><%= remote_order_by_link :artist_original %></th>
-		<th><%= remote_order_by_link :label => :name %></th>
-		<th><%= remote_order_by_link :release_year %></th>
-		<th><%= remote_order_by_link :cd_code %></th>
+		<th>
+          <%= remote_order_by_link :id, :params=>{:hello=>"there"} %>
+          <%= sort_link @search,
+                        :id,
+                        'ID',
+                        {:pp => params[:pp]} %>
+        </th>
+		<th>
+          <%= remote_order_by_link :title_original %>
+          <%= sort_link @search,
+                        :title_original,
+                        'Original Title' %>
+        </th>
+		<th>
+          <%= remote_order_by_link :artist_original %>
+          <%= sort_link @search,
+                        :artist_original,
+                        'Original Artist' %>
+        </th>
+		<th>
+          <%= remote_order_by_link :label => :name %>
+          <%= sort_link @search,
+                        :name,
+                        'Label',
+                        {:pp => params[:pp]} %>
+        </th>
+		<th>
+          <%= remote_order_by_link :release_year %>
+          <%= sort_link @search,
+                        :release_year,
+                        'Release Year' %>
+        </th>
+		<th>
+          <%= remote_order_by_link :cd_code %>
+          <%= sort_link @search,
+                        :cd_code,
+                        'CD Code' %>
+        </th>
 		<th colspan="2"></th>			
 	</tr>
 	
