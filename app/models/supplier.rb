@@ -1,4 +1,4 @@
-#class Supplier < ActiveRecord::Base
+class Supplier < ActiveRecord::Base
   has_many :movies
   has_many :videos
   
