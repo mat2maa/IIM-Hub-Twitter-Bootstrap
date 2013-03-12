@@ -21,6 +21,7 @@ Iim::Application.routes.draw do
   match "/export_by_airline" => "album_playlists#export_by_airline", as: :export_by_airline
   match "/view_splits" => "audio_playlists#splits", as: :view_splits
   match "/movie_playlists/print/:id" => "movie_playlists#print", as: :print_movie_playlist
+  match "/movie_playlists/export_to_excel/:id" => "movie_playlists#export_to_excel", as: :export_to_excel
   match "/audio_playlists/export_to_excel/:id" => "audio_playlists#export_to_excel", as: :export_to_excel
   match "/audio_playlists/print/:id" => "audio_playlists#print", as: :print
   match "/album_playlists/export_to_excel/:id" => "album_playlists#export_to_excel", as: :export_to_excel

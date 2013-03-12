@@ -74,7 +74,7 @@ class AlbumsController < ApplicationController
   end
 
   def new
-    @album = Album.new  
+    @album = Album.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -85,7 +85,7 @@ class AlbumsController < ApplicationController
   def create
 
     @album = Album.new(params[:album])
-    @album.to_delete = 0    
+    @album.to_delete = 0
 
     respond_to do |format|
       if @album.save
@@ -93,11 +93,11 @@ class AlbumsController < ApplicationController
         #redirect_to(albums_path)
         format.html { redirect_to edit_album_path(@album) }
       else
+        flash[:notice] = 'Album was NOT successfully created.'
         format.html { render :action => "new" }
       end
     end
   end
-
 
   def update
     @album = Album.find(params[:id])

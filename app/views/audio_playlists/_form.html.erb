@@ -14,8 +14,8 @@
         </td>
         <td>
           <%= select("audio_playlist", "airline_id", Airline.order("code asc")
-                                                            .collect {|p| [p.code + " - " + p
-                                                            .name, p.id] }, { :include_blank => true }) %>
+                                                            .collect {|p| [p.code + " - " + p.name, p.id] },
+                                                            { :include_blank => true }) %>
           <%= link_to "+", airlines_path, :id => "add", :popup => true %>
         </td>
         <td class="pl-title">

@@ -15,9 +15,12 @@ class MoviePlaylist < ActiveRecord::Base
                 "Hebrew Movie", "Hindi Movie", "Indonesian Movie", "Italian Movie", "Japanese Movie", "Korean Movie", 
                 "Malay Movie", "Mandarin Movie", "Norwegian Movie", "Persian Movie", "Portuguese Movie", "Russian Movie", 
                 "Spanish Movie", "Swedish Movie", "Thai Movie"]
-  									
+
+  attr_accessible :airline_id, :start_cycle, :end_cycle, :movie_type
+
   def movie_playlist_items_sorted
-    return MoviePlaylistItem.find(:all, :conditions=>{:movie_playlist_id => self.id}, :order_by=>:position)
+    return MoviePlaylistItem.where(:movie_playlist_id => self.id)
+                            .order("position ASC")
 	end
 	
 	def movies_already_programmed(movie_id)

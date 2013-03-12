@@ -7,13 +7,17 @@ class MoviePlaylistsController < ApplicationController
   filter_access_to :all
   
   def index
+    @search = MoviePlaylist.ransack(params[:q])
     if !params['search'].nil?
-      @search = MoviePlaylist.new_search(params[:search])
-    else 
-      @search = MoviePlaylist.new_search(:order_by => :id, :order_as => "DESC")
+      @movie_playlists = @search.result(distinct: true)
+                                .paginate(page: params[:page], per_page: 10)
+    else
+      @movie_playlists = @search.result(distinct: true)
+                                .order("id DESC")
+                                .paginate(page: params[:page], per_page: 10)
     end
     
-    @movie_playlists, @movie_playlists_count = @search.all, @search.count
+    @movie_playlists_count = @movie_playlists.count
   end
   
   def new
@@ -72,9 +76,8 @@ class MoviePlaylistsController < ApplicationController
   #display overlay
   def add_movie_to_playlist
     @movie_playlist = MoviePlaylist.find(params[:id])
-    @languages = MasterLanguage.find(:all, :order=>"name").collect{
-      |language| language.name
-    } 
+    @languages = MasterLanguage.order("name")
+                               .collect{|language| language.name}
     
     if !params[:movie_playlists].nil?
       @search = Movie.new_search(params[:movie_playlists])      
@@ -313,7 +316,7 @@ class MoviePlaylistsController < ApplicationController
       :user_id => current_user.id
     )
 
-    @movie_playlist_items = MoviePlaylistItem.find(:all, :conditions=>"movie_playlist_id=#{@playlist.id}", :order =>"position ASC")
+    @movie_playlist_items = MoviePlaylistItem.where("movie_playlist_id=#{@playlist.id}").order("position ASC")
     
     @movie_playlist_items.each do |item|
 

@@ -1,48 +1,73 @@
 <% content_for(:head) do %>
-<meta name="pdfkit-orientation" content="Landscape"/>
-<script>
-jQuery(document).ready(function() {
-	jQuery('#print_playlist').click(function(event){
-		if (!confirm("ALERT! Please change your page layout to LANDSCAPE when printing")) {
-		      event.preventDefault();
-		}		
-	});
-});
-</script>
+    <meta name="pdfkit-orientation" content="Landscape"/>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery('#print_playlist').click(function(event){
+                if (!confirm("ALERT! Please change your page layout to LANDSCAPE when printing")) {
+                      event.preventDefault();
+                }
+            });
+        });
+    </script>
 <% end %>
 
-<%= render :partial => 'layouts/movieplaylist_header' %>
-<center><p style="color: green"><%= flash[:notice] %></p></center>
+<%= render partial: 'layouts/movieplaylist_header' %>
+<center>
+  <p style="color: green">
+    <%= flash[:notice] %>
+  </p>
+</center>
+
 <div id="content-header-wrapper">
-<div id="content-header-actions">
-	<%= link_to "Print Playlist", {:controller => "movie_playlists", :action => "show",  :id => @movie_playlist}, :id => 'print_playlist', :target => '_blank'%> |
-	<%= link_to "Download Full PDF", {:controller => "movie_playlists", :action => "print",  :id => @movie_playlist, :format => "pdf"} %> |
-	<%#= link_to "Download Summary PDF", {:controller => "movie_playlists", :action => "edit",  :id => @movie_playlist, :format => "pdf"} %> 
-	<%= link_to "Export as Excel", :controller => "movie_playlists", :action => "export_to_excel",  :id => @movie_playlist %> |
-	<%= link_to "Create a playlist", new_movie_playlist_path %>
-</div>
-<div id="content-header">Movie Playlists</div>
+
+    <div id="content-header-actions">
+        <%= link_to "Print Playlist",
+                    {controller: "movie_playlists",
+                     action: "show",
+                     id: @movie_playlist},
+                    id: 'print_playlist',
+                    target: '_blank'%>
+
+        |
+
+        <%= link_to "Download Full PDF",
+                    {controller: "movie_playlists",
+                     action: "print",
+                     id: @movie_playlist,
+                     format: "pdf"} %>
+
+        |
+
+        <%#= link_to "Download Summary PDF", {controller: "movie_playlists", action: "edit",  id: @movie_playlist, format: "pdf"} %>
+        <%= link_to "Export as Excel",
+                    controller: "movie_playlists",
+                    action: "export_to_excel",
+                    id: @movie_playlist %> |
+        <%= link_to "Create a playlist",
+                    new_movie_playlist_path %>
+    </div>
+
+    <div id="content-header">Movie Playlists</div>
 </div>
 
 <div id="content">
-<center>
-<h2>Edit Movie Playlist</h2>
+    <center>
+        <h2>Edit Movie Playlist</h2>
 
-<div class="action-button"><%= link_to_show_overlay 'add movie', add_movie_to_playlist_path(@movie_playlist.id) %></div><br/>
-<br/>
-<%= form_for(@movie_playlist) do |form| %>
+        <div class="action-button">
+          <%= link_to_show_overlay 'add movie',
+                                   add_movie_to_playlist_path(@movie_playlist.id) %>
+        </div>
 
-  <%= form.error_messages %>
+        <br/>
+        <br/>
 
-  <%= render :partial => 'form', :object => form %>
-  <p>
-    <%= submit_tag "Save Changes" %>
-  </p>
-<% end %>
+        <%= render 'form' %>
 
+        <div id="playlist">
+            <%= render partial: 'playlist',
+                       object: @movie_playlist %>
+        </div>
 
-<div id="playlist">
-<%= render :partial => 'playlist', :object => @movie_playlist %>
-</div>
-</center>
+    </center>
 </div>

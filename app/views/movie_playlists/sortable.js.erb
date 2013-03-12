@@ -1,0 +1,10 @@
+var $ = jQuery;
+
+$(document).ready(function() {
+    $("#movieplaylist").sortable({
+        axis: 'x',
+        containment: 'parent',
+        cursor: 'crosshair',
+        items: 'tr'
+    });
+});

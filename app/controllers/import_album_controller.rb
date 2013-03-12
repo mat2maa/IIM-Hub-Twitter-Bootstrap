@@ -5,10 +5,9 @@ class ImportAlbumController < ApplicationController
 	filter_access_to :find_release
 	filter_access_to :import_release
 	protect_from_forgery :except => [:itunes_import]
-	
 
   def index
-    
+
   end
   
   def find_release

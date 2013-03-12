@@ -129,9 +129,7 @@ filter_access_to :all
     @album_playlist_item = AlbumPlaylistItem.new(:album_playlist_id => params[:id], :category_id => 1, :album_id => params[:album_id], :position => @album_playlist.albums.count + 1)
 
     #check if album has been added to a previous playlist before    
-    @playlists_with_album = AlbumPlaylistItem.find(:all, 
-    :conditions=>"album_id=#{params[:album_id]}",
-    :group=>"album_playlist_id")
+    @playlists_with_album = AlbumPlaylistItem.where("album_id=#{params[:album_id]}").group("album_playlist_id")
     @notice=""
 
     @album_to_add = Album.find(params[:album_id])
@@ -200,7 +198,8 @@ filter_access_to :all
 
     @album_playlist = params[:album_playlist]
 
-    @album_playlist_items = AlbumPlaylistItem.find(:all, :joins=>"left join album_playlists on album_playlist_items.album_playlist_id=album_playlists.id", :conditions=>"album_playlists.airline_id=#{@album_playlist["airline_id"]}" )
+    @album_playlist_items = AlbumPlaylistItem.joins("left join album_playlists on album_playlist_items.album_playlist_id=album_playlists.id")
+                                             .where("album_playlists.airline_id=#{@album_playlist["airline_id"]}")
 
     #create excel file
 
