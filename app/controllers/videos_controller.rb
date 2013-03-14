@@ -9,38 +9,52 @@ class VideosController < ApplicationController
       if !params[:language].nil?
         #before search
         if params[:language][:track]!="" && params[:language][:subtitle]==""
-          @search = Video.with_language_track(params[:language][:track]).new_search(params[:search])      
-          @search.conditions.active_equals = true
+          @search = Video.with_language_track(params[:language][:track]).ransack(params[:q])
+          @videos = @search.result(distinct: true)
+                           .paginate(page: params[:page], per_page: 10)
+          #@search.conditions.active_equals = true
           
         elsif params[:language][:subtitle]!="" && params[:language][:track]=="" && !params[:language].nil?
-          @search = Video.with_language_subtitle(params[:language][:subtitle]).new_search(params[:search])      
-          @search.conditions.active_equals = true
+          @search = Video.with_language_subtitle(params[:language][:subtitle]).ransack(params[:q])
+          @videos = @search.result(distinct: true)
+                           .paginate(page: params[:page], per_page: 10)
+          #@search.conditions.active_equals = true
           
         elsif params[:language][:subtitle]!="" && params[:language][:track]!="" && !params[:language].nil?
-          @search = Video.with_language_subtitle(params[:language][:subtitle]).with_language_track(params[:language][:track]).new_search(params[:search])      
-          @search.conditions.active_equals = true
+          @search = Video.with_language_subtitle(params[:language][:subtitle])
+                         .with_language_track(params[:language][:track]).ransack(params[:q])
+          @videos = @search.result(distinct: true)
+                           .paginate(page: params[:page], per_page: 10)
+          #@search.conditions.active_equals = true
           
         else
-          @search = Video.new_search(params[:search])
-          @search.conditions.active_equals = true          
-          @search.conditions.programme_title_keywords = params[:search][:conditions][:programme_title_keywords].gsub(/\'s|\'t/, "")
+          @search = Video.ransack(params[:q])
+          @videos = @search.result(distinct: true)
+                           .paginate(page: params[:page], per_page: 10)
+          #@search.conditions.active_equals = true
+          @search.conditions.programme_title_cont = params[:q][:conditions][:programme_title_cont].gsub(/\'s|\'t/, "")
           #@search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:programme_title_keywords]           
         end
       else      
-        @search = Video.new_search(params[:search])
-        @search.conditions.active_equals = true        
+        @search = Video.ransack(params[:q])
+        @videos = @search.result(distinct: true)
+                         .paginate(page: params[:page], per_page: 10)
+        #@search.conditions.active_equals = true
       end
 
     else 
-      @search = Video.new_search(:order_by => :id, :order_as => "DESC")
-      @search.conditions.active_equals = true      
+      @search = Video.ransack(params[:q])
+      @videos = @search.result(distinct: true)
+                       .order("id DESC")
+                       .paginate(page: params[:page], per_page: 10)
+      #@search.conditions.active_equals = true
     end
-    @search.conditions.screeners_count_gte = params[:screeners].to_i if params[:screeners]=='1'
-    @search.conditions.masters_count_gte = params[:masters].to_i if params[:masters]=='1'
-    @search.conditions.active_equals = true
+    @search.conditions.screeners_count_gteq = params[:screeners].to_i if params[:screeners]=='1'
+    @search.conditions.masters_count_gteq = params[:masters].to_i if params[:masters]=='1'
+    #@search.conditions.active_equals = true
     
     
-    @videos, @videos_count = @search.all, @search.count
+    @videos_count = @videos.count
   
     if @videos_count == 1
       redirect_to(edit_video_path(@videos.first))
@@ -67,7 +81,7 @@ class VideosController < ApplicationController
         if @video.video_type == "Movie EPK" || @video.video_type == "Movie Master" || @video.video_type == "TV Special" || @video.video_type == "Movie Trailer"
           movie = Movie.find(@video.movie_id)
           
-          @existing_video = Video.find(:first, :conditions => ["programme_title=? AND video_type=?", movie.movie_title, @video.video_type])
+          @existing_video = Video.where("programme_title=? AND video_type=?", movie.movie_title, @video.video_type)
           
           if !@existing_video.nil?
             redirect_to edit_video_path(@existing_video)
@@ -94,7 +108,7 @@ class VideosController < ApplicationController
         @video.masters.build
       end 
       
-      master = Master.find(:first, :conditions => "location IS NOT NULL", :order => "location DESC", :limit => 1)
+      master = Master.where("location IS NOT NULL").order("location DESC").limit(1)
       if !master.nil?
         @master_location = master.location + 1
       else
@@ -105,7 +119,7 @@ class VideosController < ApplicationController
   def create
 
     @video = Video.new(params[:video])
-    @video_genres = VideoParentGenre.find(:all)
+    @video_genres = VideoParentGenre.all
 
     @video.programme_title = @video.programme_title.upcase
     @video.foreign_language_title = @video.foreign_language_title.upcase if !@video.foreign_language_title.nil?
@@ -132,12 +146,15 @@ class VideosController < ApplicationController
   end
 
   def edit
-    @search = Video.new_search
-    @videos, @videos_count = @search.all, @search.count
+    @search = Video.ransack(params[:q])
+    @videos = @search.result(distinct: true)
+                     .paginate(page: params[:page], per_page: 10)
+    @videos_count = @videos.count
+
     @languages = IIM::MOVIE_LANGUAGES  
       
     @video = Video.find(params[:id])
-    @video_genres = VideoParentGenre.find(:all)
+    @video_genres = VideoParentGenre.all
     if !session[:videos_search].nil?
       ids = session[:videos_search] 
       id = ids.index(params[:id].to_i)
@@ -147,18 +164,20 @@ class VideosController < ApplicationController
       end
     end
       
-    master = Master.find(:first, :conditions => "location IS NOT NULL", :order => "location DESC", :limit => 1)
-    
+=begin
+    master = Master.where("location IS NOT NULL").order("location DESC").limit(1)
+
     if !master.nil?
       @master_location = master.location + 1
     else
-      @master_location = 0 
+      @master_location = 0
     end
-    
+=end
+
   end
 
   def update     
-    @video_genres = VideoParentGenre.find(:all)
+    @video_genres = VideoParentGenre.all
     
     @video = Video.find(params[:id])
     params[:video][:programme_title] = params[:video][:programme_title].upcase

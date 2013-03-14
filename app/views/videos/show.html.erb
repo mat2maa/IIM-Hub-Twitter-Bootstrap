@@ -1,122 +1,156 @@
-<%= render :partial => 'layouts/video_header' %>
-<center><p style="color: green"><%= flash[:notice] %></p></center>
+<%= render partial: 'layouts/video_header' %>
+<center>
+  <p style="color: green">
+    <%= flash[:notice] %>
+  </p>
+</center>
 <div id="content-header-wrapper">
-<div id="content-header-actions">
-	<%= link_to 'Edit Video', edit_video_path(@video) if permitted_to? :edit, :videos%> |
-	<%= link_to "New Video", new_video_path %> 
-</div>
-<div id="content-header">View Video<br />
-</div>
+  <div id="content-header-actions">
+    <%= link_to 'Edit Video',
+                edit_video_path(@video) if permitted_to? :edit,
+                                                         :videos %> |
+    <%= link_to "New Video",
+                new_video_path %>
+  </div>
+  <div id="content-header">View Video<br/>
+  </div>
 </div>
 <div id="content">
-<center>
-<h1>View Video</h1>
-<div id="poster-thumbnail">
-<%= link_to (image_tag(@video.poster.url(:small)), @video.poster.url, :popup => true) %>
-<br/><br/>
-<%= link_to("Search Box Office Mojo", "http://www.boxofficemojo.com/search/?q=" + @video.programme_title.to_s 	, :popup => true) %><br/>
-<%= link_to("Search Yahoo Videos", "http://videos.yahoo.com/mv/search?fr=ush-videos&toggle=1&cop=&ei=UTF-8&p=" + @video.programme_title.to_s 	, :popup => true) %><br/>
-<%= link_to("Search Rotten Tomatoes", "http://www.rottentomatoes.com/search/full_search.php?search=" + @video.programme_title.to_s 	, :popup => true) %><br/>
-<%= link_to("Search IMDB", "http://www.imdb.com/find?s=all&q=" + @video.programme_title.to_s 	, :popup => true) %><br/>
-</div>
-<table width="700" cellpadding="5" id="video">
-<tr>
-	<th width="150">Video Title:</th><td><%= @video.programme_title %></td>
-</tr>
-<tr>
-	<th width="150">Foreign Language Title:</th><td><%= @video.foreign_language_title %></td>
-</tr>
-<tr>
-	<th width="150">Video Type:</th><td><%= @video.video_type %></td>
-</tr>
-<tr>
-	<th>Video Distributor:</th><td><%= @video.video_distributor.company_name if !@video.video_distributor.nil? %></td>
-</tr>
-<tr>
-	<th>Production Studio:</th><td><%= @video.production_studio.company_name if !@video.production_studio.nil? %></td>
-</tr>
-<tr>
-	<th>Laboratory:</th><td><%= @video.laboratory.company_name if !@video.laboratory.nil? %></td>
-</tr>
-<tr>
-	<th>Production Year:</th><td><%= @video.production_year %></td>
-</tr>
-<tr>
-	<th>Commercial Run Time:</th><td><%= @video.commercial_run_time.minutes if !@video.commercial_run_time.nil? %> minutes</td>
-</tr>
-<tr>
-	<th>Number of Episodes Available:</th><td><%= @video.episodes_available %></td>
-</tr>
-<tr>
-	<th>On Going Series:</th><td><%= @video.on_going_series ? 'yes' : 'no' %></td>
-</tr>
-<tr>
-	<th>Genres:</th>
-	<td><%= @video.video_genres.collect{|r| r.name}.to_sentence %>
-	</td>
-</tr>
-<tr>
-	<th>Available Lang Tracks:</th>
-	<td><%= @video.language_tracks.collect{|r| r}.to_sentence %>
-	</td>
-</tr>
-<tr>
-	<th>Available Subtitle Tracks:</th>
-	<td><%= @video.language_subtitles.collect{|r| r}.to_sentence %>
-	</td>
-</tr>
-<tr>
-	<th>Programme Synopsis:</th>
-	<td><%= @video.synopsis %>
-	</td>
-</tr>
-</table> 
-<br/>
-<h2>Screeners</h2>
-<% for screener in @video.screeners %>
-<table class="screener">
-  	<tr>
-			<td><strong>Episode Title:</strong> <%= screener.episode_title %></td>
-			<td><strong>Episode Number:</strong> <%= screener.episode_number %></td>
-			<td><strong>Location:</strong> <%= screener.location %></td>
-			<td><strong>Screener Remarks:</strong> <%= screener.remarks%></td>
-			<td><strong>Other:</strong> <%= screener.remarks_other%></td>	
-		</tr>
-</table>
-<% end %>
-<br/>
-<h2>Masters</h2>
-<% for master in @video.masters %>
-<table class="master">
-  <% fields_for_master(master) do |master_form| %>
-  	<tr>
-			<td><strong>Episode Title:</strong> <%= master.episode_title %></td>
-			<td><strong>Episode #:</strong> <%= master.episode_number %></td>
-			<td><strong>Tape Media:</strong> <%= master.tape_media %></td>
-			<td><strong>Tape Format:</strong> <%= master.tape_format %></td>
-			<td><strong>Tape Size:</strong> <%= master.tape_size %></td>	
-			<td><strong>Video Subtitles 1:</strong> <%= master.video_subtitles_1 %></td>					
-			<td><strong>Video Subtitles 2:</strong> <%= master.video_subtitles_2 %></td>					
-		</tr>
-		<tr>
-			<td rowspan="2">Episode Synopsis:</strong> <%= master.synopsis %></td>
-			<td><strong>Lang Track 1:</strong> <br/><%= master.language_track_1 %></td>			
-			<td><strong>Lang Track 2:</strong> <br/><%= master.language_track_2 %></td>
-			<td><strong>Lang Track 3:</strong> <br/><%= master.language_track_3 %></td>
-			<td><strong>Lang Track 4:</strong> <br/><%= master.language_track_4 %></td>			
-			<td><strong>Aspect Ratio:</strong> <br/><%= master.aspect_ratio %></td>
-		</tr>
-		<tr>
-			<td><strong>Tape Location:</strong> <br/><%= master.location %></td>
-			<td><strong>Time In:</strong> <br/><%= master.time_in %></td>
-			<td><strong>Time Out:</strong> <br/><%= master.time_out %></td>
-			<td><strong>Duration:</strong> <br/><%= master.duration %></td>
-			<td></td>
-		</tr>
-  <% end %>
-</table>
-<% end %>
+  <center>
+    <h1>View Video</h1>
 
-</center>
-<br/><br/>
+    <div id="poster-thumbnail">
+      <%= link_to(image_tag(@video.poster.url(:small)),
+                  @video.poster.url,
+                  popup: true) %>
+      <br/><br/>
+      <%= link_to("Search Box Office Mojo",
+                  "http://www.boxofficemojo.com/search/?q=" + @video.programme_title.to_s,
+                  popup: true) %>
+      <br/>
+      <%= link_to("Search Yahoo Videos",
+                  "http://videos.yahoo.com/mv/search?fr=ush-videos&toggle=1&cop=&ei=UTF-8&p=" + @video.programme_title.to_s,
+                  popup: true) %>
+      <br/>
+      <%= link_to("Search Rotten Tomatoes",
+                  "http://www.rottentomatoes.com/search/full_search.php?search=" + @video.programme_title.to_s,
+                  popup: true) %>
+      <br/>
+      <%= link_to("Search IMDB",
+                  "http://www.imdb.com/find?s=all&q=" + @video.programme_title.to_s,
+                  popup: true) %>
+      <br/>
+    </div>
+    <table width="700" cellpadding="5" id="video">
+      <tr>
+        <th width="150">Video Title:</th>
+        <td><%= @video.programme_title %></td>
+      </tr>
+      <tr>
+        <th width="150">Foreign Language Title:</th>
+        <td><%= @video.foreign_language_title %></td>
+      </tr>
+      <tr>
+        <th width="150">Video Type:</th>
+        <td><%= @video.video_type %></td>
+      </tr>
+      <tr>
+        <th>Video Distributor:</th>
+        <td><%= @video.video_distributor.company_name if !@video.video_distributor.nil? %></td>
+      </tr>
+      <tr>
+        <th>Production Studio:</th>
+        <td><%= @video.production_studio.company_name if !@video.production_studio.nil? %></td>
+      </tr>
+      <tr>
+        <th>Laboratory:</th>
+        <td><%= @video.laboratory.company_name if !@video.laboratory.nil? %></td>
+      </tr>
+      <tr>
+        <th>Production Year:</th>
+        <td><%= @video.production_year %></td>
+      </tr>
+      <tr>
+        <th>Commercial Run Time:</th>
+        <td><%= @video.commercial_run_time.minutes if !@video.commercial_run_time.nil? %> minutes</td>
+      </tr>
+      <tr>
+        <th>Number of Episodes Available:</th>
+        <td><%= @video.episodes_available %></td>
+      </tr>
+      <tr>
+        <th>On Going Series:</th>
+        <td><%= @video.on_going_series ? 'yes' : 'no' %></td>
+      </tr>
+      <tr>
+        <th>Genres:</th>
+        <td><%= @video.video_genres.collect { |r| r.name }.to_sentence %>
+        </td>
+      </tr>
+      <tr>
+        <th>Available Lang Tracks:</th>
+        <td><%= @video.language_tracks.collect { |r| r }.to_sentence %>
+        </td>
+      </tr>
+      <tr>
+        <th>Available Subtitle Tracks:</th>
+        <td><%= @video.language_subtitles.collect { |r| r }.to_sentence %>
+        </td>
+      </tr>
+      <tr>
+        <th>Programme Synopsis:</th>
+        <td><%= @video.synopsis %>
+        </td>
+      </tr>
+    </table>
+    <br/>
+
+    <h2>Screeners</h2>
+    <% for screener in @video.screeners %>
+        <table class="screener">
+          <tr>
+            <td><strong>Episode Title:</strong> <%= screener.episode_title %></td>
+            <td><strong>Episode Number:</strong> <%= screener.episode_number %></td>
+            <td><strong>Location:</strong> <%= screener.location %></td>
+            <td><strong>Screener Remarks:</strong> <%= screener.remarks %></td>
+            <td><strong>Other:</strong> <%= screener.remarks_other %></td>
+          </tr>
+        </table>
+    <% end %>
+    <br/>
+
+    <h2>Masters</h2>
+    <% for master in @video.masters %>
+        <table class="master">
+          <% fields_for_master(master) do |master_form| %>
+              <tr>
+                <td><strong>Episode Title:</strong> <%= master.episode_title %></td>
+                <td><strong>Episode #:</strong> <%= master.episode_number %></td>
+                <td><strong>Tape Media:</strong> <%= master.tape_media %></td>
+                <td><strong>Tape Format:</strong> <%= master.tape_format %></td>
+                <td><strong>Tape Size:</strong> <%= master.tape_size %></td>
+                <td><strong>Video Subtitles 1:</strong> <%= master.video_subtitles_1 %></td>
+                <td><strong>Video Subtitles 2:</strong> <%= master.video_subtitles_2 %></td>
+              </tr>
+              <tr>
+                <td rowspan="2">Episode Synopsis:</strong> <%= master.synopsis %></td>
+                <td><strong>Lang Track 1:</strong> <br/><%= master.language_track_1 %></td>
+                <td><strong>Lang Track 2:</strong> <br/><%= master.language_track_2 %></td>
+                <td><strong>Lang Track 3:</strong> <br/><%= master.language_track_3 %></td>
+                <td><strong>Lang Track 4:</strong> <br/><%= master.language_track_4 %></td>
+                <td><strong>Aspect Ratio:</strong> <br/><%= master.aspect_ratio %></td>
+              </tr>
+              <tr>
+                <td><strong>Tape Location:</strong> <br/><%= master.location %></td>
+                <td><strong>Time In:</strong> <br/><%= master.time_in %></td>
+                <td><strong>Time Out:</strong> <br/><%= master.time_out %></td>
+                <td><strong>Duration:</strong> <br/><%= master.duration %></td>
+                <td></td>
+              </tr>
+          <% end %>
+        </table>
+    <% end %>
+
+  </center>
+  <br/><br/>
 </div>

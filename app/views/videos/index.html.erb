@@ -1,16 +1,22 @@
-<%= render :partial => 'layouts/video_header' %>
+<%= render partial: 'layouts/video_header' %>
 
-<center><p style="color: green" id="notice"><%= flash[:notice] %></p></center>
+<center>
+  <p style="color: green" id="notice">
+    <%= flash[:notice] %>
+  </p>
+</center>
 
 <div id="content-header-wrapper">
-	<div id="content-header-actions"><%= link_to "Create a video", new_video_path %></div>
-	<div id="content-header">Videos</div>
+  <div id="content-header-actions">
+    <%= link_to "Create a video", new_video_path %>
+  </div>
+  <div id="content-header">Videos</div>
 </div>
 
 <div id="content">
-	<% form_for @search,  :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')" do |f| %>
-		<%= render :partial => 'search_form', :locals => { :f => f } %>
-	<% end %>  
+  <%= render partial: 'search_form', object: @search %>
 
-	<div id="videos">	<%= render :partial => "videos" %></div>
+  <div id="videos">
+    <%= render partial: "videos" %>
+  </div>
 </div>

@@ -1,30 +1,43 @@
-<% if @search.count > 0 %>
-	<%= @search.count %> videos found
-	<table cellspacing="0" width="100%">
-	<tr>
-		<th><%= order_by_link  :id %></th>
-		<th><%= order_by_link  :programme_title %></th>
-		<th><%= order_by_link  :video_distributor =>:company_name %></th>
-		<th><%= order_by_link  :video_type %></th>
-		<th><%= order_by_link  :commercial_runtime %></th>
-		<th>Genres</th>
-		<th><%= order_by_link  :screeners_count, :text => 'Screeners Held' %></th>
-		<th><%= order_by_link  :masters_count, :text => 'Masters Held' %></th>
-		<th colspan="2"></th>			
-	</tr>
-	
-	<%= render :partial => "video", :collection => @videos %>
-	</table>
-	
-	<% if @search.page_count > 1 %>
-		<br/><br/>
-		<div class="page_links">
-			<%=	page_links()%>
-		</div>
-	<% end %>
+<% if @videos_count > 0 %>
+    <%= @videos_count %> videos found
+    <table cellspacing="0" width="100%">
+      <tr>
+        <th>
+          <%= sort_link @search, :id, 'ID' %>
+        </th>
+        <th>
+          <%= sort_link @search, :programme_title, 'Programme Title' %>
+        </th>
+        <th>
+          <%= sort_link @search, :video_distributor_company_name, 'Company Name' %>
+        </th>
+        <th>
+          <%= sort_link @search, :video_type, 'Video Type' %>
+        </th>
+        <th>
+          <%= sort_link @search, :commercial_runtime, 'Commercial Runtime' %>
+        </th>
+        <th>Genres</th>
+        <th>
+          <%= sort_link @search, :screeners_count, 'Screeners Held' %>
+        </th>
+        <th>
+          <%= sort_link @search, :masters_count, 'Masters Held' %>
+        </th>
+        <th colspan="2"></th>
+      </tr>
+
+      <%= render partial: 'video',
+                 collection: @videos %>
+    </table>
+
+    <br />
+    <br />
+    <%=  will_paginate @videos %>
+
 
 <% else %>
-	
-	No videos were found
+
+    No videos were found
 
 <% end %>

@@ -44,6 +44,10 @@ class Video < ActiveRecord::Base
   VIDEO_TYPES = ["Short Subject Programme", "Movie EPK", "Movie Trailer", "Movie Master", "TV Special", "Graphics", "Airline Master"]
   TAPE_MEDIA = ["Betacam SP", "Betacam SX", "Digital Betacam", "DV", "DVCCAM", "DVCAM Pro", "DVD", "H.264", "HDCAM", "MPEG IMX", "Pro Res HQ", "Pro Res Proxy"]
   
+  attr_accessible :movie_id, :programme_title, :foreign_language_title, :video_type, :video_distributor_id,
+                  :production_year, :production_studio_id, :episodes_available, :laboratory_id, :on_going_series,
+                  :commercial_run_time_id, :video_genre_ids, :language_tracks, :language_subtitles, :synopsis, :remarks
+  
   def before_save
     
     self.language_tracks = nil if self.language_tracks.class == String
