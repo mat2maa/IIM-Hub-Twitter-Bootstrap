@@ -1,0 +1,5 @@
+var $ = jQuery;
+
+$('#tab-area').html("<%= escape_javascript(render partial: 'genre',
+                                                  locals: {track: 'track',
+                                                           genres: 'genres'}) %>");

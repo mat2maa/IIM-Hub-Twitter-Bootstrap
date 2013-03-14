@@ -1,37 +1,64 @@
 <script type="text/javascript" src="http://mediaplayer.yahoo.com/js"></script>
 <script type="text/javascript" src="/ymp/ef.ymp.utilities.js"></script>
 <script type="text/javascript" src="/ymp/trackseek.js"></script>
-<%= render :partial => 'layouts/album_header' %>
+<%= render partial: 'layouts/album_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
-	<div id="content-header-actions">
-	<%= link_to "Wikipedia", "http://www.wikipedia.org/wiki/#{@album.artist_original.sub(/ /, '_')}", :popup => true %> |
-	<%= link_to "YesAsia", "http://www.yesasia.com", :popup => true %> | <%= link_to "Import Album from MusicBrainz", :controller => "import_album"  %>
-</div>
-<div id="content-header">Edit Album : <%= @album.title_original %><br />
-</div>
+  <div id="content-header-actions">
+    <%= link_to "Wikipedia",
+                "http://www.wikipedia.org/wiki/#{@album.artist_original.sub(/ /,
+                                                                            '_')}",
+                popup: true %> |
+    <%= link_to "YesAsia",
+                "http://www.yesasia.com",
+                popup: true %> | <%= link_to "Import Album from MusicBrainz",
+                                             controller: "import_album" %>
+  </div>
+  <div id="content-header">Edit Album : <%= @album.title_original %>
+    <br/>
+  </div>
 
 </div>
 <div id="content">
-	<center>
-		<div id="cd-large">	<%= link_to(image_tag(@album.cover.url(:medium)), @album.cover.url(:original), :popup=>true) %></div>
-		<%= form_for (@album, :html => { :multipart => true }) do |form| %>
-			<%= form.error_messages %>
-			<%= render :partial => 'form', :object => form %>
-			<br/>
-			<%= submit_tag "Save" , :class => "submit" %> 
+  <center>
+    <div id="cd-large">    <%= link_to(image_tag(@album.cover.url(:medium)),
+                                       @album.cover.url(:original),
+                                       :popup => true) %></div>
+    <%= form_for(@album, html: {multipart: true}) do |form| %>
+        <%= error_messages_for form.object %>
+        <%= render partial: 'form',
+                   object: form %>
+        <br/>
+        <%= submit_tag "Save",
+                       class: "submit" %>
 
-			<div class="nav-tab">
-			<%= link_to_remote "Tracks", :url => {:action => "show_tracks", :id => @album.id} %>
-			<%= link_to_remote "Genre", :url => {:action => "show_genre", :id => @album.id} %>
-			<%= link_to_remote "Synopsis", :url => {:action => "show_synopsis", :id => @album.id} %>
-			<%= link_to_remote "For Translation", :url => {:action => "show_tracks_translation", :id => @album.id} %>
-			<%= link_to_remote "Playlists", :url => {:action => "show_playlists", :id => @album.id} %>
-		</div>
-		<div id="tab-area">
-		<%= render :partial => 'show_tracks', :locals => {:tracks => 'tracks'} %>
-	</div>
-	<% end %>
-</center>
-<br/><br/>
+        <div class="nav-tab">
+          <%= link_to "Tracks",
+                      remote: true,
+                      url: {action: "show_tracks",
+                            id: @album.id} %>
+          <%= link_to "Genre",
+                      remote: true,
+                      url: {action: "show_genre",
+                            id: @album.id} %>
+          <%= link_to "Synopsis",
+                      remote: true,
+                      url: {action: "show_synopsis",
+                            id: @album.id} %>
+          <%= link_to "For Translation",
+                      remote: true,
+                      url: {action: "show_tracks_translation",
+                            id: @album.id} %>
+          <%= link_to "Playlists",
+                      remote: true,
+                      url: {action: "show_playlists",
+                            id: @album.id} %>
+        </div>
+        <div id="tab-area">
+          <%= render partial: 'show_tracks',
+                     locals: {tracks: 'tracks'} %>
+        </div>
+    <% end %>
+  </center>
+  <br/><br/>
 </div>

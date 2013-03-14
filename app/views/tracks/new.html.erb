@@ -1,23 +1,21 @@
-<%= render :partial => 'layouts/track_header' %>
+<%= render partial: 'layouts/track_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
-<div id="content-header-actions">
-<%= link_to "Search Baidu", "http://www.baidu.com", :popup => true %>
-</div>
-<div id="content-header">Add New Track<br />
-</div>
+  <div id="content-header-actions">
+    <%= link_to "Search Baidu",
+                "http://www.baidu.com",
+                popup: true %>
+  </div>
+  <div id="content-header">Add New Track<br/>
+  </div>
 
 </div>
 <div id="content">
-<center>
+  <center>
 
-<% form_for (@track) do |form| %>
+    <%= render partial: 'form',
+               object: @track %>
 
-<%= render :partial => 'form', :object => form, :locals => {:track => 'track'} %>
-
-<br/>
-<%= submit_tag "Add Track" , :class => "submit" %>
-<% end %>
-</center>
-<br/><br/>
+  </center>
+  <br/><br/>
 </div>

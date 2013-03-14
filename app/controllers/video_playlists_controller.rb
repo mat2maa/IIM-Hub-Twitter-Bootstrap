@@ -8,12 +8,17 @@ class VideoPlaylistsController < ApplicationController
   
   def index
     if !params['search'].nil?
-      @search = VideoPlaylist.new_search(params[:search])
-    else 
-      @search = VideoPlaylist.new_search(:order_by => :id, :order_as => "DESC")
+      @search = VideoPlaylist.ransack(params[:q])
+      @video_playlists = @search.result(distinct: true)
+                                .paginate(page: params[:page], per_page: 10)
+    else
+      @search = VideoPlaylist.ransack(params[:q])
+      @video_playlists = @search.result(distinct: true)
+                                .order("id DESC")
+                                .paginate(page: params[:page], per_page: 10)
     end
     
-    @video_playlists, @video_playlists_count = @search.all, @search.count
+      @video_playlists_count = @video_playlists.count
   end
   
   def new
@@ -24,7 +29,7 @@ class VideoPlaylistsController < ApplicationController
 
     @video_playlist = VideoPlaylist.new(params[:video_playlist])
     @video_playlist.user_id = current_user.id
-    @video_playlist.locked = false;
+    @video_playlist.locked = false
 
     respond_to do |format|
       if @video_playlist.save
@@ -67,14 +72,12 @@ class VideoPlaylistsController < ApplicationController
   
   #display overlay
   def add_video_to_playlist
-    @languages = MasterLanguage.find(:all, :order=>"name").collect{
-      |language| language.name
-    } 
+    @languages = MasterLanguage.order("name").collect{|language| language.name}
     
     @video_playlist = VideoPlaylist.find(params[:id])
     
     if !params[:video_playlists].nil?
-      @search = Video.new_search(params[:video_playlists])      
+      @search = Video.ransack(params[:q])
       @search.conditions.to_delete_equals = 0
       @search.conditions.or_programme_title_keywords = params[:video_playlists][:conditions][:or_programme_title_keywords].gsub(/\'s|\'t/, "") 
       @search.conditions.or_foreign_language_title_keywords = params[:video_playlists][:conditions][:or_programme_title_keywords].gsub(/\'s|\'t/, "") 
@@ -281,7 +284,7 @@ class VideoPlaylistsController < ApplicationController
       :user_id => current_user.id
     )
 
-    @video_playlist_items = VideoPlaylistItem.find(:all, :conditions=>"video_playlist_id=#{@playlist.id}", :order =>"position ASC")
+    @video_playlist_items = VideoPlaylistItem.where("video_playlist_id=#{@playlist.id}").order("position ASC")
 
     @video_playlist_items.each do |item|
 
