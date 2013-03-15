@@ -3,21 +3,10 @@ class RolesController < ApplicationController
 	filter_access_to :all
  	 
  	 def index
- 	   	conditions = params[:search]
-
-       @search = Role.new_search
-       if !params[:keywords].nil? && !params[:keywords].empty?
-         keywords = params[:keywords]
-         @search.conditions.name_keywords = keywords
-       end
-   		if !params[:search].nil?
-   			@search.per_page = conditions["per_page"] 
-   			@search.page = conditions["page"]
-   			@search.order_as = conditions["order_as"]
-   			@search.order_by = conditions["order_by"]
-   		end
-
-       @roles, @roles_count = @search.all, @search.count
+       @search = Role.ransack(params[:q])
+       @roles = @search.result(distinct: true)
+                       .paginate(page: params[:page], per_page: 10)
+       @roles_count = @roles.count
    end
 
    def new

@@ -3,8 +3,10 @@ class RightsController < ApplicationController
 	filter_access_to :all
  	 
 	 def index
-	   	@search = Right.new_search(params[:search])
-      @rights, @rights_count = @search.all, @search.count
+      @search = Right.ransack(params[:q])
+      @rights = @search.result(distinct: true)
+                      .paginate(page: params[:page], per_page: 10)
+      @rights_count = @rights.count
   end
 
   def new

@@ -1,10 +1,37 @@
-<%= form.label :name %><br />
-<%= form.text_field :name %><br />
-	Rights
-<% for right in Right.find(:all) %>
-<div>
-  <%= check_box_tag "role[right_ids][]", right.id, @role.rights.include?(right) %>
-  <%= right.name %>
-</div>
+<%= form_for @role, :url => { :action => "create" } do |form|  %>
+    <%= error_messages_for form.object %>
+    <%= form.label :name %><br />
+    <%= form.text_field :name %><br />
+    Rights
+    <input type="checkbox" id="selectAll" value="selectAll"> Select / Deselect All<br/><br/>
+    <% for right in Right.all %>
+        <div>
+          <%= check_box_tag "role[right_ids][]", right.id, @role.rights.include?(right) %>
+          <%= right.name %>
+        </div>
+    <% end %>
+    <br />
+    <%= form.submit "Register" %>
 <% end %>
-<br />
+
+<script>
+
+    var $ = jQuery;
+
+    $(document).ready(function() {
+
+        $('#selectAll').click(function() {
+            if (this.checked) {
+                $(':checkbox').each(function() {
+                    this.checked = true;
+                });
+            } else {
+                $(':checkbox').each(function() {
+                    this.checked = false;
+                });
+            }
+        });
+
+    });
+
+</script>

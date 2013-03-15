@@ -1,3 +1,0 @@
-page.insert_html :after, 'rights-header', :partial => 'right', :locals => {:right => @right}
-page[:right_form].reset
-flash.discard

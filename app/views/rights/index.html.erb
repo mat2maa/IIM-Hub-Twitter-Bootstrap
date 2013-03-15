@@ -1,48 +1,55 @@
-<%= render :partial => 'header' %>
+<%= render partial: 'header' %>
 <div id="content">
-	<center>
-		<% form_for @search do |f| %>
-		    <fieldset>
-		        <legend>Search Rights</legend>
+  <center>
+    <% search_form_for @search do |rights| %>
+        <fieldset>
+          <legend>Search Rights</legend>
 
-		        <% f.fields_for @search.conditions do |users| %>
-							<table><tr><td>Name</td>
-		            <td><%= users.text_field :name_keywords %></td>
-		            <td>Controller</td>
-		            <td><%= users.text_field :controller_keywords %></td>
-		            <td>Action</td>
-		            <td><%= users.text_field :action_keywords %></td>
-								<td><%= f.submit "Search" %></td>
-								</tr></table>
-		        <% end %>
-						
-		    </fieldset>    
-		<% end %>
+          <table>
+            <tr>
+              <td>Name</td>
+              <td>
+                <%= rights.text_field :name_cont %>
+              </td>
+              <td>Controller</td>
+              <td>
+                <%= rights.text_field :controller_cont %>
+              </td>
+              <td>Action</td>
+              <td>
+                <%= rights.text_field :action_cont %>
+              </td>
+              <td>
+                <%= rights.submit "Search" %>
+              </td>
+            </tr>
+          </table>
 
-<%= render :partial => 'form' %>
+        </fieldset>
+    <% end %>
 
-<% if @rights_count > 0 %>
-<div>
-    <%= @rights_count %> entries found
-</div>
-<table border="0" cellpadding="10" cellspacing="0" width="80%" class="list" id="rights">
-  <tr id="rights-header">
-    <th><%= order_by_link :id %></th>
-		<th><%= order_by_link :name %></th>
-		<th><%= order_by_link :controller %></th>
-		<th><%= order_by_link :action %></th>
-		<th colspan="2">&nbsp;</th>
-  </tr>
-	<%= render :partial => 'right', :collection => @rights %>
-</table>
-<div>
-	Per page: <%= per_page_select %>
-  <% if @search.page_count > 1 %>
-     <br />Page: <%= page_select %>
-  	<% end %>
-	<% else %>
-    No entries were returned
-	<% end %>
-</div>
-</center>
+    <%= render partial: 'form' %>
+
+    <% if @rights_count > 0 %>
+        <div>
+          <%= @rights_count %> entries found
+        </div>
+        <table border="0" cellpadding="10" cellspacing="0" width="80%" class="list" id="rights">
+          <tr id="rights-header">
+            <th><%= sort_link @search, :id, 'ID' %></th>
+            <th><%= sort_link @search, :name, 'Name' %></th>
+            <th><%= sort_link @search, :controller, 'Controller' %></th>
+            <th><%= sort_link @search, :action, 'Action' %></th>
+            <th colspan="2">&nbsp;</th>
+          </tr>
+          <%= render partial: 'right',
+                     collection: @rights %>
+        </table>
+        <br />
+        <br />
+        <%= will_paginate @rights %>
+    <% else %>
+        No entries were returned
+    <% end %>
+  </center>
 </div>

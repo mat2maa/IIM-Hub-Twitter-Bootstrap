@@ -146,14 +146,40 @@ class VideoPlaylistsController < ApplicationController
     end # loop through video ids
     
   end
-  
+
   def destroy
     @video_playlist = VideoPlaylist.find(params[:id])
     @video_playlist.destroy
 
     respond_to do |format|
-      format.html { redirect_to(video_playlists_path) }
-      format.js
+      format.js { render template: 'video_playlists/destroy.js.erb',
+                         layout: false }
+    end
+  end
+
+  def duplicate
+
+    @playlist = VideoPlaylist.find(params[:id])
+    @playlist_duplicate = VideoPlaylist.create(
+        :start_cycle => @playlist.start_cycle,
+        :end_cycle => @playlist.end_cycle,
+        :user_id => current_user.id
+    )
+
+    @video_playlist_items = VideoPlaylistItem.where("video_playlist_id=#{@playlist.id}").order("position ASC")
+
+    @video_playlist_items.each do |item|
+
+      VideoPlaylistItem.create(
+          :video_id => item.video_id,
+          :position => item.position,
+          :video_playlist_id => @playlist_duplicate.id
+      )
+
+    end
+
+    respond_to do |format|
+      format.html { redirect_to(edit_video_playlist_path(@playlist_duplicate)) }
     end
   end
 
@@ -272,32 +298,5 @@ class VideoPlaylistsController < ApplicationController
       VideoPlaylistItem.find(id).update_attribute(:position, pos+1)
     end
     render :nothing => true
-  end
-  
-  
-  def duplicate
-
-    @playlist = VideoPlaylist.find(params[:id])
-    @playlist_duplicate = VideoPlaylist.create(
-      :start_cycle => @playlist.start_cycle,
-      :end_cycle => @playlist.end_cycle,
-      :user_id => current_user.id
-    )
-
-    @video_playlist_items = VideoPlaylistItem.where("video_playlist_id=#{@playlist.id}").order("position ASC")
-
-    @video_playlist_items.each do |item|
-
-      VideoPlaylistItem.create(
-      :video_id => item.video_id,
-      :position => item.position,
-      :video_playlist_id => @playlist_duplicate.id
-      )
-
-    end
-
-    respond_to do |format|
-      format.html { redirect_to(edit_video_playlist_path(@playlist_duplicate)) }
-    end
   end
 end

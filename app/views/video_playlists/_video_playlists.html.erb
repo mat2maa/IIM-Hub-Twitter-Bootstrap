@@ -36,13 +36,15 @@
                             popup: true) if video_playlist.locked!=true %></td>
             <% if permitted_to? :delete,
                                 :video_playlists %>
-                <td><%= link_to 'Delete',
-                                remote: true,
-                                url: video_playlist_url(video_playlist),
-                                method: :delete,
-                                confirm: 'Are you sure?',
-                                loading: "Element.show('spinner')",
-                                complete: "Element.hide('spinner')" if video_playlist.locked!=true %></td>
+                <td>
+                  <%= link_to 'Delete',
+                              video_playlist_url(video_playlist),
+                              remote: true,
+                              method: :delete,
+                              confirm: 'Are you sure?',
+                              loading: "Element.show('spinner')",
+                              complete: "Element.hide('spinner')" if video_playlist.locked!=true %>
+                </td>
                 <td><%= link_to 'Duplicate',
                                 duplicate_video_playlist_path(video_playlist),
                                 confirm: 'Are you sure?',
@@ -50,7 +52,7 @@
             <% end %>
             <td>
               <% if permitted_to? :lock,
-                                  :videos_playlist %>
+                                  :video_playlists %>
                   <% if video_playlist.locked!=true %>
                       <%= link_to 'Lock',
                                   lock_video_playlist_path(video_playlist),
@@ -66,6 +68,8 @@
       <% end %>
     </table>
 
+    <br />
+    <br />
     <%=  will_paginate @video_playlists %>
 <% else %>
     No playlists were found

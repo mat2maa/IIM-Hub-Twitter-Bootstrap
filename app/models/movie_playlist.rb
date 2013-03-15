@@ -16,7 +16,7 @@ class MoviePlaylist < ActiveRecord::Base
                 "Malay Movie", "Mandarin Movie", "Norwegian Movie", "Persian Movie", "Portuguese Movie", "Russian Movie", 
                 "Spanish Movie", "Swedish Movie", "Thai Movie"]
 
-  attr_accessible :airline_id, :start_cycle, :end_cycle, :movie_type
+  attr_accessible :airline_id, :start_cycle, :end_cycle, :movie_type, :user_id
 
   def movie_playlist_items_sorted
     return MoviePlaylistItem.where(:movie_playlist_id => self.id)
