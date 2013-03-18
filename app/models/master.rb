@@ -7,7 +7,7 @@ class Master < ActiveRecord::Base
   
   accepts_nested_attributes_for :video
     
-  default_scope :order => 'location, episode_number'
+  #default_scope :order => 'location, episode_number'
   
   validates_presence_of :episode_title
   #PAL 25 fps, NTSC 30 fps

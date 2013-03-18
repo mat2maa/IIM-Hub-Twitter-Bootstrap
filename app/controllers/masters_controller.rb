@@ -3,22 +3,28 @@ class MastersController < ApplicationController
   filter_access_to :all
   
   def index   
-    @languages = MasterLanguage.find(:all, :order=>"name").collect{
-      |language| language.name
-    } 
+    @languages = MasterLanguage.order("name")
+                               .collect{|language| language.name}
      
-    if !params['search'].nil? 
-      @search = Master.new_search(params[:search])
-      @search.conditions.active_equals = true      
-      @search.conditions.video.programme_title_keywords = params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/, "")
-      @search.conditions.episode_title_keywords = params[:search][:conditions][:episode_title_keywords].gsub(/\'s|\'t/, "")
+    if !params['search'].nil?
+      @search = Master.ransack(params[:q])
+      @masters = @search.result( distinct: true )
+                        .paginate(page: params[:page], per_page: 10)
+      #@search.conditions.active_equals = true
+      #@search.conditions.video.programme_title_keywords =
+      # params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/, "")
+      #@search.conditions.episode_title_keywords = params[:search][:conditions][:episode_title_keywords].gsub
+      # (/\'s|\'t/, "")
     else
       #no search made yet
-      @search = Master.new_search(:order_by => :id, :order_as => "DESC")
-      @search.conditions.active_equals = true
-      
+      @search = Master.ransack(params[:q])
+      @masters = @search.result( distinct: true )
+                        .order("id DESC")
+                        .paginate(page: params[:page], per_page: 10)
+      #@search.conditions.active_equals = true
+
     end
-    @masters, @masters_count = @search.all, @search.count
+    @masters_count = @masters.count
     
     if @masters_count == 1
       redirect_to(edit_master_path(@masters.first))
@@ -28,9 +34,8 @@ class MastersController < ApplicationController
   end
   
   def new
-    @languages = MasterLanguage.find(:all, :order=>"name").collect{
-      |language| language.name
-    } 
+    @languages = MasterLanguage.order("name")
+                               .collect{|language| language.name}
       
     @master = Master.new
     @master.video_id = params[:id]
@@ -60,17 +65,21 @@ class MastersController < ApplicationController
   end
   
   def edit
-    @languages = MasterLanguage.find(:all, :order=>"name").collect{
-      |language| language.name
-    } 
+    @languages = MasterLanguage.order("name")
+                               .collect{|language| language.name}
     
     if !params['search'].nil? 
-      @search = Master.new_search(params[:search])
+      @search = Master.ransack(params[:q])
+      @masters = @search.result( distinct: true )
+                        .paginate(page: params[:page], per_page: 10)
     else
       #no search made yet
-      @search = Master.new_search(:order_by => :id, :order_as => "DESC")
+      @search = Master.ransack(params[:q])
+      @masters = @search.result( distinct: true )
+                        .order("id DESC")
+                        .paginate(page: params[:page], per_page: 10)
     end
-    @masters, @masters_count = @search.all, @search.count
+    @masters_count = @masters.count
     
     if !session[:masters_search].nil?
       ids = session[:masters_search] 
