@@ -171,8 +171,7 @@ class MoviesController < ApplicationController
       flash[:notice] = "Successfully deleted movie."
       @movie_is_deleted = true
 
-      #flash[:notice] = 'Movie could not be deleted,
-      movie is in use for by playlists '
+      #flash[:notice] = 'Movie could not be deleted, movie is in use for by playlists '
     end	
   	
     respond_to do |format|

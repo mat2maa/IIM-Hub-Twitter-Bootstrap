@@ -5,7 +5,7 @@
       <li><%= link_to "Dashboard", controller: "dashboard" %></li>
       <li><%= link_to "Songs Playlists", controller: "audio_playlists" %></li>
       <li id="curr-nav"><%= link_to "Albums Playlists", controller: "album_playlists" %></li>
-      <% if has_role?(:administrator) || has_role?(:programmer) %>
+      <% if has_role?(:super) || has_role?(:administrator) || has_role?(:programmer) %>
           <li><%= link_to "Albums", controller: "albums" %></li>
           <li><%= link_to "Songs", controller: "tracks" %></li>
           <li><%= link_to "Settings", settings_path %></li>

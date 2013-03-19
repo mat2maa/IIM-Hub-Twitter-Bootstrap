@@ -47,16 +47,12 @@ class AlbumsController < ApplicationController
     rg = ResponseGroup.new('Images')
     @is.response_group = ResponseGroup.new(:Images)
 
-    # Search for the items,
-    passing the result into a block.
-                                  #
-                                  nr_items = 0
+    # Search for the items,passing the result into a block.
+    nr_items = 0
     page_nr = 0
 
     begin
-#      @response = request.search( @is,
-      rg,
-      :ALL_PAGES)
+    # @response = request.search( @is, rg, :ALL_PAGES)
       @response = request.search(@is,
                                  1)
       @images = ''
@@ -133,10 +129,7 @@ class AlbumsController < ApplicationController
         #set defaults for tracks
         @album.tracks.each do |track|
           track.label = @album.label.name if !@album.label_id.nil?
-          #update all tracks with values from album (genre,
-          gender,
-              origin,
-              language)
+          #update all tracks with values from album (genre, gender, origin, language)
           track.language_id = @album.language_id if track.language_id.nil?
           track.origin_id = @album.origin_id if track.origin_id.nil?
           track.gender = @album.gender if track.gender.nil?

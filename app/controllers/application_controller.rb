@@ -1,12 +1,10 @@
 # Filters added to this controller apply to all controllers in the application.
-# Likewise,
-all the methods added will be available for all controllers.
+# Likewise, all the methods added will be available for all controllers.
 
     class ApplicationController < ActionController::Base
                                           protect_from_forgery
 
-                                          helper :all # include all helpers,
-                                          all the time
+                                          helper :all # include all helpers,all the time
                                           helper_method :current_user_session,
                                                         :current_user,
                                                         :logged_in?

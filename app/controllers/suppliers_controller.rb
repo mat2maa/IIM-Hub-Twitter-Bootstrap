@@ -8,8 +8,7 @@ class SuppliersController < ApplicationController
   end
 
   def index
-    #@suppliers = Supplier.find(:all,
-    order : "company_name asc")
+    #@suppliers = Supplier.find(:all,order : "company_name asc")
     @search = Supplier.ransack(params[:q])
     @suppliers = @search.result(distinct: true)
     .paginate(page: params[:page],

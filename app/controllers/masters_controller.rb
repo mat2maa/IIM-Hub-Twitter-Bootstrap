@@ -13,11 +13,9 @@ class MastersController < ApplicationController
                 per_page: 10)
       #@search.conditions.active_equals = true
       #@search.conditions.video.programme_title_keywords =
-      # params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/,
-      "")
+      # params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/,"")
       #@search.conditions.episode_title_keywords = params[:search][:conditions][:episode_title_keywords].gsub
-      # (/\'s|\'t/,
-      "")
+      # # (/\'s|\'t/, "")
     else
       #no search made yet
       @search = Master.ransack(params[:q])
@@ -146,8 +144,7 @@ class MastersController < ApplicationController
       @master.save
       flash[:notice] = "Successfully deleted master."
 
-      # flash[:notice] = 'Master could not be deleted,
-      master is in use by playlists '
+      # flash[:notice] = 'Master could not be deleted, master is in use by playlists '
       @master_is_deleted = true
     end	
     respond_to do |format|    
