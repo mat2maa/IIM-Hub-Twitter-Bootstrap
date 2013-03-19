@@ -1,21 +1,27 @@
 class LabelsController < ApplicationController
   before_filter :require_user
-  cache_sweeper :label_sweeper, :only => [:new, :create, :update, :destroy]
-	filter_access_to :all
+  cache_sweeper :label_sweeper,
+                only: [:new,
+                       :create,
+                       :update,
+                       :destroy]
+  filter_access_to :all
 
-  before_filter only: [:index, :new] do
+  before_filter only: [:index,
+                       :new] do
     @label = Label.new
   end
 
   def index
     @labels = Label.order("name asc")
-                   .paginate(page: params[:page], per_page: 10)
+    .paginate(page: params[:page],
+              per_page: 10)
 
-	  respond_to do |format|
+    respond_to do |format|
       format.html # index.html.erb
     end
   end
-  
+
   def edit
     @label = Label.find(params[:id])
   end
@@ -31,17 +37,21 @@ class LabelsController < ApplicationController
 
     respond_to do |format|
       if @label.save
-        format.html { redirect_to @label, notice: 'Label was successfully created.' }
-        format.json { render json: @label, status: :created, location: @label }
+        format.html { redirect_to @label,
+                                  notice: 'Label was successfully created.' }
+        format.json { render json: @label,
+                             status: :created,
+                             location: @label }
         format.js
       else
         format.html { render action: "new" }
-        format.json { render json: @label.errors, status: :unprocessable_entity }
+        format.json { render json: @label.errors,
+                             status: :unprocessable_entity }
         format.js
       end
     end
   end
-  
+
   def update
     @label = Label.find(params[:id])
 
@@ -50,25 +60,27 @@ class LabelsController < ApplicationController
         flash[:notice] = 'Label was successfully updated.'
         format.html { redirect_to(labels_path) }
       else
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end
-  
+
   def destroy
-    
-	
-	@albums = Album.where("label_id = ?", params[:id])
-		
-	if  @albums.length.zero?
-  
+
+
+    @albums = Album.where("label_id = ?",
+                          params[:id])
+
+    if  @albums.length.zero?
+
       @label = Label.find(params[:id])
       @label.destroy
-	  
-	else
-	  flash[:notice] = 'Label could not be deleted, label is in use in some albums or tracks'
-	end
-	
+
+    else
+      flash[:notice] = 'Label could not be deleted,
+label is in use in some albums or tracks'
+    end
+
 
     respond_to do |format|
       format.html { redirect_to(labels_url) }

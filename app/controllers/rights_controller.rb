@@ -1,12 +1,13 @@
 class RightsController < ApplicationController
   before_filter :require_user
-	filter_access_to :all
- 	 
-	 def index
-      @search = Right.ransack(params[:q])
-      @rights = @search.result(distinct: true)
-                      .paginate(page: params[:page], per_page: 10)
-      @rights_count = @rights.count
+  filter_access_to :all
+
+  def index
+    @search = Right.ransack(params[:q])
+    @rights = @search.result(distinct: true)
+    .paginate(page: params[:page],
+              per_page: 10)
+    @rights_count = @rights.count
   end
 
   def new
@@ -18,11 +19,11 @@ class RightsController < ApplicationController
     if @right.save
       flash[:notice] = "Right created"
       respond_to do |format|
-        format.html  { redirect_to(rights_path) }
+        format.html { redirect_to(rights_path) }
         format.js
       end
     else
-      render :action => :new
+      render action: :new
     end
   end
 
@@ -36,14 +37,14 @@ class RightsController < ApplicationController
       flash[:notice] = "Right updated!"
       redirect_to rights_path
     else
-      render :action => :edit
+      render action: :edit
     end
   end
-  
+
   def destroy
-    @right = Right.find(params[:id]) 
-    @right.destroy 
-    flash[:notice] = 'Right successfully destroyed.' 
+    @right = Right.find(params[:id])
+    @right.destroy
+    flash[:notice] = 'Right successfully destroyed.'
     redirect_to rights_path
   end
 end

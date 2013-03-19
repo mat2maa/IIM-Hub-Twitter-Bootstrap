@@ -2,29 +2,32 @@ require "spreadsheet"
 require 'stringio'
 
 class VideoPlaylistsController < ApplicationController
-  layout "layouts/application" ,  :except => :export
+  layout "layouts/application",
+         except: :export
   before_filter :require_user
   filter_access_to :all
-  
+
   def index
-    if !params['search'].nil?
+    if !params[:q].nil?
       @search = VideoPlaylist.ransack(params[:q])
       @video_playlists = @search.result(distinct: true)
-                                .paginate(page: params[:page], per_page: 10)
+      .paginate(page: params[:page],
+                per_page: 10)
     else
       @search = VideoPlaylist.ransack(params[:q])
       @video_playlists = @search.result(distinct: true)
-                                .order("id DESC")
-                                .paginate(page: params[:page], per_page: 10)
+      .order("id DESC")
+      .paginate(page: params[:page],
+                per_page: 10)
     end
-    
-      @video_playlists_count = @video_playlists.count
+
+    @video_playlists_count = @video_playlists.count
   end
-  
+
   def new
-    @video_playlist = VideoPlaylist.new	
+    @video_playlist = VideoPlaylist.new
   end
-  
+
   def create
 
     @video_playlist = VideoPlaylist.new(params[:video_playlist])
@@ -38,18 +41,18 @@ class VideoPlaylistsController < ApplicationController
         format.html { redirect_to(edit_video_playlist_path(@video_playlist)) }
 
       else
-        format.html { render :action => "new" }
+        format.html { render action: "new" }
 
       end
     end
   end
-  
+
   def edit
-     
-    @video_playlist = VideoPlaylist.find(params[:id],:include=>[:video_playlist_items,:videos])    
+
+    @video_playlist = VideoPlaylist.find(params[:id], include: [:video_playlist_items, :videos])
     session[:videos_search] = collection_to_id_array(@video_playlist.videos)
-      
-  end 
+
+  end
 
   def update
     @video_playlist = VideoPlaylist.find(params[:id])
@@ -60,35 +63,39 @@ class VideoPlaylistsController < ApplicationController
         format.html { redirect_to(:back) }
 
       else
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
 
       end
     end
   end
-  
-  def show 
-    @video_playlist = VideoPlaylist.find(params[:id],:include=>[:video_playlist_items,:videos])
+
+  def show
+    @video_playlist = VideoPlaylist.find(params[:id], include: [:video_playlist_items, :videos])
   end
-  
+
   #display overlay
   def add_video_to_playlist
-    @languages = MasterLanguage.order("name").collect{|language| language.name}
-    
+    @languages = MasterLanguage.order("name").collect { |language| language.name }
+
     @video_playlist = VideoPlaylist.find(params[:id])
-    
+
     if !params[:video_playlists].nil?
       @search = Video.ransack(params[:q])
       @search.conditions.to_delete_equals = 0
-      @search.conditions.or_programme_title_keywords = params[:video_playlists][:conditions][:or_programme_title_keywords].gsub(/\'s|\'t/, "") 
-      @search.conditions.or_foreign_language_title_keywords = params[:video_playlists][:conditions][:or_programme_title_keywords].gsub(/\'s|\'t/, "") 
+      @search.conditions.or_programme_title_keywords = params[:video_playlists][:conditions][:or_programme_title_keywords].gsub(/\'s|\'t/,
+                                                                                                                                "")
+      @search.conditions.or_foreign_language_title_keywords = params[:video_playlists][:conditions][:or_programme_title_keywords].gsub(/\'s|\'t/,
+                                                                                                                                       "")
       if !params[:search].nil?
-        search = params[:search]  
-              
-        @search.per_page = search[:per_page] if !search[:per_page].nil? 
+        search = params[:search]
+
+        @search.per_page = search[:per_page] if !search[:per_page].nil?
         @search.page = search[:page] if !search[:page].nil?
       end
-      
-      @videos, @videos_count = @search.all, @search.count
+
+      @videos,
+          @videos_count = @search.all,
+          @search.count
       session[:videos_search] = collection_to_id_array(@videos)
 
     else
@@ -98,25 +105,29 @@ class VideoPlaylistsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html 
+      format.html
 
       format.js {
         if params[:video_playlists].nil? && params[:search].nil?
-          render :action => 'add_video_to_playlist.rhtml', :layout => false 
+          render action: 'add_video_to_playlist.rhtml',
+                 layout: false
         else
-          render :update do |page| 
-            page.replace_html "videos", :partial => "videos"
+          render :update do |page|
+            page.replace_html "videos",
+                              partial: "videos"
           end
-        end      
+        end
       }
     end
   end
-  
+
   #add video to playlist
   def add_video
 
     @video_playlist = VideoPlaylist.find(params[:id])
-    @video_playlist_item = VideoPlaylistItem.new(:video_playlist_id => params[:id], :video_id => params[:video_id], :position => @video_playlist.video_playlist_items.count + 1)
+    @video_playlist_item = VideoPlaylistItem.new(video_playlist_id: params[:id],
+                                                 video_id: params[:video_id],
+                                                 position: @video_playlist.video_playlist_items.count + 1)
 
     @notice=""
 
@@ -126,25 +137,27 @@ class VideoPlaylistsController < ApplicationController
       flash[:notice] = 'Video was successfully added.'
       session[:videos_search] = collection_to_id_array(@video_playlist.videos)
     end
-  end  
-  
+  end
+
   #add selected videos to playlist
   def add_multiple_videos
-    
+
     @notice = ""
     @video_playlist = VideoPlaylist.find(params[:playlist_id])
     video_ids = params[:video_ids]
-    
+
     video_ids.each do |video_id|
-      @video_playlist_item = VideoPlaylistItem.new(:video_playlist_id => params[:playlist_id], :video_id => video_id, :position => @video_playlist.video_playlist_items.count + 1)
-    
+      @video_playlist_item = VideoPlaylistItem.new(video_playlist_id: params[:playlist_id],
+                                                   video_id: video_id,
+                                                   position: @video_playlist.video_playlist_items.count + 1)
+
       @video_to_add = Video.find(video_id)
       if @video_playlist_item.save
-          flash[:notice] = 'Videos were successfully added.'
-          session[:videos_search] = collection_to_id_array(@video_playlist.videos)          
+        flash[:notice] = 'Videos were successfully added.'
+        session[:videos_search] = collection_to_id_array(@video_playlist.videos)
       end
     end # loop through video ids
-    
+
   end
 
   def destroy
@@ -161,9 +174,9 @@ class VideoPlaylistsController < ApplicationController
 
     @playlist = VideoPlaylist.find(params[:id])
     @playlist_duplicate = VideoPlaylist.create(
-        :start_cycle => @playlist.start_cycle,
-        :end_cycle => @playlist.end_cycle,
-        :user_id => current_user.id
+        start_cycle: @playlist.start_cycle,
+        end_cycle: @playlist.end_cycle,
+        user_id: current_user.id
     )
 
     @video_playlist_items = VideoPlaylistItem.where("video_playlist_id=#{@playlist.id}").order("position ASC")
@@ -171,9 +184,9 @@ class VideoPlaylistsController < ApplicationController
     @video_playlist_items.each do |item|
 
       VideoPlaylistItem.create(
-          :video_id => item.video_id,
-          :position => item.position,
-          :video_playlist_id => @playlist_duplicate.id
+          video_id: item.video_id,
+          position: item.position,
+          video_playlist_id: @playlist_duplicate.id
       )
 
     end
@@ -204,28 +217,29 @@ class VideoPlaylistsController < ApplicationController
       format.html { redirect_to(video_playlists_path) }
     end
   end
-  
+
   def print
 
-    @video_playlist = VideoPlaylist.find(params[:id]) 	
-    
+    @video_playlist = VideoPlaylist.find(params[:id])
+
     if @video_playlist.video_playlist_type.nil?
       video_type = " "
     else
       video_type = " " + @video_playlist.video_playlist_type.name
     end
-    
-    headers["Content-Disposition"] =  "attachment; filename=\"#{@video_playlist.airline.code if !@video_playlist.airline.nil? }#{@video_playlist.start_cycle.strftime("%m%y")}#{video_type}.pdf\""        
+
+    headers["Content-Disposition"] = "attachment; filename=\"#{@video_playlist.airline.code if !@video_playlist.airline.nil? }#{@video_playlist.start_cycle.strftime("%m%y")}#{video_type}.pdf\""
 
     respond_to do |format|
       format.html
       format.pdf {
-        render :text => PDFKit.new(print_video_playlist_url(@video_playlist)).to_pdf, :layout => false 
+        render text: PDFKit.new(print_video_playlist_url(@video_playlist)).to_pdf,
+               layout: false
       }
     end
   end
-  
-  
+
+
   def export_to_excel
     @video_playlist = VideoPlaylist.find(params[:id])
 
@@ -233,7 +247,9 @@ class VideoPlaylistsController < ApplicationController
 
     book = Spreadsheet::Workbook.new
     sheet = SheetWrapper.new(book.create_worksheet)
-    sheet.add_row ["Airline Name", "Start Cycle", "End Cycle"]
+    sheet.add_row ["Airline Name",
+                   "Start Cycle",
+                   "End Cycle"]
 
     if @video_playlist.airline_id.nil?
       airline_code = ''
@@ -243,15 +259,28 @@ class VideoPlaylistsController < ApplicationController
       airline_name = @video_playlist.airline.name
     end
 
-    sheet.add_row [airline_code, airline_name, @video_playlist.start_cycle.strftime("%B"),  @video_playlist.start_cycle.strftime("%Y"), @video_playlist.end_cycle.strftime("%B"),  @video_playlist.end_cycle.strftime("%Y")]
+    sheet.add_row [airline_code,
+                   airline_name,
+                   @video_playlist.start_cycle.strftime("%B"),
+                   @video_playlist.start_cycle.strftime("%Y"),
+                   @video_playlist.end_cycle.strftime("%B"),
+                   @video_playlist.end_cycle.strftime("%Y")]
 
     sheet.add_lines(1)
-    
+
     video_playlist_items = @video_playlist.video_playlist_items_sorted
-    
+
     # Video Playlist Summary
     # header row
-    sheet.add_row ["Position", "Programme Title", "Distributor", "Genre", "Commercial Run Time", "Lang Tracks", "Lang Subtitles", "Synopsis", "Poster"]
+    sheet.add_row ["Position",
+                   "Programme Title",
+                   "Distributor",
+                   "Genre",
+                   "Commercial Run Time",
+                   "Lang Tracks",
+                   "Lang Subtitles",
+                   "Synopsis",
+                   "Poster"]
 
     # data rows
     video_playlist_items.each do |video_playlist_item|
@@ -261,42 +290,55 @@ class VideoPlaylistsController < ApplicationController
       else
         video_distributor = video_playlist_item.video.video_distributor.company_name
       end
-      
+
       if video_playlist_item.video.commercial_run_time.nil?
         runtime = ""
       else
         runtime = video_playlist_item.video.commercial_run_time.minutes
       end
-      
-      sheet.add_row [video_playlist_item.position, 
-        video_playlist_item.video.programme_title, 
-        video_distributor, 
-        video_playlist_item.video.video_genres_string_with_parent, 
-        runtime,
-        (video_playlist_item.video.language_tracks.nil? ? "" : video_playlist_item.video.language_tracks.join(', ')), 
-        (video_playlist_item.video.language_subtitles.nil? ? "" : video_playlist_item.video.language_subtitles.join(', ')), 
-        video_playlist_item.video.synopsis, 
-        "http://hub.iim.com.sg" + video_playlist_item.video.poster.url]
-      end
 
-      sheet.add_lines(1)
+      sheet.add_row [video_playlist_item.position,
+
+                     video_playlist_item.video.programme_title,
+
+                     video_distributor,
+
+                     video_playlist_item.video.video_genres_string_with_parent,
+
+                     runtime,
+                     (video_playlist_item.video.language_tracks.nil? ? "" : video_playlist_item.video.language_tracks.join(',
+')),
+
+                     (video_playlist_item.video.language_subtitles.nil? ? "" : video_playlist_item.video.language_subtitles.join(',
+')),
+
+                     video_playlist_item.video.synopsis,
+
+                     "http://hub.iim.com.sg" + video_playlist_item.video.poster.url]
+    end
+
+    sheet.add_lines(1)
 
     if @video_playlist.video_playlist_type.nil?
       video_type = " "
     else
       video_type = " " + @video_playlist.video_playlist_type.name
     end
-    
+
     data = StringIO.new ''
     book.write data
-    send_data data.string, :type=>"application/excel", 
-    :disposition=>'attachment', :filename => "#{airline_code}#{@video_playlist.start_cycle.strftime("%m%y")}#{video_type}.xls"
+    send_data data.string,
+              type: "application/excel",
+              disposition: 'attachment',
+              filename: "#{airline_code}#{@video_playlist.start_cycle.strftime("%m%y")}#{video_type}.xls"
   end
-  
+
   def sort
-    params[:videoplaylist].each_with_index do |id, pos|
-      VideoPlaylistItem.find(id).update_attribute(:position, pos+1)
+    params[:videoplaylist].each_with_index do |id,
+        pos|
+      VideoPlaylistItem.find(id).update_attribute(:position,
+                                                  pos+1)
     end
-    render :nothing => true
+    render nothing: true
   end
 end

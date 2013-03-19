@@ -2,13 +2,15 @@ class VosController < ApplicationController
   before_filter :require_user
   filter_access_to :all
 
-  before_filter only: [:index, :new] do
+  before_filter only: [:index,
+                       :new] do
     @vo = Vo.new
   end
 
   def index
     @vos = Vo.order("name asc")
-             .paginate(page: params[:page], per_page: 10)
+    .paginate(page: params[:page],
+              per_page: 10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -30,12 +32,16 @@ class VosController < ApplicationController
 
     respond_to do |format|
       if @vo.save
-        format.html { redirect_to @vo, notice: 'VO was successfully created.' }
-        format.json { render json: @vo, status: :created, location: @vo }
+        format.html { redirect_to @vo,
+                                  notice: 'VO was successfully created.' }
+        format.json { render json: @vo,
+                             status: :created,
+                             location: @vo }
         format.js
       else
         format.html { render action: "new" }
-        format.json { render json: @vo.errors, status: :unprocessable_entity }
+        format.json { render json: @vo.errors,
+                             status: :unprocessable_entity }
         format.js
       end
     end
@@ -49,7 +55,7 @@ class VosController < ApplicationController
         flash[:notice] = 'Vo was successfully updated.'
         format.html { redirect_to(vos_path) }
       else
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end
@@ -57,7 +63,8 @@ class VosController < ApplicationController
   def destroy
 
 
-    @playlists = AudioPlaylist.includes(:vo).where("vos.id = ?", params[:id])
+    @playlists = AudioPlaylist.includes(:vo).where("vos.id = ?",
+                                                   params[:id])
 
     if  @playlists.length.zero?
 
@@ -65,7 +72,8 @@ class VosController < ApplicationController
       @vo.destroy
 
     else
-      flash[:notice] = 'VO could not be deleted, VO is in use in a playlist'
+      flash[:notice] = 'VO could not be deleted,
+VO is in use in a playlist'
     end
 
     respond_to do |format|

@@ -1,20 +1,22 @@
 class VideoPlaylistTypesController < ApplicationController
   before_filter :require_user
-	filter_access_to :all
+  filter_access_to :all
 
-  before_filter only: [:index, :new] do
+  before_filter only: [:index,
+                       :new] do
     @video_playlist_type = VideoPlaylistType.new
   end
 
   def index
     @video_playlist_types = VideoPlaylistType.order("name asc")
-                                             .paginate(page: params[:page], per_page: 10)
+    .paginate(page: params[:page],
+              per_page: 10)
 
     respond_to do |format|
       format.html # index.html.erb
     end
   end
-  
+
   def edit
     @video_playlist_type = VideoPlaylistType.find(params[:id])
   end
@@ -30,17 +32,21 @@ class VideoPlaylistTypesController < ApplicationController
 
     respond_to do |format|
       if @video_playlist_type.save
-        format.html { redirect_to @video_playlist_type, notice: 'Video Playlist Type was successfully created.' }
-        format.json { render json: @video_playlist_type, status: :created, location: @video_playlist_type }
+        format.html { redirect_to @video_playlist_type,
+                                  notice: 'Video Playlist Type was successfully created.' }
+        format.json { render json: @video_playlist_type,
+                             status: :created,
+                             location: @video_playlist_type }
         format.js
       else
         format.html { render action: "new" }
-        format.json { render json: @video_playlist_type.errors, status: :unprocessable_entity }
+        format.json { render json: @video_playlist_type.errors,
+                             status: :unprocessable_entity }
         format.js
       end
     end
   end
-  
+
   def update
     @video_playlist_type = VideoPlaylistType.find(params[:id])
 
@@ -50,22 +56,25 @@ class VideoPlaylistTypesController < ApplicationController
         flash[:notice] = 'VideoPlaylistType was successfully updated.'
         format.html { redirect_to(video_playlist_types_path) }
       else
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end
-  
+
   def destroy
-    
-	  id = params[:id]
-		@master_playlists = VideoMasterPlaylistItem.where("video_playlist_type_id = ?", id)
-		@screener_playlists = ScreenerPlaylistItem.where("video_playlist_type_id = ?", id)
-		if @master_playlists.length.zero? &&  @screener_playlists.length.zero?  
+
+    id = params[:id]
+    @master_playlists = VideoMasterPlaylistItem.where("video_playlist_type_id = ?",
+                                                      id)
+    @screener_playlists = ScreenerPlaylistItem.where("video_playlist_type_id = ?",
+                                                     id)
+    if @master_playlists.length.zero? && @screener_playlists.length.zero?
       @video_playlist_type = VideoPlaylistType.find(id)
       @video_playlist_type.destroy
-		else
-			flash[:notice] = 'VideoPlaylistType could not be deleted, video_playlist_type is in use in some tracks'
-		end
+    else
+      flash[:notice] = 'VideoPlaylistType could not be deleted,
+video_playlist_type is in use in some tracks'
+    end
 
     respond_to do |format|
       format.html { redirect_to(video_playlist_types_url) }

@@ -1,19 +1,21 @@
 class MovieGenresController < ApplicationController
   before_filter :require_user
-	filter_access_to :all
+  filter_access_to :all
 
-  before_filter only: [:index, :new] do
+  before_filter only: [:index,
+                       :new] do
     @movie_genre = MovieGenre.new
   end
 
   def index
     @movie_genres = MovieGenre.order("name asc")
-                              .paginate(page: params[:page], per_page: 10)
-	  respond_to do |format|
+    .paginate(page: params[:page],
+              per_page: 10)
+    respond_to do |format|
       format.html # index.html.erb
     end
   end
-  
+
   def edit
     @movie_genre = MovieGenre.find(params[:id])
   end
@@ -29,17 +31,21 @@ class MovieGenresController < ApplicationController
 
     respond_to do |format|
       if @movie_genre.save
-        format.html { redirect_to @movie_genre, notice: 'Movie Genre was successfully created.' }
-        format.json { render json: @movie_genre, status: :created, location: @movie_genre }
+        format.html { redirect_to @movie_genre,
+                                  notice: 'Movie Genre was successfully created.' }
+        format.json { render json: @movie_genre,
+                             status: :created,
+                             location: @movie_genre }
         format.js
       else
         format.html { render action: "new" }
-        format.json { render json: @movie_genre.errors, status: :unprocessable_entity }
+        format.json { render json: @movie_genre.errors,
+                             status: :unprocessable_entity }
         format.js
       end
     end
   end
-  
+
   def update
     @movie_genre = MovieGenre.find(params[:id])
 
@@ -49,21 +55,23 @@ class MovieGenresController < ApplicationController
         flash[:notice] = 'MovieGenre was successfully updated.'
         format.html { redirect_to(movie_genres_path) }
       else
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end
-  
+
   def destroy
-    
-	  id = params[:id]
-		@movies = Movie.where("movie_genre_id = ?", id)
-		if @movies.length.zero?  
+
+    id = params[:id]
+    @movies = Movie.where("movie_genre_id = ?",
+                          id)
+    if @movies.length.zero?
       @movie_genre = MovieGenre.find(id)
       @movie_genre.destroy
-		else
-			flash[:notice] = 'MovieGenre could not be deleted, movie_genre is in use in some tracks'
-		end
+    else
+      flash[:notice] = 'MovieGenre could not be deleted,
+movie_genre is in use in some tracks'
+    end
 
     respond_to do |format|
       format.html { redirect_to(movie_genres_url) }

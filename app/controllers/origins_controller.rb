@@ -1,20 +1,22 @@
 class OriginsController < ApplicationController
   before_filter :require_user
-	filter_access_to :all
+  filter_access_to :all
 
-  before_filter only: [:index, :new] do
+  before_filter only: [:index,
+                       :new] do
     @origin = Origin.new
   end
 
   def index
     @origins = Origin.order("name asc")
-                     .paginate(page: params[:page], per_page: 10)
+    .paginate(page: params[:page],
+              per_page: 10)
 
-  	respond_to do |format|
+    respond_to do |format|
       format.html # index.html.erb
     end
   end
-  
+
   def edit
     @origin = Origin.find(params[:id])
   end
@@ -30,17 +32,21 @@ class OriginsController < ApplicationController
 
     respond_to do |format|
       if @origin.save
-        format.html { redirect_to @origin, notice: 'Origin was successfully created.' }
-        format.json { render json: @origin, status: :created, location: @origin }
+        format.html { redirect_to @origin,
+                                  notice: 'Origin was successfully created.' }
+        format.json { render json: @origin,
+                             status: :created,
+                             location: @origin }
         format.js
       else
         format.html { render action: "new" }
-        format.json { render json: @origin.errors, status: :unprocessable_entity }
+        format.json { render json: @origin.errors,
+                             status: :unprocessable_entity }
         format.js
       end
     end
   end
-  
+
   def update
     @origin = Origin.find(params[:id])
 
@@ -49,24 +55,26 @@ class OriginsController < ApplicationController
         flash[:notice] = 'Origin was successfully updated.'
         format.html { redirect_to(origins_path) }
       else
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end
-  
+
   def destroy
-   
-	
-	@tracks = Track.where("origin_id = ?", params[:id])
-		
-	if  @tracks.length.zero?
-  
+
+
+    @tracks = Track.where("origin_id = ?",
+                          params[:id])
+
+    if  @tracks.length.zero?
+
       @origin = Origin.find(params[:id])
       @origin.destroy
-	  
-	else
-	  flash[:notice] = 'Origin could not be deleted, origin is in use in some tracks'
-	end
+
+    else
+      flash[:notice] = 'Origin could not be deleted,
+origin is in use in some tracks'
+    end
 
     respond_to do |format|
       format.html { redirect_to(origins_url) }

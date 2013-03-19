@@ -1,132 +1,146 @@
 class ScreenersController < ApplicationController
   before_filter :require_user
   filter_access_to :all
-  
-  def index    
-    @languages = MasterLanguage.find(:all, :order=>"name").collect{
-      |language| language.name
-    } 
-    
-    if !params['search'].nil? 
+
+  def index
+    @languages = MasterLanguage.find(:all,
+                                     order: "name").collect {
+        |language| language.name
+    }
+
+    if !params[:q].nil?
       @search = Screener.new_search(params[:search])
-      @search.conditions.active_equals = true      
-      @search.conditions.video.programme_title_keywords = params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/, "")
-      @search.conditions.episode_title_keywords = params[:search][:conditions][:episode_title_keywords].gsub(/\'s|\'t/, "")      
+      @search.conditions.active_equals = true
+      @search.conditions.video.programme_title_keywords = params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/,
+                                                                                                                               "")
+      @search.conditions.episode_title_keywords = params[:search][:conditions][:episode_title_keywords].gsub(/\'s|\'t/,
+                                                                                                             "")
     else
       #no search made yet
-      @search = Screener.new_search(:order_by => :id, :order_as => "DESC")
+      @search = Screener.new_search(order_by: :id,
+                                    order_as: "DESC")
       @search.conditions.active_equals = true
-      
+
     end
-    @screeners, @screeners_count = @search.all, @search.count
-    
+    @screeners,
+        @screeners_count = @search.all,
+        @search.count
+
     if @screeners_count == 1
       redirect_to(edit_screener_path(@screeners.first))
     end
-    
+
     session[:screeners_search] = collection_to_id_array(@screeners)
   end
-  
+
   def new
-    @languages = MasterLanguage.find(:all, :order=>"name").collect{
-      |language| language.name
-    } 
-    
+    @languages = MasterLanguage.find(:all,
+                                     order: "name").collect {
+        |language| language.name
+    }
+
     @screener = Screener.new
     @screener.video_id = params[:id]
     respond_to do |format|
-      format.js {render :layout => false}    
+      format.js { render layout: false }
     end
   end
-  
+
   def create
-    
-    @screener = Screener.new(params[:screener])  
-    
+
+    @screener = Screener.new(params[:screener])
+
     if @screener.save
-        respond_to do |format|
-          flash[:notice] = "Successfully created screener."
-          format.html { redirect_to edit_cms_video_url(@screener.video) }  
-          format.js {render :layout => false}
-        end
-      else
-        respond_to do |format|
-          format.html { render :action => 'new' }
-          format.js { render :action => 'error.js.erb', :layout => false } 
-        end
+      respond_to do |format|
+        flash[:notice] = "Successfully created screener."
+        format.html { redirect_to edit_cms_video_url(@screener.video) }
+        format.js { render layout: false }
       end
+    else
+      respond_to do |format|
+        format.html { render action: 'new' }
+        format.js { render action: 'error.js.erb',
+                           layout: false }
+      end
+    end
   end
-  
+
   def edit
-    @languages = MasterLanguage.find(:all, :order=>"name").collect{
-      |language| language.name
-    } 
-    
-    if !params['search'].nil? 
+    @languages = MasterLanguage.find(:all,
+                                     order: "name").collect {
+        |language| language.name
+    }
+
+    if !params[:q].nil?
       @search = Screener.new_search(params[:search])
     else
       #no search made yet
-      @search = Screener.new_search(:order_by => :id, :order_as => "DESC")
+      @search = Screener.new_search(order_by: :id,
+                                    order_as: "DESC")
     end
-    @screeners, @screeners_count = @search.all, @search.count
-    
+    @screeners,
+        @screeners_count = @search.all,
+        @search.count
+
     if !session[:screeners_search].nil?
-      ids = session[:screeners_search] 
+      ids = session[:screeners_search]
       id = ids.index(params[:id].to_i)
       if !id.nil?
         @next_id = ids[id+1] if (id+1 < ids.count)
         @prev_id = ids[id-1] if (id-1 >= 0)
       end
     end
-    
-    @screener = Screener.find(params[:id])  
+
+    @screener = Screener.find(params[:id])
     respond_to do |format|
-      format.js {render :layout => false}    
-      format.html {}    
-    end    
+      format.js { render layout: false }
+      format.html {}
+    end
   end
 
-  
-  def update 
-    
+
+  def update
+
     @screener = Screener.find(params[:id])
-    
-    if @screener.update_attributes(params[:screener])      
-      respond_to do |format|    
-        format.html { 
+
+    if @screener.update_attributes(params[:screener])
+      respond_to do |format|
+        format.html {
           flash[:notice] = "Successfully updated screener."
-          redirect_to edit_screener_url(@screener.id) 
-        } 
-        format.js {render :layout => false}
+          redirect_to edit_screener_url(@screener.id)
+        }
+        format.js { render layout: false }
       end
     else
       respond_to do |format|
-        format.html { render :action => 'edit' }
-        format.js { render :action => 'error.js.erb', :layout => false } 
+        format.html { render action: 'edit' }
+        format.js { render action: 'error.js.erb',
+                           layout: false }
       end
     end
   end
-  
-  
-  
+
+
   def destroy
     @screener = Screener.find(params[:id])
 
-    if permitted_to? :admin_delete, :screeners
+    if permitted_to? :admin_delete,
+                     :screeners
       #check if video is in any playlists
-      tot_playlists =ScreenerPlaylistItem.count(:conditions => 'screener_id=' + @screener.id.to_s )
+      tot_playlists =ScreenerPlaylistItem.count(conditions: 'screener_id=' + @screener.id.to_s)
 
       if tot_playlists.zero?
         @screener.destroy
         flash[:notice] = "Successfully deleted screener."
         @screener_is_deleted = true
-        
-  	  else
-  	    @screener.active = false
-  	    @screener.save
-  	    flash[:notice] = "Successfully deleted screener."      
 
-        # flash[:notice] = 'Screener could not be deleted, screener is in use by playlists'
+      else
+        @screener.active = false
+        @screener.save
+        flash[:notice] = "Successfully deleted screener."
+
+        # flash[:notice] = 'Screener could not be deleted,
+        screener is in use by playlists '
         @screener_is_deleted = true
       end	
       
@@ -137,7 +151,7 @@ class ScreenersController < ApplicationController
       format.html { redirect_to edit_video_url(@screener.video.id) } 
       format.js {
         
-        render :layout => false
+        render layout:  false
         redirect_to videos_url
       }
     end
@@ -149,7 +163,7 @@ class ScreenersController < ApplicationController
        
     respond_to do |format|
       format.html { redirect_to edit_video_url(@screener.video.id) } 
-      format.js { render :layout => false} 
+      format.js { render layout:  false}
     end    
   end
   

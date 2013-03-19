@@ -1,67 +1,74 @@
 class VideosController < ApplicationController
   before_filter :require_user
   filter_access_to :all
-  
+
   def index
     @languages = IIM::MOVIE_LANGUAGES
-        
-    if !params['search'].nil? 
+
+    if !params[:q].nil?
       if !params[:language].nil?
         #before search
         if params[:language][:track]!="" && params[:language][:subtitle]==""
           @search = Video.with_language_track(params[:language][:track]).ransack(params[:q])
           @videos = @search.result(distinct: true)
-                           .paginate(page: params[:page], per_page: 10)
+          .paginate(page: params[:page],
+                    per_page: 10)
           #@search.conditions.active_equals = true
-          
+
         elsif params[:language][:subtitle]!="" && params[:language][:track]=="" && !params[:language].nil?
           @search = Video.with_language_subtitle(params[:language][:subtitle]).ransack(params[:q])
           @videos = @search.result(distinct: true)
-                           .paginate(page: params[:page], per_page: 10)
+          .paginate(page: params[:page],
+                    per_page: 10)
           #@search.conditions.active_equals = true
-          
+
         elsif params[:language][:subtitle]!="" && params[:language][:track]!="" && !params[:language].nil?
           @search = Video.with_language_subtitle(params[:language][:subtitle])
-                         .with_language_track(params[:language][:track]).ransack(params[:q])
+          .with_language_track(params[:language][:track]).ransack(params[:q])
           @videos = @search.result(distinct: true)
-                           .paginate(page: params[:page], per_page: 10)
+          .paginate(page: params[:page],
+                    per_page: 10)
           #@search.conditions.active_equals = true
-          
+
         else
           @search = Video.ransack(params[:q])
           @videos = @search.result(distinct: true)
-                           .paginate(page: params[:page], per_page: 10)
+          .paginate(page: params[:page],
+                    per_page: 10)
           #@search.conditions.active_equals = true
-          @search.conditions.programme_title_cont = params[:q][:conditions][:programme_title_cont].gsub(/\'s|\'t/, "")
+          @search.conditions.programme_title_cont = params[:q][:conditions][:programme_title_cont].gsub(/\'s|\'t/,
+                                                                                                        "")
           #@search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:programme_title_keywords]           
         end
-      else      
+      else
         @search = Video.ransack(params[:q])
         @videos = @search.result(distinct: true)
-                         .paginate(page: params[:page], per_page: 10)
+        .paginate(page: params[:page],
+                  per_page: 10)
         #@search.conditions.active_equals = true
       end
 
-    else 
+    else
       @search = Video.ransack(params[:q])
       @videos = @search.result(distinct: true)
-                       .order("id DESC")
-                       .paginate(page: params[:page], per_page: 10)
+      .order("id DESC")
+      .paginate(page: params[:page],
+                per_page: 10)
       #@search.conditions.active_equals = true
     end
     @search.conditions.screeners_count_gteq = params[:screeners].to_i if params[:screeners]=='1'
     @search.conditions.masters_count_gteq = params[:masters].to_i if params[:masters]=='1'
     #@search.conditions.active_equals = true
-    
-    
+
+
     @videos_count = @videos.count
-  
+
     if @videos_count == 1
       redirect_to(edit_video_path(@videos.first))
     end
-    
+
     session[:videos_search] = collection_to_id_array(@videos)
-    
+
   end
 
 
@@ -71,49 +78,51 @@ class VideosController < ApplicationController
   end
 
   def new
-      @video_genres = VideoParentGenre.find(:all)
-      @languages = IIM::MOVIE_LANGUAGES
-      
-      @video = Video.new
-      if !params[:video_type].nil?
-        @video.movie_id=params[:id]
-        @video.video_type=CGI.unescape(params[:video_type]) 
-        if @video.video_type == "Movie EPK" || @video.video_type == "Movie Master" || @video.video_type == "TV Special" || @video.video_type == "Movie Trailer"
-          movie = Movie.find(@video.movie_id)
-          
-          @existing_video = Video.where("programme_title=? AND video_type=?", movie.movie_title, @video.video_type)
-          
-          if !@existing_video.nil?
-            redirect_to edit_video_path(@existing_video)
-          end
-          
-          @video.programme_title = movie.movie_title
-          @video.foreign_language_title = movie.foreign_language_title
-          @video.video_distributor = movie.movie_distributor
-          @video.production_studio = movie.production_studio
-          @video.laboratory_id = movie.laboratory_id
-          @video.language_tracks = movie.language_tracks        
-          @video.language_subtitles = movie.language_subtitles        
-          @video.synopsis = movie.synopsis     
-        else
-          @video.language_tracks = ["En"]   
+    @video_genres = VideoParentGenre.find(:all)
+    @languages = IIM::MOVIE_LANGUAGES
+
+    @video = Video.new
+    if !params[:video_type].nil?
+      @video.movie_id=params[:id]
+      @video.video_type=CGI.unescape(params[:video_type])
+      if @video.video_type == "Movie EPK" || @video.video_type == "Movie Master" || @video.video_type == "TV Special" || @video.video_type == "Movie Trailer"
+        movie = Movie.find(@video.movie_id)
+
+        @existing_video = Video.where("programme_title=? AND video_type=?",
+                                      movie.movie_title,
+                                      @video.video_type)
+
+        if !@existing_video.nil?
+          redirect_to edit_video_path(@existing_video)
         end
+
+        @video.programme_title = movie.movie_title
+        @video.foreign_language_title = movie.foreign_language_title
+        @video.video_distributor = movie.movie_distributor
+        @video.production_studio = movie.production_studio
+        @video.laboratory_id = movie.laboratory_id
+        @video.language_tracks = movie.language_tracks
+        @video.language_subtitles = movie.language_subtitles
+        @video.synopsis = movie.synopsis
       else
         @video.language_tracks = ["En"]
       end
-      @video.production_year = Date.today.year
-      
-      if @video.video_type == "Movie Master"
-        #@video.screeners.build
-        @video.masters.build
-      end 
-      
-      master = Master.where("location IS NOT NULL").order("location DESC").limit(1)
-      if !master.nil?
-        @master_location = master.location + 1
-      else
-        @master_location = 0 
-      end
+    else
+      @video.language_tracks = ["En"]
+    end
+    @video.production_year = Date.today.year
+
+    if @video.video_type == "Movie Master"
+      #@video.screeners.build
+      @video.masters.build
+    end
+
+    master = Master.where("location IS NOT NULL").order("location DESC").limit(1)
+    if !master.nil?
+      @master_location = master.location + 1
+    else
+      @master_location = 0
+    end
   end
 
   def create
@@ -124,46 +133,56 @@ class VideosController < ApplicationController
     @video.programme_title = @video.programme_title.upcase
     @video.foreign_language_title = @video.foreign_language_title.upcase if !@video.foreign_language_title.nil?
 
-    # if production studio is empty, set it to the same as movie distributor supplier
-    if @video.production_studio_id.nil? 
-      count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", @video.video_distributor_id, "Production Studios"]) 
+    # if production studio is empty,
+    set it to the same as movie distributor supplier
+    if @video.production_studio_id.nil?
+      count_suppliers = SupplierCategory.count('supplier_id',
+                                               include: :suppliers,
+                                               conditions: ["supplier_id = ? and supplier_categories.name = ? ",
+                                                            @video.video_distributor_id,
+                                                            "Production Studios"])
       @video.production_studio_id = @video.video_distributor_id if !count_suppliers.zero?
     end
-    
-    if @video.laboratory_id.nil? 
-      count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", @video.video_distributor_id, "Laboratories"]) 
+
+    if @video.laboratory_id.nil?
+      count_suppliers = SupplierCategory.count('supplier_id',
+                                               include: :suppliers,
+                                               conditions: ["supplier_id = ? and supplier_categories.name = ? ",
+                                                            @video.video_distributor_id,
+                                                            "Laboratories"])
       @video.laboratory_id = @video.video_distributor_id if !count_suppliers.zero?
     end
 
 #    respond_to do |format|
-      if @video.save
-        flash[:notice] = 'Video was successfully created.'
-        redirect_to edit_video_path(@video)
-      else
-        render :action => 'new'
-      end
- #   end
+    if @video.save
+      flash[:notice] = 'Video was successfully created.'
+      redirect_to edit_video_path(@video)
+    else
+      render action: 'new'
+    end
+    #   end
   end
 
   def edit
     @search = Video.ransack(params[:q])
     @videos = @search.result(distinct: true)
-                     .paginate(page: params[:page], per_page: 10)
+    .paginate(page: params[:page],
+              per_page: 10)
     @videos_count = @videos.count
 
-    @languages = IIM::MOVIE_LANGUAGES  
-      
+    @languages = IIM::MOVIE_LANGUAGES
+
     @video = Video.find(params[:id])
     @video_genres = VideoParentGenre.all
     if !session[:videos_search].nil?
-      ids = session[:videos_search] 
+      ids = session[:videos_search]
       id = ids.index(params[:id].to_i)
       if !id.nil?
         @next_id = ids[id+1] if (id+1 < ids.count)
         @prev_id = ids[id-1] if (id-1 >= 0)
       end
     end
-      
+
 =begin
     master = Master.where("location IS NOT NULL").order("location DESC").limit(1)
 
@@ -176,9 +195,9 @@ class VideosController < ApplicationController
 
   end
 
-  def update     
+  def update
     @video_genres = VideoParentGenre.all
-    
+
     @video = Video.find(params[:id])
     params[:video][:programme_title] = params[:video][:programme_title].upcase
     params[:video][:foreign_language_title] = params[:video][:foreign_language_title].upcase if !params[:video][:foreign_language_title].nil?
@@ -187,39 +206,43 @@ class VideosController < ApplicationController
       flash[:notice] = "Successfully updated video."
       redirect_to edit_video_path(@video)
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
   def destroy
 
     @video = Video.find(params[:id])
-    
+
     #check if video is in any playlists
-    tot_playlists = VideoPlaylistItem.count(:conditions => 'video_id=' + @video.id.to_s )
-    tot_master_playlists = VideoMasterPlaylistItem.count(:conditions => ["master_id IN (?)", @video.masters ])
-    tot_screener_playlists = ScreenerPlaylistItem.count(:conditions => ["screener_id IN (?)", @video.screeners ])
-    
-    
+    tot_playlists = VideoPlaylistItem.count(conditions: 'video_id=' + @video.id.to_s)
+    tot_master_playlists = VideoMasterPlaylistItem.count(conditions: ["master_id IN (?)",
+                                                                      @video.masters])
+    tot_screener_playlists = ScreenerPlaylistItem.count(conditions: ["screener_id IN (?)",
+                                                                     @video.screeners])
+
+
     if tot_playlists.zero? && tot_master_playlists.zero? && tot_screener_playlists.zero?
-      if permitted_to? :admin_delete, :videos  
+      if permitted_to? :admin_delete,
+                       :videos
         @video.destroy
         flash[:notice] = "Successfully deleted video."
         @video_is_deleted = true
       else
-         @video.to_delete = true
-         @video.save(false)
-         flash[:notice] = 'Video will be deleted when approved by administrator'
-         @video_is_deleted = false
+        @video.to_delete = true
+        @video.save(false)
+        flash[:notice] = 'Video will be deleted when approved by administrator'
+        @video_is_deleted = false
       end
-	  else
-	    
-	    @video.active = false
-	    @video.save
-	    flash[:notice] = "Successfully deleted video."      
-	    @video_is_deleted = true
-      
-      # flash[:notice] = 'Video could not be deleted, video is in use by playlists'
+    else
+
+      @video.active = false
+      @video.save
+      flash[:notice] = "Successfully deleted video."
+      @video_is_deleted = true
+
+      # flash[:notice] = 'Video could not be deleted,
+      video is in use by playlists '
       # @video_is_deleted = false
       
     end
@@ -237,7 +260,7 @@ class VideosController < ApplicationController
     @video = Video.find(params[:id])
     @video.to_delete = false
     @video.save(false)
-    flash[:notice] = 'Video has been restored'
+    flash[:notice] = ' Video has been restored '
     respond_to do |format|
         format.html { redirect_to(:back) }
         format.js

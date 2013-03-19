@@ -1,20 +1,22 @@
 class LanguagesController < ApplicationController
   before_filter :require_user
-	filter_access_to :all
+  filter_access_to :all
 
-  before_filter only: [:index, :new] do
+  before_filter only: [:index,
+                       :new] do
     @language = Language.new
   end
 
   def index
     @languages = Language.order("name asc")
-                         .paginate(page: params[:page], per_page: 10)
+    .paginate(page: params[:page],
+              per_page: 10)
 
-  	respond_to do |format|
+    respond_to do |format|
       format.html # index.html.erb
     end
   end
-  
+
   def edit
     @language = Language.find(params[:id])
   end
@@ -30,46 +32,51 @@ class LanguagesController < ApplicationController
 
     respond_to do |format|
       if @language.save
-        format.html { redirect_to @language, notice: 'Language was successfully created.' }
-        format.json { render json: @language, status: :created, location: @language }
+        format.html { redirect_to @language,
+                                  notice: 'Language was successfully created.' }
+        format.json { render json: @language,
+                             status: :created,
+                             location: @language }
         format.js
       else
         format.html { render action: "new" }
-        format.json { render json: @language.errors, status: :unprocessable_entity }
+        format.json { render json: @language.errors,
+                             status: :unprocessable_entity }
         format.js
       end
     end
   end
-  
+
   def update
     @language = Language.find(params[:id])
 
     respond_to do |format|
       if @language.update_attributes(params[:language])
-        Track.update_all(["language=?",@language.name],["language_id=?",@language.id] )
-        
+        Track.update_all(["language=?", @language.name], ["language_id=?", @language.id])
+
         flash[:notice] = 'Language was successfully updated.'
         format.html { redirect_to(languages_path) }
       else
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end
-  
+
   def destroy
-    
-	
-	@tracks = Track.where("language_id = ?", params[:id])
-		
-	if  @tracks.length.zero?
-  
+
+
+    @tracks = Track.where("language_id = ?",
+                          params[:id])
+
+    if  @tracks.length.zero?
+
       @language = Language.find(params[:id])
       @language.destroy
-	  
-	else
-	  flash[:notice] = 'Language could not be deleted, language is in use in some tracks'
-	end
 
+    else
+      flash[:notice] = 'Language could not be deleted,
+language is in use in some tracks'
+    end
 
 
     respond_to do |format|

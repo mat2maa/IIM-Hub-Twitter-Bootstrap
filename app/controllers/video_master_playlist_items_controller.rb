@@ -1,13 +1,14 @@
 class VideoMasterPlaylistItemsController < ApplicationController
-  in_place_edit_for :video_master_playlist_item, :mastering
+  in_place_edit_for :video_master_playlist_item,
+                    :mastering
 
   before_filter :require_user
-	filter_access_to :all
-  
+  filter_access_to :all
+
   def new
     @videomasterplaylistitem = VideoMasterPlaylistItem.new
   end
-  
+
   def update
     @videomasterplaylistitem = VideoMasterPlaylistItem.find(params[:id])
     respond_to do |format|
@@ -16,22 +17,22 @@ class VideoMasterPlaylistItemsController < ApplicationController
         format.html { redirect_to(edit_video_master_playlist_path(@videomasterplaylistitem.video_master_playlist)) }
         format.js
       else
-        format.html { render :action => "edit" }
+        format.html { render action: "edit" }
       end
     end
   end
-  
+
   def destroy
     @videomasterplaylistitem = VideoMasterPlaylistItem.find(params[:id])
 
-	  @playlist = VideoMasterPlaylist.find(@videomasterplaylistitem.video_master_playlist.id) 
-  	@playlist.updated_at_will_change!
+    @playlist = VideoMasterPlaylist.find(@videomasterplaylistitem.video_master_playlist.id)
+    @playlist.updated_at_will_change!
     @playlist.save
-    
-  	@videomasterplaylistitem.destroy
-	
+
+    @videomasterplaylistitem.destroy
+
     respond_to do |format|
-  	  flash[:notice] = 'Master was successfully deleted from playlist.'
+      flash[:notice] = 'Master was successfully deleted from playlist.'
       format.html #{ redirect_to(:back) }
       format.js
     end
