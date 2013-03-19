@@ -9,8 +9,11 @@
 </div>
 
 <div id="content">
-  <% form_for @search, loading: "Element.show('spinner')", complete: "Element.hide('spinner')" do |f| %>
-      <%= render partial: 'search_form', locals: {f: f} %>
+  <% form_for @search,
+              loading: "Element.show('spinner')",
+              complete: "Element.hide('spinner')" do |f| %>
+      <%= render partial: 'search_form',
+                 locals: {f: f} %>
   <% end %>
 
   <div id="movies">    <%= render partial: "screeners" %></div>

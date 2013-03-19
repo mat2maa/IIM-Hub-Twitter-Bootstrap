@@ -1,37 +1,48 @@
 <div id="nav">
   <ul>
     <li <%= "id='curr-nav'" if (yield(:title).include?("Dashboard")) %>>
-      <%= link_to "Dashboard", controller: "dashboard" %>
+      <%= link_to "Dashboard",
+                  controller: "dashboard" %>
     </li>
     <li <%= "id='curr-nav'" if (yield(:title).include?("Video Playlist Types")) %>>
-      <%= link_to "Video Playlist Types", controller: "video_playlist_types" %>
+      <%= link_to "Video Playlist Types",
+                  controller: "video_playlist_types" %>
     </li>
     <li <%= "id='curr-nav'" if (yield(:title).include?("Master Playlist Types")) %>>
-      <%= link_to "Master Playlist Types", controller: "master_playlist_types" %>
+      <%= link_to "Master Playlist Types",
+                  controller: "master_playlist_types" %>
     </li>
     <li <%= "id='curr-nav'" if (yield(:title).eql?(" - Movie Genres")) %>>
-      <%= link_to "Movie Genres", controller: "movie_genres" %>
+      <%= link_to "Movie Genres",
+                  controller: "movie_genres" %>
     </li>
     <li <%= "id='curr-nav'" if (yield(:title).include?("Video Genres")) %>>
-      <%= link_to "Video Genres", controller: "video_genres" %>
+      <%= link_to "Video Genres",
+                  controller: "video_genres" %>
     </li>
     <li <%= "id='curr-nav'" if (yield(:title).include?("Video Parent Genres")) %>>
-      <%= link_to "Video Parent Genres", controller: "video_parent_genres" %>
+      <%= link_to "Video Parent Genres",
+                  controller: "video_parent_genres" %>
     </li>
     <li <%= "id='curr-nav'" if (yield(:title).include?("- Suppliers")) %>>
-      <%= link_to "Suppliers", controller: "suppliers" %>
+      <%= link_to "Suppliers",
+                  controller: "suppliers" %>
     </li>
     <li <%= "id='curr-nav'" if (yield(:title).include?("Supplier Categories")) %>>
-      <%= link_to "Supplier Categories", controller: "supplier_categories" %>
+      <%= link_to "Supplier Categories",
+                  controller: "supplier_categories" %>
     </li>
     <li <%= "id='curr-nav'" if (yield(:title).include?("Airline Rights Countries")) %>>
-      <%= link_to "Airline Rights Countries", controller: "airline_rights_countries" %>
+      <%= link_to "Airline Rights Countries",
+                  controller: "airline_rights_countries" %>
     </li>
     <li <%= "id='curr-nav'" if (yield(:title).include?("Commercial Run Time")) %>>
-      <%= link_to "Commercial Run Time", controller: "commercial_run_times" %>
+      <%= link_to "Commercial Run Time",
+                  controller: "commercial_run_times" %>
     </li>
     <li <%= "id='curr-nav'" if (yield(:title).include?("Languages")) %>>
-      <%= link_to "Languages", controller: "master_languages" %>
+      <%= link_to "Languages",
+                  controller: "master_languages" %>
     </li>
   </ul>
   <div id="clear"><br/></div>

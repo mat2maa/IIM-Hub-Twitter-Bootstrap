@@ -24,7 +24,8 @@
     <div id="cd-large">    <%= link_to(image_tag(@album.cover.url(:medium)),
                                        @album.cover.url(:original),
                                        popup: true) %></div>
-    <%= form_for(@album, html: {multipart: true}) do |form| %>
+    <%= form_for(@album,
+                 html: {multipart: true}) do |form| %>
         <%= error_messages_for form.object %>
         <%= render partial: 'form',
                    object: form %>

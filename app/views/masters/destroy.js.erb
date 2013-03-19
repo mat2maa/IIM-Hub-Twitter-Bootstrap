@@ -1,6 +1,7 @@
 <% if params[:video].nil? %>
 window.location.replace('<%= masters_url %>');
 <% else %>
-jQuery('#masters_list').html("<%= escape_javascript(render(partial: "/videos/masters", locals: { video_id: @master.video_id })) %>");
+jQuery('#masters_list').html("<%= escape_javascript(render(partial: "/videos/masters",
+locals: { video_id: @master.video_id })) %>");
 jQuery('#master-<%= escape_javascript "#{@master.id}" %>').fadeOut("fast");
 <% end %>

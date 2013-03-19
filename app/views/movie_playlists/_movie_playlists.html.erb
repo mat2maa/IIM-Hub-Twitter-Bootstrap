@@ -5,19 +5,29 @@
 
       <tr>
         <th>
-          <%= sort_link(@search, :id, 'ID') %>
+          <%= sort_link(@search,
+                        :id,
+                        'ID') %>
         </th>
         <th>
-          <%= sort_link(@search, :airline_name, 'Airline') %>
+          <%= sort_link(@search,
+                        :airline_name,
+                        'Airline') %>
         </th>
         <th>
-          <%= sort_link(@search, :start_cycle, 'Start Date') %>
+          <%= sort_link(@search,
+                        :start_cycle,
+                        'Start Date') %>
         </th>
         <th>
-          <%= sort_link(@search, :end_cycle, 'End Date') %>
+          <%= sort_link(@search,
+                        :end_cycle,
+                        'End Date') %>
         </th>
         <th>
-          <%= sort_link(@search, :movie_type, 'Movie Type') %>
+          <%= sort_link(@search,
+                        :movie_type,
+                        'Movie Type') %>
         </th>
         <th colspan="4"></th>
       </tr>
@@ -48,7 +58,8 @@
                           edit_movie_playlist_path(movie_playlist),
                           popup: true) if movie_playlist.locked!=true %>
             </td>
-            <% if permitted_to? :delete, :movie_playlists %>
+            <% if permitted_to? :delete,
+                                :movie_playlists %>
                 <td>
                   <%= link_to 'Delete',
                               remote: true,
@@ -66,7 +77,8 @@
                 </td>
             <% end %>
             <td>
-              <% if permitted_to? :lock, :movie_playlists %>
+              <% if permitted_to? :lock,
+                                  :movie_playlists %>
                   <% if movie_playlist.locked!=true %>
                       <%= link_to 'Lock',
                                   lock_movie_playlist_path(movie_playlist),

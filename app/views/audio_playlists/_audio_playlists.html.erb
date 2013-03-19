@@ -3,22 +3,34 @@
     <table width="100%" cellspacing="0">
       <tr>
         <th class="list-header">
-          <%= sort_link(@search, :id, "ID") %>
+          <%= sort_link(@search,
+                        :id,
+                        "ID") %>
         </th>
         <th>
-          <%= sort_link(@search, :program_name, "Program") %>
+          <%= sort_link(@search,
+                        :program_name,
+                        "Program") %>
         </th>
         <th>
-          <%= sort_link(@search, :airline_name, "Airline Name") %>
+          <%= sort_link(@search,
+                        :airline_name,
+                        "Airline Name") %>
         </th>
         <th>
-          <%= sort_link(@search, :in_out, "In/Out") %>
+          <%= sort_link(@search,
+                        :in_out,
+                        "In/Out") %>
         </th>
         <th>
-          <%= sort_link(@search, :start_playdate, "Start Month") %>
+          <%= sort_link(@search,
+                        :start_playdate,
+                        "Start Month") %>
         </th>
         <th>
-          <%= sort_link(@search, :end_playdate, "End Month") %>
+          <%= sort_link(@search,
+                        :end_playdate,
+                        "End Month") %>
         </th>
         <th>
           Total Duration
@@ -29,7 +41,8 @@
           <tr id="audio_playlist-<%= audio_playlist.id %>">
             <% cache([audio_playlist]) do %>
                 <td>
-                  <%= link_to audio_playlist.id, audio_playlist_path(id: audio_playlist.id) %>
+                  <%= link_to audio_playlist.id,
+                              audio_playlist_path(id: audio_playlist.id) %>
                 </td>
                 <td>
                   <%= audio_playlist.program_cache if !audio_playlist.program_id.nil? %>
@@ -50,9 +63,11 @@
                   <%= audio_playlist.total_duration_cached if !audio_playlist.total_duration.nil? %>
                 </td>
             <% end %>
-            <% if permitted_to? :edit, :audio_playlists %>
+            <% if permitted_to? :edit,
+                                :audio_playlists %>
                 <td>
-                  <%= link_to 'Edit', edit_audio_playlist_path(audio_playlist) if audio_playlist.locked!=true %>
+                  <%= link_to 'Edit',
+                              edit_audio_playlist_path(audio_playlist) if audio_playlist.locked!=true %>
                 </td>
                 <td>
                   <%= link_to 'Delete',
@@ -64,17 +79,23 @@
                               complete: "Element.hide('spinner')" if audio_playlist.locked!=true %>
                 </td>
                 <td>
-                  <%= link_to 'Duplicate', duplicate_audio_playlist_path(audio_playlist),
+                  <%= link_to 'Duplicate',
+                              duplicate_audio_playlist_path(audio_playlist),
                               confirm: 'Are you sure?',
                               method: :post %>
                 </td>
             <% end %>
             <td>
-              <% if permitted_to? :lock, :audio_playlists %>
+              <% if permitted_to? :lock,
+                                  :audio_playlists %>
                   <% if audio_playlist.locked!=true %>
-                      <%= link_to 'Lock', lock_audio_playlist_path(audio_playlist), method: :post %>
+                      <%= link_to 'Lock',
+                                  lock_audio_playlist_path(audio_playlist),
+                                  method: :post %>
                   <% else %>
-                      <%= link_to 'Unlock', unlock_audio_playlist_path(audio_playlist), method: :post %>
+                      <%= link_to 'Unlock',
+                                  unlock_audio_playlist_path(audio_playlist),
+                                  method: :post %>
                   <% end %>
               <% end %>
             </td>

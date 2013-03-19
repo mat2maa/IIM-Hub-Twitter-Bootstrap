@@ -11,7 +11,8 @@
   <div id="nav">
     <ul>
       <li id="curr-nav">
-        <%= link_to "Dashboard", controller: 'dashboard' %>
+        <%= link_to "Dashboard",
+                    controller: 'dashboard' %>
       </li>
     </ul>
     <div id="clear">
@@ -31,21 +32,25 @@
     <br>
     <table border="0" cellpadding="10">
       <tr>
-        <% if permitted_to? :read, :audio_playlists %>
+        <% if permitted_to? :read,
+                            :audio_playlists %>
             </tr>
             <tr>
               <td class="dashboard">
-                <%= link_to "Audio Playlist Maker", audio_playlists_path %>
+                <%= link_to "Audio Playlist Maker",
+                            audio_playlists_path %>
               </td>
               <td>
                 Songs and Albums Playlists
               </td>
             </tr>
         <% end %>
-        <% if permitted_to? :edit, :movie_playlists %>
+        <% if permitted_to? :edit,
+                            :movie_playlists %>
             <tr>
               <td class="dashboard">
-                <%= link_to "Movie / Video Playlist Maker", movies_path %>
+                <%= link_to "Movie / Video Playlist Maker",
+                            movies_path %>
               </td>
               <td>
                 Create movies playlists. Add movies to database.
@@ -55,34 +60,44 @@
 <tr><td class="dashboard"><%= link_to "Bookings" %></td><td>Create bookings</td></tr>
 <tr><td class="dashboard"><%= link_to "Invoicing" %></td><td>Create invoices.</td></tr>
 <tr><td class="dashboard"><%= link_to "Address book" %></td><td>Add clients to address book.</td></tr>
-<tr><td class="dashboard"><%= link_to "Label maker" %></td><td>Create labels for tapes, envelopes.</td></tr>
+<tr><td class="dashboard"><%= link_to "Label maker" %></td><td>Create labels for tapes,
+envelopes.</td></tr>
 -->
-            <% end %>
-        <% if permitted_to? :edit, :users %>
+        <% end %>
+        <% if permitted_to? :edit,
+                            :users %>
             <tr>
               <td class="dashboard">
-                <%= link_to "Users", users_path %>
+                <%= link_to "Users",
+                            users_path %>
               </td>
               <td>
                 Manage user accounts and permissions
               </td>
             </tr>
         <% end %>
-        <% if permitted_to? :edit, :airlines %>
+        <% if permitted_to? :edit,
+                            :airlines %>
             <tr>
               <td class="dashboard">
-                <%= link_to "Audio Playlist Settings", controller: "settings" %>
+                <%= link_to "Audio Playlist Settings",
+                            controller: "settings" %>
               </td>
               <td>
-                Maintain airlines, genres, recording labels list
+                Maintain airlines,
+                genres,
+                recording labels list
               </td>
             </tr>
             <tr>
               <td class="dashboard">
-                <%= link_to "Movie Playlist Settings", controller: "movies_settings" %>
+                <%= link_to "Movie Playlist Settings",
+                            controller: "movies_settings" %>
               </td>
               <td>
-                Maintain movie genres, suppliers, commercial runtime
+                Maintain movie genres,
+                suppliers,
+                commercial runtime
               </td>
             </tr>
         <% end %>

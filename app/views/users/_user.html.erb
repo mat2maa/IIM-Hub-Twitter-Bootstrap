@@ -3,12 +3,15 @@
   <td><%= user.login %></td>
   <td><%= user.last_login_at.strftime("%d-%m-%Y %H:%M") if !user.last_login_at.nil? %></td>
   <td><%= user.last_request_at.strftime("%d-%m-%Y %H:%M") if !user.last_request_at.nil? %></td>
-  <td><%= link_to 'Edit', edit_user_path(user) %></td>
+  <td><%= link_to 'Edit',
+                  edit_user_path(user) %></td>
   <td>
-    <%= link_to 'Disable', disable_user_path(user),
+    <%= link_to 'Disable',
+                disable_user_path(user),
                 data: {confirm: "Are you sure?"},
                 method: :post if user.id != 1 && user.enabled == true %>
-    <%= link_to 'Enable', enable_user_path(user),
+    <%= link_to 'Enable',
+                enable_user_path(user),
                 data: {confirm: "Are you sure?"},
                 method: :post if user.id != 1 && user.enabled == false %>
   </td>

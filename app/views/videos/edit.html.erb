@@ -5,56 +5,71 @@
 
             jQuery("#add_master").click(function (master) {
                 master.preventDefault();
-                jQuery.ajax({ url: '/masters/new/<%= @video.id %>', type: 'get', dataType: 'script' });
+                jQuery.ajax({ url: '/masters/new/<%= @video.id %>',
+                    type: 'get',
+                    dataType: 'script' });
                 jQuery('#create_master_dialog').dialog({
                     title: 'New Master',
                     modal: true,
                     width: 1000,
                     height: 300,
-                    position: ['center', 100],
+                    position: ['center',
+                        100],
                     close: function (master, ui) {
                         jQuery('#create_master_dialog').dialog('destroy')
                     }
                 });
             });
 
-            jQuery(".edit_master").live('click', function (master) {
-                master.preventDefault();
-                jQuery.ajax({ url: this.href, type: 'get', dataType: 'script' });
+            jQuery(".edit_master").live('click',
+                    function (master) {
+                        master.preventDefault();
+                        jQuery.ajax({ url: this.href,
+                            type: 'get',
+                            dataType: 'script' });
 
-                jQuery('#update_master_dialog').dialog({
-                    title: 'Edit Master',
-                    modal: true,
-                    width: 1024,
-                    height: 300,
-                    position: ['center', 100],
-                    close: function (master, ui) {
-                        jQuery('#edit_master_dialog').dialog('destroy')
-                    }
-                });
-            });
+                        jQuery('#update_master_dialog').dialog({
+                            title: 'Edit Master',
+                            modal: true,
+                            width: 1024,
+                            height: 300,
+                            position: ['center',
+                                100],
+                            close: function (master, ui) {
+                                jQuery('#edit_master_dialog').dialog('destroy')
+                            }
+                        });
+                    });
 
-            jQuery(".delete_master").live('click', function (master) {
-                master.preventDefault();
-                if (confirm("Are you sure?")) {
-                    jQuery.post(this.href, {_method: 'delete', video: true}, null, "script");
-                    return false;
-                } else {
-                    //they clicked no.
-                    return false;
-                }
-            });
+            jQuery(".delete_master").live('click',
+                    function (master) {
+                        master.preventDefault();
+                        if (confirm("Are you sure?")) {
+                            jQuery.post(this.href,
+                                    {_method: 'delete',
+                                        video: true},
+                                    null,
+                                    "script");
+                            return false;
+                        } else {
+                            //they clicked no.
+                            return false;
+                        }
+                    });
 
             jQuery("#add_screener").click(function (screener) {
                 screener.preventDefault();
-                jQuery.ajax({ url: '/screeners/new/<%= @video.id %>', type: 'get', dataType: 'script' });
+                jQuery.ajax({ url: '/screeners/new/<%= @video.id %>',
+                    type: 'get',
+                    dataType: 'script' });
 
                 jQuery('#create_screener_dialog').dialog({
                     title: 'New Screener',
                     modal: true,
                     width: 760,
                     height: 150,
-                    position: ['center', 100],
+                    position: ['center',
+                        100],
                     close: function (screener, ui) {
                         jQuery('#create_screener_dialog').dialog('destroy')
                     }
@@ -62,32 +77,40 @@
             });
 
 
-            jQuery(".edit_screener").live('click', function (screener) {
-                screener.preventDefault();
-                jQuery.ajax({ url: this.href, type: 'get', dataType: 'script' });
+            jQuery(".edit_screener").live('click',
+                    function (screener) {
+                        screener.preventDefault();
+                        jQuery.ajax({ url: this.href,
+                            type: 'get',
+                            dataType: 'script' });
 
-                jQuery('#update_screener_dialog').dialog({
-                    title: 'Edit Screener',
-                    modal: true,
-                    width: 760,
-                    height: 150,
-                    position: ['center', 100],
-                    close: function (screener, ui) {
-                        jQuery('#edit_screener_dialog').dialog('destroy')
-                    }
-                });
-            });
+                        jQuery('#update_screener_dialog').dialog({
+                            title: 'Edit Screener',
+                            modal: true,
+                            width: 760,
+                            height: 150,
+                            position: ['center',
+                                100],
+                            close: function (screener, ui) {
+                                jQuery('#edit_screener_dialog').dialog('destroy')
+                            }
+                        });
+                    });
 
-            jQuery(".delete_screener").live('click', function (screener) {
-                screener.preventDefault();
-                if (confirm("Are you sure?")) {
-                    jQuery.post(this.href, {_method: 'delete'}, null, "script");
-                    return false;
-                } else {
-                    //they clicked no.
-                    return false;
-                }
-            });
+            jQuery(".delete_screener").live('click',
+                    function (screener) {
+                        screener.preventDefault();
+                        if (confirm("Are you sure?")) {
+                            jQuery.post(this.href,
+                                    {_method: 'delete'},
+                                    null,
+                                    "script");
+                            return false;
+                        } else {
+                            //they clicked no.
+                            return false;
+                        }
+                    });
         });
 
     </script>
@@ -122,7 +145,8 @@
 <div id="content">
   <center>
     <h1>Edit Video</h1>
-    <%= render partial: 'search_form', object: @search %>
+    <%= render partial: 'search_form',
+               object: @search %>
     <br/><br/>
 
     <%= render partial: 'form' %>

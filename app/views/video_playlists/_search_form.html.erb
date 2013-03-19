@@ -22,7 +22,8 @@
             Airline:<br/>
             <%= video_playlists.select :airline_id_eq,
                                        Airline.order("name asc")
-                                       .collect { |p| [p.name, p.id] },
+                                       .collect { |p| [p.name,
+                                                       p.id] },
                                        {include_blank: true} %>
             <br/>
           </td>
@@ -30,7 +31,8 @@
             <%= video_playlists.date_select :start_cycle_cont,
                                             {discard_day: true,
                                              order: [:month,
-                                                     :year], include_blank: true,
+                                                     :year],
+                                             include_blank: true,
                                              use_month_numbers: true,
                                              start_year: Date.today.year + 2,
                                              end_year: 1900} %>
@@ -40,7 +42,8 @@
             <%= video_playlists.date_select :end_cycle_cont,
                                             {discard_day: true,
                                              order: [:month,
-                                                     :year], include_blank: true,
+                                                     :year],
+                                             include_blank: true,
                                              use_month_numbers: true,
                                              start_year: Date.today.year + 2,
                                              end_year: 1900} %>

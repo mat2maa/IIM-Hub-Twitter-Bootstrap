@@ -16,7 +16,9 @@
     <br/>
     <% for role in Role.all %>
         <div>
-          <%= check_box_tag "user[roles][]", role.name, @user.roles.include?(role.name.to_sym) %>
+          <%= check_box_tag "user[roles][]",
+                            role.name,
+                            @user.roles.include?(role.name.to_sym) %>
           <%= role.name %>
         </div>
     <% end %>

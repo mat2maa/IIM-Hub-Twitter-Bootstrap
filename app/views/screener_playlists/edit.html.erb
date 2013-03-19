@@ -15,14 +15,31 @@
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
   <div id="content-header-actions">
-    <%= link_to "Print Playlist", {controller: "screener_playlists", action: "show", id: @screener_playlist}, id: 'print_playlist', target: '_blank' %>
+    <%= link_to "Print Playlist",
+                {controller: "screener_playlists",
+                 action: "show",
+                 id: @screener_playlist},
+                id: 'print_playlist',
+                target: '_blank' %>
     |
-    <%= link_to "Download Full PDF", {controller: "screener_playlists", action: "print", id: @screener_playlist, format: "pdf"} %>
+    <%= link_to "Download Full PDF",
+                {controller: "screener_playlists",
+                 action: "print",
+                 id: @screener_playlist,
+                 format: "pdf"} %>
     |
-    <%#= link_to "Download Summary PDF", {controller: "screener_playlists", action: "edit",  id: @screener_playlist, format: "pdf"} %>
-    <%= link_to "Export as Excel", controller: "screener_playlists", action: "export_to_excel", id: @screener_playlist %>
+    <%#= link_to "Download Summary PDF",
+{controller: "screener_playlists",
+action: "edit",
+ id: @screener_playlist,
+format: "pdf"} %>
+    <%= link_to "Export as Excel",
+                controller: "screener_playlists",
+                action: "export_to_excel",
+                id: @screener_playlist %>
     |
-    <%= link_to "Create a playlist", new_screener_playlist_path %>
+    <%= link_to "Create a playlist",
+                new_screener_playlist_path %>
   </div>
   <div id="content-header">Screener Playlists</div>
 </div>
@@ -31,14 +48,16 @@
   <center>
     <h2>Edit Screener Playlist</h2>
 
-    <div class="action-button"><%= link_to_show_overlay 'add screener', add_screener_to_playlist_path(@screener_playlist.id) %></div>
+    <div class="action-button"><%= link_to_show_overlay 'add screener',
+                                                        add_screener_to_playlist_path(@screener_playlist.id) %></div>
     <br/>
     <br/>
     <%= form_for(@screener_playlist) do |form| %>
 
         <%= form.error_messages %>
 
-        <%= render partial: 'form', object: form %>
+        <%= render partial: 'form',
+                   object: form %>
         <p>
           <%= submit_tag "Save Changes" %>
         </p>
@@ -46,10 +65,12 @@
 
 
     <div id="playlist">
-      <%= render partial: 'playlist', object: @screener_playlist %>
+      <%= render partial: 'playlist',
+                 object: @screener_playlist %>
     </div>
 
-    <%= link_to 'Back', screener_playlists_path %>
+    <%= link_to 'Back',
+                screener_playlists_path %>
 
   </center>
 </div>

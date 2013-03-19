@@ -1,5 +1,6 @@
 <tr id="album-<%= album.id %>">
-  <% cache([album, "album_playlists"]) do %>
+  <% cache([album,
+            "album_playlists"]) do %>
       <td>
         <%= link_to album.id,
                     album_path(id: album.id) %>
@@ -54,7 +55,8 @@
                         loading: "Element.show('spinner')",
                         complete: "Element.hide('spinner')" %>
         <% else %>
-            <% if permitted_to? :admin_delete, :albums %>
+            <% if permitted_to? :admin_delete,
+                                :albums %>
                 <%= link_to 'Delete',
                             remote: true,
                             url: album_url(album),

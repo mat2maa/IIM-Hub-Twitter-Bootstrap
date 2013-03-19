@@ -2,13 +2,17 @@
 <center><p style="color: green" id="notice"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
   <div id="content-header-actions">
-    <%= link_to "Create a playlist", new_video_master_playlist_path %>
+    <%= link_to "Create a playlist",
+                new_video_master_playlist_path %>
   </div>
   <div id="content-header">Video Master Playlists</div>
 </div>
 <div id="content">
-  <% remote_form_for @search, loading: "Element.show('spinner')", complete: "Element.hide('spinner')" do |f| %>
-      <%= render partial: 'search_form', locals: {f: f} %>
+  <% remote_form_for @search,
+                     loading: "Element.show('spinner')",
+                     complete: "Element.hide('spinner')" do |f| %>
+      <%= render partial: 'search_form',
+                 locals: {f: f} %>
   <% end %>
   <div id="video_master_playlists">
     <%= render partial: "video_master_playlists" %>

@@ -1,7 +1,9 @@
 <center>
 
   <div class="overlay">
-    <%= link_to_hide_overlay 'X', audio_playlists_path, id: 'cancel' %>
+    <%= link_to_hide_overlay 'X',
+                             audio_playlists_path,
+                             id: 'cancel' %>
     <br/>
 
     <strong>Add Track to Playlist</strong><br/>
@@ -10,14 +12,17 @@
       <%= render partial: 'track_search_form',
                  object: @search %>
     </div>
-    <%= image_tag 'spinner.gif', id: 'spinner', style: 'display:none;' %>
+    <%= image_tag 'spinner.gif',
+                  id: 'spinner',
+                  style: 'display:none;' %>
 
     <div id="item_added"></div>
 
     <div id="tracks">
       <%= render partial: "tracks" %>
     </div>
-    <%= link_to_hide_overlay 'Cancel', audio_playlists_path %>
+    <%= link_to_hide_overlay 'Cancel',
+                             audio_playlists_path %>
 
   </div>
 

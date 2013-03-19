@@ -4,22 +4,34 @@
     <table cellspacing="0" width="100%">
       <tr>
         <th>
-          <%= sort_link(@search, :id, "ID") %>
+          <%= sort_link(@search,
+                        :id,
+                        "ID") %>
         </th>
         <th>
-          <%= sort_link(@search, :client_playlist_code, "Client Playlist Code") %>
+          <%= sort_link(@search,
+                        :client_playlist_code,
+                        "Client Playlist Code") %>
         </th>
         <th>
-          <%= sort_link(@search, :airline_name, "Airline Name") %>
+          <%= sort_link(@search,
+                        :airline_name,
+                        "Airline Name") %>
         </th>
         <th>
-          <%= sort_link(@search, :in_out, "In/Out") %>
+          <%= sort_link(@search,
+                        :in_out,
+                        "In/Out") %>
         </th>
         <th>
-          <%= sort_link(@search, :start_playdate, "Start Date") %>
+          <%= sort_link(@search,
+                        :start_playdate,
+                        "Start Date") %>
         </th>
         <th>
-          <%= sort_link(@search, :end_playdate, "End Date") %>
+          <%= sort_link(@search,
+                        :end_playdate,
+                        "End Date") %>
         </th>
         <th colspan="4"></th>
       </tr>
@@ -27,7 +39,8 @@
           <tr id="album_playlist-<%= album_playlist.id %>">
             <% cache([album_playlist]) do %>
                 <td>
-                  <%= link_to album_playlist.id, album_playlist_path(id: album_playlist.id) %>
+                  <%= link_to album_playlist.id,
+                              album_playlist_path(id: album_playlist.id) %>
                 </td>
                 <td>
                   <%= album_playlist.client_playlist_code %>
@@ -48,10 +61,12 @@
             <% if permitted_to? :edit,
                                 :album_playlists %>
                 <td>
-                  <%= link_to 'Edit', edit_album_playlist_path(album_playlist) if album_playlist.locked!=true %>
+                  <%= link_to 'Edit',
+                              edit_album_playlist_path(album_playlist) if album_playlist.locked!=true %>
                 </td>
                 <td>
-                  <%= link_to 'Delete', remote: true,
+                  <%= link_to 'Delete',
+                              remote: true,
                               url: album_playlist_url(album_playlist),
                               method: :delete,
                               confirm: 'Are you sure?',
@@ -59,15 +74,23 @@
                               complete: "Element.hide('spinner')                                             " if album_playlist.locked!=true %>
                 </td>
                 <td>
-                  <%= link_to 'Duplicate', duplicate_album_playlist_path(album_playlist), confirm: 'Are you sure?', method: :post %>
+                  <%= link_to 'Duplicate',
+                              duplicate_album_playlist_path(album_playlist),
+                              confirm: 'Are you sure?',
+                              method: :post %>
                 </td>
             <% end %>
             <td>
-              <% if permitted_to? :lock, :albums_playlist %>
+              <% if permitted_to? :lock,
+                                  :albums_playlist %>
                   <% if album_playlist.locked!=true %>
-                      <%= link_to 'Lock', lock_album_playlist_path(album_playlist), method: :post %>
+                      <%= link_to 'Lock',
+                                  lock_album_playlist_path(album_playlist),
+                                  method: :post %>
                   <% else %>
-                      <%= link_to 'Unlock', unlock_album_playlist_path(album_playlist), method: :post %>
+                      <%= link_to 'Unlock',
+                                  unlock_album_playlist_path(album_playlist),
+                                  method: :post %>
                   <% end %>
               <% end %>
             </td>

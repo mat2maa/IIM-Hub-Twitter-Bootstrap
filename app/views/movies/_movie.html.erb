@@ -1,6 +1,9 @@
 <tr id="movie-<%= movie.id %>">
-  <% cache([movie, "movie_playlists"]) do %>
-      <td><%= link_to(movie.id, movie_path(id: movie.id), popup: true) %></td>
+  <% cache([movie,
+            "movie_playlists"]) do %>
+      <td><%= link_to(movie.id,
+                      movie_path(id: movie.id),
+                      popup: true) %></td>
       <td><%= movie.movie_title %></td>
       <td><%= movie.movie_distributor.company_name if !movie.movie_distributor.nil? %>&nbsp;</td>
       <td><%= movie.movie_type %></td>
@@ -23,7 +26,9 @@
         <% end %>
       </td>
   <% else %>
-      <td><%= link_to 'Edit', edit_movie_path(movie), popup: true %></td>
+      <td><%= link_to 'Edit',
+                      edit_movie_path(movie),
+                      popup: true %></td>
       <td>
         <% if !movie.to_delete %>
             <%= link_to 'Delete',
@@ -34,7 +39,8 @@
                         loading: "Element.show('spinner')",
                         complete: "Element.hide('spinner')" %>
         <% else
-             if permitted_to? :admin_delete, :movies %>
+             if permitted_to? :admin_delete,
+                              :movies %>
                 <%= link_to 'Delete',
                             remote: true,
                             url: movie_url(movie),

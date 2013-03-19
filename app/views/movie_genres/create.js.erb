@@ -1,6 +1,7 @@
 var $ = jQuery;
 
-var newRow = " <%= escape_javascript(render(partial: "movie_genre", object: @movie_genre)) %> ";
+var newRow = " <%= escape_javascript(render(partial: "movie_genre",
+object: @movie_genre)) %> ";
 
 $("#movie_genre_form")
         .find("input[type=text]").val("");

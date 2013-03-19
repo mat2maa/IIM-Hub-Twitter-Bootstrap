@@ -5,8 +5,10 @@
   <title>Images in Motion
     - <%= @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%= @screener_playlist.start_cycle.strftime("%m%y") %>
     Screeners Playlist</title>
-  <%= stylesheet_link_tag 'print', media: 'print' %>
-  <%= stylesheet_link_tag 'print', media: 'screen' %>
+  <%= stylesheet_link_tag 'print',
+                          media: 'print' %>
+  <%= stylesheet_link_tag 'print',
+                          media: 'screen' %>
 </head>
 <body>
 <div class="print">
@@ -18,7 +20,8 @@
 
   <div id="playlist">
     <table width="900">
-      <%= render partial: 'playlist_item_view', collection: @screener_playlist.screener_playlist_items_sorted %>
+      <%= render partial: 'playlist_item_view',
+                 collection: @screener_playlist.screener_playlist_items_sorted %>
     </table>
   </div>
 </div>

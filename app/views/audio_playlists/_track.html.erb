@@ -8,6 +8,8 @@
   <td><%= track.album.release_year %></td>
   <td><%= image_tag("arrow_move.png") %></td>
   <td><%= link_to_remote "Delete",
-                         url: {controller: "audio_playlist_tracks", action: "destroy", id: track.audio_playlist_track.id} %></td>
+                         url: {controller: "audio_playlist_tracks",
+                               action: "destroy",
+                               id: track.audio_playlist_track.id} %></td>
 </tr>
 <% end %>

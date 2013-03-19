@@ -1,1 +1,2 @@
-page.replace_html "movie_playlists", partial: "movie_playlists"
+page.replace_html "movie_playlists",
+                  partial: "movie_playlists"

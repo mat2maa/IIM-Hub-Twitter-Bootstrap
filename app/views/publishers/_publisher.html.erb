@@ -1,6 +1,10 @@
 <tr id="publisher-row-<%= publisher.id %>">
   <td class="list-item"><%= publisher.id %></td>
   <td class="list-item"><%= publisher.name %></td>
-  <td class="list-item"><%= link_to 'Edit', edit_publisher_path(publisher) %></td>
-  <td class="list-item"><%= link_to 'Delete', publisher, confirm: 'Are you sure?', method: :delete %></td>
+  <td class="list-item"><%= link_to 'Edit',
+                                    edit_publisher_path(publisher) %></td>
+  <td class="list-item"><%= link_to 'Delete',
+                                    publisher,
+                                    confirm: 'Are you sure?',
+                                    method: :delete %></td>
 </tr>

@@ -40,7 +40,8 @@
       </tr>
       <tr>
         <td class="pl-title">Media Instruction</td>
-        <td colspan="5"><%= @video_master_playlist.media_instruction.gsub(/\n/, '<br/>') %></td>
+        <td colspan="5"><%= @video_master_playlist.media_instruction.gsub(/\n/,
+                                                                          '<br/>') %></td>
       </tr>
     </table>
 
@@ -94,7 +95,8 @@
                         <td valign="top"><strong>Mastering:</strong><br/>
                         </td>
                         <td colspan="5">
-                          <%= video_master_playlist_item.mastering.gsub(/\n/, '<br/>') if !video_master_playlist_item.mastering.nil? %>
+                          <%= video_master_playlist_item.mastering.gsub(/\n/,
+                                                                        '<br/>') if !video_master_playlist_item.mastering.nil? %>
                         </td>
                         <th>Aspect Ratio:</th>
                         <td><%= video_master_playlist_item.master.aspect_ratio %></td>

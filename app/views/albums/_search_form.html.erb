@@ -5,7 +5,9 @@
       <legend>Search Albums</legend>
       Match ANY or ALL of the conditions:
       <%= albums.combinator_select %>
-      <%= image_tag 'spinner.gif', id: 'spinner', style: 'display:none;' %>
+      <%= image_tag 'spinner.gif',
+                    id: 'spinner',
+                    style: 'display:none;' %>
       <br/>
       <table>
         <tr>
@@ -25,20 +27,26 @@
           </td>
           <td valign="top">
             Year:<br>
-            <%= albums.text_field :release_year_eq, size: 6 %>
+            <%= albums.text_field :release_year_eq,
+                                  size: 6 %>
             <br>
             CD Code:<br>
-            <%= albums.text_field :cd_code_cont, size: 6 %>
+            <%= albums.text_field :cd_code_cont,
+                                  size: 6 %>
           </td>
           <td valign="top">
             Label:<br>
-            <%= albums.select :label_id_eq, Label.all
-            .collect { |p| [p.name, p.id] },
+            <%= albums.select :label_id_eq,
+                              Label.all
+                              .collect { |p| [p.name,
+                                              p.id] },
                               {include_blank: true} %>
             <br/>
             Genre:<br>
-            <%= albums.select :genres_id_eq, Genre.all
-            .collect { |p| [p.name, p.id] },
+            <%= albums.select :genres_id_eq,
+                              Genre.all
+                              .collect { |p| [p.name,
+                                              p.id] },
                               {include_blank: true} %>
 
             Pending Delete: <%= albums.check_box :to_delete_eq %>

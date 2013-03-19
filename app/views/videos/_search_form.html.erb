@@ -13,7 +13,11 @@
                       complete: "Element.hide('spinner')" do |videos| %>
 
       <!--Match ANY or ALL of the conditions:<br />-->
-      <%#= videos.select :any, [["All", false], ["Any", true]] %>
+      <%#= videos.select :any,
+[["All",
+false],
+["Any",
+true]] %>
       <br/>
 
       <%= image_tag 'spinner.gif',
@@ -36,13 +40,15 @@
             Distributor:<br/>
             <%= videos.select :video_distributor_id_eq,
                               Supplier.video_distributors
-                              .collect { |p| [p.company_name, p.id] },
+                              .collect { |p| [p.company_name,
+                                              p.id] },
                               include_blank: true %>
             <br/>
             Laboratory:<br/>
             <%= videos.select :laboratory_id_eq,
                               Supplier.laboratories
-                              .collect { |p| [p.company_name, p.id] },
+                              .collect { |p| [p.company_name,
+                                              p.id] },
                               include_blank: true %>
             <br/>
 
@@ -64,13 +70,15 @@
             Genre:<br/>
             <%= videos.select :video_genres_video_parent_genre_id_eq,
                               VideoParentGenre.all
-                              .collect { |p| [p.name, p.id] },
+                              .collect { |p| [p.name,
+                                              p.id] },
                               {include_blank: true} %>
             <br/>
             Sub Genre:<br/>
             <%= videos.select :video_genres_id_eq,
                               VideoGenre.all
-                              .collect { |p| [p.name, p.id] },
+                              .collect { |p| [p.name,
+                                              p.id] },
                               {include_blank: true} %>
           </td>
           <td valign="top">

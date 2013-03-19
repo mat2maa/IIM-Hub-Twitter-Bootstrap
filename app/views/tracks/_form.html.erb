@@ -13,7 +13,8 @@
         <th>Tempo</th>
         <td><%= select("track",
                        "tempo",
-                       Tempo.all.collect { |p| [p.name, p.name] },
+                       Tempo.all.collect { |p| [p.name,
+                                                p.name] },
                        {include_blank: true}) %></td>
       </tr>
       <tr>
@@ -22,7 +23,8 @@
         <th>Intro Tempo</th>
         <td><%= select("track",
                        "tempo_intro",
-                       Tempo.all.collect { |p| [p.name, p.name] },
+                       Tempo.all.collect { |p| [p.name,
+                                                p.name] },
                        {include_blank: true}) %></td>
       </tr>
       <tr>
@@ -31,7 +33,8 @@
         <th>Outro Tempo</th>
         <td><%= select("track",
                        "tempo_outro",
-                       Tempo.all.collect { |p| [p.name, p.name] },
+                       Tempo.all.collect { |p| [p.name,
+                                                p.name] },
                        {include_blank: true}) %></td>
       </tr>
       <tr>
@@ -50,7 +53,8 @@
         <td><%= select("track",
                        "language_id",
                        Language.order("name asc")
-                       .collect { |p| [p.name, p.id] },
+                       .collect { |p| [p.name,
+                                       p.id] },
                        {include_blank: true}) %>
           <%= link_to "+",
                       languages_path,
@@ -65,7 +69,8 @@
         <td><%= select("track",
                        "origin_id",
                        Origin.order("name asc")
-                       .collect { |p| [p.name, p.id] },
+                       .collect { |p| [p.name,
+                                       p.id] },
                        {include_blank: true}) %>
           <%= link_to "+",
                       origins_path,

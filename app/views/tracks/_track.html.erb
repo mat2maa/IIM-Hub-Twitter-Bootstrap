@@ -1,4 +1,5 @@
-<% cache([track, track.album]) do %>
+<% cache([track,
+          track.album]) do %>
     <tr id="track-<%= track.id %>">
       <td>
         <%= link_to track.id,

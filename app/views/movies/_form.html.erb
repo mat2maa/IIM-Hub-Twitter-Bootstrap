@@ -1,4 +1,5 @@
-<%= semantic_form_for @movie, html: {multipart: true} do |f| %>
+<%= semantic_form_for @movie,
+                      html: {multipart: true} do |f| %>
 
     <%= error_messages_for(f.object) %><br/>
 
@@ -88,7 +89,8 @@
         <% if @movie.movie_type=="Hollywood Movie" %>
             <%= f.input :foreign_language_title,
                         label: "Foreign Language Title",
-                        input_html: {disabled: true, tabindex: 3} %>
+                        input_html: {disabled: true,
+                                     tabindex: 3} %>
         <% else %>
             <%= f.input :foreign_language_title,
                         label: "Foreign Language Title",
@@ -101,24 +103,31 @@
               <%= f.input :movie_distributor,
                           include_blank: true,
                           input_html: {tabindex: 4},
-                          label: ("Distributor " + link_to("[edit]", suppliers_path,
+                          label: ("Distributor " + link_to("[edit]",
+                                                           suppliers_path,
                                                            popup: true)).html_safe,
-                          collection: Supplier.movie_distributors.collect { |p| [p.company_name, p.id] } %>
+                          collection: Supplier.movie_distributors.collect { |p| [p.company_name,
+                                                                                 p.id] } %>
             </td>
             <td>
               <%= f.input :production_studio,
                           input_html: {tabindex: 5},
                           include_blank: true,
-                          label: ("Production Studio " + link_to("[edit]", suppliers_path,
+                          label: ("Production Studio " + link_to("[edit]",
+                                                                 suppliers_path,
                                                                  popup: true)).html_safe,
-                          collection: Supplier.production_studios.collect { |p| [p.company_name, p.id] } %>
+                          collection: Supplier.production_studios.collect { |p| [p.company_name,
+                                                                                 p.id] } %>
             </td>
             <td>
               <%= f.input :laboratory,
                           input_html: {tabindex: 6},
                           include_blank: true,
-                          label: ("Laboratory " + link_to("[edit]", suppliers_path, popup: true)).html_safe,
-                          collection: Supplier.laboratories.collect { |p| [p.company_name, p.id] } %>
+                          label: ("Laboratory " + link_to("[edit]",
+                                                          suppliers_path,
+                                                          popup: true)).html_safe,
+                          collection: Supplier.laboratories.collect { |p| [p.company_name,
+                                                                           p.id] } %>
             </td>
           </tr>
           <tr>
@@ -126,8 +135,10 @@
               <%= f.input :airline_release_date,
                           input_html: {tabindex: 7},
                           label: false,
-                          labels: {month: false, year: false},
-                          order: [:month, :year],
+                          labels: {month: false,
+                                   year: false},
+                          order: [:month,
+                                  :year],
                           discard_day: true,
                           include_blank: true,
                           use_month_numbers: true,
@@ -139,8 +150,10 @@
               <%= f.input :personal_video_date,
                           input_html: {tabindex: 8},
                           label: false,
-                          labels: {month: false, year: false},
-                          order: [:month, :year],
+                          labels: {month: false,
+                                   year: false},
+                          order: [:month,
+                                  :year],
                           discard_day: true,
                           include_blank: true,
                           use_month_numbers: true,
@@ -163,9 +176,13 @@
               <%= f.input :screener_received_date,
                           input_html: {tabindex: 10},
                           label: false,
-                          labels: {day: false, month: false, year: false},
+                          labels: {day: false,
+                                   month: false,
+                                   year: false},
                           include_blank: true,
-                          order: [:day, :month, :year],
+                          order: [:day,
+                                  :month,
+                                  :year],
                           use_short_month: true %>
             </td>
             <td>
@@ -176,9 +193,13 @@
                                 id: "movie_screener_destroyed_date"}) %>
               <%= f.input :screener_destroyed_date,
                           input_html: {tabindex: 11},
-                          order: [:day, :month, :year],
+                          order: [:day,
+                                  :month,
+                                  :year],
                           label: false,
-                          labels: {day: false, month: false, year: false},
+                          labels: {day: false,
+                                   month: false,
+                                   year: false},
                           use_short_month: true,
                           include_blank: true %>
             </td>
@@ -192,7 +213,8 @@
               <%= f.input :poster_quantity,
                           input_html: {tabindex: 14,
                                        size: 3},
-                          label: ",  &nbsp;Qty" %>
+                          label: ",
+ &nbsp;Qty" %>
             </td>
           </tr>
           <tr>
@@ -201,7 +223,12 @@
                           input_html: {tabindex: 14},
                           label: "Rating",
                           as: :select,
-                          collection: ["NR", "G", "PG", "PG-13", "R", "NC-17"],
+                          collection: ["NR",
+                                       "G",
+                                       "PG",
+                                       "PG-13",
+                                       "R",
+                                       "NC-17"],
                           include_blank: false %>
             </td>
             <td>
@@ -248,14 +275,21 @@
         <%= f.input :airline_rights,
                     label: "Airline Rights",
                     as: :select,
-                    collection: ["Worldwide", "Worldwide Excluding", "International Including", "North America", "Limited"],
+                    collection: ["Worldwide",
+                                 "Worldwide Excluding",
+                                 "International Including",
+                                 "North America",
+                                 "Limited"],
                     include_blank: true,
                     input_html: {tabindex: 20,
                                  data: {url: {action: "check_airline_rights"},
                                         with: "'movie_airline_rights=' + $('movie_airline_rights').value"}} %>
         <% if (@movie.airline_rights=="Worldwide") || (@movie.airline_rights=="North America") %>
-            <%#= f.input :airline_rights_countries, input_html:  {disabled:  true} ,as:  :check_boxes,
-                                        label:  "Countries "+ link_to("[edit]", airline_rights_countries_path, popup: true) %>
+            <%#= f.input :airline_rights_countries,
+input_html:  {disabled:  true} ,as:  :check_boxes,
+                                        label:  "Countries "+ link_to("[edit]",
+airline_rights_countries_path,
+popup: true) %>
             <%= f.input :airline_countries,
                         input_html: {disabled: true,
                                      tabindex: 21} %>
@@ -263,7 +297,10 @@
             <%= f.input :airline_countries,
                         label: "Airline Countries",
                         input_html: {tabindex: 21} %>
-            <%#= f.input :airline_rights_countries, as:  :check_boxes, label:  "Countries "+ link_to("[edit]", airline_rights_countries_path,
+            <%#= f.input :airline_rights_countries,
+as:  :check_boxes,
+label:  "Countries "+ link_to("[edit]",
+airline_rights_countries_path,
                                     popup: true) %>
         <% end %>
 

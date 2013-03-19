@@ -1,28 +1,49 @@
 <% if @videos_count > 0 %>
-    <% form_remote_tag html: {action: url_for(controller: "video_playlists", action: "add_multiple_videos"), id: "multiple_videos"} do %>
-        <%= hidden_field_tag 'playlist_id', params[:id] %>
-        <%= submit_to_remote 'add_multiple_btn', 'Add Selected to Playlist', url: {action: 'add_multiple_videos'} %><br/>
+    <% form_remote_tag html: {action: url_for(controller: "video_playlists",
+                                              action: "add_multiple_videos"),
+                              id: "multiple_videos"} do %>
+        <%= hidden_field_tag 'playlist_id',
+                             params[:id] %>
+        <%= submit_to_remote 'add_multiple_btn',
+                             'Add Selected to Playlist',
+                             url: {action: 'add_multiple_videos'} %><br/>
         <%= @videos_count %> videos found
         <table cellspacing="0" width="100%">
           <tr>
-            <th width="8"><%= check_box_tag('check_all', 'check_all', false, onclick: "$$('#video_ids_').each(function(box){box.checked=($('check_all').checked)?true:false});") %></th>
-            <th><%= remote_order_by_link :id, search_obj: @search, params_scope: :video_playlists %></th>
-            <th><%= remote_order_by_link :programme_title, search_obj: @search, params_scope: :video_playlists %></th>
-            <th><%= remote_order_by_link :video_type, search_obj: @search, params_scope: :video_playlists %></th>
+            <th width="8"><%= check_box_tag('check_all',
+                                            'check_all',
+                                            false,
+                                            onclick: "$$('#video_ids_').each(function(box){box.checked=($('check_all').checked)?true:false});") %></th>
+            <th><%= remote_order_by_link :id,
+                                         search_obj: @search,
+                                         params_scope: :video_playlists %></th>
+            <th><%= remote_order_by_link :programme_title,
+                                         search_obj: @search,
+                                         params_scope: :video_playlists %></th>
+            <th><%= remote_order_by_link :video_type,
+                                         search_obj: @search,
+                                         params_scope: :video_playlists %></th>
             <th>In Playlists With<br/>Same Airline</th>
             <th>&nbsp;</th>
           </tr>
           <% @videos.each do |video| %>
               <tr>
                 <%# cache([video]) do %>
-                <td><%= check_box_tag "video_ids[]", video.id %></td>
-                <td><%= link_to video.id, video_path(id: video.id), popup: true %></td>
+                <td><%= check_box_tag "video_ids[]",
+                                      video.id %></td>
+                <td><%= link_to video.id,
+                                video_path(id: video.id),
+                                popup: true %></td>
                 <td><%= video.programme_title %></td>
                 <td><%= video.video_type %></td>
                 <td>
 									<span id="exists">
 										<% if (video.in_playlists!="" && !video.in_playlists.nil?) %>
-											<%= VideoPlaylist.with_same_airline_and_video(video.id, (@video_playlist.airline_id unless @video_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}", edit_video_playlist_path(playlist), popup: true) }.join(', ') %>
+											<%= VideoPlaylist.with_same_airline_and_video(video.id,
+                                                                                          (@video_playlist.airline_id unless @video_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
+                                                                                                                                                                                         edit_video_playlist_path(playlist),
+                                                                                                                                                                                         popup: true) }.join(',
+') %>
 										<% end %>
 									</span>
                 </td>

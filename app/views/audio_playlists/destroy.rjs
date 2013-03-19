@@ -1,1 +1,2 @@
-page.visual_effect :fade, "audio_playlist-#{@audio_playlist.id}"
+page.visual_effect :fade,
+                   "audio_playlist-#{@audio_playlist.id}"

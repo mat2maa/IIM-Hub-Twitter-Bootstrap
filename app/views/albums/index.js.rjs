@@ -1,1 +1,2 @@
-page.replace_html "albums", partial: "albums"
+page.replace_html "albums",
+                  partial: "albums"

@@ -48,13 +48,15 @@
             Genre:<br/>
             <%= masters.select :video_video_genres_video_parent_genre_id_eq,
                                VideoParentGenre.all
-                               .collect { |p| [p.name, p.id] },
+                               .collect { |p| [p.name,
+                                               p.id] },
                                {include_blank: true} %>
             <br/>
             Sub Genre:<br/>
             <%= masters.select :video_video_genres_id_eq,
                                VideoGenre.all
-                               .collect { |p| [p.name, p.id] },
+                               .collect { |p| [p.name,
+                                               p.id] },
                                {include_blank: true} %>
           </td>
           <td valign="top">

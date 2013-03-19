@@ -1,3 +1,8 @@
-page.replace_html 'playlist', partial: 'playlist', object: @album_playlist
-page.replace_html 'item_added', partial: 'item_added', object: {@album_to_add, @notice}
+page.replace_html 'playlist',
+                  partial: 'playlist',
+                  object: @album_playlist
+page.replace_html 'item_added',
+                  partial: 'item_added',
+                  object: {@album_to_add,
+                           @notice}
 

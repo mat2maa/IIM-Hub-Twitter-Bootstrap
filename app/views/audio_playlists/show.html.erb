@@ -1,7 +1,10 @@
 <%= render partial: 'layouts/audioplaylist_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
-  <div id="content-header-actions"><%= link_to "Export as Excel", controller: "audio_playlists", action: "export_to_excel", id: @audio_playlist %>
+  <div id="content-header-actions"><%= link_to "Export as Excel",
+                                               controller: "audio_playlists",
+                                               action: "export_to_excel",
+                                               id: @audio_playlist %>
   </div>
   <div id="content-header">Songs Playlists</div>
 </div>
@@ -54,11 +57,13 @@
       <table width="100%">
         <tbody id="audioplaylist">
         <% @accum_duration = 0 %>
-        <%= render partial: 'playlist_track_view', collection: @audio_playlist.audio_playlist_tracks_sorted %>
+        <%= render partial: 'playlist_track_view',
+                   collection: @audio_playlist.audio_playlist_tracks_sorted %>
         </tbody>
       </table>
 
     </div>
-    <%= link_to 'Back', audio_playlists_path %>
+    <%= link_to 'Back',
+                audio_playlists_path %>
   </center>
 </div>

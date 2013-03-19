@@ -5,31 +5,51 @@
       <tr>
         <th><%= order_by_link :id %></th>
         <th><%= order_by_link airline: :name %></th>
-        <th><%= order_by_link :start_cycle, text: 'Start Date' %></th>
-        <th><%= order_by_link :end_cycle, text: 'End Date' %></th>
+        <th><%= order_by_link :start_cycle,
+                              text: 'Start Date' %></th>
+        <th><%= order_by_link :end_cycle,
+                              text: 'End Date' %></th>
         <th><%= order_by_link master_playlist_type: :name %></th>
         <th colspan="4"></th>
       </tr>
       <% @video_master_playlists.each do |video_master_playlist| %>
           <tr id="video_master_playlist-<%= video_master_playlist.id %>">
             <% cache([video_master_playlist]) do %>
-                <td><%= link_to video_master_playlist.id, video_master_playlist_path(id: video_master_playlist.id), popup: true %></td>
+                <td><%= link_to video_master_playlist.id,
+                                video_master_playlist_path(id: video_master_playlist.id),
+                                popup: true %></td>
                 <td><%= video_master_playlist.airline.name if !video_master_playlist.airline_id.nil? %></td>
                 <td><%= video_master_playlist.start_cycle.strftime("%m-%Y") if !video_master_playlist.start_cycle.nil? %>&nbsp;</td>
                 <td><%= video_master_playlist.end_cycle.strftime("%m-%Y") if !video_master_playlist.end_cycle.nil? %>&nbsp;</td>
                 <td><%= video_master_playlist.master_playlist_type.name if !video_master_playlist.master_playlist_type.nil? %>&nbsp;</td>
             <% end %>
-            <td><%= link_to('Edit', edit_video_master_playlist_path(video_master_playlist), popup: true) if video_master_playlist.locked!=true %></td>
-            <% if permitted_to? :delete, :video_master_playlists %>
-                <td><%= link_to_remote 'Delete', url: video_master_playlist_url(video_master_playlist), method: :delete, confirm: 'Are you sure?', loading: "Element.show('spinner')", complete: "Element.hide('spinner')" if video_master_playlist.locked!=true %></td>
-                <td><%= link_to 'Duplicate', duplicate_video_master_playlist_path(video_master_playlist), confirm: 'Are you sure?', method: :post %></td>
+            <td><%= link_to('Edit',
+                            edit_video_master_playlist_path(video_master_playlist),
+                            popup: true) if video_master_playlist.locked!=true %></td>
+            <% if permitted_to? :delete,
+                                :video_master_playlists %>
+                <td><%= link_to_remote 'Delete',
+                                       url: video_master_playlist_url(video_master_playlist),
+                                       method: :delete,
+                                       confirm: 'Are you sure?',
+                                       loading: "Element.show('spinner')",
+                                       complete: "Element.hide('spinner')" if video_master_playlist.locked!=true %></td>
+                <td><%= link_to 'Duplicate',
+                                duplicate_video_master_playlist_path(video_master_playlist),
+                                confirm: 'Are you sure?',
+                                method: :post %></td>
             <% end %>
             <td>
-              <% if permitted_to? :lock, :videos_playlist %>
+              <% if permitted_to? :lock,
+                                  :videos_playlist %>
                   <% if video_master_playlist.locked!=true %>
-                      <%= link_to 'Lock', lock_video_master_playlist_path(video_master_playlist), method: :post %>
+                      <%= link_to 'Lock',
+                                  lock_video_master_playlist_path(video_master_playlist),
+                                  method: :post %>
                   <% else %>
-                      <%= link_to 'Unlock', unlock_video_master_playlist_path(video_master_playlist), method: :post %>
+                      <%= link_to 'Unlock',
+                                  unlock_video_master_playlist_path(video_master_playlist),
+                                  method: :post %>
                   <% end %>
               <% end %>
             </td>

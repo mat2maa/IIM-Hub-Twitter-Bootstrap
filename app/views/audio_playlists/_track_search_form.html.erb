@@ -5,8 +5,10 @@
                           loading: "Element.show('spinner')",
                           complete: "Element.hide('spinner')" do |tracks| %>
 
-          <%= hidden_field_tag 'id', params[:id] %>
-          <%= hidden_field_tag 'playlist_id', params[:id] %>
+          <%= hidden_field_tag 'id',
+                               params[:id] %>
+          <%= hidden_field_tag 'playlist_id',
+                               params[:id] %>
 
           Match ANY or ALL of the conditions:
           <%= tracks.combinator_select %>
@@ -14,10 +16,12 @@
             <tr>
               <td valign="top">
                 Title Original:<br>
-                <%= tracks.text_field :title_original_matches, :size => 25 %>
+                <%= tracks.text_field :title_original_matches,
+                                      :size => 25 %>
                 <br>
                 Artist Original:<br>
-                <%= tracks.text_field :artist_original_matches, :size => 25 %>
+                <%= tracks.text_field :artist_original_matches,
+                                      :size => 25 %>
                 <br>
                 Duration:<br>
                 <%= text_field_tag 'dur_min_min',
@@ -63,14 +67,18 @@
                     <br>
                     Label:
                     <br>
-                    <%= album.select :label_id_eq, Label.all.collect { |p| [p.name, p.id] }, {include_blank: true} %>
+                    <%= album.select :label_id_eq,
+                                     Label.all.collect { |p| [p.name,
+                                                              p.id] },
+                                     {include_blank: true} %>
                 <% end %>
 
                 <br>
 
                 <% tracks.fields_for tracks.object.album do |album| %>
                     CD Code:<br>
-                    <%= album.text_field :cd_code_cont, :size => 10 %>
+                    <%= album.text_field :cd_code_cont,
+                                         :size => 10 %>
                 <% end %>
 
                 <%= tracks.submit "Search" %>

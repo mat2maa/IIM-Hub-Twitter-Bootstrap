@@ -3,8 +3,10 @@
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
   <title>Images in Motion - Songs Playlist <%= @audio_playlist.id %></title>
-  <%= stylesheet_link_tag 'print', media: 'print' %>
-  <%= stylesheet_link_tag 'print', media: 'screen' %>
+  <%= stylesheet_link_tag 'print',
+                          media: 'print' %>
+  <%= stylesheet_link_tag 'print',
+                          media: 'screen' %>
 </head>
 <body>
 <div class="print">
@@ -38,14 +40,16 @@
       <td align="right"><strong>Total Duration:</strong></td>
       <td><%= @audio_playlist.total_duration_cached %></td>
       <td align="right"><strong>Splits:</strong></td>
-      <td><%= render partial: 'splits', object: @audio_playlist %></td>
+      <td><%= render partial: 'splits',
+                     object: @audio_playlist %></td>
     </tr>
   </table>
   <div id="playlist">
     <table width="100%" border="1">
       <% @accum_duration = 0 %>
       <tbody id="audioplaylist">
-      <%= render partial: 'playlist_track_view', collection: @audio_playlist.audio_playlist_tracks_sorted %>
+      <%= render partial: 'playlist_track_view',
+                 collection: @audio_playlist.audio_playlist_tracks_sorted %>
       </tbody>
     </table>
   </div>

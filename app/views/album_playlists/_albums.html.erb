@@ -3,20 +3,33 @@
 
     <table cellspacing="0" width="100%">
       <tr>
-        <th><%= remote_order_by_link :id, search_obj: @search, params_scope: :album_playlists %></th>
-        <th><%= remote_order_by_link :title_original, search_obj: @search, params_scope: :album_playlists %></th>
-        <th><%= remote_order_by_link :artist_original, search_obj: @search, params_scope: :album_playlists %></th>
+        <th><%= remote_order_by_link :id,
+                                     search_obj: @search,
+                                     params_scope: :album_playlists %></th>
+        <th><%= remote_order_by_link :title_original,
+                                     search_obj: @search,
+                                     params_scope: :album_playlists %></th>
+        <th><%= remote_order_by_link :artist_original,
+                                     search_obj: @search,
+                                     params_scope: :album_playlists %></th>
         <!--
-						<th>Label<%#= remote_order_by_link label: :name, search_obj: @search, params_scope: :album_playlists  %></th>
+						<th>Label<%#= remote_order_by_link label: :name,
+search_obj: @search,
+params_scope: :album_playlists  %></th>
 					-->
-        <th><%= remote_order_by_link :release_year, search_obj: @search, params_scope: :album_playlists %></th>
-        <th><%= remote_order_by_link :cd_code, search_obj: @search, params_scope: :album_playlists %></th>
+        <th><%= remote_order_by_link :release_year,
+                                     search_obj: @search,
+                                     params_scope: :album_playlists %></th>
+        <th><%= remote_order_by_link :cd_code,
+                                     search_obj: @search,
+                                     params_scope: :album_playlists %></th>
         <th>&nbsp;</th>
       </tr>
       <% @albums.each do |album| %>
           <tr>
             <% cache([album]) do %>
-                <td><%= link_to album.id, album_path(id: album.id) %></td>
+                <td><%= link_to album.id,
+                                album_path(id: album.id) %></td>
                 <td><%= album.title_original %>
                   <br/><%= album.title_english %></td>
                 <td><%= album.artist_original %>

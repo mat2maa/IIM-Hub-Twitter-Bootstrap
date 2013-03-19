@@ -1,4 +1,8 @@
-page.replace "album-#{@album.id}", partial: "album", object: @album
-page.replace_html :notice, flash[:notice]
-page.visual_effect :highlight, :notice
+page.replace "album-#{@album.id}",
+             partial: "album",
+             object: @album
+page.replace_html :notice,
+                  flash[:notice]
+page.visual_effect :highlight,
+                   :notice
 flash.discard

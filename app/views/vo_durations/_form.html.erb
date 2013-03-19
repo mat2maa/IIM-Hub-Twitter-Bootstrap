@@ -1,13 +1,17 @@
-<%= form_for @vo_duration, remote: true, html: {id: "vo_duration_form"} do |f| %>
+<%= form_for @vo_duration,
+             remote: true,
+             html: {id: "vo_duration_form"} do |f| %>
     <table>
       <tr>
         <th>Name</th>
         <td>
-          <%= f.text_field :name, size: 5 %>
+          <%= f.text_field :name,
+                           size: 5 %>
         </td>
         <th>VO Duration in seconds</th>
         <td>
-          <%= f.text_field :duration, size: 5 %>
+          <%= f.text_field :duration,
+                           size: 5 %>
         </td>
         <td colspan="2">
           <%= f.submit "Add New VO Duration" %>

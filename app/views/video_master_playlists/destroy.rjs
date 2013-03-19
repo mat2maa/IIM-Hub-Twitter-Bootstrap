@@ -1,1 +1,2 @@
-page.visual_effect :fade, "video_master_playlist-#{@video_master_playlist.id}"
+page.visual_effect :fade,
+                   "video_master_playlist-#{@video_master_playlist.id}"

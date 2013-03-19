@@ -2,7 +2,11 @@
   <legend>Search Tracks</legend>
   <% f.fields_for @search.conditions do |tracks| %>
       Match ANY or ALL of the conditions:<br/>
-      <%= tracks.select :any, [["All", false], ["Any", true]] %>
+      <%= tracks.select :any,
+                        [["All",
+                          false],
+                         ["Any",
+                          true]] %>
       <br/>
       <br/>
       <table>
@@ -20,8 +24,16 @@
                 <br/>
             <% end %>
             Duration:<br/>
-            <%= text_field_tag 'dur_min_min', '', size: 3 %>:<%= text_field_tag 'dur_min_sec', '', size: 3 %> to
-            <%= text_field_tag 'dur_max_min', '', size: 3 %>:<%= text_field_tag 'dur_max_sec', '', size: 3 %>
+            <%= text_field_tag 'dur_min_min',
+                               '',
+                               size: 3 %>:<%= text_field_tag 'dur_min_sec',
+                                                             '',
+                                                             size: 3 %> to
+            <%= text_field_tag 'dur_max_min',
+                               '',
+                               size: 3 %>:<%= text_field_tag 'dur_max_sec',
+                                                             '',
+                                                             size: 3 %>
             <br/>
           </td>
           <td valign="top">
@@ -33,7 +45,10 @@
             <br/>
             Label:<br/>
             <% tracks.fields_for tracks.object.album do |album| %>
-                <%= album.select :label_id_equals, Label.find(:all).collect { |p| [p.name, p.id] }, {include_blank: true} %>
+                <%= album.select :label_id_equals,
+                                 Label.find(:all).collect { |p| [p.name,
+                                                                 p.id] },
+                                 {include_blank: true} %>
                 <br/>
             <% end %>
           </td>

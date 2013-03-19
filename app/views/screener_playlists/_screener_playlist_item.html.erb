@@ -8,7 +8,9 @@
         <table width="100%">
           <tr>
             <th width="130">(<%= screener_playlist_item.position %>)
-              Video Title [<%= link_to "Edit", edit_screener_path(screener_playlist_item.screener.id), popup: true %>]:
+              Video Title [<%= link_to "Edit",
+                                       edit_screener_path(screener_playlist_item.screener.id),
+                                       popup: true %>]:
             </th>
             <td width="200"><%= screener_playlist_item.screener.video.programme_title %></td>
             <th width="80">Distributor:</th>
@@ -30,5 +32,8 @@
       </td>
       <td class="actions"><%= image_tag("arrow_move.png") %></td>
   <% end %>
-  <td class="actions"><%= link_to_remote "Delete", confirm: "Are you sure", url: screener_playlist_item, method: 'delete' %></td>
+  <td class="actions"><%= link_to_remote "Delete",
+                                         confirm: "Are you sure",
+                                         url: screener_playlist_item,
+                                         method: 'delete' %></td>
 </tr>

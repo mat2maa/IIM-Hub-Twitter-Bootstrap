@@ -9,5 +9,9 @@
   <td><a href="<%= result.entity.id %>.html" target="_blank"><%= result.entity.id.uuid %></a></td>
 
 
-  <td><%= button_to 'import', {controller: "import_album", action: "import_release", id: result.entity.id.uuid}, confirm: "Are you sure?" %></td>
+  <td><%= button_to 'import',
+                    {controller: "import_album",
+                     action: "import_release",
+                     id: result.entity.id.uuid},
+                    confirm: "Are you sure?" %></td>
 </tr>

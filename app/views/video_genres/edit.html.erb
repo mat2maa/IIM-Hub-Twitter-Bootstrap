@@ -13,7 +13,10 @@
 
         <p>
           Parent Category<br/>
-          <%= select('video_genre', 'video_parent_genre_id', VideoParentGenre.all.collect { |p| [p.name, p.id] }) %>
+          <%= select('video_genre',
+                     'video_parent_genre_id',
+                     VideoParentGenre.all.collect { |p| [p.name,
+                                                         p.id] }) %>
         </p>
 
         <p>
@@ -21,7 +24,8 @@
         </p>
     <% end %>
 
-    <%= link_to 'Back', video_genres_path %>
+    <%= link_to 'Back',
+                video_genres_path %>
 
   </center>
   <br/><br/>

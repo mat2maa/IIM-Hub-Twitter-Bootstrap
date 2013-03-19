@@ -1,1 +1,2 @@
-page.replace_html "suppliers", partial: "suppliers"
+page.replace_html "suppliers",
+                  partial: "suppliers"

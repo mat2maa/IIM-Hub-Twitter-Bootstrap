@@ -14,7 +14,8 @@
     <% form_for(@video_master_playlist) do |form| %>
         <%= form.error_messages %>
 
-        <%= render partial: 'form', object: form %>
+        <%= render partial: 'form',
+                   object: form %>
         <p>
           <%= form.submit "Next" %>
         </p>

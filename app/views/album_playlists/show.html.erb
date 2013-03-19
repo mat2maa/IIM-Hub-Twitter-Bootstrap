@@ -1,7 +1,10 @@
 <%= render partial: 'layouts/albumplaylist_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
-  <div id="content-header-actions"><%= link_to "Export as Excel", controller: "album_playlists", action: "export_to_excel", id: @album_playlist %>
+  <div id="content-header-actions"><%= link_to "Export as Excel",
+                                               controller: "album_playlists",
+                                               action: "export_to_excel",
+                                               id: @album_playlist %>
   </div>
   <div id="content-header">Album Playlists</div>
 </div>
@@ -47,12 +50,14 @@
 
       <table width="100%">
         <tbody id="audioplaylist">
-        <%= render partial: 'playlist_item_view', collection: @album_playlist.album_playlist_items_sorted %>
+        <%= render partial: 'playlist_item_view',
+                   collection: @album_playlist.album_playlist_items_sorted %>
         </tbody>
       </table>
     </div>
 
-    <%= link_to 'Back', album_playlists_path %>
+    <%= link_to 'Back',
+                album_playlists_path %>
 
   </center>
 </div>

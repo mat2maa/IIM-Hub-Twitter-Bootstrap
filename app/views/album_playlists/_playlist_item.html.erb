@@ -13,7 +13,9 @@
 
           <tr>
             <th width="130">(<%= playlist_item.position %>) Album
-              Title <%= link_to 'Edit', edit_album_path(playlist_item.album), target: '_blank' %>:
+              Title <%= link_to 'Edit',
+                                edit_album_path(playlist_item.album),
+                                target: '_blank' %>:
             </th>
             <td width="180"><%= playlist_item.album.title_original %><%= "<strong class='alert'>(EXPLICIT)</strong>" if playlist_item.album.explicit_lyrics %></td>
             <th width="130">Artist:</th>
@@ -37,16 +39,28 @@
 
           <tr>
             <th  <%= is_nil_alert(playlist_item.album.synopsis) %>>Synopsis:</th>
-            <td colspan="3"><%= in_place_text_area :album, :synopsis %></td>
+            <td colspan="3"><%= in_place_text_area :album,
+                                                   :synopsis %></td>
             <th>Genre:</th>
             <td colspan="2"><%= playlist_item.album.genre %></td>
-            <th><%= link_to "+", categories_path, id: "add", popup: true %> Category:</th>
-            <td><%= in_place_select :album_playlist_item, 'category_id', choices: category_options_for_select, list_name: 'category', list_attribute: 'name' %></td>
+            <th><%= link_to "+",
+                            categories_path,
+                            id: "add",
+                            popup: true %> Category:
+            </th>
+            <td><%= in_place_select :album_playlist_item,
+                                    'category_id',
+                                    choices: category_options_for_select,
+                                    list_name: 'category',
+                                    list_attribute: 'name' %></td>
 
           </tr>
         </table>
       </td>
       <td><%= image_tag("arrow_move.png") %></td>
   <% end %>
-  <td><%= link_to_remote "Delete", confirm: "Are you sure", url: playlist_item, method: 'delete' %></td>
+  <td><%= link_to_remote "Delete",
+                         confirm: "Are you sure",
+                         url: playlist_item,
+                         method: 'delete' %></td>
 </tr>

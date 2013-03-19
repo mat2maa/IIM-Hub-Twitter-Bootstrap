@@ -6,7 +6,9 @@
       <legend>Search Tracks</legend>
       Match ANY or ALL of the conditions:
       <%= tracks.combinator_select %>
-      <%= image_tag 'spinner.gif', id: 'spinner', style: 'display:none;' %>
+      <%= image_tag 'spinner.gif',
+                    id: 'spinner',
+                    style: 'display:none;' %>
 
       <table>
         <tr>
@@ -26,7 +28,8 @@
                                '',
                                size: 3 %>
             to
-            <%= text_field_tag 'dur_max_min', '',
+            <%= text_field_tag 'dur_max_min',
+                               '',
                                size: 3 %>
             :
             <%= text_field_tag 'dur_max_sec',
@@ -50,7 +53,8 @@
           <td valign="top">
             Label:<br>
             <%= tracks.select :album_label_id_eq,
-                              Label.all.collect { |p| [p.name, p.id] },
+                              Label.all.collect { |p| [p.name,
+                                                       p.id] },
                               {include_blank: true} %>
             <br>
 

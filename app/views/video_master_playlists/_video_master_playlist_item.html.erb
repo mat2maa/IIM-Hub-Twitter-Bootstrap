@@ -9,7 +9,9 @@
         <table width="100%">
           <tr>
             <th width="170">(<%= video_master_playlist_item.position %>) Programme Title
-              [<%= link_to "Edit", edit_video_path(video_master_playlist_item.master.video.id), popup: true %>]:
+              [<%= link_to "Edit",
+                           edit_video_path(video_master_playlist_item.master.video.id),
+                           popup: true %>]:
             </th>
             <td width="200"><%= video_master_playlist_item.master.video.programme_title %></td>
             <th width="85">Lang Track 1:</th>
@@ -23,7 +25,9 @@
           </tr>
           <tr>
             <th width="130">Episode Title
-              [<%= link_to "Edit", edit_master_path(video_master_playlist_item.master.id), popup: true %>]:
+              [<%= link_to "Edit",
+                           edit_master_path(video_master_playlist_item.master.id),
+                           popup: true %>]:
             </th>
             <td width="200"><%= video_master_playlist_item.master.episode_title %></td>
             <th>Episode #:</th>
@@ -51,7 +55,9 @@
             <td valign="top"><strong>Mastering:</strong><br/>
             </td>
             <td colspan="5">
-              <%= in_place_text_area :video_master_playlist_item, :mastering, {rows: "2"} %>
+              <%= in_place_text_area :video_master_playlist_item,
+                                     :mastering,
+                                     {rows: "2"} %>
             </td>
             <th>Aspect Ratio:</th>
             <td><%= video_master_playlist_item.master.aspect_ratio %></td>
@@ -62,5 +68,8 @@
       </td>
       <td class="actions"><%= image_tag("arrow_move.png") %></td>
   <% end %>
-  <td class="actions"><%= link_to_remote "Delete", confirm: "Are you sure", url: video_master_playlist_item, method: 'delete' %></td>
+  <td class="actions"><%= link_to_remote "Delete",
+                                         confirm: "Are you sure",
+                                         url: video_master_playlist_item,
+                                         method: 'delete' %></td>
 </tr>

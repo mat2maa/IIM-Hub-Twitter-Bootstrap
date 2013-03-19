@@ -17,11 +17,13 @@
             </td>
             <th valign="top" width="80">Lang Tracks:</th>
             <td valign="top" width="150">
-              <%= playlist_item.movie.language_tracks.class == Array ? playlist_item.movie.language_tracks.join(', ') : playlist_item.movie.language_tracks %>
+              <%= playlist_item.movie.language_tracks.class == Array ? playlist_item.movie.language_tracks.join(',
+') : playlist_item.movie.language_tracks %>
             </td>
             <th width="50" valign="top">Lang Subs:</th>
             <td width="50" valign="top">
-              <%= playlist_item.movie.language_subtitles.class == Array ? playlist_item.movie.language_subtitles.join(', ') : playlist_item.movie.language_subtitles %>
+              <%= playlist_item.movie.language_subtitles.class == Array ? playlist_item.movie.language_subtitles.join(',
+') : playlist_item.movie.language_subtitles %>
             </td>
             <th width="100" valign="top">Release Date:</th>
             <td valign="top">
@@ -43,7 +45,8 @@
             </td>
             <th valign="top">Release Versions:</th>
             <td valign="top">
-              <%= playlist_item.movie.release_versions.join(', ') %>
+              <%= playlist_item.movie.release_versions.join(',
+') %>
             </td>
           </tr>
           <tr>

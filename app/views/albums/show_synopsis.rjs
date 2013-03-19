@@ -1,1 +1,2 @@
-page.replace_html('tab-area', partial: 'synopsis')
+page.replace_html('tab-area',
+                  partial: 'synopsis')

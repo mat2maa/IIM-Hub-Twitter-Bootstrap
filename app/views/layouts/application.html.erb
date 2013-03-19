@@ -5,7 +5,8 @@
   <META HTTP-EQUIV=”Pragma” CONTENT=”no-cache”>
   <META HTTP-EQUIV=”Expires” CONTENT=”-1″>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= stylesheet_link_tag 'application',
+                          media: 'all' %>
 
   <%= javascript_include_tag "application" %>
   <%= yield :head %>
@@ -16,7 +17,9 @@
   <div id="logout">
     <% if logged_in? %>
         You are logged in as <strong><%= current_user.login %></strong> |
-        <%= link_to 'Change Password', change_password_path %> | <%= link_to "Log Out", logout_path %>
+        <%= link_to 'Change Password',
+                    change_password_path %> | <%= link_to "Log Out",
+                                                          logout_path %>
     <% end %>
   </div>
   <div id="company-name">IIM</div>

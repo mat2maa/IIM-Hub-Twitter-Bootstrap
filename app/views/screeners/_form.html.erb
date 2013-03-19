@@ -1,12 +1,17 @@
 <script type="text/javascript">
     jQuery.ajaxSetup({ 'beforeSend': function (xhr) {
-        xhr.setRequestHeader("Accept", "text/javascript")
+        xhr.setRequestHeader("Accept",
+                "text/javascript")
     } })
 
     jQuery.fn.submitWithAjax = function () {
-        this.unbind('submit', false);
+        this.unbind('submit',
+                false);
         this.submit(function () {
-            jQuery.post(this.action, jQuery(this).serialize(), null, "script");
+            jQuery.post(this.action,
+                    jQuery(this).serialize(),
+                    null,
+                    "script");
             return false;
         })
 
@@ -33,23 +38,39 @@
     });
 </script>
 
-<% semantic_form_for(@screener, html: {class: 'ajaxForm'}) do |f| %>
+<% semantic_form_for(@screener,
+                     html: {class: 'ajaxForm'}) do |f| %>
     <div id="flash_notice"></div>
 
     <%= error_messages_for(f.object) %><br/>
 
     <% f.inputs do %>
 
-        <%= f.input :video_id, as: :hidden %>
+        <%= f.input :video_id,
+                    as: :hidden %>
         <table class="screener">
           <tr>
-            <td width="100" valign="top"><%= f.input :episode_title, input_html: {class: "screener_title"}, label: "Episode Title" %></td>
-            <td width="100" valign="top">Episode Number <%= f.text_field :episode_number, size: 5 %></td>
+            <td width="100" valign="top"><%= f.input :episode_title,
+                                                     input_html: {class: "screener_title"},
+                                                     label: "Episode Title" %></td>
+            <td width="100" valign="top">Episode Number <%= f.text_field :episode_number,
+                                                                         size: 5 %></td>
             <td width="100" valign="top">
-              <%= f.input :remarks, as: :select, collection: ["VHS", "B&W", "Chinese Subs", "Other"], include_blank: true %>
+              <%= f.input :remarks,
+                          as: :select,
+                          collection: ["VHS",
+                                       "B&W",
+                                       "Chinese Subs",
+                                       "Other"],
+                          include_blank: true %>
             </td>
-            <td width="100" valign="top">Other <%= f.text_field :remarks_other, size: 16 %></td>
-            <td width="50" valign="top"><%= f.input :location, as: :select, collection: ["SIN", "BJS", "HKG"] %></td>
+            <td width="100" valign="top">Other <%= f.text_field :remarks_other,
+                                                                size: 16 %></td>
+            <td width="50" valign="top"><%= f.input :location,
+                                                    as: :select,
+                                                    collection: ["SIN",
+                                                                 "BJS",
+                                                                 "HKG"] %></td>
             <td><%= f.buttons %></td>
           </tr>
         </table>

@@ -1,6 +1,7 @@
 var $ = jQuery;
 
-var newRow = " <%= escape_javascript(render(partial: "master_language", object: @master_language)) %> ";
+var newRow = " <%= escape_javascript(render(partial: "master_language",
+object: @master_language)) %> ";
 
 $("#master_language_form")
         .find("input[type=text]").val("");

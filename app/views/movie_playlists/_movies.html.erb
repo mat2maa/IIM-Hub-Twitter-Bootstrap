@@ -1,23 +1,42 @@
 <% if @movies_count > 0 %>
-    <% form_remote_tag html: {action: url_for(controller: "movie_playlists", action: "add_multiple_movies"), id: "multiple_movies"} do %>
-        <%= hidden_field_tag 'playlist_id', params[:id] %>
-        <%= submit_to_remote 'add_multiple_btn', 'Add Selected to Playlist', url: {action: 'add_multiple_movies'} %><br/>
+    <% form_remote_tag html: {action: url_for(controller: "movie_playlists",
+                                              action: "add_multiple_movies"),
+                              id: "multiple_movies"} do %>
+        <%= hidden_field_tag 'playlist_id',
+                             params[:id] %>
+        <%= submit_to_remote 'add_multiple_btn',
+                             'Add Selected to Playlist',
+                             url: {action: 'add_multiple_movies'} %><br/>
         <%= @movies_count %> movies found
         <table cellspacing="0" width="100%">
           <tr>
-            <th width="8"><%= check_box_tag('check_all', 'check_all', false, onclick: "$$('#movie_ids_').each(function(box){box.checked=($('check_all').checked)?true:false});") %></th>
-            <th><%= remote_order_by_link :id, search_obj: @search, params_scope: :movie_playlists %></th>
-            <th><%= remote_order_by_link :movie_title, search_obj: @search, params_scope: :movie_playlists %></th>
-            <th><%= remote_order_by_link :movie_type, search_obj: @search, params_scope: :movie_playlists %></th>
-            <th><%= remote_order_by_link :airline_release_date, search_obj: @search, params_scope: :movie_playlists %></th>
+            <th width="8"><%= check_box_tag('check_all',
+                                            'check_all',
+                                            false,
+                                            onclick: "$$('#movie_ids_').each(function(box){box.checked=($('check_all').checked)?true:false});") %></th>
+            <th><%= remote_order_by_link :id,
+                                         search_obj: @search,
+                                         params_scope: :movie_playlists %></th>
+            <th><%= remote_order_by_link :movie_title,
+                                         search_obj: @search,
+                                         params_scope: :movie_playlists %></th>
+            <th><%= remote_order_by_link :movie_type,
+                                         search_obj: @search,
+                                         params_scope: :movie_playlists %></th>
+            <th><%= remote_order_by_link :airline_release_date,
+                                         search_obj: @search,
+                                         params_scope: :movie_playlists %></th>
             <th>In Playlists With<br/>Same Airline</th>
             <th>&nbsp;</th>
           </tr>
           <% @movies.each do |movie| %>
               <tr>
                 <% cache([movie]) do %>
-                    <td><%= check_box_tag "movie_ids[]", movie.id %></td>
-                    <td><%= link_to movie.id, movie_path(id: movie.id), popup: true %></td>
+                    <td><%= check_box_tag "movie_ids[]",
+                                          movie.id %></td>
+                    <td><%= link_to movie.id,
+                                    movie_path(id: movie.id),
+                                    popup: true %></td>
                     <td><%= movie.movie_title %></td>
                     <td><%= movie.movie_type %></td>
                     <td><%= movie.airline_release_date.strftime("%m-%Y") if !movie.airline_release_date.nil? %></td>
@@ -25,7 +44,11 @@
                 <td>
 									<span id="exists">
 										<% if (movie.in_playlists!="" && !movie.in_playlists.nil?) %>
-											<%= MoviePlaylist.with_same_airline_and_movie(movie.id, (@movie_playlist.airline_id unless @movie_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}", edit_movie_playlist_path(playlist), popup: true) }.join(', ') %>
+											<%= MoviePlaylist.with_same_airline_and_movie(movie.id,
+                                                                                          (@movie_playlist.airline_id unless @movie_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
+                                                                                                                                                                                         edit_movie_playlist_path(playlist),
+                                                                                                                                                                                         popup: true) }.join(',
+') %>
 										<% end %>
 									</span>
                 </td>

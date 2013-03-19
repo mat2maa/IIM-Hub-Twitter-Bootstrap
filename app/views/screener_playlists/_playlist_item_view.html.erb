@@ -30,11 +30,13 @@
           </tr>
           <tr>
             <td><strong>Lang Tracks:</strong></td>
-            <td><%= playlist_item_view.screener.video.language_tracks.join(', ') if !playlist_item_view.screener.video.language_tracks.nil? %></td>
+            <td><%= playlist_item_view.screener.video.language_tracks.join(',
+') if !playlist_item_view.screener.video.language_tracks.nil? %></td>
           </tr>
           <tr>
             <td><strong>Lang Subtitles:</strong></td>
-            <td><%= playlist_item_view.screener.video.language_subtitles.join(', ') if !playlist_item_view.screener.video.language_subtitles.nil? %></td>
+            <td><%= playlist_item_view.screener.video.language_subtitles.join(',
+') if !playlist_item_view.screener.video.language_subtitles.nil? %></td>
           </tr>
           <tr>
             <td><strong>Synopsis:</strong></td>

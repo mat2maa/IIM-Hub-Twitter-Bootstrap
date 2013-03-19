@@ -7,43 +7,56 @@
 
       Match ANY or ALL of the conditions:
       <%= audio_playlists.combinator_select %>
-      <%= image_tag 'spinner.gif', id: 'spinner', style: 'display:none;' %>
+      <%= image_tag 'spinner.gif',
+                    id: 'spinner',
+                    style: 'display:none;' %>
       <br/>
       <table>
         <tr>
           <td>
             Playlist ID:
             <br/>
-            <%= audio_playlists.text_field :id_eq, size: 6 %>
+            <%= audio_playlists.text_field :id_eq,
+                                           size: 6 %>
           </td>
           <td valign="top">
             Program:<br/>
-            <%= audio_playlists.select :program_id_eq, Program.order("name asc")
-            .collect { |p| [p.name, p.id] }, {include_blank: true} %>
+            <%= audio_playlists.select :program_id_eq,
+                                       Program.order("name asc")
+                                       .collect { |p| [p.name,
+                                                       p.id] },
+                                       {include_blank: true} %>
           </td>
           <td valign="top">
             Airline:
             <br/>
-            <%= audio_playlists.select :airline_id_eq, Airline.order("name asc")
-            .collect { |p| [p.name, p.id] }, {include_blank: true} %>
+            <%= audio_playlists.select :airline_id_eq,
+                                       Airline.order("name asc")
+                                       .collect { |p| [p.name,
+                                                       p.id] },
+                                       {include_blank: true} %>
           </td>
           <td>
             Start Playdate:
             <br/>
-            <%= audio_playlists.date_select :start_playdate_matches, {discard_day: true,
-                                                                      order: [:month, :year],
-                                                                      include_blank: true,
-                                                                      default: ""} %>
+            <%= audio_playlists.date_select :start_playdate_matches,
+                                            {discard_day: true,
+                                             order: [:month,
+                                                     :year],
+                                             include_blank: true,
+                                             default: ""} %>
             <br/>
           </td>
 
           <td>
             End Playdate:
             <br/>
-            <%= audio_playlists.date_select :end_playdate_matches, {discard_day: true,
-                                                                    order: [:month, :year],
-                                                                    include_blank: true,
-                                                                    default: ""} %>
+            <%= audio_playlists.date_select :end_playdate_matches,
+                                            {discard_day: true,
+                                             order: [:month,
+                                                     :year],
+                                             include_blank: true,
+                                             default: ""} %>
             <br/>
           </td>
           <td valign="bottom">

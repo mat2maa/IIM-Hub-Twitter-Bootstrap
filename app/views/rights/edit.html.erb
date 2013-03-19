@@ -2,7 +2,9 @@
 <div id="content">
   <center>
     <h2>Edit Right</h2>
-    <%= form_for @right, url: {action: "update", id: @right.id} do |form| %>
+    <%= form_for @right,
+                 url: {action: "update",
+                       id: @right.id} do |form| %>
         <%= error_messages_for form.object -%>
         <%= form.label :name %>
         <br/>
@@ -17,7 +19,8 @@
         <%= form.text_field :action %>
         <br/>
         <br/>
-        <%= submit_tag "Save", class: "submit" %>
+        <%= submit_tag "Save",
+                       class: "submit" %>
     <% end %>
   </center>
 </div>

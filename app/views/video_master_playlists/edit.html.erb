@@ -15,13 +15,26 @@
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
   <div id="content-header-actions">
-    <%= link_to "Print Playlist", {controller: "video_master_playlists", action: "show", id: @video_master_playlist}, id: 'print_playlist', target: '_blank' %>
+    <%= link_to "Print Playlist",
+                {controller: "video_master_playlists",
+                 action: "show",
+                 id: @video_master_playlist},
+                id: 'print_playlist',
+                target: '_blank' %>
     |
-    <%= link_to "Download Full PDF", {controller: "video_master_playlists", action: "print", id: @video_master_playlist, format: "pdf"} %>
+    <%= link_to "Download Full PDF",
+                {controller: "video_master_playlists",
+                 action: "print",
+                 id: @video_master_playlist,
+                 format: "pdf"} %>
     |
-    <%= link_to "Export as Excel", controller: "video_master_playlists", action: "export_to_excel", id: @video_master_playlist %>
+    <%= link_to "Export as Excel",
+                controller: "video_master_playlists",
+                action: "export_to_excel",
+                id: @video_master_playlist %>
     |
-    <%= link_to "Create a playlist", new_video_master_playlist_path %>
+    <%= link_to "Create a playlist",
+                new_video_master_playlist_path %>
 
   </div>
   <div id="content-header">Video Masters Playlists</div>
@@ -31,14 +44,16 @@
   <center>
     <h2>Edit Video Master Playlist</h2>
 
-    <div class="action-button"><%= link_to_show_overlay 'add master', add_master_to_playlist_path(@video_master_playlist.id) %></div>
+    <div class="action-button"><%= link_to_show_overlay 'add master',
+                                                        add_master_to_playlist_path(@video_master_playlist.id) %></div>
     <br/>
     <br/>
     <%= form_for(@video_master_playlist) do |form| %>
 
         <%= form.error_messages %>
 
-        <%= render partial: 'form', object: form %>
+        <%= render partial: 'form',
+                   object: form %>
         <p>
           <%= submit_tag "Save Changes" %>
         </p>
@@ -46,10 +61,12 @@
 
 
     <div id="playlist">
-      <%= render partial: 'playlist', object: @video_master_playlist %>
+      <%= render partial: 'playlist',
+                 object: @video_master_playlist %>
     </div>
 
-    <%= link_to 'Back', video_master_playlists_path %>
+    <%= link_to 'Back',
+                video_master_playlists_path %>
 
   </center>
 </div>

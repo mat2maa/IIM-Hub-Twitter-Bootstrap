@@ -7,9 +7,12 @@
 
 <div id="content-header-wrapper">
   <div id="content-header-actions">
-    <% if permitted_to? :create, :album_playlists %>
-        <%= link_to "Export by airline", "/export_by_airline" %>
-        <%= link_to "Create a playlist", new_album_playlist_path %>
+    <% if permitted_to? :create,
+                        :album_playlists %>
+        <%= link_to "Export by airline",
+                    "/export_by_airline" %>
+        <%= link_to "Create a playlist",
+                    new_album_playlist_path %>
     <% end %>
   </div>
 
@@ -17,7 +20,8 @@
 </div>
 
 <div id="content">
-  <%= render partial: 'search_form', object: @search %>
+  <%= render partial: 'search_form',
+             object: @search %>
 
   <div id="album_playlists">
     <%= render partial: "album_playlists" %>

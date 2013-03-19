@@ -7,9 +7,16 @@
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
   <div id="content-header-actions">
-    <%= link_to "Print Playlist", {controller: "screener_playlists", action: "show", id: @screener_playlist}, :popup => true %>
+    <%= link_to "Print Playlist",
+                {controller: "screener_playlists",
+                 action: "show",
+                 id: @screener_playlist},
+                :popup => true %>
     |
-    <%= link_to "Export as Excel", controller: "screener_playlists", action: "export_to_excel", id: @screener_playlist %>
+    <%= link_to "Export as Excel",
+                controller: "screener_playlists",
+                action: "export_to_excel",
+                id: @screener_playlist %>
   </div>
   <div id="content-header">Screener Playlists</div>
 </div>
@@ -22,13 +29,16 @@
     <%= "Video Playlist Type: #{@screener_playlist.video_playlist_type.name} " if !@screener_playlist.video_playlist_type.nil? %>
     <br/>
     <strong>Media Instruction:</strong><br/>
-    <%= @screener_playlist.media_instruction.gsub(/\n/, '<br/>') %>
+    <%= @screener_playlist.media_instruction.gsub(/\n/,
+                                                  '<br/>') %>
 
     <table width="900">
-      <%= render partial: 'playlist_item_view', collection: @screener_playlist.screener_playlist_items_sorted %>
+      <%= render partial: 'playlist_item_view',
+                 collection: @screener_playlist.screener_playlist_items_sorted %>
     </table>
 
-    <%= link_to 'Back', screener_playlists_path %>
+    <%= link_to 'Back',
+                screener_playlists_path %>
 
   </center>
 </div>

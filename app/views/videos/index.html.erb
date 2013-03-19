@@ -8,13 +8,15 @@
 
 <div id="content-header-wrapper">
   <div id="content-header-actions">
-    <%= link_to "Create a video", new_video_path %>
+    <%= link_to "Create a video",
+                new_video_path %>
   </div>
   <div id="content-header">Videos</div>
 </div>
 
 <div id="content">
-  <%= render partial: 'search_form', object: @search %>
+  <%= render partial: 'search_form',
+             object: @search %>
 
   <div id="videos">
     <%= render partial: "videos" %>

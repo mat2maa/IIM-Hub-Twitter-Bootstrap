@@ -32,7 +32,8 @@
     <h2>Edit Album Playlist</h2>
 
     <div class="action-button">
-      <%= link_to_show_overlay 'add album', add_album_to_playlist_path(@album_playlist.id) %>
+      <%= link_to_show_overlay 'add album',
+                               add_album_to_playlist_path(@album_playlist.id) %>
     </div>
     <br/>
     <br/>
@@ -40,10 +41,12 @@
     <%= render 'form' %>
 
     <div id="playlist">
-      <%= render partial: 'playlist', object: @album_playlist %>
+      <%= render partial: 'playlist',
+                 object: @album_playlist %>
     </div>
 
-    <%= link_to 'Back', album_playlists_path %>
+    <%= link_to 'Back',
+                album_playlists_path %>
 
   </center>
 </div>

@@ -3,13 +3,23 @@
 
     <table cellspacing="0" width="100%">
       <tr>
-        <th><%= remote_order_by_link :id, search_obj: @search, params_scope: :audio_playlists %></th>
+        <th><%= remote_order_by_link :id,
+                                     search_obj: @search,
+                                     params_scope: :audio_playlists %></th>
         <th>(track
-          num) <%= remote_order_by_link :title_original, search_obj: @search, params_scope: :audio_playlists %></th>
-        <th><%= remote_order_by_link :artist_original, search_obj: @search, params_scope: :audio_playlists %></th>
-        <th>Label <%#= remote_order_by_link label: :name, search_obj: @search, params_scope: :audio_playlists  %></th>
+          num) <%= remote_order_by_link :title_original,
+                                        search_obj: @search,
+                                        params_scope: :audio_playlists %></th>
+        <th><%= remote_order_by_link :artist_original,
+                                     search_obj: @search,
+                                     params_scope: :audio_playlists %></th>
+        <th>Label <%#= remote_order_by_link label: :name,
+search_obj: @search,
+params_scope: :audio_playlists  %></th>
         <th>CD Code</th>
-        <th><%= remote_order_by_link :duration, search_obj: @search, params_scope: :audio_playlists %></th>
+        <th><%= remote_order_by_link :duration,
+                                     search_obj: @search,
+                                     params_scope: :audio_playlists %></th>
         <th>Explicit Lyrics</th>
         <th>&nbsp;</th>
       </tr>
@@ -17,8 +27,12 @@
 
           <% @track=track %>
           <tr>
-            <% cache([track, track.album, "audio_playlists"]) do %>
-                <td><%= link_to track.id, track_path(id: track.id), :popup => true %></td>
+            <% cache([track,
+                      track.album,
+                      "audio_playlists"]) do %>
+                <td><%= link_to track.id,
+                                track_path(id: track.id),
+                                :popup => true %></td>
                 <td>(<%= track.track_num %>)
                   <%= track.title_original %>
                   <br/><%= track.title_english %></td>
@@ -28,7 +42,9 @@
                 <td><%= track.album.cd_code %>&nbsp;</td>
                 <td><%= duration(track.duration) %></td>
             <% end %>
-            <td><%= check_box(:track, :explicit_lyrics, disabled: true) %></td>
+            <td><%= check_box(:track,
+                              :explicit_lyrics,
+                              disabled: true) %></td>
             <td>
               <%= link_to_remote "add to playlist",
                                  url: {controller: "audio_playlists",

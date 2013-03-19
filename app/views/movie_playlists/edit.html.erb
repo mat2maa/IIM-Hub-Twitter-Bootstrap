@@ -38,7 +38,11 @@
 
     |
 
-    <%#= link_to "Download Summary PDF", {controller: "movie_playlists", action: "edit",  id: @movie_playlist, format: "pdf"} %>
+    <%#= link_to "Download Summary PDF",
+{controller: "movie_playlists",
+action: "edit",
+ id: @movie_playlist,
+format: "pdf"} %>
     <%= link_to "Export as Excel",
                 controller: "movie_playlists",
                 action: "export_to_excel",

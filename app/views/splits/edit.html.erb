@@ -18,14 +18,22 @@
 
         <p>
           <%= f.label :more_than %><br/>
-          <%= text_field_tag :more_than_min, duration_min(@split.more_than), :size => 3 %> min
-          <%= text_field_tag :more_than_sec, duration_sec(@split.more_than), :size => 3 %> sec
+          <%= text_field_tag :more_than_min,
+                             duration_min(@split.more_than),
+                             :size => 3 %> min
+          <%= text_field_tag :more_than_sec,
+                             duration_sec(@split.more_than),
+                             :size => 3 %> sec
         </p>
 
         <p>
           <%= f.label :less_than %><br/>
-          <%= text_field_tag :less_than_min, duration_min(@split.less_than), :size => 3 %> min
-          <%= text_field_tag :less_than_sec, duration_sec(@split.less_than), :size => 3 %> sec
+          <%= text_field_tag :less_than_min,
+                             duration_min(@split.less_than),
+                             :size => 3 %> min
+          <%= text_field_tag :less_than_sec,
+                             duration_sec(@split.less_than),
+                             :size => 3 %> sec
         </p>
 
         <p>
@@ -33,7 +41,8 @@
         </p>
     <% end %>
 
-    <%= link_to 'Back', splits_path %>
+    <%= link_to 'Back',
+                splits_path %>
 
   </center>
   <br/><br/>

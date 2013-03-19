@@ -6,7 +6,9 @@
                       complete: "Element.hide('spinner')" do |suppliers| %>
 
 
-      <%= image_tag 'spinner.gif', id: 'spinner', style: 'display:none;' %>
+      <%= image_tag 'spinner.gif',
+                    id: 'spinner',
+                    style: 'display:none;' %>
       <br/>
 
       <table>
@@ -19,8 +21,10 @@
           <td valign="top">
             Categories:<br/>
 
-            <%= suppliers.select :supplier_categories_id_eq, SupplierCategory.all
-            .collect { |p| [p.name, p.id] },
+            <%= suppliers.select :supplier_categories_id_eq,
+                                 SupplierCategory.all
+                                 .collect { |p| [p.name,
+                                                 p.id] },
                                  {include_blank: true} %>
 
           </td>

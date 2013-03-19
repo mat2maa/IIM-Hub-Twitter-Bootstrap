@@ -1,4 +1,6 @@
-<%= form_for @video_genre, remote: true, html: {id: "video_genre_form"} do |f| %>
+<%= form_for @video_genre,
+             remote: true,
+             html: {id: "video_genre_form"} do |f| %>
     <table>
       <tr>
         <td>Video Genre Name</td>
@@ -6,7 +8,10 @@
           <%= f.text_field :name %>
         </td>
         <td>
-          <%= f.select(:video_parent_genre_id, options_from_collection_for_select(VideoParentGenre.all, :id, :name)) %>
+          <%= f.select(:video_parent_genre_id,
+                       options_from_collection_for_select(VideoParentGenre.all,
+                                                          :id,
+                                                          :name)) %>
         </td>
         <td colspan="2">
           <%= f.submit "Add New Video Genre" %>

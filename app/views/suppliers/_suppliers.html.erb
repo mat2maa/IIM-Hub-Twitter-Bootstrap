@@ -5,15 +5,20 @@
     <table border="0" cellpadding="10" cellspacing="0" width="100%">
       <tr>
         <td class="list-header">
-          <%= sort_link(@search, :id, "ID") %>
+          <%= sort_link(@search,
+                        :id,
+                        "ID") %>
         </td>
         <td class="list-header">
-          <%= sort_link(@search, :company_name, "Company Name") %>
+          <%= sort_link(@search,
+                        :company_name,
+                        "Company Name") %>
         </td>
         <td class="list-header">Categories</td>
         <td colspan="2" class="list-header">&nbsp;</td>
       </tr>
-      <%= render partial: 'supplier', collection: @suppliers %>
+      <%= render partial: 'supplier',
+                 collection: @suppliers %>
     </table>
 
     <br/>

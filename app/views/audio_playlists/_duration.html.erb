@@ -1,3 +1,4 @@
-<div <%= tot_dur_split_alert(@audio_playlist.airline_duration.to_i, @audio_playlist.total_duration) %>>
+<div <%= tot_dur_split_alert(@audio_playlist.airline_duration.to_i,
+                             @audio_playlist.total_duration) %>>
   <%= @audio_playlist.total_duration_cached if !@audio_playlist.id.nil? %>
 </div>

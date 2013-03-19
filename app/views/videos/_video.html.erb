@@ -1,5 +1,6 @@
 <tr id="video-<%= video.id %>">
-  <%# cache([video, "videos"]) do %>
+  <%# cache([video,
+"videos"]) do %>
   <td><%= link_to video.id,
                   video_path(id: video.id),
                   popup: true %></td>

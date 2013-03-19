@@ -1,18 +1,21 @@
 <center>
   <div class="overlay">
-    <%= link_to_hide_overlay 'Cancel', album_playlists_path %>
+    <%= link_to_hide_overlay 'Cancel',
+                             album_playlists_path %>
 
     <% form_for(@album_playlist_item.album) do |synopsis_form| %>
 
         <%= synopsis_form.error_messages %>
 
-        <%= render partial: 'synopsis_form', object: synopsis_form %>
+        <%= render partial: 'synopsis_form',
+                   object: synopsis_form %>
         <p>
           <%= submit_tag "Update" %>
         </p>
     <% end %>
 
-    <%= link_to_hide_overlay 'Cancel', album_playlists_path %>
+    <%= link_to_hide_overlay 'Cancel',
+                             album_playlists_path %>
 
   </div>
 </center>

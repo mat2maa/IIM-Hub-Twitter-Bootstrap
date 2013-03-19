@@ -7,10 +7,21 @@
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
   <div id="content-header-actions">
-    <%= link_to "Edit Playlist", {controller: "video_playlists", action: "edit", id: @video_playlist}, popup: true %> |
-    <%= link_to "Print Playlist", {controller: "video_playlists", action: "print", id: @video_playlist}, :popup => true %>
+    <%= link_to "Edit Playlist",
+                {controller: "video_playlists",
+                 action: "edit",
+                 id: @video_playlist},
+                popup: true %> |
+    <%= link_to "Print Playlist",
+                {controller: "video_playlists",
+                 action: "print",
+                 id: @video_playlist},
+                :popup => true %>
     |
-    <%= link_to "Export as Excel", controller: "video_playlists", action: "export_to_excel", id: @video_playlist %>
+    <%= link_to "Export as Excel",
+                controller: "video_playlists",
+                action: "export_to_excel",
+                id: @video_playlist %>
   </div>
   <div id="content-header">Video Playlists</div>
 </div>
@@ -21,10 +32,12 @@
     <%= "Video Playlist Type: #{@video_playlist.video_playlist_type.name} " if !@video_playlist.video_playlist_type.nil? %>
 
     <table width="900">
-      <%= render partial: 'playlist_item_view', collection: @video_playlist.video_playlist_items_sorted %>
+      <%= render partial: 'playlist_item_view',
+                 collection: @video_playlist.video_playlist_items_sorted %>
     </table>
 
-    <%= link_to 'Back', video_playlists_path %>
+    <%= link_to 'Back',
+                video_playlists_path %>
 
   </center>
 </div>

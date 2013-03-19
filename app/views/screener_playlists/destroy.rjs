@@ -1,1 +1,2 @@
-page.visual_effect :fade, "screener_playlist-#{@screener_playlist.id}"
+page.visual_effect :fade,
+                   "screener_playlist-#{@screener_playlist.id}"

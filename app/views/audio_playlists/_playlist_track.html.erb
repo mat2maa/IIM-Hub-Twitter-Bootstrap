@@ -6,13 +6,20 @@
         <table width="100%" class="playlist">
           <tr>
             <th width="130">(<%= playlist_track.position %>)Track
-              Title <%= link_to 'Edit', edit_track_path(playlist_track.track_id), target: '_blank' %>:
+              Title <%= link_to 'Edit',
+                                edit_track_path(playlist_track.track_id),
+                                target: '_blank' %>:
             </th>
-            <% cache([playlist_track, playlist_track.track, playlist_track.track.album, playlist_track.track.album.label]) do %>
+            <% cache([playlist_track,
+                      playlist_track.track,
+                      playlist_track.track.album,
+                      playlist_track.track.album.label]) do %>
                 <td width="180">
                   <% if playlist_track.track.mp3_exists == true %>
 
-                      <%= link_to playlist_track.track.title_original, Settings.nas_mp3_url + playlist_track.track.album.id.to_s + "/" + playlist_track.track.track_num.to_s + ".mp3", :title => playlist_track.track.artist_original + " - " + playlist_track.track.title_original %>
+                      <%= link_to playlist_track.track.title_original,
+                                  Settings.nas_mp3_url + playlist_track.track.album.id.to_s + "/" + playlist_track.track.track_num.to_s + ".mp3",
+                                  :title => playlist_track.track.artist_original + " - " + playlist_track.track.title_original %>
 
                   <% else %>
                       <%= playlist_track.track.title_original %>
@@ -49,11 +56,24 @@
                 <% @audio_playlist_track = playlist_track %>
                 <tr>
                   <th align="LEFT">Mastering :</th>
-                  <td><%= in_place_text_area :audio_playlist_track, :mastering, {rows: "2"} %></td>
+                  <td><%= in_place_text_area :audio_playlist_track,
+                                             :mastering,
+                                             {rows: "2"} %></td>
                   <th>Split:</th>
-                  <td width="114" <%= split_alert(playlist_track.split.to_i, @accum_duration) %>><%= in_place_select :audio_playlist_track, :split, choices: Split.find(:all, order: :duration).collect { |p| [p.name, p.duration] }, include_blank: true %></td>
+                  <td width="114" <%= split_alert(playlist_track.split.to_i,
+                                                  @accum_duration) %>><%= in_place_select :audio_playlist_track,
+                                                                                          :split,
+                                                                                          choices: Split.find(:all,
+                                                                                                              order: :duration).collect { |p| [p.name,
+                                                                                                                                               p.duration] },
+                                                                                          include_blank: true %></td>
                   <th>VO Duration (sec):</th>
-                  <td><%= in_place_select :audio_playlist_track, :vo_duration, choices: VoDuration.find(:all, order: :duration).collect { |p| [p.name, p.duration] }, include_blank: true %></td>
+                  <td><%= in_place_select :audio_playlist_track,
+                                          :vo_duration,
+                                          choices: VoDuration.find(:all,
+                                                                   order: :duration).collect { |p| [p.name,
+                                                                                                    p.duration] },
+                                          include_blank: true %></td>
                   <th <%= is_nil_alert(playlist_track.track.genre) %>>Genre:</th>
                   <td><%#=h show_genres(playlist_track.track.genres) if !playlist_track.track.genres.count.zero? %><%= playlist_track.track.genre %></td>
                 </tr>
@@ -69,7 +89,11 @@
        vo_duration = playlist_track.vo_duration.to_i
      end
   %>
-  <td <%= split_alert(playlist_track.split.to_i, @accum_duration) %>><%= link_to_remote "Delete", confirm: "Are you sure?", url: playlist_track, method: 'delete' %>
+  <td <%= split_alert(playlist_track.split.to_i,
+                      @accum_duration) %>><%= link_to_remote "Delete",
+                                                             confirm: "Are you sure?",
+                                                             url: playlist_track,
+                                                             method: 'delete' %>
     <br/>
     <% if !playlist_track.track.nil? %>
         Accumulated<br/>Duration: <%= duration(@accum_duration + playlist_track.track.duration + (vo_duration*1000)) %>

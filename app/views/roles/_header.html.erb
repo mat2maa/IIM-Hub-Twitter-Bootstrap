@@ -2,10 +2,14 @@
   <div class="title">Users</div>
   <div id="nav">
     <ul>
-      <li><%= link_to "Dashboard", controller: "dashboard" %></li>
-      <li><%= link_to "Users", users_path %></li>
-      <li id="curr-nav"><%= link_to "Roles", roles_path %></li>
-      <li><%= link_to "Rights", rights_path %></li>
+      <li><%= link_to "Dashboard",
+                      controller: "dashboard" %></li>
+      <li><%= link_to "Users",
+                      users_path %></li>
+      <li id="curr-nav"><%= link_to "Roles",
+                                    roles_path %></li>
+      <li><%= link_to "Rights",
+                      rights_path %></li>
 
     </ul>
     <div id="clear"><br/></div>
@@ -14,7 +18,8 @@
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
   <div id="content-header-actions">
-    <%= link_to "Add Role", new_role_path %>
+    <%= link_to "Add Role",
+                new_role_path %>
   </div>
   <div id="content-header">
     Roles

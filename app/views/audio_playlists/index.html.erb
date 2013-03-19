@@ -3,8 +3,10 @@
 <div id="content-header-wrapper">
 
   <div id="content-header-actions">
-    <% if permitted_to? :create, :audio_playlists %>
-        <%= link_to "Create a playlist", new_audio_playlist_path %>
+    <% if permitted_to? :create,
+                        :audio_playlists %>
+        <%= link_to "Create a playlist",
+                    new_audio_playlist_path %>
     <% end %>
   </div>
   <div id="content-header">Songs Playlists</div>

@@ -1,6 +1,7 @@
 var $ = jQuery;
 
-var newRow = " <%= escape_javascript(render(partial: "vo_duration", object: @vo_duration)) %> ";
+var newRow = " <%= escape_javascript(render(partial: "vo_duration",
+object: @vo_duration)) %> ";
 
 $("#vo_duration_form")
         .find("input[type=text]").val("");

@@ -1,6 +1,7 @@
 var $ = jQuery;
 
-var newRow = " <%= escape_javascript(render(partial: "airline", object: @airline)) %> ";
+var newRow = " <%= escape_javascript(render(partial: "airline",
+object: @airline)) %> ";
 
 $("#airline_form")
         .find("input[type=text]").val("");
