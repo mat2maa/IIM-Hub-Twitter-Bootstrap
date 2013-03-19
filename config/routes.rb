@@ -29,6 +29,10 @@ Iim::Application.routes.draw do
   match "/albums/amazon_cd_covers" => "albums#amazon_cd_covers", as: :amazon_cd_covers
   match "/video_playlists/print/:id" => "video_playlists#print", as: :print
   match "/video_playlists/export_to_excel/:id" => "video_playlists#export_to_excel", as: :export_to_excel
+  match "/video_master_playlists/print/:id" => "video_master_playlists#print", as: :print
+  match "/video_master_playlists/export_to_excel/:id" => "video_master_playlists#export_to_excel", as: :export_to_excel
+  match "/screener_playlists/print/:id" => "screener_playlists#print", as: :print
+  match "/screener_playlists/export_to_excel/:id" => "screener_playlists#export_to_excel", as: :export_to_excel
 
   resources :users do
     member do

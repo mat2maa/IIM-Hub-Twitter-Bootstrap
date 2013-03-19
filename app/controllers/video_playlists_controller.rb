@@ -165,8 +165,8 @@ class VideoPlaylistsController < ApplicationController
     @video_playlist.destroy
 
     respond_to do |format|
-      format.js { render template: 'video_playlists/destroy.js.erb',
-                         layout: false }
+      format.html { redirect_to(video_playlists_path) }
+      format.js
     end
   end
 

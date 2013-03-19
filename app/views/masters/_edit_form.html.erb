@@ -27,15 +27,12 @@
 
             <td><%= f.input :tape_format,
                             as: :select,
-                            collection: ["PAL",
-                                         "NTSC"],
+                            collection: %w(PAL NTSC),
                             label: "Tape Format",
                             include_blank: true %></td>
             <td><%= f.input :tape_size,
                             as: :select,
-                            collection: ["Small",
-                                         "Large",
-                                         "DVD"],
+                            collection: %w(Small Large DVD),
                             label: "Tape Size",
                             include_blank: true %></td>
             <td><%= f.input :video_subtitles_1,
@@ -92,9 +89,7 @@
             <td>
               <%= f.input(:aspect_ratio,
                           as: :select,
-                          collection: ["4:3",
-                                       "16:9",
-                                       "14:9"],
+                          collection: %w(4:3 16:9 14:9),
                           include_blank: true) %>
             </td>
           </tr>

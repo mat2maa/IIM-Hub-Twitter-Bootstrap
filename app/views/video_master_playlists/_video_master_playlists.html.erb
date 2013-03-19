@@ -3,13 +3,21 @@
 
     <table cellspacing="0" width="100%">
       <tr>
-        <th><%= order_by_link :id %></th>
-        <th><%= order_by_link airline: :name %></th>
-        <th><%= order_by_link :start_cycle,
-                              text: 'Start Date' %></th>
-        <th><%= order_by_link :end_cycle,
-                              text: 'End Date' %></th>
-        <th><%= order_by_link master_playlist_type: :name %></th>
+        <th>
+          <%= sort_link(@search, :id, 'ID') %>
+        </th>
+        <th>
+          <%= sort_link(@search, :airline_name, 'Airline') %>
+        </th>
+        <th>
+          <%= sort_link(@search, :start_cycle, 'Start Date') %>
+        </th>
+        <th>
+          <%= sort_link(@search, :end_cycle, 'End Date') %>
+        </th>
+        <th>
+          <%= sort_link(@search, :master_playlist_type_name, 'Master Playlist Type') %>
+        </th>
         <th colspan="4"></th>
       </tr>
       <% @video_master_playlists.each do |video_master_playlist| %>
@@ -28,12 +36,13 @@
                             popup: true) if video_master_playlist.locked!=true %></td>
             <% if permitted_to? :delete,
                                 :video_master_playlists %>
-                <td><%= link_to_remote 'Delete',
-                                       url: video_master_playlist_url(video_master_playlist),
-                                       method: :delete,
-                                       confirm: 'Are you sure?',
-                                       loading: "Element.show('spinner')",
-                                       complete: "Element.hide('spinner')" if video_master_playlist.locked!=true %></td>
+                <td><%= link_to 'Delete',
+                                video_master_playlist_url(video_master_playlist),
+                                remote: true,
+                                method: :delete,
+                                confirm: 'Are you sure?',
+                                loading: "Element.show('spinner')",
+                                complete: "Element.hide('spinner')" if video_master_playlist.locked!=true %></td>
                 <td><%= link_to 'Duplicate',
                                 duplicate_video_master_playlist_path(video_master_playlist),
                                 confirm: 'Are you sure?',
@@ -41,7 +50,7 @@
             <% end %>
             <td>
               <% if permitted_to? :lock,
-                                  :videos_playlist %>
+                                  :video_playlists %>
                   <% if video_master_playlist.locked!=true %>
                       <%= link_to 'Lock',
                                   lock_video_master_playlist_path(video_master_playlist),
@@ -57,12 +66,9 @@
       <% end %>
     </table>
 
-    <% if @search.page_count > 1 %>
-        <br/><br/>
-        <div class="page_links">
-          <%= page_links() %>
-        </div>
-    <% end %>
+    <br />
+    <br />
+    <%= will_paginate @video_master_playlists %>
 <% else %>
     No playlists were found
 <% end %>

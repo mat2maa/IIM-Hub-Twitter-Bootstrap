@@ -1,12 +1,22 @@
-<% if @search.count > 0 %>
-    <%= @search.count %> screeners found
+<% if @screeners_count > 0 %>
+    <%= @screeners_count %> screeners found
     <table cellspacing="0" width="100%">
       <tr>
-        <th><%= order_by_link :id %></th>
-        <th><%= order_by_link video: :programme_title %></th>
-        <th><%= order_by_link :episode_title %></th>
-        <th><%= order_by_link :episode_number %></th>
-        <th><%= order_by_link :location %></th>
+        <th>
+          <%= sort_link(@search, :id, 'ID') %>
+        </th>
+        <th>
+          <%= sort_link(@search, :video_programme_title, 'Programme Title') %>
+        </th>
+        <th>
+          <%= sort_link(@search, :episode_title, 'Episode Title') %>
+        </th>
+        <th>
+          <%= sort_link(@search, :episode_number, 'Episode Number') %>
+        </th>
+        <th>
+          <%= sort_link(@search, :location, 'Location') %>
+        </th>
         <th colspan="2"></th>
       </tr>
 
@@ -14,12 +24,10 @@
                  collection: @screeners %>
     </table>
 
-    <% if @search.page_count > 1 %>
-        <br/><br/>
-        <div class="page_links">
-          <%= page_links() %>
-        </div>
-    <% end %>
+    <br/>
+    <br/>
+    <%= will_paginate @screeners %>
+
 <% else %>
 
     No screeners were found

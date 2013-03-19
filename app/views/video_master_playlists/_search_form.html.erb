@@ -1,11 +1,10 @@
-<fieldset>
-  <legend>Search Videos Playlists</legend>
-  <% f.fields_for @search.conditions do |video_playlists| %>
-      Match ANY or ALL of the conditions: <%= video_playlists.select :any,
-                                                                     [["All",
-                                                                       false],
-                                                                      ["Any",
-                                                                       true]] %>
+<%= search_form_for @search,
+                   loading: "Element.show('spinner')",
+                   complete: "Element.hide('spinner')" do |video_playlists| %>
+    <fieldset>
+      <legend>Search Videos Playlists</legend>
+      Match ANY or ALL of the conditions:
+      <%= video_playlists.combinator_select %>
       <%= image_tag 'spinner.gif',
                     id: 'spinner',
                     style: 'display:none;' %>
@@ -14,21 +13,20 @@
         <tr>
           <td>
             Playlist ID:<br/>
-            <%= video_playlists.text_field :id_equals,
+            <%= video_playlists.text_field :id_eq,
                                            size: 6 %>
             <br/>
           </td>
           <td>
             Airline:<br/>
-            <%= video_playlists.select :airline_id_equals,
-                                       Airline.find(:all,
-                                                    order: "name asc").collect { |p| [p.name,
-                                                                                      p.id] },
+            <%= video_playlists.select :airline_id_eq,
+                                       Airline.order("name asc")
+                                              .collect { |p| [p.name, p.id] },
                                        {include_blank: true} %>
             <br/>
           </td>
           <td>Start Playdate:<br/>
-            <%= video_playlists.date_select :start_cycle_like,
+            <%= video_playlists.date_select :start_cycle_matches,
                                             {discard_day: true,
                                              order: [:month,
                                                      :year],
@@ -39,7 +37,7 @@
             <br/>
           </td>
           <td>End Playdate:<br/>
-            <%= video_playlists.date_select :end_cycle_like,
+            <%= video_playlists.date_select :end_cycle_matches,
                                             {discard_day: true,
                                              order: [:month,
                                                      :year],
@@ -49,8 +47,11 @@
                                              end_year: 1900} %>
             <br/>
           </td>
-          <td valign="bottom"><%= f.submit "Search" %> <input type="reset" value="Reset"></td>
+          <td valign="bottom">
+            <%= video_playlists.submit "Search" %>
+            <input type="reset" value="Reset">
+          </td>
         </tr>
       </table>
-  <% end %>
-</fieldset>
+    </fieldset>
+<% end %>

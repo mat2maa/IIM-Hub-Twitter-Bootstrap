@@ -48,16 +48,7 @@
                                                         add_master_to_playlist_path(@video_master_playlist.id) %></div>
     <br/>
     <br/>
-    <%= form_for(@video_master_playlist) do |form| %>
-
-        <%= form.error_messages %>
-
-        <%= render partial: 'form',
-                   object: form %>
-        <p>
-          <%= submit_tag "Save Changes" %>
-        </p>
-    <% end %>
+    <%= render 'form' %>
 
 
     <div id="playlist">

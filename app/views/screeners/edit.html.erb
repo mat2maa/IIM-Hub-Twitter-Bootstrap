@@ -1,5 +1,9 @@
 <%= render partial: 'layouts/screener_header' %>
-<center><p style="color: green"><%= flash[:notice] %></p></center>
+<center>
+  <p style="color: green">
+    <%= flash[:notice] %>
+  </p>
+</center>
 <div id="content-header-wrapper">
   <div id="content-header-actions">
     [ <%= link_to "Prev",
@@ -8,10 +12,11 @@
                 edit_screener_path(@next_id) if !@next_id.nil? %> ]
     <% if permitted_to? :admin_delete,
                         :screeners %>
-        <%= link_to_remote 'Delete',
-                           url: screener_url(@screener),
-                           method: :delete,
-                           confirm: 'Are you sure?' %>
+        <%= link_to 'Delete',
+                    screener_url(@screener),
+                    remote: true,
+                    method: :delete,
+                    confirm: 'Are you sure?' %>
     <% end %>
 
   </div>
@@ -22,12 +27,8 @@
   <center>
     <h1>Edit Screener</h1>
 
-    <%= form_for @search,
-                 loading: "Element.show('spinner')",
-                 complete: "Element.hide('spinner')" do |f| %>
-        <%= render partial: 'search_form',
-                   locals: {f: f} %>
-    <% end %>
+    <%= render partial: 'search_form',
+                   object: @search %>
     <br/><br/>
 
     <%= render partial: 'edit_form' %>

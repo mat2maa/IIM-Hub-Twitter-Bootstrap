@@ -52,17 +52,8 @@ format: "pdf"} %>
                                                         add_screener_to_playlist_path(@screener_playlist.id) %></div>
     <br/>
     <br/>
-    <%= form_for(@screener_playlist) do |form| %>
 
-        <%= form.error_messages %>
-
-        <%= render partial: 'form',
-                   object: form %>
-        <p>
-          <%= submit_tag "Save Changes" %>
-        </p>
-    <% end %>
-
+    <%= render 'form' %>
 
     <div id="playlist">
       <%= render partial: 'playlist',

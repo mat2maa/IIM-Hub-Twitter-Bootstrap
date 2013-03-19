@@ -1,6 +1,6 @@
 <% @screener = screener_playlist_item.screener %>
 <% @screener_playlist_item = screener_playlist_item %>
-<tr id="item_<%= screener_playlist_item.id %>">
+<tr id="item_<%= screener_playlist_item.id %>" class="scrollable">
   <% if screener_playlist_item.screener.nil? %>
       <td colspan="2">Missing screener <%= screener_playlist_item.screener_id %></td>
   <% else %>
@@ -32,8 +32,9 @@
       </td>
       <td class="actions"><%= image_tag("arrow_move.png") %></td>
   <% end %>
-  <td class="actions"><%= link_to_remote "Delete",
-                                         confirm: "Are you sure",
-                                         url: screener_playlist_item,
-                                         method: 'delete' %></td>
+  <td class="actions"><%= link_to "Delete",
+                                  screener_playlist_item,
+                                  remote: true,
+                                  confirm: "Are you sure",
+                                  method: 'delete' %></td>
 </tr>

@@ -1,7 +1,11 @@
 <%= render partial: 'layouts/screener_header' %>
-<%= calendar_date_select_includes "blue" %>
+<%#= calendar_date_select_includes "blue" %>
 
-<center><p style="color: green" id="notice"><%= flash[:notice] %></p></center>
+<center>
+  <p style="color: green" id="notice">
+    <%= flash[:notice] %>
+  </p>
+</center>
 
 <div id="content-header-wrapper">
   <div id="content-header-actions"></div>
@@ -9,12 +13,11 @@
 </div>
 
 <div id="content">
-  <% form_for @search,
-              loading: "Element.show('spinner')",
-              complete: "Element.hide('spinner')" do |f| %>
-      <%= render partial: 'search_form',
-                 locals: {f: f} %>
-  <% end %>
 
-  <div id="movies">    <%= render partial: "screeners" %></div>
+  <%= render partial: 'search_form',
+             object: @search %>
+
+  <div id="movies">
+    <%= render partial: "screeners" %>
+  </div>
 </div>

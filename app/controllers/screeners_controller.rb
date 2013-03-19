@@ -3,28 +3,31 @@ class ScreenersController < ApplicationController
   filter_access_to :all
 
   def index
-    @languages = MasterLanguage.find(:all,
-                                     order: "name").collect {
-        |language| language.name
-    }
+    @languages = MasterLanguage.order("name")
+                               .collect { |language| language.name }
 
     if !params[:q].nil?
-      @search = Screener.new_search(params[:search])
-      @search.conditions.active_equals = true
-      @search.conditions.video.programme_title_keywords = params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/,
-                                                                                                                               "")
-      @search.conditions.episode_title_keywords = params[:search][:conditions][:episode_title_keywords].gsub(/\'s|\'t/,
-                                                                                                             "")
+      @search = Screener.ransack(params[:q])
+      @screeners = @search.result(distinct: true)
+                          .paginate(page: params[:page],
+                                    per_page: 10)
+      #@search.conditions.active_equals = true
+      #@search.conditions.video.programme_title_keywords =
+      # params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/,"")
+      #@search.conditions.episode_title_keywords = params[:search][:conditions][:episode_title_keywords].gsub
+      # (/\'s|\'t/,"")
     else
       #no search made yet
-      @search = Screener.new_search(order_by: :id,
-                                    order_as: "DESC")
-      @search.conditions.active_equals = true
+      @search = Screener.ransack(params[:q])
+      @screeners = @search.result(distinct: true)
+                          .order("id DESC")
+                          .paginate(page: params[:page],
+                                    per_page: 10)
+      #@search.conditions.active_equals = true
 
     end
-    @screeners,
-        @screeners_count = @search.all,
-        @search.count
+
+    @screeners_count = @screeners.count
 
     if @screeners_count == 1
       redirect_to(edit_screener_path(@screeners.first))
@@ -34,10 +37,8 @@ class ScreenersController < ApplicationController
   end
 
   def new
-    @languages = MasterLanguage.find(:all,
-                                     order: "name").collect {
-        |language| language.name
-    }
+    @languages = MasterLanguage.order("name")
+                               .collect {|language| language.name}
 
     @screener = Screener.new
     @screener.video_id = params[:id]
@@ -66,21 +67,23 @@ class ScreenersController < ApplicationController
   end
 
   def edit
-    @languages = MasterLanguage.find(:all,
-                                     order: "name").collect {
-        |language| language.name
-    }
+    @languages = MasterLanguage.order("name")
+                               .collect {|language| language.name}
 
     if !params[:q].nil?
-      @search = Screener.new_search(params[:search])
+      @search = Screener.ransack(params[:q])
+      @screeners = @search.result(distinct: true)
+                          .paginate(page: params[:page],
+                                    per_page: 10)
     else
       #no search made yet
-      @search = Screener.new_search(order_by: :id,
-                                    order_as: "DESC")
+      @search = Screener.ransack(params[:q])
+      @screeners = @search.result(distinct: true)
+                          .order("id DESC")
+                          .paginate(page: params[:page],
+                                    per_page: 10)
     end
-    @screeners,
-        @screeners_count = @search.all,
-        @search.count
+    @screeners_count = @screeners.count,
 
     if !session[:screeners_search].nil?
       ids = session[:screeners_search]
@@ -139,19 +142,16 @@ class ScreenersController < ApplicationController
         @screener.save
         flash[:notice] = "Successfully deleted screener."
 
-        # flash[:notice] = 'Screener could not be deleted,
-        screener is in use by playlists '
+        # flash[:notice] = 'Screener could not be deleted, screener is in use by playlists '
         @screener_is_deleted = true
       end	
       
     end
-    
-    
+
     respond_to do |format|    
       format.html { redirect_to edit_video_url(@screener.video.id) } 
       format.js {
-        
-        render layout:  false
+        render layout: false
         redirect_to videos_url
       }
     end

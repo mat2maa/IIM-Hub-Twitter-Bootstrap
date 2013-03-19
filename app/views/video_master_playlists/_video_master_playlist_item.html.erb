@@ -1,6 +1,6 @@
 <% @master = video_master_playlist_item.master %>
 <% @video_master_playlist_item = video_master_playlist_item %>
-<tr id="item_<%= video_master_playlist_item.id %>">
+<tr id="item_<%= video_master_playlist_item.id %>" class="sortable">
   <% if video_master_playlist_item.master.nil? %>
       <td colspan="2">Missing master <%= video_master_playlist_item.master_id %> id
         = <%= video_master_playlist_item.id %></td>
@@ -55,21 +55,22 @@
             <td valign="top"><strong>Mastering:</strong><br/>
             </td>
             <td colspan="5">
-              <%= in_place_text_area :video_master_playlist_item,
+              <%#= in_place_text_area :video_master_playlist_item,
                                      :mastering,
                                      {rows: "2"} %>
             </td>
             <th>Aspect Ratio:</th>
             <td><%= video_master_playlist_item.master.aspect_ratio %></td>
             <th>Duration:</th>
-            <td><%= video_master_playlist_item.master.duration %></td>
+            <td><%#= video_master_playlist_item.master.duration %></td>
           </tr>
         </table>
       </td>
       <td class="actions"><%= image_tag("arrow_move.png") %></td>
   <% end %>
-  <td class="actions"><%= link_to_remote "Delete",
-                                         confirm: "Are you sure",
-                                         url: video_master_playlist_item,
-                                         method: 'delete' %></td>
+  <td class="actions"><%= link_to "Delete",
+                                  video_master_playlist_item,
+                                  remote: true,
+                                  confirm: "Are you sure",
+                                  method: 'delete' %></td>
 </tr>

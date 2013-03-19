@@ -1,5 +1,9 @@
 <%= render partial: 'layouts/screener_playlist_header' %>
-<center><p style="color: green"><%= flash[:notice] %></p></center>
+<center>
+  <p style="color: green">
+    <%= flash[:notice] %>
+  </p>
+</center>
 <div id="content-header-wrapper">
   <div id="content-header-actions">
 
@@ -11,15 +15,7 @@
   <center>
     <h1>New Screener Playlist</h1>
 
-    <% form_for(@screener_playlist) do |form| %>
-        <%= form.error_messages %>
-
-        <%= render partial: 'form',
-                   object: form %>
-        <p>
-          <%= form.submit "Next" %>
-        </p>
-    <% end %>
+    <%= render 'form' %>
 
   </center>
   <br/><br/>
