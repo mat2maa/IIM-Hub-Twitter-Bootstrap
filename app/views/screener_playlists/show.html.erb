@@ -1,31 +1,34 @@
 <script>
-jQuery(document).ready(function() {
-	window.print();
-});
+    jQuery(document).ready(function () {
+        window.print();
+    });
 </script>
-<%= render :partial => 'layouts/screener_playlist_header' %>
+<%= render partial: 'layouts/screener_playlist_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
-<div id="content-header-actions">
-	<%= link_to "Print Playlist", {:controller => "screener_playlists", :action => "show",  :id => @screener_playlist}, :popup =>true %> |
-	<%= link_to "Export as Excel", :controller => "screener_playlists", :action => "export_to_excel",  :id => @screener_playlist %> 
-</div>
-<div id="content-header">Screener Playlists</div>
+  <div id="content-header-actions">
+    <%= link_to "Print Playlist", {controller: "screener_playlists", action: "show", id: @screener_playlist}, :popup => true %>
+    |
+    <%= link_to "Export as Excel", controller: "screener_playlists", action: "export_to_excel", id: @screener_playlist %>
+  </div>
+  <div id="content-header">Screener Playlists</div>
 </div>
 
 <div id="content">
-<center>
+  <center>
 
-<h2><%= @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%= @screener_playlist.start_cycle.strftime("%m%y") %> Screener Playlist</h2>
-<%= "Video Playlist Type: #{@screener_playlist.video_playlist_type.name} " if !@screener_playlist.video_playlist_type.nil?%><br/>
-<strong>Media Instruction:</strong><br/>
-<%= @screener_playlist.media_instruction.gsub(/\n/,'<br/>') %>
+    <h2><%= @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%= @screener_playlist.start_cycle.strftime("%m%y") %>
+      Screener Playlist</h2>
+    <%= "Video Playlist Type: #{@screener_playlist.video_playlist_type.name} " if !@screener_playlist.video_playlist_type.nil? %>
+    <br/>
+    <strong>Media Instruction:</strong><br/>
+    <%= @screener_playlist.media_instruction.gsub(/\n/, '<br/>') %>
 
-<table width="900">
-  <%= render :partial => 'playlist_item_view', :collection => @screener_playlist.screener_playlist_items_sorted %>
-</table>
+    <table width="900">
+      <%= render partial: 'playlist_item_view', collection: @screener_playlist.screener_playlist_items_sorted %>
+    </table>
 
-<%= link_to 'Back', screener_playlists_path %>
+    <%= link_to 'Back', screener_playlists_path %>
 
-</center>
+  </center>
 </div>

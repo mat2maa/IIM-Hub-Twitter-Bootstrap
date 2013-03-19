@@ -1,57 +1,68 @@
 <% cache 'video_master_search_form' do %>
-<fieldset>
-	<legend>Search Masters</legend><% f.fields_for @search.conditions do |masters| %>
-<!--Match ANY or ALL of the conditions:<br />-->
-      <%#= masters.select :any, [["All", false], ["Any", true]] %><br />
-	<%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
-	<table>
-		<tr>
-			<td valign="top">
-				<% masters.fields_for masters.object.video do |video| %>
-				Video Title:<br/>
-				<%= video.text_field :programme_title_keywords %><br/>
-				Episode Title:<br/>
-				<%= masters.text_field :episode_title_keywords %><br/>
-				Episode #:<br/>
-				<%= masters.text_field :episode_number_equals %><br/>
-				<% video.fields_for video.object.video_genres do |genres| %> 
-					<% genres.fields_for "video_parent_genre" do |parents| %> 
-					Genre:<br/>
-					<%= parents.select :id_equals, VideoParentGenre.find(:all).collect {|p| [p.name, p.id] }, { :include_blank => true } %> 
-					<% end %><br/>
-					Sub Genre:<br/>
-					<%= genres.select :id_equals, VideoGenre.find(:all).collect {|p| [p.name, p.id] }, { :include_blank => true } %> 
-				<% end %>
-				
-			</td>
-			<td valign="top">
-				Distributor:<br/>
-				<%= video.select :video_distributor_id_equals, Supplier.video_distributors.collect {|p| [ p.company_name, p.id ] } , :include_blank => true  %><br/>
-					Laboratory:<br/>
-					<%= video.select :laboratory_id_equals, Supplier.laboratories.collect {|p| [ p.company_name, p.id ] }, :include_blank => true  %><br/>
-					Video type:<br/>			
-					<%= video.select :video_type_equals, Video::VIDEO_TYPES, 
-							{ :include_blank => true } %> <br/>
-					Production Year:<br/>
-					<%= video.text_field :production_year_equals, :size => 6 %>
-					
-			</td>
-			<td valign="top">	
-				Lang Track:<br/>
-				<%= select :language, :track, @languages, { :include_blank => true } %><br/>
-			 	Lang Subtitles:<br/>
-				<%= select :language, :subtitle, @languages, { :include_blank => true } %><br/>
-				Tape Location Number:<br/>
-				<% video.fields_for video.object.masters do |masters| %>
-					<%= masters.text_field :location_equals, :size => 6  %><br/>
-				<% end %>
-				Video ID:<br/>
-				<%= video.text_field :id_equals, :size => 6 %>
-			</td>
-		</tr>
-	</table>
-	<% end %>
-	<!--
+    <fieldset>
+      <legend>Search Masters</legend>
+      <% f.fields_for @search.conditions do |masters| %>
+          <!--Match ANY or ALL of the conditions:<br />-->
+          <%#= masters.select :any, [["All", false], ["Any", true]] %>
+          <br/>
+          <%= image_tag 'spinner.gif', id: 'spinner', style: 'display:none;' %>
+          <table>
+            <tr>
+              <td valign="top">
+                <% masters.fields_for masters.object.video do |video| %>
+                    Video Title:<br/>
+                    <%= video.text_field :programme_title_keywords %>
+                    <br/>
+                    Episode Title:<br/>
+                    <%= masters.text_field :episode_title_keywords %>
+                    <br/>
+                    Episode #:<br/>
+                    <%= masters.text_field :episode_number_equals %>
+                    <br/>
+                    <% video.fields_for video.object.video_genres do |genres| %>
+                        <% genres.fields_for "video_parent_genre" do |parents| %>
+                            Genre:<br/>
+                            <%= parents.select :id_equals, VideoParentGenre.find(:all).collect { |p| [p.name, p.id] }, {include_blank: true} %>
+                        <% end %>
+                        <br/>
+                        Sub Genre:<br/>
+                        <%= genres.select :id_equals, VideoGenre.find(:all).collect { |p| [p.name, p.id] }, {include_blank: true} %>
+                    <% end %>
+
+                    </td>
+                    <td valign="top">
+                      Distributor:<br/>
+                      <%= video.select :video_distributor_id_equals, Supplier.video_distributors.collect { |p| [p.company_name, p.id] }, include_blank: true %>
+                      <br/>
+                      Laboratory:<br/>
+                      <%= video.select :laboratory_id_equals, Supplier.laboratories.collect { |p| [p.company_name, p.id] }, include_blank: true %>
+                      <br/>
+                      Video type:<br/>
+                      <%= video.select :video_type_equals, Video::VIDEO_TYPES,
+                                       {include_blank: true} %> <br/>
+                      Production Year:<br/>
+                      <%= video.text_field :production_year_equals, size: 6 %>
+
+                    </td>
+                    <td valign="top">
+                      Lang Track:<br/>
+                      <%= select :language, :track, @languages, {include_blank: true} %>
+                      <br/>
+                      Lang Subtitles:<br/>
+                      <%= select :language, :subtitle, @languages, {include_blank: true} %>
+                      <br/>
+                      Tape Location Number:<br/>
+                      <% video.fields_for video.object.masters do |masters| %>
+                          <%= masters.text_field :location_equals, size: 6 %>
+                          <br/>
+                      <% end %>
+                      Video ID:<br/>
+                      <%= video.text_field :id_equals, size: 6 %>
+                    </td>
+                    </tr>
+                    </table>
+                <% end %>
+                <!--
 	<table>
 		<tr>
 			<td valign="top">
@@ -67,8 +78,8 @@
 		</tr>
 	</table>
 	-->
-	<%= masters.submit "Search" %>
-	<% end %>
-	
-</fieldset>
+                <%= masters.submit "Search" %>
+      <% end %>
+
+    </fieldset>
 <% end %>

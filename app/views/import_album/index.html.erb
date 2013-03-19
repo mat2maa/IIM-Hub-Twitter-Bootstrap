@@ -1,4 +1,4 @@
-<%= render :partial => 'layouts/album_header' %>
+<%= render partial: 'layouts/album_header' %>
 <center>
   <p style="color: green">
     <%= flash[:notice] %>
@@ -6,54 +6,54 @@
 </center>
 
 <div id="content-header-wrapper">
-    <div id="content-header-actions">
-    </div>
+  <div id="content-header-actions">
+  </div>
 
-    <div id="content-header">Import Albums</div>
+  <div id="content-header">Import Albums</div>
 </div>
 
 <div id="content">
-    <center>
-        <strong>Search MusicBrainz for Album</strong>
-        <br/><br/>
-
-        <%= form_tag url: {action: 'find_release'},
-                     remote: true,
-                     html: {id: 'import_album_form'},
-                     loading: "Element.show('spinner')",
-                     complete: "Element.hide('spinner')" do %>
-
-            <table class="edit">
-                <tr>
-                    <td>Album Title</td>
-                    <td>
-                    <%= text_field_tag 'title' %>
-                    </td>
-                    <td>Artist</td>
-                    <td>
-                    <%= text_field_tag 'artist' %>
-                    </td>
-                </tr>
-                <tr>
-                    <td >Query </td>
-                    <td>
-                      <%= text_field_tag 'query' %>
-                    </td>
-                    <td></td>
-                    <td>
-                      <%= image_tag 'spinner.gif',
-                                    id: 'spinner',
-                                    style: 'display:none;' %>
-                    </td>
-                </tr>
-            </table>
-
-            <%= submit_tag 'Search' %>
-
-        <% end %>
-        <br/>
-
-        <div id="results"></div>
-    </center>
+  <center>
+    <strong>Search MusicBrainz for Album</strong>
     <br/><br/>
+
+    <%= form_tag url: {action: 'find_release'},
+                 remote: true,
+                 html: {id: 'import_album_form'},
+                 loading: "Element.show('spinner')",
+                 complete: "Element.hide('spinner')" do %>
+
+        <table class="edit">
+          <tr>
+            <td>Album Title</td>
+            <td>
+              <%= text_field_tag 'title' %>
+            </td>
+            <td>Artist</td>
+            <td>
+              <%= text_field_tag 'artist' %>
+            </td>
+          </tr>
+          <tr>
+            <td>Query</td>
+            <td>
+              <%= text_field_tag 'query' %>
+            </td>
+            <td></td>
+            <td>
+              <%= image_tag 'spinner.gif',
+                            id: 'spinner',
+                            style: 'display:none;' %>
+            </td>
+          </tr>
+        </table>
+
+        <%= submit_tag 'Search' %>
+
+    <% end %>
+    <br/>
+
+    <div id="results"></div>
+  </center>
+  <br/><br/>
 </div>

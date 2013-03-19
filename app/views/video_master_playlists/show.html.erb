@@ -1,110 +1,112 @@
 <script>
-jQuery(document).ready(function() {
-	window.print();
-});
+    jQuery(document).ready(function () {
+        window.print();
+    });
 </script>
-<%= render :partial => 'layouts/videomasterplaylist_header' %>
+<%= render partial: 'layouts/videomasterplaylist_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
-<div id="content-header-actions">
-</div>
-<div id="content-header">Video Master Playlists</div>
+  <div id="content-header-actions">
+  </div>
+  <div id="content-header">Video Master Playlists</div>
 </div>
 
 <div id="content">
-<center>
-	<div class="print-hide"><h2 style="color:red;">ALERT! Please change your page layout to LANDSCAPE when printing</h2><br/></div>
+  <center>
+    <div class="print-hide"><h2 style="color:red;">ALERT! Please change your page layout to LANDSCAPE when printing</h2>
+      <br/></div>
 
-<h2><%= @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %><%= @video_master_playlist.start_cycle.strftime("%m%y") %> Video Master Playlist</h2>
+    <h2><%= @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %><%= @video_master_playlist.start_cycle.strftime("%m%y") %>
+      Video Master Playlist</h2>
 
-<table class="edit">
-  <tr>
-		<td class="pl-title">Airline :</td>
-		<td>
-			<%= @video_master_playlist.airline.name if !@video_master_playlist.airline.nil? %>
-			<%= @video_master_playlist.airline.code if !@video_master_playlist.airline.nil?%></td>
-		<td class="pl-title">Start Cycle :</td>
-    <td><%= @video_master_playlist.start_cycle.strftime("%m-%Y") %> 
-			<strong>End Cycle:</strong> <%= @video_master_playlist.end_cycle.strftime("%m-%Y") %></td>  
-    <td class="pl-title">Programmer :</td>
-    <td><%= @video_master_playlist.user.login %></td>
-  </tr>
-  <tr>
-		<td class="pl-title">Master Playlist Type :</td>
-		<td><%= @video_master_playlist.master_playlist_type.name unless @video_master_playlist.master_playlist_type.nil? %></td>
-		<td class="pl-title">Edit Runtime :</td>
-    <td><%= @video_master_playlist.edit_runtime %></td>  
-    <td class="pl-title">Total Runtime :</td>
-  </tr>
-	<tr>
-		<td class="pl-title">Media Instruction</td>
-		<td colspan="5"><%= @video_master_playlist.media_instruction.gsub(/\n/,'<br/>') %></td>
-	</tr>
-</table>
+    <table class="edit">
+      <tr>
+        <td class="pl-title">Airline :</td>
+        <td>
+          <%= @video_master_playlist.airline.name if !@video_master_playlist.airline.nil? %>
+          <%= @video_master_playlist.airline.code if !@video_master_playlist.airline.nil? %></td>
+        <td class="pl-title">Start Cycle :</td>
+        <td><%= @video_master_playlist.start_cycle.strftime("%m-%Y") %>
+          <strong>End Cycle:</strong> <%= @video_master_playlist.end_cycle.strftime("%m-%Y") %></td>
+        <td class="pl-title">Programmer :</td>
+        <td><%= @video_master_playlist.user.login %></td>
+      </tr>
+      <tr>
+        <td class="pl-title">Master Playlist Type :</td>
+        <td><%= @video_master_playlist.master_playlist_type.name unless @video_master_playlist.master_playlist_type.nil? %></td>
+        <td class="pl-title">Edit Runtime :</td>
+        <td><%= @video_master_playlist.edit_runtime %></td>
+        <td class="pl-title">Total Runtime :</td>
+      </tr>
+      <tr>
+        <td class="pl-title">Media Instruction</td>
+        <td colspan="5"><%= @video_master_playlist.media_instruction.gsub(/\n/, '<br/>') %></td>
+      </tr>
+    </table>
 
 
-<div id="playlist">
-<table width="100%" id="videoplaylist">
-	<% @video_master_playlist.video_master_playlist_items_sorted.each do |video_master_playlist_item| %>
-  	<tr id="item_<%= video_master_playlist_item.id %>">
-	<% if video_master_playlist_item.master.nil? %>
-    <td colspan="2">Missing master <%= video_master_playlist_item.master_id %></td>
-	<% else %>
-		<td>
-				<table width="100%">
-					<tr>
-						<th width="130">(<%= video_master_playlist_item.position %>) Programme Title</th>
-						<td width="200"><%= video_master_playlist_item.master.video.programme_title %></td>
-						<th width="85">Lang Track 1:</th>
-						<td width="50"><%= video_master_playlist_item.master.language_track_1 %></td>
-						<th width="85">Lang Track 2:</th>
-						<td width="85"><%= video_master_playlist_item.master.language_track_2 %></td>
-						<th width="85">Lang Track 3:</th>
-						<td width="85"><%= video_master_playlist_item.master.language_track_3 %></td>
-						<th width="85">Lang Track 4:</th>
-						<td><%= video_master_playlist_item.master.language_track_4 %></td>
-					</tr>
-					<tr>
-						<th>Episode Title</th>
-						<td><%= video_master_playlist_item.master.episode_title %></td>
-						<th>Episode #:</th>
-						<td><%= video_master_playlist_item.master.episode_number %></td>
-						<th>Tape #:</th>
-						<td><%= video_master_playlist_item.master.location %></td>
-						<th>Lang Subs 1:</th>
-						<td><%= video_master_playlist_item.master.video_subtitles_1 %></td>
-						<th>Lang Subs 2:</th>
-						<td><%= video_master_playlist_item.master.video_subtitles_2 %></td>
-					</tr>
-					<tr>
-						<th>Tape Media:</th>
-						<td><%= video_master_playlist_item.master.tape_media %></td>
-						<th>Tape Format:</th>
-						<td><%= video_master_playlist_item.master.tape_format %></td>
-						<th>Tape Size:</th>
-						<td><%= video_master_playlist_item.master.tape_size %></td>
-						<th>Time In:</th>
-						<td><%= video_master_playlist_item.master.time_in %></td>
-						<th>Time Out:</th>
-						<td><%= video_master_playlist_item.master.time_out %></td>
-					</tr>
-					<tr>
-						<td valign="top"><strong>Mastering:</strong><br/>
-						</td>
-						<td  colspan="5">
-							<%= video_master_playlist_item.mastering.gsub(/\n/,'<br/>') if !video_master_playlist_item.mastering.nil? %>
-						</td>
-						<th>Aspect Ratio:</th>
-						<td><%= video_master_playlist_item.master.aspect_ratio %></td>
-						<th>Duration:</th>
-						<td><%= video_master_playlist_item.master.duration %></td>
-					</tr>
-					</table>
-				</td>
-			</tr>
-		<% end %>
-	<% end %>
-</table>
-</div>
-</center>
+    <div id="playlist">
+      <table width="100%" id="videoplaylist">
+        <% @video_master_playlist.video_master_playlist_items_sorted.each do |video_master_playlist_item| %>
+            <tr id="item_<%= video_master_playlist_item.id %>">
+              <% if video_master_playlist_item.master.nil? %>
+                  <td colspan="2">Missing master <%= video_master_playlist_item.master_id %></td>
+              <% else %>
+                  <td>
+                    <table width="100%">
+                      <tr>
+                        <th width="130">(<%= video_master_playlist_item.position %>) Programme Title</th>
+                        <td width="200"><%= video_master_playlist_item.master.video.programme_title %></td>
+                        <th width="85">Lang Track 1:</th>
+                        <td width="50"><%= video_master_playlist_item.master.language_track_1 %></td>
+                        <th width="85">Lang Track 2:</th>
+                        <td width="85"><%= video_master_playlist_item.master.language_track_2 %></td>
+                        <th width="85">Lang Track 3:</th>
+                        <td width="85"><%= video_master_playlist_item.master.language_track_3 %></td>
+                        <th width="85">Lang Track 4:</th>
+                        <td><%= video_master_playlist_item.master.language_track_4 %></td>
+                      </tr>
+                      <tr>
+                        <th>Episode Title</th>
+                        <td><%= video_master_playlist_item.master.episode_title %></td>
+                        <th>Episode #:</th>
+                        <td><%= video_master_playlist_item.master.episode_number %></td>
+                        <th>Tape #:</th>
+                        <td><%= video_master_playlist_item.master.location %></td>
+                        <th>Lang Subs 1:</th>
+                        <td><%= video_master_playlist_item.master.video_subtitles_1 %></td>
+                        <th>Lang Subs 2:</th>
+                        <td><%= video_master_playlist_item.master.video_subtitles_2 %></td>
+                      </tr>
+                      <tr>
+                        <th>Tape Media:</th>
+                        <td><%= video_master_playlist_item.master.tape_media %></td>
+                        <th>Tape Format:</th>
+                        <td><%= video_master_playlist_item.master.tape_format %></td>
+                        <th>Tape Size:</th>
+                        <td><%= video_master_playlist_item.master.tape_size %></td>
+                        <th>Time In:</th>
+                        <td><%= video_master_playlist_item.master.time_in %></td>
+                        <th>Time Out:</th>
+                        <td><%= video_master_playlist_item.master.time_out %></td>
+                      </tr>
+                      <tr>
+                        <td valign="top"><strong>Mastering:</strong><br/>
+                        </td>
+                        <td colspan="5">
+                          <%= video_master_playlist_item.mastering.gsub(/\n/, '<br/>') if !video_master_playlist_item.mastering.nil? %>
+                        </td>
+                        <th>Aspect Ratio:</th>
+                        <td><%= video_master_playlist_item.master.aspect_ratio %></td>
+                        <th>Duration:</th>
+                        <td><%= video_master_playlist_item.master.duration %></td>
+                      </tr>
+                    </table>
+                  </td>
+                  </tr>
+              <% end %>
+        <% end %>
+      </table>
+    </div>
+  </center>
 </div>

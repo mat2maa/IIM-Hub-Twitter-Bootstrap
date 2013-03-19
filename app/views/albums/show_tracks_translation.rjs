@@ -1,1 +1,1 @@
-page.replace_html('tab-area', :partial => 'show_tracks_translation' )
+page.replace_html('tab-area', partial: 'show_tracks_translation')

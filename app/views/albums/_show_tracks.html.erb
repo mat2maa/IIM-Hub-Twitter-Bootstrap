@@ -1,7 +1,7 @@
 <%= link_to "Add a track",
             {controller: :tracks,
              action: "new",
-             :id => params[:id]} %>
+             id: params[:id]} %>
 <br/><br/>
 <div id="track_form">
 </div>
@@ -26,7 +26,7 @@
 
     var $ = jQuery;
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("#tracklist").sortable({
             axis: 'y',
             containment: 'parent',

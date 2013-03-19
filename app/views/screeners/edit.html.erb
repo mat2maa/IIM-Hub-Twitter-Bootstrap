@@ -1,28 +1,28 @@
-<%= render :partial => 'layouts/screener_header' %>
+<%= render partial: 'layouts/screener_header' %>
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
-<div id="content-header-actions">
-[ <%= link_to "Prev", edit_screener_path(@prev_id) if !@prev_id.nil?%>
-<%= link_to "Next", edit_screener_path(@next_id) if !@next_id.nil?%> ]
-<% if permitted_to? :admin_delete, :screeners %>
-<%= link_to_remote 'Delete', 	:url  => screener_url(@screener), :method => :delete, :confirm => 'Are you sure?' %>
-<% end %>
+  <div id="content-header-actions">
+    [ <%= link_to "Prev", edit_screener_path(@prev_id) if !@prev_id.nil? %>
+    <%= link_to "Next", edit_screener_path(@next_id) if !@next_id.nil? %> ]
+    <% if permitted_to? :admin_delete, :screeners %>
+        <%= link_to_remote 'Delete', url: screener_url(@screener), method: :delete, confirm: 'Are you sure?' %>
+    <% end %>
 
-</div>
-<div id="content-header">Edit Screener<br />
-</div>
+  </div>
+  <div id="content-header">Edit Screener<br/>
+  </div>
 </div>
 <div id="content">
-<center>
-<h1>Edit Screener</h1>
+  <center>
+    <h1>Edit Screener</h1>
 
-<%= form_for @search,  :loading => "Element.show('spinner')", :complete => "Element.hide('spinner')" do |f| %>
-	<%= render :partial => 'search_form', :locals => { :f => f } %>
-<% end %>
-<br/><br/>
+    <%= form_for @search, loading: "Element.show('spinner')", complete: "Element.hide('spinner')" do |f| %>
+        <%= render partial: 'search_form', locals: {f: f} %>
+    <% end %>
+    <br/><br/>
 
-<%= render :partial => 'edit_form' %>
+    <%= render partial: 'edit_form' %>
 
-</center>
-<br/><br/>
+  </center>
+  <br/><br/>
 </div>

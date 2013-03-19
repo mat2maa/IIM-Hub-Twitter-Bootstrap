@@ -1,7 +1,7 @@
 <h2>Screeners</h2>
 
 <div id="screeners">
-  <%= render :partial => 'screener', :collection => @video.screeners %>
+  <%= render partial: 'screener', collection: @video.screeners %>
 </div>
 <p><%= link_to_add_fields "Add a screener", f, :screeners %></p>
 
@@ -9,6 +9,6 @@
 <h2>Masters</h2>
 
 <div id="masters">
-  <%= render :partial => 'master', :collection => @video.masters %>
+  <%= render partial: 'master', collection: @video.masters %>
 </div>
 <p><%= add_master_link "Add a master" %></p>

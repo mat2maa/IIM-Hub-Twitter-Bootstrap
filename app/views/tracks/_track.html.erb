@@ -1,66 +1,66 @@
 <% cache([track, track.album]) do %>
     <tr id="track-<%= track.id %>">
-        <td>
-          <%= link_to track.id,
-                      track_path(id: track.id ) %>
-        </td>
-        <td>
-          <%= track.title_original %>
-          <br/>
-          <%= track.title_english %>
-        </td>
-        <td>
-          <%= track.artist_original %>
-          <br/>
-          <%= track.artist_english %>
-        </td>
-        <td>
-          <%= track.album.label.name if !track.album.label_id.nil? && !track.album.nil? %>
-        </td>
-        <td>
-          <%= track.album.cd_code %>&nbsp;
-        </td>
-        <td>
-          <%= duration(track.duration) %>
-        </td>
-        <% if params[:playlist_id]  || params["action"]=="add_track_to_playlist" %>
-            <td>
-                <% if !track.to_delete %>
-                    <%= link_to "add to playlist",
+      <td>
+        <%= link_to track.id,
+                    track_path(id: track.id) %>
+      </td>
+      <td>
+        <%= track.title_original %>
+        <br/>
+        <%= track.title_english %>
+      </td>
+      <td>
+        <%= track.artist_original %>
+        <br/>
+        <%= track.artist_english %>
+      </td>
+      <td>
+        <%= track.album.label.name if !track.album.label_id.nil? && !track.album.nil? %>
+      </td>
+      <td>
+        <%= track.album.cd_code %>&nbsp;
+      </td>
+      <td>
+        <%= duration(track.duration) %>
+      </td>
+      <% if params[:playlist_id] || params["action"]=="add_track_to_playlist" %>
+          <td>
+            <% if !track.to_delete %>
+                <%= link_to "add to playlist",
                             remote: true,
                             url: {controller: "audio_playlists",
-                            action: "add_track",
-                            id: params[:id],
-                            track_id: track.id},
+                                  action: "add_track",
+                                  id: params[:id],
+                                  track_id: track.id},
                             loading: "Element.show('spinner')",
                             complete: "Element.hide('spinner')" %>
-                <% else %>
-                    Pending Deletion
-                <% end %>
-            </td>
-        <% else %>
-            <td>
-              <%= link_to 'Edit',
-                          edit_track_path(track) %>
-            </td>
-            <td>
-                <% if !track.to_delete %>
-                    <%= link_to 'Delete',
-                                remote: true,
-                                url: track_url(track),
-                                method: :delete,
-                                confirm: 'Are you sure?',
-                                loading: "Element.show('spinner')",
-                                complete: "Element.hide('spinner')"  %>
-                <% else %>
-                    <%= link_to 'Restore',
-                                remote: true,
-                                url: { action: "restore",
-                                       id: track.id },
-                                loading: "Element.show('spinner')",
-                                complete: "Element.hide('spinner')"  %>
-                <% end %>
-            </td>
-        <% end %>
+            <% else %>
+                Pending Deletion
+            <% end %>
+          </td>
+      <% else %>
+          <td>
+            <%= link_to 'Edit',
+                        edit_track_path(track) %>
+          </td>
+          <td>
+            <% if !track.to_delete %>
+                <%= link_to 'Delete',
+                            remote: true,
+                            url: track_url(track),
+                            method: :delete,
+                            confirm: 'Are you sure?',
+                            loading: "Element.show('spinner')",
+                            complete: "Element.hide('spinner')" %>
+            <% else %>
+                <%= link_to 'Restore',
+                            remote: true,
+                            url: {action: "restore",
+                                  id: track.id},
+                            loading: "Element.show('spinner')",
+                            complete: "Element.hide('spinner')" %>
+            <% end %>
+          </td>
+      <% end %>
     </tr>
 <% end %>

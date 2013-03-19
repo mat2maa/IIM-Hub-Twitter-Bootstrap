@@ -16,9 +16,9 @@
         <%= render partial: 'role',
                    collection: @roles %>
       </table>
-      <br />
-      <br />
-      <%=  will_paginate @roles %>
+      <br/>
+      <br/>
+      <%= will_paginate @roles %>
   <% else %>
       No entries were returned
   <% end %>

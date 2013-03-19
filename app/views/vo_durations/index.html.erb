@@ -1,22 +1,22 @@
-<%= render :partial => 'header' %>
+<%= render partial: 'header' %>
 <div id="content">
-    <center>
-        <%= render :partial => 'form' %>
-        <br/>
-        Note: Editing/Deleting vo_durations will affect ALL vo_durations in ALL playlists
-        <table border="0" cellpadding="10" cellspacing="0" width="100%" id="vo_durations">
-          <tr >
-            <td class="list-header">ID</td>
-            <td class="list-header">Name</td>
-            <td class="list-header">VO Duration (sec)</td>
-            <td colspan="2" class="list-header">&nbsp;</td>
-          </tr>
-          <%= render :partial => 'vo_duration', :collection => @vo_durations %>
-        </table>
+  <center>
+    <%= render partial: 'form' %>
+    <br/>
+    Note: Editing/Deleting vo_durations will affect ALL vo_durations in ALL playlists
+    <table border="0" cellpadding="10" cellspacing="0" width="100%" id="vo_durations">
+      <tr>
+        <td class="list-header">ID</td>
+        <td class="list-header">Name</td>
+        <td class="list-header">VO Duration (sec)</td>
+        <td colspan="2" class="list-header">&nbsp;</td>
+      </tr>
+      <%= render partial: 'vo_duration', collection: @vo_durations %>
+    </table>
 
-        <br />
-        <br />
-        <%= will_paginate @vo_durations %>
+    <br/>
+    <br/>
+    <%= will_paginate @vo_durations %>
 
-    </center>
+  </center>
 </div>

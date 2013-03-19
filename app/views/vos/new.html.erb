@@ -1,22 +1,23 @@
-<%= render :partial => 'header' %>
+<%= render partial: 'header' %>
 <div id="content">
-<center>
-<h1>New VO</h1>
+  <center>
+    <h1>New VO</h1>
 
-<% form_for(@vo) do |f| %>
-  <%= error_messages_for(f.object) %>
+    <% form_for(@vo) do |f| %>
+        <%= error_messages_for(f.object) %>
 
-  <p>
-    Publisher<br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.submit "Create" %>
-  </p>
-<% end %>
+        <p>
+          Publisher<br/>
+          <%= f.text_field :name %>
+        </p>
 
-<%= link_to 'Back', vos_path %>
+        <p>
+          <%= f.submit "Create" %>
+        </p>
+    <% end %>
 
-</center>
-<br/><br/>
+    <%= link_to 'Back', vos_path %>
+
+  </center>
+  <br/><br/>
 </div>

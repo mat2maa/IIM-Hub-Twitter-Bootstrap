@@ -1,22 +1,23 @@
-<%= render :partial => 'header' %>
+<%= render partial: 'header' %>
 <div id="content">
-<center>
-<h1>Edit language</h1>
+  <center>
+    <h1>Edit language</h1>
 
-<%= form_for(@language) do |f| %>
-  <%= error_messages_for(f.object) %>
+    <%= form_for(@language) do |f| %>
+        <%= error_messages_for(f.object) %>
 
-  <p>
-    Name<br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.submit "Update" %>
-  </p>
-<% end %>
+        <p>
+          Name<br/>
+          <%= f.text_field :name %>
+        </p>
 
-<%= link_to 'Back', languages_path %>
+        <p>
+          <%= f.submit "Update" %>
+        </p>
+    <% end %>
 
-</center>
-<br/><br/>
+    <%= link_to 'Back', languages_path %>
+
+  </center>
+  <br/><br/>
 </div>

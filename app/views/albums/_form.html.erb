@@ -1,4 +1,4 @@
-<%= form_for :album, :url => {:action => "create"} do |form| %>
+<%= form_for :album, url: {action: "create"} do |form| %>
     <table class="edit">
       <tr>
         <th>Album Title (Original)</th>
@@ -12,15 +12,15 @@
           <%= select("album",
                      "label_id",
                      Label.order("name")
-                          .collect {|p| [p.name, p.id] },
-                          { :include_blank => true }) %>
+                     .collect { |p| [p.name, p.id] },
+                     {include_blank: true}) %>
         </td>
       </tr>
       <tr>
         <th><%= link_to "YesAsia",
                         "http://www.yesasia.com",
                         popup: true %>
-            Album Title (Translated)
+          Album Title (Translated)
         </th>
         <td>
           <%= form.text_field :title_english %>
@@ -36,17 +36,17 @@
           <%= form.text_field :artist_original %>
         </td>
         <th>Publisher
-            <%= link_to "+",
-                        publishers_path,
-                        id: 'add',
-                        popup: true %>
+          <%= link_to "+",
+                      publishers_path,
+                      id: 'add',
+                      popup: true %>
         </th>
         <td colspan="3">
           <%= select("album",
                      "publisher_id",
                      Publisher.order("name")
-                              .collect {|p| [p.name, p.id] },
-                              { :include_blank => true }) %>
+                     .collect { |p| [p.name, p.id] },
+                     {include_blank: true}) %>
         </td>
       </tr>
       <tr>
@@ -54,7 +54,8 @@
           <%= link_to "YesAsia",
                       "http://www.yesasia.com",
                       popup: true %>
-          Artist (Translated)</th>
+          Artist (Translated)
+        </th>
         <td>
           <%= form.text_field :artist_english %>
         </td>
@@ -78,7 +79,7 @@
           <%= check_box("album",
                         "live_album") %>
         </td>
-        <th>Explicit Lyrics </th>
+        <th>Explicit Lyrics</th>
         <td>
           <%= check_box("album",
                         "explicit_lyrics") %>
@@ -86,9 +87,9 @@
       </tr>
       <tr>
         <th>
-          <a href="http://images.google.com/images?hl=en&q=cd+cover+<%=@album.title_original%>+<%=@album.artist_original%>"
+          <a href="http://images.google.com/images?hl=en&q=cd+cover+<%= @album.title_original %>+<%= @album.artist_original %>"
              target="_blank">
-                Google
+            Google
           </a>
 
           |
@@ -110,15 +111,15 @@
           <%= select("album",
                      "gender",
                      gender,
-                     {include_blank: true }) %>
+                     {include_blank: true}) %>
         </td>
         <th>Language</th>
         <td>
           <%= select("album",
                      "language_id",
                      Language.order("name")
-                             .collect {|p| [p.name, p.id] },
-                             { :include_blank => true }) %>
+                     .collect { |p| [p.name, p.id] },
+                     {include_blank: true}) %>
           <%= link_to "+",
                       languages_path,
                       id: 'add',
@@ -136,8 +137,8 @@
           <%= select("album",
                      "origin_id",
                      Origin.order("name")
-                           .collect {|p| [p.name, p.id] },
-                           { :include_blank => true }) %>
+                     .collect { |p| [p.name, p.id] },
+                     {include_blank: true}) %>
           <%= link_to "+",
                       origins_path,
                       id: 'add',

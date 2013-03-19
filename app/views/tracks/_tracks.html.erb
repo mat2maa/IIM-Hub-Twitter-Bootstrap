@@ -2,49 +2,49 @@
     <%= @tracks_count %> tracks found
 
     <table cellspacing="0" width="100%">
-        <tr>
-            <th>
-              <%= sort_link @search,
-                            :id,
-                            'ID' %>
-            </th>
-            <th>
-              <%= sort_link @search,
-                            :title_original,
-                            'Original Title' %>
-            </th>
-            <th>
-              <%= sort_link @search,
-                            :artist_original,
-                            'Original Artist' %>
-            </th>
-            <th>
-              <%= sort_link @search,
-                            :album_label_name,
-                            'Label' %>
-            </th>
-            <th>
-              <%= sort_link @search,
-                            :album_cd_code,
-                            'CD Code' %>
-            </th>
-            <th>
-              <%= sort_link @search,
-                            :duration,
-                            'Duration' %>
-            </th>
-            <th colspan="2"></th>
-        </tr>
-        <%= render partial: "track",
-                   collection: @tracks %>
+      <tr>
+        <th>
+          <%= sort_link @search,
+                        :id,
+                        'ID' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :title_original,
+                        'Original Title' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :artist_original,
+                        'Original Artist' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :album_label_name,
+                        'Label' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :album_cd_code,
+                        'CD Code' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :duration,
+                        'Duration' %>
+        </th>
+        <th colspan="2"></th>
+      </tr>
+      <%= render partial: "track",
+                 collection: @tracks %>
     </table>
 
-    <br />
-    <br />
+    <br/>
+    <br/>
     <%= will_paginate @tracks %>
 
 <% else %>
 
-	No tracks were returned
+    No tracks were returned
 
 <% end %>

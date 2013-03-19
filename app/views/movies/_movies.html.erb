@@ -1,38 +1,38 @@
 <% if @movies_count > 0 %>
-	<%= @movies_count %> movies found
-	<table cellspacing="0" width="100%">
-	<tr>
-		<th>
+    <%= @movies_count %> movies found
+    <table cellspacing="0" width="100%">
+      <tr>
+        <th>
           <%= sort_link(@search, :id, "ID") %>
         </th>
-		<th>
+        <th>
           <%= sort_link(@search, :movie_title, "Movie Title") %>
         </th>
-		<th>
+        <th>
           <%= sort_link(@search, :movie_distributor, "Movie Distributor") %>
         </th>
-		<th>
+        <th>
           <%= sort_link(@search, :movie_type, "Movie Type") %>
         </th>
-		<th>
+        <th>
           <%= sort_link(@search, :airline_release_date, "Airline Release Date") %>
         </th>
-		<th>
+        <th>
           <%= sort_link(@search, :screener_received_date, "Screener Recieved") %>
         </th>
-		<th colspan="2"></th>			
-	</tr>
-	
-	<%= render partial: "movie",
-               collection: @movies %>
-	</table>
+        <th colspan="2"></th>
+      </tr>
 
-    <br />
-    <br />
+      <%= render partial: "movie",
+                 collection: @movies %>
+    </table>
+
+    <br/>
+    <br/>
     <%= will_paginate @movies %>
 
 <% else %>
-	
-	No movies were found
+
+    No movies were found
 
 <% end %>

@@ -1,3 +1,3 @@
 #page.remove "item_#{@audioplaylisttrack.id}"
-page.replace_html 'playlist', :partial => 'audio_playlists/playlist', :object => @audio_playlist
-page.replace_html 'duration', :partial => 'audio_playlists/duration', :object => @audio_playlist
+page.replace_html 'playlist', partial: 'audio_playlists/playlist', object: @audio_playlist
+page.replace_html 'duration', partial: 'audio_playlists/duration', object: @audio_playlist

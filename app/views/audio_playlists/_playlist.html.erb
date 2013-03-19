@@ -1,13 +1,13 @@
 <script type="text/javascript" src="http://mediaplayer.yahoo.com/js"></script>
 <table width="100%">
-<% @accum_duration = 0 %>
-<tbody id="audioplaylist" style="cursor: move" >
-  <%= render :partial => 'audio_playlists/playlist_track', :collection => @audio_playlist.audio_playlist_tracks_sorted %>
-</tbody>
+  <% @accum_duration = 0 %>
+  <tbody id="audioplaylist" style="cursor: move">
+  <%= render partial: 'audio_playlists/playlist_track', collection: @audio_playlist.audio_playlist_tracks_sorted %>
+  </tbody>
 </table>
 
 <%#= sortable_element "audioplaylist",
-    :url => {:action => "sort"},
-    :complete => visual_effect(:highlight, "audioplaylist"),
-    :tag => 'tr'
+    url: {action: "sort"},
+    complete:  visual_effect(:highlight, "audioplaylist"),
+    tag: 'tr'
 %>

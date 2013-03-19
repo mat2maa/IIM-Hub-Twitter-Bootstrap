@@ -1,18 +1,18 @@
-<%= render :partial => 'header' %>
+<%= render partial: 'header' %>
 <div id="content">
-    <center>
-        <%= render :partial => 'form' %>
-        <br/>
-        <table border="0" cellpadding="10" cellspacing="0" width="100%" id="master_playlist_types">
-          <tr >
-            <td class="list-header">ID</td>
-            <td class="list-header">Name</td>
-            <td colspan="2" class="list-header">&nbsp;</td>
-          </tr>
-            <%= render :partial => 'master_playlist_type', :collection => @master_playlist_types %>
-        </table>
-        <br />
-        <br />
-        <%= will_paginate @master_playlist_types %>
-    </center>
+  <center>
+    <%= render partial: 'form' %>
+    <br/>
+    <table border="0" cellpadding="10" cellspacing="0" width="100%" id="master_playlist_types">
+      <tr>
+        <td class="list-header">ID</td>
+        <td class="list-header">Name</td>
+        <td colspan="2" class="list-header">&nbsp;</td>
+      </tr>
+      <%= render partial: 'master_playlist_type', collection: @master_playlist_types %>
+    </table>
+    <br/>
+    <br/>
+    <%= will_paginate @master_playlist_types %>
+  </center>
 </div>

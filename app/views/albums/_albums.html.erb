@@ -1,52 +1,52 @@
 <% if @albums_count > 0 %>
     <%= @albums_count %> albums found
     <table cellspacing="0" width="100%">
-        <tr>
-            <th>
-              <%#=TODO remote_order_by_link :id, :params=>{:hello=>"there"} %>
-              <%= sort_link @search,
-                            :id,
-                            'ID' %>
-            </th>
-            <th>
-              <%= sort_link @search,
-                            :title_original,
-                            'Original Title' %>
-            </th>
-            <th>
-              <%= sort_link @search,
-                            :artist_original,
-                            'Original Artist' %>
-            </th>
-            <th>
-              <%= sort_link @search,
-                            :label_name,
-                            'Label' %>
-            </th>
-            <th>
-              <%= sort_link @search,
-                            :release_year,
-                            'Release Year' %>
-            </th>
-            <th>
-              <%= sort_link @search,
-                            :cd_code,
-                            'CD Code' %>
-            </th>
-            <th colspan="2"></th>
-        </tr>
+      <tr>
+        <th>
+          <%#=TODO remote_order_by_link :id, params: {hello: "there"} %>
+          <%= sort_link @search,
+                        :id,
+                        'ID' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :title_original,
+                        'Original Title' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :artist_original,
+                        'Original Artist' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :label_name,
+                        'Label' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :release_year,
+                        'Release Year' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :cd_code,
+                        'CD Code' %>
+        </th>
+        <th colspan="2"></th>
+      </tr>
 
-        <%= render partial: "album",
-                   collection: @albums %>
+      <%= render partial: "album",
+                 collection: @albums %>
 
     </table>
 
-	<br />
-	<br />
+    <br/>
+    <br/>
     <%= will_paginate @albums %>
 
 <% else %>
 
-	No albums were found
+    No albums were found
 
 <% end %>

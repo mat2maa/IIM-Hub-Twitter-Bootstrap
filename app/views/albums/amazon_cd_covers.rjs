@@ -1,1 +1,1 @@
-page.replace_html('tab-area', :partial => 'amazon_cd_covers' )
+page.replace_html('tab-area', partial: 'amazon_cd_covers')

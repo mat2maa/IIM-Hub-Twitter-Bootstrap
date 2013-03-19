@@ -1,5 +1,5 @@
 <%= semantic_form_for @video,
-                     html: {multipart: true} do |f| %>
+                      html: {multipart: true} do |f| %>
     <%= error_messages_for(f.object) %><br/>
 
     <div id="poster-thumbnail">
@@ -53,8 +53,8 @@
                             input_html: {tabindex: 4},
 
                             label: ("Distributor " + link_to("[edit]",
-                                                            suppliers_path,
-                                                            popup: true)).html_safe,
+                                                             suppliers_path,
+                                                             popup: true)).html_safe,
                             collection: Supplier.video_distributors.collect { |p| [p.company_name,
                                                                                    p.id] } %>
 
@@ -70,8 +70,8 @@
                             include_blank: true,
 
                             label: ("Production Studio " + link_to("[edit]",
-                                                                  suppliers_path,
-                                                                  popup: true)).html_safe,
+                                                                   suppliers_path,
+                                                                   popup: true)).html_safe,
                             collection: Supplier.production_studios.collect { |p| [p.company_name,
                                                                                    p.id] } %>
                 <%= f.input :episodes_available,
@@ -87,8 +87,8 @@
                             include_blank: true,
 
                             label: ("Laboratory "+ link_to("[edit]",
-                                                          suppliers_path,
-                                                          popup: true)).html_safe,
+                                                           suppliers_path,
+                                                           popup: true)).html_safe,
                             collection: Supplier.laboratories.collect { |p| [p.company_name,
                                                                              p.id] } %>
                 <%= f.input :on_going_series,

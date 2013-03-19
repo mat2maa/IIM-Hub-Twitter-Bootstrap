@@ -1,4 +1,4 @@
-<%= render :partial => 'layouts/track_header' %>
+<%= render partial: 'layouts/track_header' %>
 <center>
   <p style="color: green" id="notice">
     <%= flash[:notice] %>
@@ -14,10 +14,10 @@
 
 <div id="content">
 
-  <%= render :partial => 'search_form', object: @search %>
+  <%= render partial: 'search_form', object: @search %>
 
   <div id="tracks">
-    <%= render :partial => "tracks" %>
+    <%= render partial: "tracks" %>
   </div>
 
 </div>

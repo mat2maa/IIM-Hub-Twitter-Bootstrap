@@ -1,2 +1,2 @@
 jQuery('#update_master_dialog').dialog('destroy');
-jQuery('#masters_list').html("<%= escape_javascript(render(:partial => "/videos/masters", :locals => { :video_id => @master.video_id })) %>");
+jQuery('#masters_list').html("<%= escape_javascript(render(partial: "/videos/masters", locals: { video_id: @master.video_id })) %>");

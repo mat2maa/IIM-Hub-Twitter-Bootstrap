@@ -1,23 +1,23 @@
-<%= render :partial => 'layouts/albumplaylist_header' %>
+<%= render partial: 'layouts/albumplaylist_header' %>
 <center>
   <p style="color: green">
     <%= flash[:notice] %>
   </p>
 </center>
 <div id="content-header-wrapper">
-    <div id="content-header-actions">
-    </div>
+  <div id="content-header-actions">
+  </div>
 
-    <div id="content-header">Export AOD by Airline</div>
+  <div id="content-header">Export AOD by Airline</div>
 </div>
 
 <div id="content">
-    <%= form_for :album_playlist, :url => { :action=>"export_albums_programmed_per_airline_to_excel"} do |f| %>
+  <%= form_for :album_playlist, url: {action: "export_albums_programmed_per_airline_to_excel"} do |f| %>
 
-        Airline <%= select("album_playlist", "airline_id", Airline.order("name asc")
-                                                                  .collect {|p| [ p.code + " - " + p.name, p.id] }) %>
+      Airline <%= select("album_playlist", "airline_id", Airline.order("name asc")
+.collect { |p| [p.code + " - " + p.name, p.id] }) %>
 
-        <%= submit_tag "Export to Excel"%>
+      <%= submit_tag "Export to Excel" %>
 
-    <% end %>
+  <% end %>
 </div>

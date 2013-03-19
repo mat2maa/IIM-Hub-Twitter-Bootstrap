@@ -1,22 +1,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-    <head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-				<title>Images in Motion - <%= @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %><%= @video_master_playlist.start_cycle.strftime("%m%y") %> <%= @video_master_playlist.video_playlist_type %> Screeners Playlist</title>
-				<%= stylesheet_link_tag 'print' , :media => 'print' %>
-				<%= stylesheet_link_tag 'print' , :media => 'screen' %>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <title>Images in Motion
+    - <%= @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %><%= @video_master_playlist.start_cycle.strftime("%m%y") %> <%= @video_master_playlist.video_playlist_type %>
+    Screeners Playlist</title>
+  <%= stylesheet_link_tag 'print', media: 'print' %>
+  <%= stylesheet_link_tag 'print', media: 'screen' %>
 </head>
 <body>
 <div class="print">
-	<center><img src="/images/iim-logo.jpg" /></center>
-	<br/>
-	<h2><%= @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %>
-			<%= @video_master_playlist.start_cycle.strftime("%m%y") %> Video Master Playlist</h2>
-	<div id="playlist">
-		<table width="100%">
-		  <%= render :partial => 'playlist_item_view', :collection => @video_master_playlist.video_master_playlist_items_sorted %>
-		</table>
-	</div>
+  <center><img src="/images/iim-logo.jpg"/></center>
+  <br/>
+
+  <h2><%= @video_master_playlist.airline.code if !@video_master_playlist.airline_id.nil? %>
+    <%= @video_master_playlist.start_cycle.strftime("%m%y") %> Video Master Playlist</h2>
+
+  <div id="playlist">
+    <table width="100%">
+      <%= render partial: 'playlist_item_view', collection: @video_master_playlist.video_master_playlist_items_sorted %>
+    </table>
+  </div>
 </div>
 </body>
 </html>

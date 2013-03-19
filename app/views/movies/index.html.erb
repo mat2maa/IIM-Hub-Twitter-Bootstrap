@@ -1,4 +1,4 @@
-<%= render :partial => 'layouts/movie_header' %>
+<%= render partial: 'layouts/movie_header' %>
 
 <center>
   <p style="color: green" id="notice">
@@ -7,14 +7,14 @@
 </center>
 
 <div id="content-header-wrapper">
-	<div id="content-header-actions"><%= link_to "Create a movie", new_movie_path %></div>
-	<div id="content-header">Movies</div>
+  <div id="content-header-actions"><%= link_to "Create a movie", new_movie_path %></div>
+  <div id="content-header">Movies</div>
 </div>
 
 <div id="content">
-    <%= render :partial => 'search_form', object: @search %>
+  <%= render partial: 'search_form', object: @search %>
 
-	<div id="movies">
-      <%= render :partial => "movies" %>
-    </div>
+  <div id="movies">
+    <%= render partial: "movies" %>
+  </div>
 </div>

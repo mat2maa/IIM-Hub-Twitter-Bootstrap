@@ -1,22 +1,23 @@
-<%= render :partial => 'header' %>
+<%= render partial: 'header' %>
 <div id="content">
-<center>
-<h1>New program</h1>
+  <center>
+    <h1>New program</h1>
 
-<% form_for(@program) do |f| %>
-  <%= error_messages_for(f.object) %>
+    <% form_for(@program) do |f| %>
+        <%= error_messages_for(f.object) %>
 
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.submit "Create" %>
-  </p>
-<% end %>
+        <p>
+          <%= f.label :name %><br/>
+          <%= f.text_field :name %>
+        </p>
 
-<%= link_to 'Back', programs_path %>
+        <p>
+          <%= f.submit "Create" %>
+        </p>
+    <% end %>
 
-</center>
-<br/><br/>
+    <%= link_to 'Back', programs_path %>
+
+  </center>
+  <br/><br/>
 </div>

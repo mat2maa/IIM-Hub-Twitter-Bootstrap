@@ -1,22 +1,22 @@
-<%= render :partial => 'header' %>
+<%= render partial: 'header' %>
 <div id="content">
-    <center>
-        <%= render :partial => 'form' %>
-        <br/>
+  <center>
+    <%= render partial: 'form' %>
+    <br/>
 
-        <table border="0" cellpadding="10" cellspacing="0" width="100%" id="airlines">
-          <tr >
-            <td class="list-header">ID</td>
-            <td class="list-header">Airline Name</td>
-            <td class="list-header">Airline Code</td>
-            <td colspan="2" class="list-header">&nbsp;</td>
-          </tr>
-          <%= render :partial => 'airline', :collection => @airlines %>
-        </table>
+    <table border="0" cellpadding="10" cellspacing="0" width="100%" id="airlines">
+      <tr>
+        <td class="list-header">ID</td>
+        <td class="list-header">Airline Name</td>
+        <td class="list-header">Airline Code</td>
+        <td colspan="2" class="list-header">&nbsp;</td>
+      </tr>
+      <%= render partial: 'airline', collection: @airlines %>
+    </table>
 
-        <br />
-        <br />
-        <%= will_paginate @airlines %>
+    <br/>
+    <br/>
+    <%= will_paginate @airlines %>
 
-    </center>
+  </center>
 </div>

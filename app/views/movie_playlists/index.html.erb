@@ -1,4 +1,4 @@
-<%= render :partial => 'layouts/movieplaylist_header' %>
+<%= render partial: 'layouts/movieplaylist_header' %>
 <center>
   <p style="color: green" id="notice">
     <%= flash[:notice] %>
@@ -6,17 +6,17 @@
 </center>
 
 <div id="content-header-wrapper">
-	<div id="content-header-actions">
-	    <%= link_to "Create a playlist", new_movie_playlist_path %>
-    </div>
+  <div id="content-header-actions">
+    <%= link_to "Create a playlist", new_movie_playlist_path %>
+  </div>
 
-    <div id="content-header">Movies</div>
+  <div id="content-header">Movies</div>
 </div>
 
 <div id="content">
-    <%= render partial: 'search_form', object: @search %>
+  <%= render partial: 'search_form', object: @search %>
 
-    <div id="movie_playlists">
-        <%= render partial: "movie_playlists" %>
-    </div>
+  <div id="movie_playlists">
+    <%= render partial: "movie_playlists" %>
+  </div>
 </div>

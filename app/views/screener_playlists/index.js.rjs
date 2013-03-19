@@ -1,1 +1,1 @@
-page.replace_html "screener_playlists", :partial => "screener_playlists"
+page.replace_html "screener_playlists", partial: "screener_playlists"

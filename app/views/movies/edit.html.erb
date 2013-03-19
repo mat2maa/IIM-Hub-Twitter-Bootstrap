@@ -1,4 +1,4 @@
-<%= render :partial => 'layouts/movie_header' %>
+<%= render partial: 'layouts/movie_header' %>
 <center>
   <p style="color: green">
     <%= flash[:notice] %>
@@ -6,36 +6,36 @@
 </center>
 
 <div id="content-header-wrapper">
-    <div id="content-header-actions">
-        <%= "[" if !@prev_id.nil? || !@next_id.nil? %>
-        <%= link_to "Prev", edit_movie_path(@prev_id) if !@prev_id.nil? %>
-        <%= link_to "Next", edit_movie_path(@next_id) if !@next_id.nil? %>
-        <%= "]" if !@prev_id.nil? || !@next_id.nil? %>
-        <%= link_to 'View Movie', movie_path(@movie)%> |
-        <%= link_to "New Movie", new_movie_path %> |
-        <% if permitted_to? :admin_delete, :movies %>
-            <%= link_to 'Delete',
-                        remote: true,
-                        url: movie_url(@movie),
-                        method: :delete,
-                        confirm: 'Are you sure?' %>
-        <% end %>
-    </div>
-    <div id="content-header">
-      Edit Movie<br />
-    </div>
+  <div id="content-header-actions">
+    <%= "[" if !@prev_id.nil? || !@next_id.nil? %>
+    <%= link_to "Prev", edit_movie_path(@prev_id) if !@prev_id.nil? %>
+    <%= link_to "Next", edit_movie_path(@next_id) if !@next_id.nil? %>
+    <%= "]" if !@prev_id.nil? || !@next_id.nil? %>
+    <%= link_to 'View Movie', movie_path(@movie) %> |
+    <%= link_to "New Movie", new_movie_path %> |
+    <% if permitted_to? :admin_delete, :movies %>
+        <%= link_to 'Delete',
+                    remote: true,
+                    url: movie_url(@movie),
+                    method: :delete,
+                    confirm: 'Are you sure?' %>
+    <% end %>
+  </div>
+  <div id="content-header">
+    Edit Movie<br/>
+  </div>
 </div>
 
 <div id="content">
-    <center>
+  <center>
     <h1>Edit Movie</h1>
 
-    <%= render :partial => 'search_form', object: @search %>
+    <%= render partial: 'search_form', object: @search %>
     <br/><br/>
 
-    <%= render :partial => 'form' %>
+    <%= render partial: 'form' %>
 
-    </center>
-    <br/>
-    <br/>
+  </center>
+  <br/>
+  <br/>
 </div>

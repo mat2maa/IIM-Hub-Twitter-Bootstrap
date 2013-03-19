@@ -1,59 +1,59 @@
 <% if @masters_count > 0 %>
-		<% form_remote_tag :html => { :action => url_for(:controller => "video_master_playlists", :action => "add_multiple_masters"), :id => "multiple_videos" } do %>
-		<%= hidden_field_tag 'playlist_id', params[:id] %>
-	 	<%= submit_to_remote 'add_multiple_btn', 'Add Selected to Playlist', :url => { :action => 'add_multiple_masters' } %><br/>
-    <%= @masters_count %> masters found
-    <table cellspacing="0" width="100%" id="masters">
-        <tr>
-						<th width="8"><%= check_box_tag('check_all', 'check_all', false,  
-								:onclick => "$$('#master_ids_').each(function(box){box.checked=($('check_all').checked)?true:false});")%></th>
-            <th><%= remote_order_by_link :id, :search_obj => @search, :params_scope => :video_master_playlists %></th>
-						<th><%= remote_order_by_link({:video => :programme_title}, :search_obj => @search, :params_scope => :video_master_playlists)  %></th>
-            <th><%= remote_order_by_link :episode_title, :search_obj => @search, :params_scope => :video_master_playlists  %></th>
-            <th><%= remote_order_by_link :episode_number, :search_obj => @search, :params_scope => :video_master_playlists  %></th>
+    <% form_remote_tag html: {action: url_for(controller: "video_master_playlists", action: "add_multiple_masters"), id: "multiple_videos"} do %>
+        <%= hidden_field_tag 'playlist_id', params[:id] %>
+        <%= submit_to_remote 'add_multiple_btn', 'Add Selected to Playlist', url: {action: 'add_multiple_masters'} %><br/>
+        <%= @masters_count %> masters found
+        <table cellspacing="0" width="100%" id="masters">
+          <tr>
+            <th width="8"><%= check_box_tag('check_all', 'check_all', false,
+                                            onclick: "$$('#master_ids_').each(function(box){box.checked=($('check_all').checked)?true:false});") %></th>
+            <th><%= remote_order_by_link :id, search_obj: @search, params_scope: :video_master_playlists %></th>
+            <th><%= remote_order_by_link({video: :programme_title}, search_obj: @search, params_scope: :video_master_playlists) %></th>
+            <th><%= remote_order_by_link :episode_title, search_obj: @search, params_scope: :video_master_playlists %></th>
+            <th><%= remote_order_by_link :episode_number, search_obj: @search, params_scope: :video_master_playlists %></th>
             <th>Video Type</th>
             <th>In Playlists With<br/>Same Airline</th>
-						<th>&nbsp;</th>			
-        </tr>
-        <% @masters.each do |master| %>
-            <tr>
-              <%# cache([video]) do %>
-								<td><%= check_box_tag "master_ids[]", master.id %></td>
+            <th>&nbsp;</th>
+          </tr>
+          <% @masters.each do |master| %>
+              <tr>
+                <%# cache([video]) do %>
+                <td><%= check_box_tag "master_ids[]", master.id %></td>
                 <td><%= master.id %></td>
                 <td><%= master.video.programme_title %></td>
                 <td><%= master.episode_title %></td>
                 <td><%= master.episode_number %></td>
                 <td><%= master.video.video_type %></td>
-								<td>
+                <td>
 									<span id="exists">
-										<% if(master.in_playlists!="" && !master.in_playlists.nil?) %>
-											<%= VideoMasterPlaylist.with_same_airline_and_master(master.id, (@video_master_playlist.airline_id unless @video_master_playlist.airline.nil?)).collect{|playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}", edit_video_master_playlist_path(playlist), :popup => true) }.join(', ') %>
+										<% if (master.in_playlists!="" && !master.in_playlists.nil?) %>
+											<%= VideoMasterPlaylist.with_same_airline_and_master(master.id, (@video_master_playlist.airline_id unless @video_master_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}", edit_video_master_playlist_path(playlist), popup: true) }.join(', ') %>
 										<% end %>
 									</span>
-								</td>
-              <%# end %>
-				  			<td><%= link_to_remote "add to playlist", 
-									:url => {:controller => "video_master_playlists", 
-									:action => "add_master", 
-									:id => params[:id], 
-									:master_id => master.id},
-									:loading => "Element.show('spinner')",
-									:complete => "Element.hide('spinner')" %>
-								</td>		
-            </tr>	
-        <% end %>
-    </table>
-		<% end %>
-    <br />
-    <br />
+                </td>
+                <%# end %>
+                <td><%= link_to_remote "add to playlist",
+                                       url: {controller: "video_master_playlists",
+                                             action: "add_master",
+                                             id: params[:id],
+                                             master_id: master.id},
+                                       loading: "Element.show('spinner')",
+                                       complete: "Element.hide('spinner')" %>
+                </td>
+              </tr>
+          <% end %>
+        </table>
+    <% end %>
+    <br/>
+    <br/>
 
     Per page: <%= remote_per_page_select %>
 
     <% if @search.page_count > 1 %>
-			<br/><br/>
-			<div class="page_links">
-				<%=	page_links()%>
-			</div>
+        <br/><br/>
+        <div class="page_links">
+          <%= page_links() %>
+        </div>
     <% end %>
 <% else %>
     No masters were found

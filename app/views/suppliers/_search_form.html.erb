@@ -1,32 +1,33 @@
 <fieldset>
-	<legend>Search Suppliers</legend>
+  <legend>Search Suppliers</legend>
 
   <%= search_form_for @search,
-                     :loading => "Element.show('spinner')",
-                     :complete => "Element.hide('spinner')" do |suppliers| %>
+                      loading: "Element.show('spinner')",
+                      complete: "Element.hide('spinner')" do |suppliers| %>
 
 
-    <%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
-    <br/>
+      <%= image_tag 'spinner.gif', id: 'spinner', style: 'display:none;' %>
+      <br/>
 
-    <table>
+      <table>
         <tr>
-            <td valign="top">
-                Company Name:<br/>
-                <%= suppliers.text_field :company_name_cont %><br/>
-            </td>
-            <td valign="top">
-                Categories:<br/>
+          <td valign="top">
+            Company Name:<br/>
+            <%= suppliers.text_field :company_name_cont %>
+            <br/>
+          </td>
+          <td valign="top">
+            Categories:<br/>
 
-                <%= suppliers.select :supplier_categories_id_eq, SupplierCategory.all
-                                                                                 .collect {|p| [p.name, p.id] },
-                                                                                 { :include_blank => true } %>
+            <%= suppliers.select :supplier_categories_id_eq, SupplierCategory.all
+            .collect { |p| [p.name, p.id] },
+                                 {include_blank: true} %>
 
-            </td>
+          </td>
         </tr>
-    </table>
+      </table>
 
-    <%= suppliers.submit "Search" %>
+      <%= suppliers.submit "Search" %>
 
   <% end %>
 

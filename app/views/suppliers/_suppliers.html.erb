@@ -1,27 +1,27 @@
 <% if @suppliers_count > 0 %>
 
-	<%= @suppliers_count %> suppliers found<br/>
+    <%= @suppliers_count %> suppliers found<br/>
 
-	<table border="0" cellpadding="10" cellspacing="0" width="100%">
-        <tr >
-            <td class="list-header">
-              <%= sort_link(@search, :id, "ID") %>
-            </td>
-            <td class="list-header">
-              <%= sort_link(@search, :company_name, "Company Name") %>
-            </td>
-            <td class="list-header">Categories</td>
-            <td colspan="2" class="list-header">&nbsp;</td>
-          </tr>
-          <%= render :partial => 'supplier', :collection => @suppliers %>
-	</table>
+    <table border="0" cellpadding="10" cellspacing="0" width="100%">
+      <tr>
+        <td class="list-header">
+          <%= sort_link(@search, :id, "ID") %>
+        </td>
+        <td class="list-header">
+          <%= sort_link(@search, :company_name, "Company Name") %>
+        </td>
+        <td class="list-header">Categories</td>
+        <td colspan="2" class="list-header">&nbsp;</td>
+      </tr>
+      <%= render partial: 'supplier', collection: @suppliers %>
+    </table>
 
-	<br/>
+    <br/>
     <br/>
     <%= will_paginate @suppliers %>
 
 <% else %>
 
-	No suppliers were found
+    No suppliers were found
 
 <% end %>

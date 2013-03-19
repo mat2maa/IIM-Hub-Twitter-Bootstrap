@@ -1,59 +1,59 @@
 <% @movie = playlist_item_view.movie %>
 <% @movie_playlist_item = playlist_item_view %>
-	<% if playlist_item_view.movie.nil? %>
+<% if playlist_item_view.movie.nil? %>
     <td colspan="2">Missing movie <%= playlist_item_view.movie_id %></td>
 
 <% else %>
 
-	<table width="100%" class="playlist" >
-		<tr>
-			<td width="150"><strong>Movie Title:</strong> </td>
-			<td><%= link_to playlist_item_view.movie.movie_title, edit_movie_path(playlist_item_view.movie), :popup => true %> 
-				<% if (!playlist_item_view.movie.foreign_language_title.nil? && playlist_item_view.movie.foreign_language_title!='')%> 
-				(<%= playlist_item_view.movie.movie_type.upcase %>)
-				<% end %>
-			</td>
-			<td rowspan="7" width="160" align="center"><%= image_tag(playlist_item_view.movie.poster.url(:small)) %></td>
-		</tr>
-		<% if (!playlist_item_view.movie.foreign_language_title.nil? && playlist_item_view.movie.foreign_language_title!='')%>
-		<tr>
-			<td>
-				<strong>Foreign Language Title:</strong>
-			</td>
-			<td><%= playlist_item_view.movie.foreign_language_title  %></td>
-		</tr>
-		<% end %>
-		<tr>
-			<td><strong>Production Studio:</strong> </td>
-			<td><%= playlist_item_view.movie.production_studio.company_name if !playlist_item_view.movie.production_studio.nil? %></td>
-		</tr>
-		<tr>
-			<td><strong>Theatrical Runtime:</strong> </td>
-			<td><%= playlist_item_view.movie.theatrical_runtime %> min</td>
-		</tr>	
-		<tr>
-			<td><strong>Movie Rating:</strong> </td>
-			<td><%= playlist_item_view.movie.rating %></td>
-		</tr>
-		<tr>
-			<td><strong>Genres:</strong> </td>
-			<td><%= playlist_item_view.movie.movie_genres_string %></td>
-		</tr>
-		<tr>
-			<td><strong>Director:</strong> </td>
-			<td><%= playlist_item_view.movie.director %></td>
-		</tr>	
-		<tr>
-			<td><strong>Cast:</strong> </td>
-			<td><%= playlist_item_view.movie.cast %></td>
-		</tr>
-		<tr>
-			<td colspan="3"><strong>Synopsis:</strong><br/><%= playlist_item_view.movie.synopsis %></td>
-		</tr>
-		<tr>
-			<td colspan="3"><%= playlist_item_view.movie.critics_review %></td>
-		</tr>
-	</table>
+    <table width="100%" class="playlist">
+      <tr>
+        <td width="150"><strong>Movie Title:</strong></td>
+        <td><%= link_to playlist_item_view.movie.movie_title, edit_movie_path(playlist_item_view.movie), popup: true %>
+          <% if (!playlist_item_view.movie.foreign_language_title.nil? && playlist_item_view.movie.foreign_language_title!='') %>
+              (<%= playlist_item_view.movie.movie_type.upcase %>)
+          <% end %>
+        </td>
+        <td rowspan="7" width="160" align="center"><%= image_tag(playlist_item_view.movie.poster.url(:small)) %></td>
+      </tr>
+      <% if (!playlist_item_view.movie.foreign_language_title.nil? && playlist_item_view.movie.foreign_language_title!='') %>
+          <tr>
+            <td>
+              <strong>Foreign Language Title:</strong>
+            </td>
+            <td><%= playlist_item_view.movie.foreign_language_title %></td>
+          </tr>
+      <% end %>
+      <tr>
+        <td><strong>Production Studio:</strong></td>
+        <td><%= playlist_item_view.movie.production_studio.company_name if !playlist_item_view.movie.production_studio.nil? %></td>
+      </tr>
+      <tr>
+        <td><strong>Theatrical Runtime:</strong></td>
+        <td><%= playlist_item_view.movie.theatrical_runtime %> min</td>
+      </tr>
+      <tr>
+        <td><strong>Movie Rating:</strong></td>
+        <td><%= playlist_item_view.movie.rating %></td>
+      </tr>
+      <tr>
+        <td><strong>Genres:</strong></td>
+        <td><%= playlist_item_view.movie.movie_genres_string %></td>
+      </tr>
+      <tr>
+        <td><strong>Director:</strong></td>
+        <td><%= playlist_item_view.movie.director %></td>
+      </tr>
+      <tr>
+        <td><strong>Cast:</strong></td>
+        <td><%= playlist_item_view.movie.cast %></td>
+      </tr>
+      <tr>
+        <td colspan="3"><strong>Synopsis:</strong><br/><%= playlist_item_view.movie.synopsis %></td>
+      </tr>
+      <tr>
+        <td colspan="3"><%= playlist_item_view.movie.critics_review %></td>
+      </tr>
+    </table>
 
-	<br/><br/>
- <% end %>
+    <br/><br/>
+<% end %>

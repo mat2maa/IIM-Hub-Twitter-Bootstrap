@@ -1,22 +1,23 @@
-<%= render :partial => 'header' %>
+<%= render partial: 'header' %>
 <div id="content">
-<center>
-<h1>New Commercial Run Time</h1>
+  <center>
+    <h1>New Commercial Run Time</h1>
 
-<% form_for(@commercial_run_time) do |f| %>
-  <%= error_messages_for(f.object) %>
+    <% form_for(@commercial_run_time) do |f| %>
+        <%= error_messages_for(f.object) %>
 
-  <p>
-    <%= f.label :minutes %><br />
-    <%= f.text_field :minutes %>
-  </p>
-  <p>
-    <%= f.submit "Create" %>
-  </p>
-<% end %>
+        <p>
+          <%= f.label :minutes %><br/>
+          <%= f.text_field :minutes %>
+        </p>
 
-<%= link_to 'Back', commercial_run_times_path %>
+        <p>
+          <%= f.submit "Create" %>
+        </p>
+    <% end %>
 
-</center>
-<br/><br/>
+    <%= link_to 'Back', commercial_run_times_path %>
+
+  </center>
+  <br/><br/>
 </div>

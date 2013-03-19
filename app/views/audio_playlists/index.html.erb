@@ -1,24 +1,24 @@
-<%= render :partial => 'layouts/audioplaylist_header' %>
+<%= render partial: 'layouts/audioplaylist_header' %>
 <center><p style="color: green" id="notice"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
 
-	<div id="content-header-actions">
-    	<% if permitted_to? :create, :audio_playlists %>
-    		<%= link_to "Create a playlist", new_audio_playlist_path %>
-		<% end %>
-	</div>
-	<div id="content-header">Songs Playlists</div>
+  <div id="content-header-actions">
+    <% if permitted_to? :create, :audio_playlists %>
+        <%= link_to "Create a playlist", new_audio_playlist_path %>
+    <% end %>
+  </div>
+  <div id="content-header">Songs Playlists</div>
 </div>
 
 <div id="content">
 
 
-    <%= render partial: 'playlist_search_form',
-               object: @search  %>
+  <%= render partial: 'playlist_search_form',
+             object: @search %>
 
-    <div id="audio_playlists">
-        <%= render partial: "audio_playlists" %>
-    </div>
-    <br/>
+  <div id="audio_playlists">
+    <%= render partial: "audio_playlists" %>
+  </div>
+  <br/>
 
 </div>

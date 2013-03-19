@@ -1,33 +1,33 @@
-<%= render :partial => 'header' %>
-    <div id="content">
-        <center>
+<%= render partial: 'header' %>
+<div id="content">
+  <center>
 
-            <h2>Users</h2>
+    <h2>Users</h2>
 
-            <%= search_form_for @search, :url => users_path do |f| %>
-                <%= f.text_field :login_cont %>
-                <%= f.submit "Search" %>
-            <% end %>
+    <%= search_form_for @search, url: users_path do |f| %>
+        <%= f.text_field :login_cont %>
+        <%= f.submit "Search" %>
+    <% end %>
 
-            <% if @users_count > 0 %>
-                <div id="admin-actions"><%= @users_count %> entries found</div>
-                <table border="0" cellpadding="10" cellspacing="0" width="80%" class="list">
-                  <tr >
-                    <th><%= sort_link @search, :id, "ID" %></th>
-                    <th><%= sort_link @search, :login, "Login" %></th>
-                    <th>Last Login</th>
-                    <th>Last Request Date</th>
-                    <th colspan="2">&nbsp;</th>
-                  </tr>
-                  <%= render partial: 'user',
-                             collection: @users %>
-                </table>
-                <br />
-                <br />
-                <%= will_paginate @users %>
-            <% else %>
-                No entries were returned
-            <% end %>
-        </center>
-    </div>
+    <% if @users_count > 0 %>
+        <div id="admin-actions"><%= @users_count %> entries found</div>
+        <table border="0" cellpadding="10" cellspacing="0" width="80%" class="list">
+          <tr>
+            <th><%= sort_link @search, :id, "ID" %></th>
+            <th><%= sort_link @search, :login, "Login" %></th>
+            <th>Last Login</th>
+            <th>Last Request Date</th>
+            <th colspan="2">&nbsp;</th>
+          </tr>
+          <%= render partial: 'user',
+                     collection: @users %>
+        </table>
+        <br/>
+        <br/>
+        <%= will_paginate @users %>
+    <% else %>
+        No entries were returned
+    <% end %>
+  </center>
+</div>
 </div>

@@ -1,26 +1,28 @@
-<%= render :partial => 'header' %>
+<%= render partial: 'header' %>
 <div id="content">
-<center>
-<h1>Edit Video Genre</h1>
+  <center>
+    <h1>Edit Video Genre</h1>
 
-<%= form_for(@video_genre) do |f| %>
-  <%= error_messages_for(f.object) %>
+    <%= form_for(@video_genre) do |f| %>
+        <%= error_messages_for(f.object) %>
 
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-	<p>
-    Parent Category<br />
-		<%= select('video_genre', 'video_parent_genre_id', VideoParentGenre.all.collect {|p| [ p.name, p.id ] }) %> 
-  </p>
-  <p>
-    <%= f.submit "Update" %>
-  </p>
-<% end %>
+        <p>
+          <%= f.label :name %><br/>
+          <%= f.text_field :name %>
+        </p>
 
-<%= link_to 'Back', video_genres_path %>
+        <p>
+          Parent Category<br/>
+          <%= select('video_genre', 'video_parent_genre_id', VideoParentGenre.all.collect { |p| [p.name, p.id] }) %>
+        </p>
 
-</center>
-<br/><br/>
+        <p>
+          <%= f.submit "Update" %>
+        </p>
+    <% end %>
+
+    <%= link_to 'Back', video_genres_path %>
+
+  </center>
+  <br/><br/>
 </div>

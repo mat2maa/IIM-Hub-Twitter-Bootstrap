@@ -1,4 +1,4 @@
-<%= form_for @role, :url => { :action => "create" } do |form|  %>
+<%= form_for @role, url: {action: "create"} do |form| %>
     <%= error_messages_for form.object %>
     <%= form.label :name %><br />
     <%= form.text_field :name %><br />
@@ -10,7 +10,7 @@
           <%= right.name %>
         </div>
     <% end %>
-    <br />
+    <br/>
     <%= form.submit "Register" %>
 <% end %>
 
@@ -18,15 +18,15 @@
 
     var $ = jQuery;
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
-        $('#selectAll').click(function() {
+        $('#selectAll').click(function () {
             if (this.checked) {
-                $(':checkbox').each(function() {
+                $(':checkbox').each(function () {
                     this.checked = true;
                 });
             } else {
-                $(':checkbox').each(function() {
+                $(':checkbox').each(function () {
                     this.checked = false;
                 });
             }

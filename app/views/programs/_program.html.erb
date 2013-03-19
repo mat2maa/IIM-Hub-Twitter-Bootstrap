@@ -1,6 +1,6 @@
-  <tr id="program-row-<%= program.id %>">
-    <td class="list-item"><%= program.id %></td>
-    <td class="list-item"><%= program.name %></td>
-    <td class="list-item"><%= link_to 'Edit', edit_program_path(program) %></td>
-    <td class="list-item"><%= link_to 'Delete', program, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<tr id="program-row-<%= program.id %>">
+  <td class="list-item"><%= program.id %></td>
+  <td class="list-item"><%= program.name %></td>
+  <td class="list-item"><%= link_to 'Edit', edit_program_path(program) %></td>
+  <td class="list-item"><%= link_to 'Delete', program, confirm: 'Are you sure?', method: :delete %></td>
+</tr>

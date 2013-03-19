@@ -1,20 +1,20 @@
-<%= render :partial => 'header' %>
+<%= render partial: 'header' %>
 <div id="content">
-    <center>
-        <%= render :partial => 'form' %>
-        <br/>
-        <table border="0" cellpadding="10" cellspacing="0" width="100%" id="labels">
-            <tr >
-              <td class="list-header">ID</td>
-              <td class="list-header">Label Name</td>
-              <td colspan="2" class="list-header">&nbsp;</td>
-            </tr>
-            <%= render :partial => 'label', :collection => @labels %>
-        </table>
+  <center>
+    <%= render partial: 'form' %>
+    <br/>
+    <table border="0" cellpadding="10" cellspacing="0" width="100%" id="labels">
+      <tr>
+        <td class="list-header">ID</td>
+        <td class="list-header">Label Name</td>
+        <td colspan="2" class="list-header">&nbsp;</td>
+      </tr>
+      <%= render partial: 'label', collection: @labels %>
+    </table>
 
-        <br />
-        <br />
-        <%= will_paginate @labels %>
+    <br/>
+    <br/>
+    <%= will_paginate @labels %>
 
-    </center>
+  </center>
 </div>

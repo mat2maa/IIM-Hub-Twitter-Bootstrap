@@ -14,9 +14,9 @@
         </td>
         <td>
           <%= select("audio_playlist", "airline_id", Airline.order("code asc")
-                                                            .collect {|p| [p.code + " - " + p.name, p.id] },
-                                                            { :include_blank => true }) %>
-          <%= link_to "+", airlines_path, :id => "add", :popup => true %>
+          .collect { |p| [p.code + " - " + p.name, p.id] },
+                     {include_blank: true}) %>
+          <%= link_to "+", airlines_path, id: "add", popup: true %>
         </td>
         <td class="pl-title">
           Programmer:
@@ -31,23 +31,23 @@
         </td>
         <td>
           <%= select("audio_playlist", "program_id", Program.order("name asc")
-                                                            .collect {|p| [p.name, p.id] },
-                                                                     { :include_blank => true }) %>
-          <%= link_to "+", programs_path, :id => "add", :popup => true %>
+          .collect { |p| [p.name, p.id] },
+                     {include_blank: true}) %>
+          <%= link_to "+", programs_path, id: "add", popup: true %>
         </td>
         <td class="pl-title">
           IN/OUT:
         </td>
         <td>
-          <%= select("audio_playlist", "in_out", in_out, { :include_blank => true }) %>
+          <%= select("audio_playlist", "in_out", in_out, {include_blank: true}) %>
         </td>
         <td class="pl-title">
           VO:
         </td>
         <td>
-          <%= select("audio_playlist", "vo_id", Vo.order("name asc").collect {|p| [p.name, p.id] },
-                                                                             { :include_blank => true }) %>
-          <%= link_to "+", vos_path, :id => "add", :popup => true %>
+          <%= select("audio_playlist", "vo_id", Vo.order("name asc").collect { |p| [p.name, p.id] },
+                     {include_blank: true}) %>
+          <%= link_to "+", vos_path, id: "add", popup: true %>
         </td>
       </tr>
       <tr>
@@ -55,35 +55,35 @@
           Play Date:
         </td>
         <td colspan="3">
-          <%= form.date_select :start_playdate, :discard_day => true, :order => [:month, :year] %>
+          <%= form.date_select :start_playdate, discard_day: true, order: [:month, :year] %>
 
-            to
+          to
 
-          <%= form.date_select :end_playdate, :discard_day => true, :order => [:month, :year] %>
+          <%= form.date_select :end_playdate, discard_day: true, order: [:month, :year] %>
         </td>
         <td class="pl-title">
           Airline Duration:
         </td>
         <td>
-          <%= select("audio_playlist", "airline_duration",  Split.order(:duration)
-                                                                 .collect {|p| [p.name, p.duration] },
-                                                                          { :include_blank => true }) %>
+          <%= select("audio_playlist", "airline_duration", Split.order(:duration)
+          .collect { |p| [p.name, p.duration] },
+                     {include_blank: true}) %>
         </td>
       </tr>
       <tr>
         <td class="pl-title">
           Total Duration:
         </td>
-        <td id="duration" >
-          <%= render :partial => 'duration', :object => @audio_playlist %>
+        <td id="duration">
+          <%= render partial: 'duration', object: @audio_playlist %>
         </td>
         <td class="pl-title">Splits:</td>
         <td id="splits">
-          <%= render :partial=>'splits', :object => @audio_playlist %>
+          <%= render partial: 'splits', object: @audio_playlist %>
         </td>
         <td></td>
         <td>
-          <%= link_to "View Splits", :view_splits, :popup=> true %>
+          <%= link_to "View Splits", :view_splits, popup: true %>
         </td>
       </tr>
     </table>

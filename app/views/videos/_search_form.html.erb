@@ -9,8 +9,8 @@
   <legend>Search Videos</legend>
 
   <%= search_form_for @search,
-                     loading: "Element.show('spinner')",
-                     complete: "Element.hide('spinner')" do |videos| %>
+                      loading: "Element.show('spinner')",
+                      complete: "Element.hide('spinner')" do |videos| %>
 
       <!--Match ANY or ALL of the conditions:<br />-->
       <%#= videos.select :any, [["All", false], ["Any", true]] %>
@@ -36,14 +36,14 @@
             Distributor:<br/>
             <%= videos.select :video_distributor_id_eq,
                               Supplier.video_distributors
-                                      .collect { |p| [p.company_name, p.id] },
-                              include_blank:  true %>
+                              .collect { |p| [p.company_name, p.id] },
+                              include_blank: true %>
             <br/>
             Laboratory:<br/>
             <%= videos.select :laboratory_id_eq,
                               Supplier.laboratories
-                                      .collect { |p| [p.company_name, p.id] },
-                              include_blank:  true %>
+                              .collect { |p| [p.company_name, p.id] },
+                              include_blank: true %>
             <br/>
 
           </td>
@@ -58,29 +58,29 @@
             <%= select :language,
                        :subtitle,
                        @languages,
-                       {include_blank:  true} %>
+                       {include_blank: true} %>
           </td>
           <td valign="top">
             Genre:<br/>
             <%= videos.select :video_genres_video_parent_genre_id_eq,
-                               VideoParentGenre.all
-                                               .collect { |p| [p.name, p.id] },
-                               {include_blank:  true} %>
+                              VideoParentGenre.all
+                              .collect { |p| [p.name, p.id] },
+                              {include_blank: true} %>
             <br/>
             Sub Genre:<br/>
             <%= videos.select :video_genres_id_eq,
                               VideoGenre.all
-                                        .collect { |p| [p.name, p.id] },
-                              {include_blank:  true} %>
+                              .collect { |p| [p.name, p.id] },
+                              {include_blank: true} %>
           </td>
           <td valign="top">
             Video type:<br/>
             <%= videos.select :video_type_eq,
                               Video::VIDEO_TYPES,
-                              {include_blank:  true} %> <br/>
+                              {include_blank: true} %> <br/>
             Production Year:<br/>
             <%= videos.text_field :production_year_eq,
-                                  size:  6 %>
+                                  size: 6 %>
           </td>
           <td valign="top">
             Masters Held:<br/>
@@ -88,7 +88,7 @@
             <br/>
             Tape Location Number:<br/>
             <%= videos.text_field :masters_location_eq,
-                                   size:  6 %>
+                                  size: 6 %>
             <br/>
           </td>
           <td valign="top">
@@ -97,7 +97,7 @@
             <br/>
             Video ID:<br/>
             <%= videos.text_field :id_eq,
-                                  size:  6 %>
+                                  size: 6 %>
           </td>
         </tr>
       </table>

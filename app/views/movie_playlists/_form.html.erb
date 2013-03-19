@@ -9,8 +9,8 @@
           <%= select("movie_playlist",
                      "airline_id",
                      Airline.order("name asc")
-                            .collect {|p| [ p.name + " - " + p.code, p.id] },
-                            { :include_blank => true }) %>
+                     .collect { |p| [p.name + " - " + p.code, p.id] },
+                     {include_blank: true}) %>
           <%= link_to "+",
                       airlines_path,
                       id: "add",
@@ -37,7 +37,7 @@
           <%= select("movie_playlist",
                      "movie_type",
                      MoviePlaylist::MOVIE_TYPE,
-                     { :include_blank => true }) %>
+                     {include_blank: true}) %>
         </td>
         <td class="pl-title">Programmer :</td>
         <td>

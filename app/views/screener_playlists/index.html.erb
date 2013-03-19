@@ -1,16 +1,16 @@
-<%= render :partial => 'layouts/screener_playlist_header' %>
+<%= render partial: 'layouts/screener_playlist_header' %>
 <center><p style="color: green" id="notice"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
-	<div id="content-header-actions">
-	<%= link_to "Create a playlist", new_screener_playlist_path %>
-</div>
-<div id="content-header">Video Screener Playlists</div>
+  <div id="content-header-actions">
+    <%= link_to "Create a playlist", new_screener_playlist_path %>
+  </div>
+  <div id="content-header">Video Screener Playlists</div>
 </div>
 <div id="content">
-<% remote_form_for @search,	:loading => "Element.show('spinner')", :complete => "Element.hide('spinner')" do |f| %>
-<%= render :partial => 'search_form', :locals => { :f => f } %>
-<% end %>  
-<div id="screener_playlists">
-	<%= render :partial => "screener_playlists" %>
-</div>
+  <% remote_form_for @search, loading: "Element.show('spinner')", complete: "Element.hide('spinner')" do |f| %>
+      <%= render partial: 'search_form', locals: {f: f} %>
+  <% end %>
+  <div id="screener_playlists">
+    <%= render partial: "screener_playlists" %>
+  </div>
 </div>

@@ -1,46 +1,51 @@
 <fieldset>
-	<legend>Search Albums Playlists</legend>
+  <legend>Search Albums Playlists</legend>
 
   <%= search_form_for @search,
-                      :loading => "Element.show('spinner')",
-                      :complete => "Element.hide('spinner')" do |album_playlists| %>
+                      loading: "Element.show('spinner')",
+                      complete: "Element.hide('spinner')" do |album_playlists| %>
 
-    Match ANY or ALL of the conditions:
-    <%=  album_playlists.combinator_select %>
-    <%= image_tag 'spinner.gif', :id => 'spinner', :style => 'display:none;' %>
-    <br />
-    <table>
-      <tr>
-        <td>
-          Playlist ID:<br/>
-          <%= album_playlists.text_field :id_eq, :size => 6 %><br />
-        </td>
-        <td valign="top">
-          Client Playlist Code:<br />
-          <%= album_playlists.text_field :client_playlist_code_cont, :size => 12 %><br />
-        </td>
-        <td>
-          Airline:<br />
-          <%= album_playlists.select :airline_id_eq, Airline.order("name asc")
-                                                            .collect {|p| [p.name, p.id] },
-                                                                     { :include_blank => true } %><br />
-        </td>
-        <td>
-          Start Playdate:<br />
-          <%= album_playlists.date_select :start_playdate_matches, {:discard_day => true,
-                                                                    :order => [:month, :year],
-                                                                    :include_blank => true}  %><br />
-        </td>
-        <td>End Playdate:<br />
-          <%= album_playlists.date_select :end_playdate_matches, {:discard_day => true,
-                                                                  :order => [:month, :year],
-                                                                  :include_blank => true}  %><br />
-        </td>
-        <td valign="bottom">
-          <%= album_playlists.submit "Search" %>
-          <input type="reset" value="Reset">
-        </td>
-      </tr>
-    </table>
+      Match ANY or ALL of the conditions:
+      <%= album_playlists.combinator_select %>
+      <%= image_tag 'spinner.gif', id: 'spinner', style: 'display:none;' %>
+      <br/>
+      <table>
+        <tr>
+          <td>
+            Playlist ID:<br/>
+            <%= album_playlists.text_field :id_eq, size: 6 %>
+            <br/>
+          </td>
+          <td valign="top">
+            Client Playlist Code:<br/>
+            <%= album_playlists.text_field :client_playlist_code_cont, size: 12 %>
+            <br/>
+          </td>
+          <td>
+            Airline:<br/>
+            <%= album_playlists.select :airline_id_eq, Airline.order("name asc")
+            .collect { |p| [p.name, p.id] },
+                                       {include_blank: true} %>
+            <br/>
+          </td>
+          <td>
+            Start Playdate:<br/>
+            <%= album_playlists.date_select :start_playdate_matches, {discard_day: true,
+                                                                      order: [:month, :year],
+                                                                      include_blank: true} %>
+            <br/>
+          </td>
+          <td>End Playdate:<br/>
+            <%= album_playlists.date_select :end_playdate_matches, {discard_day: true,
+                                                                    order: [:month, :year],
+                                                                    include_blank: true} %>
+            <br/>
+          </td>
+          <td valign="bottom">
+            <%= album_playlists.submit "Search" %>
+            <input type="reset" value="Reset">
+          </td>
+        </tr>
+      </table>
   <% end %>
 </fieldset>
