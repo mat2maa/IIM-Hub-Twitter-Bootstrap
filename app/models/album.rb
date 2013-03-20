@@ -26,7 +26,7 @@ class Album < ActiveRecord::Base
   
   attr_accessible :title_original, :label_id, :title_english, :release_year, :artist_original, :publisher_id,
                   :artist_english, :disc_num, :disc_count, :cd_code, :live_album, :explicit_lyrics, :cover, :gender,
-                  :language_id, :compilation, :origin_id
+                  :language_id, :compilation, :origin_id, :synopsis
   
 	def tracks_sorted
 		self.tracks.sort_by {|a| [a.track_num]}

@@ -1,6 +1,6 @@
 <% @album = playlist_item.album %>
 <% @album_playlist_item = playlist_item %>
-<tr id="item_<%= playlist_item.id %>">
+<tr id="item_<%= playlist_item.id %>" class="sortable">
   <% if playlist_item.album.nil? %>
 
       <td colspan="2">Missing album <%= playlist_item.album_id %></td>
@@ -39,8 +39,13 @@
 
           <tr>
             <th  <%= is_nil_alert(playlist_item.album.synopsis) %>>Synopsis:</th>
-            <td colspan="3"><%= in_place_text_area :album,
-                                                   :synopsis %></td>
+            <td colspan="3">
+              <%= best_in_place @album,
+                                :synopsis,
+                                type: :textarea %>
+              <%#= in_place_text_area :album,
+                                     :synopsis %>
+            </td>
             <th>Genre:</th>
             <td colspan="2"><%= playlist_item.album.genre %></td>
             <th><%= link_to "+",
@@ -48,19 +53,28 @@
                             id: "add",
                             popup: true %> Category:
             </th>
-            <td><%= in_place_select :album_playlist_item,
+            <td>
+              <%= best_in_place @album_playlist_item,
+                                :category_id,
+                                type: :select,
+                                collection: Category.order("name ASC")
+                                                      .collect { |p| [p.id, p.name] },
+                                include_blank: true %>
+              <%#= in_place_select :album_playlist_item,
                                     'category_id',
                                     choices: category_options_for_select,
                                     list_name: 'category',
-                                    list_attribute: 'name' %></td>
+                                    list_attribute: 'name' %>
+            </td>
 
           </tr>
         </table>
       </td>
       <td><%= image_tag("arrow_move.png") %></td>
   <% end %>
-  <td><%= link_to_remote "Delete",
-                         confirm: "Are you sure",
-                         url: playlist_item,
-                         method: 'delete' %></td>
+  <td><%= link_to "Delete",
+                  playlist_item,
+                  remote: true,
+                  confirm: "Are you sure",
+                  method: 'delete' %></td>
 </tr>

@@ -6,6 +6,5 @@ page.replace_html 'duration',
                   object: @audio_playlist
 page.replace_html 'item_added',
                   partial: 'item_added',
-                  object: {@track,
-                           @notice}
+                  object: {@track, @notice}
 page.call 'YAHOO.mediaplayer.loadPlayerScript'

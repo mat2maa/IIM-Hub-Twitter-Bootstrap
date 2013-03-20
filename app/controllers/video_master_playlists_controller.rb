@@ -2,8 +2,10 @@ require "spreadsheet"
 require 'stringio'
 
 class VideoMasterPlaylistsController < ApplicationController
+=begin
   in_place_edit_for :video_master_playlist_item,
                     :mastering
+=end
 
   layout "layouts/application",
          except: :export
@@ -64,10 +66,10 @@ class VideoMasterPlaylistsController < ApplicationController
       if @video_master_playlist.update_attributes(params[:video_master_playlist])
         flash[:notice] = 'Playlist was successfully updated.'
         format.html { redirect_to(:back) }
-
+        format.json { respond_with_bip(@video_master_playlist) }
       else
         format.html { render action: "edit" }
-
+        format.json { respond_with_bip(@video_master_playlist) }
       end
     end
   end

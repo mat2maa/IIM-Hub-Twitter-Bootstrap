@@ -1,2 +1,10 @@
-jQuery('#screeners_list').html("<%= escape_javascript(render(partial: "/videos/screeners",
+var $ = jQuery;
+
+var $element = $("#screener-<%= @screener.id %>");
+
+$element.fadeOut("fast");
+
+
+
+//jQuery('#screeners_list').html("<%#= escape_javascript(render(partial: "/videos/screeners",
 locals: { video_id: @screener.video_id })) %>");

@@ -1,3 +1,10 @@
+var $ = jQuery;
+
+var $element = $("#album-<%= @album.id %>");
+
+$element.fadeOut("fast");
+
+/*
 if @album_is_deleted
   page.visual_effect :fade,
                      "album-#{@album.id}"
@@ -11,3 +18,4 @@ else
                      :notice
   flash.discard
 end
+*/

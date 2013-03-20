@@ -3,12 +3,14 @@ require 'stringio'
 
 class AudioPlaylistsController < ApplicationController
 
+=begin
   in_place_edit_for :audio_playlist_track,
                     :mastering
   in_place_edit_for :audio_playlist_track,
                     :split
   in_place_edit_for :audio_playlist_track,
                     :vo_duration
+=end
   layout "layouts/application",
          except: :export_to_excel
   before_filter :require_user
@@ -108,6 +110,7 @@ class AudioPlaylistsController < ApplicationController
 
         #else
         format.html { render action: "edit" }
+        format.json { respond_with_bip(@audio_playlist) }
 
       end
     end
@@ -199,11 +202,7 @@ class AudioPlaylistsController < ApplicationController
     if params['title'].strip.length > 0
 
       @tracks = Track.search(params['title'],
-                             ['tracks.title_original',
-                              'tracks.title_english',
-                              'tracks.artist_original',
-                              'tracks.artist_english',
-                              'labels.name'],
+                             %w(tracks.title_original tracks.title_english tracks.artist_original tracks.artist_english labels.name),
                              {conditions: conditions,
                               from: '(tracks left join albums on albums.id=tracks.album_id) left join labels on albums.label_id=labels.id',
                               select: 'tracks.*'})
@@ -240,8 +239,12 @@ class AudioPlaylistsController < ApplicationController
 
     else
       @search = Track.ransack(params[:q])
-      @tracks = nil
-      @tracks_count = 0
+      @tracks = @search.result(distinct: true)
+                       .paginate(page: params[:page],
+                                 per_page: 10)
+      @tracks_count = @tracks.count
+#      @tracks = nil
+#      @tracks_count = 0
     end
 
     respond_to do |format|

@@ -2,10 +2,25 @@
 <table width="100%">
   <% @accum_duration = 0 %>
   <tbody id="audioplaylist" style="cursor: move">
-  <%= render partial: 'audio_playlists/playlist_track',
+  <%= render partial: 'playlist_track',
              collection: @audio_playlist.audio_playlist_tracks_sorted %>
   </tbody>
 </table>
+
+<script>
+
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $("#audioplaylist").sortable({
+            axis: 'y',
+            containment: 'parent',
+            cursor: 'crosshair',
+            items: 'tr.sortable'
+        });
+    });
+
+</script>
 
 <%#= sortable_element "audioplaylist",
     url: {action: "sort"},

@@ -3,23 +3,22 @@
 
     <table cellspacing="0" width="100%">
       <tr>
-        <th><%= remote_order_by_link :id,
-                                     search_obj: @search,
-                                     params_scope: :audio_playlists %></th>
-        <th>(track
-          num) <%= remote_order_by_link :title_original,
-                                        search_obj: @search,
-                                        params_scope: :audio_playlists %></th>
-        <th><%= remote_order_by_link :artist_original,
-                                     search_obj: @search,
-                                     params_scope: :audio_playlists %></th>
+        <th>
+          <%= sort_link @search, :audio_playlists_id, 'id' %>
+        </th>
+        <th>(track num)
+          <%= sort_link @search, :audio_playlists_title_original, 'Original Title' %>
+        </th>
+        <th>
+          <%= sort_link @search, :audio_playlists_artist_original, 'Original Artist' %>
+        </th>
         <th>Label <%#= remote_order_by_link label: :name,
 search_obj: @search,
 params_scope: :audio_playlists  %></th>
         <th>CD Code</th>
-        <th><%= remote_order_by_link :duration,
-                                     search_obj: @search,
-                                     params_scope: :audio_playlists %></th>
+        <th>
+          <%= sort_link @search, :audio_playlists_duration, 'Duration' %>
+        </th>
         <th>Explicit Lyrics</th>
         <th>&nbsp;</th>
       </tr>
@@ -46,13 +45,14 @@ params_scope: :audio_playlists  %></th>
                               :explicit_lyrics,
                               disabled: true) %></td>
             <td>
-              <%= link_to_remote "add to playlist",
-                                 url: {controller: "audio_playlists",
-                                       action: "add_track",
-                                       id: params[:id],
-                                       track_id: track.id},
-                                 loading: "Element.show('spinner')",
-                                 complete: "Element.hide('spinner')" %>
+              <%= link_to "add to playlist",
+                          url: {controller: "audio_playlists",
+                                action: "add_track",
+                                id: params[:id],
+                                track_id: track.id},
+                          remote: true,
+                          loading: "Element.show('spinner')",
+                          complete: "Element.hide('spinner')" %>
             </td>
           </tr>
 
@@ -60,12 +60,8 @@ params_scope: :audio_playlists  %></th>
     </table>
     <br/>
     <br/>
+    <%= will_paginate @tracks %>
 
-    Per page: <%= remote_per_page_select %>
-
-    <% if @search.page_count > 1 %>
-        <br/>Page: <%= remote_page_select %>
-    <% end %>
 <% else %>
     No tracks were returned
 <% end %>

@@ -132,8 +132,8 @@
     <% if permitted_to? :admin_delete,
                         :videos %>
         <%= link_to 'Delete',
+                    video_url(@video),
                     remote: true,
-                    url: video_url(@video),
                     method: :delete,
                     confirm: 'Are you sure?' %>
     <% end %>

@@ -15,12 +15,13 @@ class MoviesController < ApplicationController
           @search = Movie.with_language_subtitle(params[:language][:subtitle]).with_language_track(params[:language][:track]).ransack(params[:q])
         else
           @search = Movie.ransack(params[:q])
-          @search.conditions.active_equals = true
+          #@search.conditions.active_equals = true
 
-          @search.conditions.or_movie_title_keywords = params[:search][:conditions][:or_movie_title_keywords].gsub(/\'s|\'t/,
-                                                                                                                   "")
-          @search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:or_movie_title_keywords].gsub(/\'s|\'t/,
-                                                                                                                              "")
+          #@search.conditions.or_movie_title_keywords = params[:search][:conditions][:or_movie_title_keywords].gsub
+          # (/\'s|\'t/,"")
+
+          #@search.conditions.or_foreign_language_title_keywords =
+          # params[:search][:conditions][:or_movie_title_keywords].gsub(/\'s|\'t/,"")
         end
 
         if params[:screener][:destroyed] == "1"

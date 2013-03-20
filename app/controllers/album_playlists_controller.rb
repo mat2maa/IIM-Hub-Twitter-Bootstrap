@@ -5,12 +5,14 @@ include Iim
 class AlbumPlaylistsController < ApplicationController
   layout "layouts/application",
          except: :export
+=begin
   in_place_edit_for :album,
                     :synopsis
   in_place_edit_for :album_playlist_item,
                     :category_id,
                     list_name: 'category',
                     list_attribute: 'name'
+=end
   before_filter :require_user
   filter_access_to :all
 
@@ -63,10 +65,10 @@ class AlbumPlaylistsController < ApplicationController
       if @album_playlist.update_attributes(params[:album_playlist])
         flash[:notice] = 'Playlist was successfully updated.'
         format.html { redirect_to(:back) }
-
+        format.json { respond_with_bip(@album_playlist) }
       else
         format.html { render action: "edit" }
-
+        format.json { respond_with_bip(@album_playlist) }
       end
     end
   end

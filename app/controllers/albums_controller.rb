@@ -111,14 +111,15 @@ class AlbumsController < ApplicationController
     respond_to do |format|
 
       if @album.update_attributes(params[:album])
+
+=begin TODO: This breaks best_in_place
         i=0
         g=""
         @album.genres.each do |genre|
           if i==0
             g = genre.name
           else
-            g = g + ",
-" + genre.name
+            g = g + "," + genre.name
           end
           i+=1
         end
@@ -137,12 +138,15 @@ class AlbumsController < ApplicationController
           track.genre = @album.genre
           track.save(false)
         end
+=end
 
         flash[:notice] = 'Album was successfully updated.'
         format.html { redirect_to edit_album_path(@album) }
+        format.json { respond_with_bip(@album) }
       else
         @tracks = Track.where(album_id: params[:id]).order('track_num')
         format.html { render action: "edit" }
+        format.json { respond_with_bip(@album) }
       end
 
     end

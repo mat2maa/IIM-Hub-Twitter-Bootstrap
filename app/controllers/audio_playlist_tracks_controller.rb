@@ -1,8 +1,10 @@
 class AudioPlaylistTracksController < ApplicationController
+=begin
   in_place_edit_for :audio_playlist_track,
                     :mastering
   in_place_edit_for :audio_playlist_track,
                     :split
+=end
 
   before_filter :require_user
   filter_access_to :all
@@ -18,8 +20,10 @@ class AudioPlaylistTracksController < ApplicationController
         flash[:notice] = 'Mastering was successfully updated.'
         format.html { redirect_to(edit_audio_playlist_path(@audioplaylisttrack.audio_playlist)) }
         format.js
+        format.json { respond_with_bip(@audioplaylisttrack) }
       else
         format.html { render action: "edit" }
+        format.json { respond_with_bip(@audioplaylisttrack) }
       end
     end
   end

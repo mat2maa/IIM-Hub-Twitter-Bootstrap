@@ -2,8 +2,10 @@ require "spreadsheet"
 require 'stringio'
 
 class ScreenerPlaylistsController < ApplicationController
+=begin
   in_place_edit_for :screener_playlist_item,
                     :mastering
+=end
 
   layout "layouts/application",
          except: :export

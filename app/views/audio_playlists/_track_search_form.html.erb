@@ -2,8 +2,10 @@
     <fieldset>
       <legend>Search Tracks</legend>
       <%= search_form_for @search,
+                          remote: true,
                           loading: "Element.show('spinner')",
-                          complete: "Element.hide('spinner')" do |tracks| %>
+                          complete: "Element.hide('spinner')",
+                          id: "track_search_form" do |tracks| %>
 
           <%= hidden_field_tag 'id',
                                params[:id] %>
@@ -60,26 +62,21 @@
                 Album Title Original:
                 <br>
 
-                <!--TODO: Deep Ransack searches -->
-                <% tracks.fields_for tracks.object.album do |album| %>
-                    <%= album.text_field :title_original_cont,
-                                         size: 25 %>
-                    <br>
-                    Label:
-                    <br>
-                    <%= album.select :label_id_eq,
-                                     Label.all.collect { |p| [p.name,
-                                                              p.id] },
-                                     {include_blank: true} %>
-                <% end %>
+                <%= tracks.text_field :album_title_original_cont,
+                                      size: 25 %>
+                <br>
+                Label:
+                <br>
+                <%= tracks.select :album_label_id_eq,
+                                  Label.all.collect { |p| [p.name,
+                                                           p.id] },
+                                  {include_blank: true} %>
 
                 <br>
 
-                <% tracks.fields_for tracks.object.album do |album| %>
-                    CD Code:<br>
-                    <%= album.text_field :cd_code_cont,
-                                         :size => 10 %>
-                <% end %>
+                CD Code:<br>
+                <%= tracks.text_field :album_cd_code_cont,
+                                     :size => 10 %>
 
                 <%= tracks.submit "Search" %>
                 <input type="reset" value="Reset">

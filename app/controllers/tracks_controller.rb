@@ -61,10 +61,8 @@ class TracksController < ApplicationController
 
   def show
     @track = Track.find(params[:id])
-    @genres = Genre.find(:all)
-    @playlists = AudioPlaylistTrack.find(:all,
-                                         conditions: ['track_id=?',
-                                                      params[:id]])
+    @genres = Genre.all
+    @playlists = AudioPlaylistTrack.where('track_id=?',params[:id])
     respond_to do |format|
       format.html
       format.xml { render xml: @track }
@@ -73,14 +71,12 @@ class TracksController < ApplicationController
 
   def edit
     @track = Track.find(params[:id])
-    @genres = Genre.find(:all)
+    @genres = Genre.all
   end
 
   def update
     @track = Track.find(params[:id])
-    @playlists = AudioPlaylistTrack.find(:all,
-                                         conditions: ['track_id=?',
-                                                      params[:id]])
+    @playlists = AudioPlaylistTrack.where('track_id=?',params[:id])
     @playlists.each do |audio_playlist_track|
       audio_playlist_track.audio_playlist.updated_at_will_change!
       audio_playlist_track.audio_playlist.save
@@ -113,7 +109,7 @@ class TracksController < ApplicationController
         flash[:notice] = 'Track was successfully updated.'
         format.html { redirect_to edit_track_path(@track) }
       else
-        @genres = Genre.find(:all)
+        @genres = Genre.all
         format.html { render action: "edit" }
       end
 
@@ -142,8 +138,7 @@ class TracksController < ApplicationController
         @track_is_deleted = false
       end
     else
-      flash[:notice] = 'Track could not be deleted,
-track is in use for by playlists'
+      flash[:notice] = 'Track could not be deleted, track is in use for by playlists'
       @track_is_deleted = false
     end
 
@@ -154,7 +149,7 @@ track is in use for by playlists'
   end
 
   def show_genre
-    @genres = Genre.find(:all)
+    @genres = Genre.all
     @track = Track.find(params[:id])
   end
 
@@ -164,10 +159,8 @@ track is in use for by playlists'
 
   def show_playlists
     @track = Track.find(params[:id])
-    @playlists = AudioPlaylistTrack.find(:all,
-                                         conditions: ['track_id=?',
-                                                      params[:id]],
-                                         group: :audio_playlist_id)
+    @playlists = AudioPlaylistTrack.where('track_id=?',params[:id])
+                                   .group(:audio_playlist_id)
   end
 
   def restore

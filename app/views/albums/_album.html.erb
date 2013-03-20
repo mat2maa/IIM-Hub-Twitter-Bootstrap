@@ -48,8 +48,8 @@
       <td>
         <% if !album.to_delete %>
             <%= link_to 'Delete',
+                        album_url(album),
                         remote: true,
-                        url: album_url(album),
                         method: :delete,
                         confirm: 'Are you sure? Tracks from the album will be deleted too.',
                         loading: "Element.show('spinner')",
@@ -58,8 +58,8 @@
             <% if permitted_to? :admin_delete,
                                 :albums %>
                 <%= link_to 'Delete',
+                            album_url(album),
                             remote: true,
-                            url: album_url(album),
                             method: :delete,
                             confirm: 'Are you sure? Tracks from the album will be deleted too.',
                             loading: "Element.show('spinner')",

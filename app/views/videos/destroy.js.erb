@@ -1,3 +1,10 @@
+var $ = jQuery;
+
+var $element = $("#video-<%= @video.id %>");
+
+$element.fadeOut("fast");
+
+/*
 #page.visual_effect :fade,
 "video-#{@video.id}"
 #page.redirect_to videos_url(CGI::unescape(videos_url(params[:search])))
@@ -19,3 +26,4 @@ else
                      :notice
   flash.discard
 end
+*/

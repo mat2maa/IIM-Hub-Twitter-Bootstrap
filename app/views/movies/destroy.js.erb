@@ -1,3 +1,10 @@
+var $ = jQuery;
+
+var $element = $("#movie-<%= @movie.id %>");
+
+$element.fadeOut("fast");
+
+/*
 #page.redirect_to movies_url
 
 page.redirect_to movies_url if !@movie.active
@@ -21,3 +28,4 @@ else
                      :notice
   flash.discard
 end
+*/

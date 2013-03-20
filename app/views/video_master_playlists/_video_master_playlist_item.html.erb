@@ -55,14 +55,14 @@
             <td valign="top"><strong>Mastering:</strong><br/>
             </td>
             <td colspan="5">
-              <%#= in_place_text_area :video_master_playlist_item,
-                                     :mastering,
-                                     {rows: "2"} %>
+              <%= best_in_place @video_master_playlist_item, :mastering %>
             </td>
             <th>Aspect Ratio:</th>
             <td><%= video_master_playlist_item.master.aspect_ratio %></td>
             <th>Duration:</th>
-            <td><%#= video_master_playlist_item.master.duration %></td>
+            <td>
+              <%#= video_master_playlist_item.master.duration %>
+            </td>
           </tr>
         </table>
       </td>

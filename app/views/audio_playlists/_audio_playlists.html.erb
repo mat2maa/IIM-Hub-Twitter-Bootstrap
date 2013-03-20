@@ -71,8 +71,8 @@
                 </td>
                 <td>
                   <%= link_to 'Delete',
+                              audio_playlist_url(audio_playlist),
                               remote: true,
-                              url: audio_playlist_url(audio_playlist),
                               method: :delete,
                               confirm: 'Are you sure?',
                               loading: "Element.show('spinner')",

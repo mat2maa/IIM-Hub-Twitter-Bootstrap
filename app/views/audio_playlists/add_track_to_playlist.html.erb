@@ -1,11 +1,6 @@
 <center>
 
   <div class="overlay">
-    <%= link_to_hide_overlay 'X',
-                             audio_playlists_path,
-                             id: 'cancel' %>
-    <br/>
-
     <strong>Add Track to Playlist</strong><br/>
 
     <div id="search_form">
@@ -21,9 +16,16 @@
     <div id="tracks">
       <%= render partial: "tracks" %>
     </div>
-    <%= link_to_hide_overlay 'Cancel',
-                             audio_playlists_path %>
-
   </div>
 
 </center>
+
+<script>
+
+    var $ = jQuery;
+
+    $('#track_search_form').submit(function() {
+        $('#tracks').html("<%= escape_javascript(debug(params)) %>");
+    });
+
+</script>

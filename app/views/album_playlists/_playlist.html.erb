@@ -5,6 +5,21 @@
   </tbody>
 </table>
 
+<script>
+
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $("#albumplaylist").sortable({
+            axis: 'y',
+            containment: 'parent',
+            cursor: 'crosshair',
+            items: 'tr.sortable'
+        });
+    });
+
+</script>
+
 <%#= sortable_element "albumplaylist",
 url: {action: "sort"},
 complete:  visual_effect(:highlight,

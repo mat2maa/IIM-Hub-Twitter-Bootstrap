@@ -66,8 +66,8 @@
                 </td>
                 <td>
                   <%= link_to 'Delete',
+                              album_playlist_url(album_playlist),
                               remote: true,
-                              url: album_playlist_url(album_playlist),
                               method: :delete,
                               confirm: 'Are you sure?',
                               loading: "Element.show('spinner')",
@@ -82,7 +82,7 @@
             <% end %>
             <td>
               <% if permitted_to? :lock,
-                                  :albums_playlist %>
+                                  :album_playlists %>
                   <% if album_playlist.locked!=true %>
                       <%= link_to 'Lock',
                                   lock_album_playlist_path(album_playlist),

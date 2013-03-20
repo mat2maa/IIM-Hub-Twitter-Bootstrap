@@ -1,13 +1,20 @@
+var $ = jQuery;
+
+var $element = $("#track-<%= @track.id %>");
+
+$element.fadeOut("fast");
+
+/*
 if @track_is_deleted
-  page.visual_effect :fade,
-                     "track-#{@track.id}"
+page.visual_effect :fade,
+        "track-#{@track.id}"
 else
-  page.replace "track-#{@track.id}",
-               partial: "track",
-               object: @track
-  page.replace_html :notice,
-                    flash[:notice]
-  page.visual_effect :highlight,
-                     :notice
-  flash.discard
-end
+page.replace "track-#{@track.id}",
+        partial: "track",
+        object: @track
+page.replace_html :notice,
+        flash[:notice]
+page.visual_effect :highlight,
+:notice
+flash.discard
+end*/

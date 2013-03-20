@@ -123,6 +123,10 @@
     </table>
 
     <p>
-      <%= form.submit "Next" %>
+      <% if params[:action] == "new" %>
+          <%= form.submit "Next" %>
+      <% elsif params[:action] == "edit" %>
+          <%= form.submit "Update" %>
+      <% end %>
     </p>
 <% end %>

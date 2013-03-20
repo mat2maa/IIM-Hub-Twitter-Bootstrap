@@ -1,6 +1,8 @@
 class VideoMasterPlaylistItemsController < ApplicationController
+=begin
   in_place_edit_for :video_master_playlist_item,
                     :mastering
+=end
 
   before_filter :require_user
   filter_access_to :all
@@ -16,8 +18,10 @@ class VideoMasterPlaylistItemsController < ApplicationController
         flash[:notice] = 'Mastering was successfully updated.'
         format.html { redirect_to(edit_video_master_playlist_path(@videomasterplaylistitem.video_master_playlist)) }
         format.js
+        format.json { respond_with_bip(@videomasterplaylistitem) }
       else
         format.html { render action: "edit" }
+        format.json { respond_with_bip(@videomasterplaylistitem) }
       end
     end
   end

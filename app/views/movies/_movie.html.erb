@@ -32,8 +32,8 @@
       <td>
         <% if !movie.to_delete %>
             <%= link_to 'Delete',
+                        movie_url(movie),
                         remote: true,
-                        url: movie_url(movie),
                         method: :delete,
                         confirm: 'Are you sure?',
                         loading: "Element.show('spinner')",
@@ -42,8 +42,8 @@
              if permitted_to? :admin_delete,
                               :movies %>
                 <%= link_to 'Delete',
+                            movie_url(movie),
                             remote: true,
-                            url: movie_url(movie),
                             method: :delete,
                             confirm: 'Are you sure?',
                             loading: "Element.show('spinner')",

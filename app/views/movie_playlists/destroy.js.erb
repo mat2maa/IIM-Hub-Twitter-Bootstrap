@@ -1,2 +1,5 @@
-page.visual_effect :fade,
-                   "movie_playlist-#{@movie_playlist.id}"
+var $ = jQuery;
+
+var $element = $("#movie_playlist-<%= @movie_playlist.id %>");
+
+$element.fadeOut("fast");
