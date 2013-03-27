@@ -12,7 +12,7 @@
             <td width="150"><strong>Programme Title:</strong></td>
             <td><%= link_to playlist_item_view.video.programme_title,
                             edit_video_path(playlist_item_view.video),
-                            popup: true %> <%= playlist_item_view.video.on_going_series ? "(On-Going)" : "" %></td>
+                            target: "_blank" %> <%= playlist_item_view.video.on_going_series ? "(On-Going)" : "" %></td>
             <td rowspan="5" width="160"><%= image_tag(playlist_item_view.video.poster.url(:small)) %></td>
           </tr>
           <tr>

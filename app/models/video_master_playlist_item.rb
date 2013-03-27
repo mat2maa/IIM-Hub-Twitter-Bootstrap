@@ -10,7 +10,7 @@ class VideoMasterPlaylistItem < ActiveRecord::Base
     master.in_playlists = VideoMasterPlaylist.where("masters.id=#{self.master.id}")
                                              .includes("masters")
                                              .collect{|playlist| playlist.id}.join(',')
-    master.save(false)
+    master.save(validate: false)
   end
   
   def before_destroy
@@ -18,6 +18,6 @@ class VideoMasterPlaylistItem < ActiveRecord::Base
     master.in_playlists = VideoMasterPlaylist.where("masters.id=#{self.master.id}")
                                              .includes("masters")
                                              .collect{|playlist| playlist.id}.join(',')
-    master.save(false)
+    master.save(validate: false)
   end
 end

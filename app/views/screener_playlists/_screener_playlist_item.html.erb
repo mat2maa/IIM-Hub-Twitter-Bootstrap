@@ -10,7 +10,7 @@
             <th width="130">(<%= screener_playlist_item.position %>)
               Video Title [<%= link_to "Edit",
                                        edit_screener_path(screener_playlist_item.screener.id),
-                                       popup: true %>]:
+                                       target: "_blank" %>]:
             </th>
             <td width="200"><%= screener_playlist_item.screener.video.programme_title %></td>
             <th width="80">Distributor:</th>

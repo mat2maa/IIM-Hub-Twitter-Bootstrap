@@ -1,12 +1,13 @@
-<% remote_form_for (@album) do |form| %>
+<%= form_for @album,
+            remote: true do |form| %>
     <strong>Synopsis</strong><br/><br/>
     <%= link_to "YesAsia",
                 "http://www.yesasia.com",
-                popup: true %> |
+                target: "_blank" %> |
     <%= link_to "Wikipedia",
                 "http://www.wikipedia.org/wiki/#{@album.artist_original.sub(/ /,
                                                                             '_')}",
-                popup: true %>
+                target: "_blank" %>
     <br/><br/>
     <%= form.text_area :synopsis %>
     <br/>

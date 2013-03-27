@@ -3,7 +3,7 @@
 "videos"]) do %>
   <td><%= link_to video.id,
                   video_path(id: video.id),
-                  popup: true %></td>
+                  target: "_blank" %></td>
   <td><%= video.programme_title %></td>
   <td><%= video.video_distributor.company_name if !video.video_distributor.nil? %></td>
   <td><%= video.video_type %></td>
@@ -30,7 +30,7 @@
   <% else %>
       <td><%= link_to 'Edit',
                       edit_video_path(video),
-                      popup: true %></td>
+                      target: "_blank" %></td>
       <td>
         <% if !video.to_delete %>
             <%= link_to 'Delete',

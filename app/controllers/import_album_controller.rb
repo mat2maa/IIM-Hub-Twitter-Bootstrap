@@ -50,7 +50,7 @@ class ImportAlbumController < ApplicationController
     album.musicbrainz_id = release.id.uuid
     album.to_delete = 0
     album.label_id = ''
-    album.save(false)
+    album.save(validate: false)
 
     #add tracks to database
 
@@ -69,12 +69,12 @@ class ImportAlbumController < ApplicationController
       end
       track.duration = duration
       track.track_num = i+1
-      track.save(false)
+      track.save(validate: false)
 
     end
 
     album.total_duration = album.duration
-    album.save(false)
+    album.save(validate: false)
 
     #redirect to album info
 
@@ -107,7 +107,7 @@ class ImportAlbumController < ApplicationController
         album.genre = @album["genre"]
         album.to_delete = 0
         album.label_id = ''
-        album.save(false)
+        album.save(validate: false)
 
         #add tracks to database
 
@@ -124,12 +124,12 @@ class ImportAlbumController < ApplicationController
           genre = Genre.find(:all, conditions: {:name => rtrack["genre"]})
           track.genres << genre
           track.genre = rtrack["genre"]
-          track.save(false)
+          track.save(validate: false)
 
         end
 
         album.total_duration = album.duration
-        album.save(false)
+        album.save(validate: false)
         @result="success"
       else
         @result="Invalid Application ID"
@@ -179,7 +179,7 @@ class ImportAlbumController < ApplicationController
     album.to_delete = 0
     album.label_id = ''
     album.mp3_exists = true
-    album.save(false)
+    album.save(validate: false)
 
     #add tracks to database
 
@@ -197,12 +197,12 @@ class ImportAlbumController < ApplicationController
       track.genres << genre
       track.genre = rtrack["genre"]
       track.mp3_exists = true
-      track.save(false)
+      track.save(validate: false)
 
     end
 
     album.total_duration = album.duration
-    album.save(false)
+    album.save(validate: false)
 
     respond_to do |format|
       format.html { render text: album.id }
@@ -219,10 +219,10 @@ class ImportAlbumController < ApplicationController
     @album.tracks.each do |track|
       track.mp3_exists = true
       track.mp3_exists_will_change!
-      track.save(false)
+      track.save(validate: false)
     end
     @album.mp3_exists_will_change!
-    @album.save(false)
+    @album.save(validate: false)
 
     respond_to do |format|
       format.html { render text: "success" }

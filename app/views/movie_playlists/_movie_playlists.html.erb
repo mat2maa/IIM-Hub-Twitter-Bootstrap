@@ -38,7 +38,7 @@
                 <td>
                   <%= link_to movie_playlist.id,
                               movie_playlist_path(id: movie_playlist.id),
-                              popup: true %>
+                              target: "_blank" %>
                 </td>
                 <td>
                   <%= movie_playlist.airline.name if !movie_playlist.airline.nil? %>
@@ -56,7 +56,7 @@
             <td>
               <%= link_to('Edit',
                           edit_movie_playlist_path(movie_playlist),
-                          popup: true) if movie_playlist.locked!=true %>
+                          target: "_blank") if movie_playlist.locked!=true %>
             </td>
             <% if permitted_to? :delete,
                                 :movie_playlists %>

@@ -10,7 +10,7 @@
         <td width="150"><strong>Movie Title:</strong></td>
         <td><%= link_to playlist_item_view.movie.movie_title,
                         edit_movie_path(playlist_item_view.movie),
-                        popup: true %>
+                        target: "_blank" %>
           <% if (!playlist_item_view.movie.foreign_language_title.nil? && playlist_item_view.movie.foreign_language_title!='') %>
               (<%= playlist_item_view.movie.movie_type.upcase %>)
           <% end %>

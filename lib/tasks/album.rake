@@ -12,7 +12,7 @@ namespace :db do
       
       album.total_tracks = album.tracks.count
       album.total_duration = album.duration
-      album.save(false)
+      album.save(validate: false)
       
     end
     

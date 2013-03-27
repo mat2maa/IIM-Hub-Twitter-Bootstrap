@@ -33,7 +33,7 @@ true]] %>
             <br/>
             Episode Title:<br/>
             <!--TODO What is masters_episode_title? -->
-            <%#= videos.text_field :masters_episode_title %>
+            <%= videos.text_field :masters_episode_title_cont %>
             <br/>
           </td>
           <td valign="top">
@@ -92,7 +92,7 @@ true]] %>
           </td>
           <td valign="top">
             Masters Held:<br/>
-            <%= check_box_tag :masters %>
+            <%= check_box_tag :masters, '1', params[:masters].to_i == 1 %>
             <br/>
             Tape Location Number:<br/>
             <%= videos.text_field :masters_location_eq,
@@ -101,7 +101,7 @@ true]] %>
           </td>
           <td valign="top">
             Screeners Held:<br/>
-            <%= check_box_tag :screeners %>
+            <%= check_box_tag :screeners, '1', params[:screeners].to_i == 1 %>
             <br/>
             Video ID:<br/>
             <%= videos.text_field :id_eq,

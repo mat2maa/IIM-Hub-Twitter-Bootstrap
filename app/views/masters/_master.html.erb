@@ -6,12 +6,12 @@
   <td><%= master.location %></td>
   <td><%= link_to 'Edit',
                   edit_master_path(master),
-                  popup: true %></td>
+                  target: "_blank" %></td>
   <td>
     <%= link_to 'Delete',
                 master_url(master),
                 remote: true,
-                popup: true,
+                target: "_blank",
                 method: :delete,
                 confirm: 'Are you sure?',
                 loading: "Element.show('spinner')",

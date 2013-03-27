@@ -1,13 +1,13 @@
-<% remote_form_for (@track) do |form| %>
+<%= form_for @track,
+             remote: true do |form| %>
     <strong>Lyrics</strong><br/><br/>
     <%= link_to "Search seekalyric.com",
-                "http://www.seekalyric.com/song/#{@track.artist_original.sub(/ /,
-                                                                             '_')}/#{@track.title_original.sub(/ /,
-                                                                                                               '_')}",
-                popup: true %> | <%= link_to "Search Baidu",
-                                             "http://mp3.baidu.com/",
-                                             popup: true %><br/>
+                "http://www.seekalyric.com/song/#{@track.artist_original.sub(/ /,'_')}/#{@track.title_original.sub(/ /,'_')}",
+                target: "_blank" %>
+    |
+    <%= link_to "Search Baidu",
+                "http://mp3.baidu.com/",
+                target: "_blank" %><br/>
     <%= form.text_area :lyrics %>
     <br/>
-    <
 <% end %>

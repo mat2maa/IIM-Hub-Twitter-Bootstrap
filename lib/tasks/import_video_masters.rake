@@ -75,7 +75,7 @@ namespace :db do
 		
     		new_video.masters << master
     
-    		new_video.save(false)
+    		new_video.save(validate: false)
   	  
       end
     end 

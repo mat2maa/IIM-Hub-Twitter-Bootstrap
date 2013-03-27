@@ -10,7 +10,7 @@ class VideoPlaylistItem < ActiveRecord::Base
     video.in_playlists = VideoPlaylist.includes(:videos)
                                       .where("videos.id=#{self.video.id}")
                                       .collect{|playlist| playlist.id}.join(',')
-    video.save(false)
+    video.save(validate: false)
   end
   
   def before_destroy
@@ -18,7 +18,7 @@ class VideoPlaylistItem < ActiveRecord::Base
     video.in_playlists = VideoPlaylist.includes(:videos)
                                       .where("videos.id=#{self.video.id}")
                                       .collect{|playlist| playlist.id}.join(',')
-    video.save(false)
+    video.save(validate: false)
   end
   
 end

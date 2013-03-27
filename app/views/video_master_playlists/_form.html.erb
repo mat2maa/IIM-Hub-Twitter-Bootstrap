@@ -14,7 +14,7 @@
           <%= link_to "+",
                       airlines_path,
                       id: "add",
-                      popup: true %></td>
+                      target: "_blank" %></td>
         <td class="pl-title">Start Cycle :</td>
         <td><%= form.date_select :start_cycle,
                                  discard_day: true,
@@ -46,7 +46,7 @@
           <%= link_to "+",
                       master_playlist_types_path,
                       id: "add",
-                      popup: true %></td>
+                      target: "_blank" %></td>
         <td class="pl-title">Edit Runtime :</td>
         <td><%= form.text_field :edit_runtime %></td>
         <td class="pl-title">Total Runtime (hh:mm:ss):</td>

@@ -8,7 +8,7 @@ class ScreenerPlaylistItem < ActiveRecord::Base
     screener.in_playlists = ScreenerPlaylist.find(:all,
       :conditions => "screeners.id=#{self.screener.id}", 
       :include => "screeners").collect{|playlist| playlist.id}.join(',')
-    screener.save(false)
+    screener.save(validate: false)
   end
   
   def before_destroy
@@ -16,6 +16,6 @@ class ScreenerPlaylistItem < ActiveRecord::Base
     screener.in_playlists = ScreenerPlaylist.find(:all, 
       :conditions => "screeners.id=#{self.screener.id}", 
       :include => "screeners").collect{|playlist| playlist.id}.join(',')
-    screener.save(false)
+    screener.save(validate: false)
   end
 end

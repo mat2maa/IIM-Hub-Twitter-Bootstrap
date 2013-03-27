@@ -6,31 +6,31 @@
     <div id="poster-thumbnail">
       <%= link_to(image_tag(@movie.poster.url(:small)),
                   @movie.poster.url,
-                  popup: true) %>
+                  target: "_blank") %>
       <br/>
       <%= link_to("Search Box Office Mojo",
                   "http://www.boxofficemojo.com/search/?q=" + CGI.escape(@movie.movie_title.to_s),
-                  popup: true) %>
+                  target: "_blank") %>
       <br/>
       <%= link_to("Search Yahoo Movies",
                   "http://movies.yahoo.com/mv/search?fr=ush-movies&toggle=1&cop=&ei=UTF-8&p=" + CGI.escape(@movie.movie_title.to_s),
-                  popup: true) %>
+                  target: "_blank") %>
       <br/>
       <%= link_to("Search Taiwan Yahoo Movies",
                   "http://tw.movie.yahoo.com/moviesearch_result.html?qmv=" + CGI.escape(@movie.movie_title.to_s),
-                  popup: true) %>
+                  target: "_blank") %>
       <br/>
       <%= link_to("Search Rotten Tomatoes",
                   "http://www.rottentomatoes.com/search/full_search.php?search=" + CGI.escape(@movie.movie_title.to_s),
-                  popup: true) %>
+                  target: "_blank") %>
       <br/>
       <%= link_to("Search IMDB",
                   "http://www.imdb.com/find?s=all&q=" + CGI.escape(@movie.movie_title.to_s),
-                  popup: true) %>
+                  target: "_blank") %>
       <br/>
       <%= link_to("Search Mtime",
                   "http://www.mtime.com/search/?" + CGI.escape(@movie.movie_title.to_s),
-                  popup: true) %>
+                  target: "_blank") %>
       <br/>
       <br/>
       <%= f.input :poster,
@@ -105,7 +105,7 @@
                           input_html: {tabindex: 4},
                           label: ("Distributor " + link_to("[edit]",
                                                            suppliers_path,
-                                                           popup: true)).html_safe,
+                                                           target: "_blank")).html_safe,
                           collection: Supplier.movie_distributors.collect { |p| [p.company_name,
                                                                                  p.id] } %>
             </td>
@@ -115,7 +115,7 @@
                           include_blank: true,
                           label: ("Production Studio " + link_to("[edit]",
                                                                  suppliers_path,
-                                                                 popup: true)).html_safe,
+                                                                 target: "_blank")).html_safe,
                           collection: Supplier.production_studios.collect { |p| [p.company_name,
                                                                                  p.id] } %>
             </td>
@@ -125,7 +125,7 @@
                           include_blank: true,
                           label: ("Laboratory " + link_to("[edit]",
                                                           suppliers_path,
-                                                          popup: true)).html_safe,
+                                                          target: "_blank")).html_safe,
                           collection: Supplier.laboratories.collect { |p| [p.company_name,
                                                                            p.id] } %>
             </td>
@@ -289,7 +289,7 @@
 input_html:  {disabled:  true} ,as:  :check_boxes,
                                         label:  "Countries "+ link_to("[edit]",
 airline_rights_countries_path,
-popup: true) %>
+target: "_blank") %>
             <%= f.input :airline_countries,
                         input_html: {disabled: true,
                                      tabindex: 21} %>
@@ -301,7 +301,7 @@ popup: true) %>
 as:  :check_boxes,
 label:  "Countries "+ link_to("[edit]",
 airline_rights_countries_path,
-                                    popup: true) %>
+                                    target: "_blank") %>
         <% end %>
 
         <%= f.input :language_tracks,

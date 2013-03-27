@@ -162,7 +162,7 @@ class MoviesController < ApplicationController
         @movie_is_deleted = true
       else
         @movie.to_delete = true
-        @movie.save(false)
+        @movie.save(validate: false)
         flash[:notice] = 'Movie will be deleted when approved by administrator'
         @movie_is_deleted = false
       end
@@ -208,7 +208,7 @@ class MoviesController < ApplicationController
   def restore
     @movie = Movie.find(params[:id])
     @movie.to_delete = false
-    @movie.save(false)
+    @movie.save(validate: false)
     flash[:notice] = '
                         Movie has been restored '
     respond_to do |format|

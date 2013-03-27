@@ -25,7 +25,7 @@
         <%= album.cd_code %>&nbsp;</td>
   <% end %>
 
-  <% if (params[:playlist_id] || params["action"]=="add_album_to_playlist") %>
+  <% if params[:playlist_id] || params["action"]=="add_album_to_playlist" %>
       <td>
         <% if !album.to_delete %>
             <%= link_to "add to playlist",

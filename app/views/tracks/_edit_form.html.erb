@@ -108,7 +108,28 @@
 
 
     <br/>
-    <%= submit_tag "Add Track",
+    <%= submit_tag "Save",
                    class: "submit" %>
+
+    <div class="nav-tab">
+      <%= link_to "Genre",
+                  remote: true,
+                  action: "show_genre",
+                  id: @track.id %>
+      <%= link_to "Lyrics",
+                  remote: true,
+                  action: "show_lyrics_form",
+                  id: @track.id %>
+      <%= link_to "Playlists",
+                  remote: true,
+                  action: "show_playlists",
+                  id: @track.id %>
+
+    </div>
+    <div id="tab-area">
+      <%= render partial: 'genre',
+                 locals: {track: 'track',
+                          genres: 'genres'} %>
+    </div>
 <% end %>
 

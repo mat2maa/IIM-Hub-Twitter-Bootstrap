@@ -144,8 +144,25 @@ Iim::Application.routes.draw do
   resources :publishers
   resources :vos
   resources :settings
-  resources :albums
-  resources :tracks
+
+  resources :albums do
+    member do
+      get 'show_tracks'
+      get 'show_genre'
+      get 'show_synopsis'
+      get 'show_tracks_translation'
+      get 'show_playlists'
+    end
+  end
+
+  resources :tracks do
+    member do
+      get 'show_genre'
+      get 'show_lyrics_form'
+      get 'show_playlists'
+    end
+  end
+
   resources :languages
   resources :master_languages
   resources :origins

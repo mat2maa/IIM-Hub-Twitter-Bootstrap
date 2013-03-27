@@ -46,7 +46,7 @@
 											<%= VideoMasterPlaylist.with_same_airline_and_master(master.id,
                                                                                                  (@video_master_playlist.airline_id unless @video_master_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
                                                                                                                                                                                                               edit_video_master_playlist_path(playlist),
-                                                                                                                                                                                                              popup: true) }.join(',
+                                                                                                                                                                                                              target: "_blank") }.join(',
 ') %>
 										<% end %>
 									</span>

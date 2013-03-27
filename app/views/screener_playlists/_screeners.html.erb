@@ -40,7 +40,7 @@ params_scope: :screener_playlists  %></th>
 											<%= ScreenerPlaylist.with_same_airline_and_screener(screener.id,
                                                                                                 (@screener_playlist.airline_id unless @screener_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
                                                                                                                                                                                                      edit_screener_playlist_path(playlist),
-                                                                                                                                                                                                     popup: true) }.join(',
+                                                                                                                                                                                                     target: "_blank") }.join(',
 ') %>
 										<% end %>
 									</span>

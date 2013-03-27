@@ -4,7 +4,7 @@
   <div id="content-header-actions">
     <%= link_to "Search Baidu",
                 "http://www.baidu.com",
-                popup: true %>
+                target: "_blank" %>
   </div>
   <div id="content-header">Edit Track : <%= @track.title_original %>
     <br/>
@@ -14,29 +14,9 @@
 <div id="content">
   <center>
 
-    <%= render partial: 'form',
+    <%= render partial: 'edit_form',
                object: @track %>
 
-    <div class="nav-tab">
-      <%= link_to "Genre",
-                  remote: true,
-                  url: {action: "show_genre",
-                        id: @track.id} %>
-      <%= link_to "Lyrics",
-                  remote: true,
-                  url: {action: "show_lyrics_form",
-                        id: @track.id} %>
-      <%= link_to "Playlists",
-                  remote: true,
-                  url: {action: "show_playlists",
-                        id: @track.id} %>
-
-    </div>
-    <div id="tab-area">
-      <%= render partial: 'genre',
-                 locals: {track: 'track',
-                          genres: 'genres'} %>
-    </div>
   </center>
   <br/><br/>
 </div>

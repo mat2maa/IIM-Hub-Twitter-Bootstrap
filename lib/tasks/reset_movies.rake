@@ -11,7 +11,7 @@ namespace :db do
         movie.in_playlists = MoviePlaylist.find(:all,
           :conditions => "movies.id=#{movie.id}", 
           :include => "movies").collect{|playlist| playlist.id}.join(',')
-        movie.save(false)
+        movie.save(validate: false)
     end
 	end
 end

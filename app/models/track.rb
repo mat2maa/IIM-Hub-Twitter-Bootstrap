@@ -12,7 +12,7 @@ class Track < ActiveRecord::Base
   
   attr_accessible :title_original, :title_english, :tempo, :artist_original, :tempo_intro, :artist_english,
                   :tempo_outro, :composer, :gender, :distributor, :language_id, :origin_id, :explicit_lyrics,
-                  :album_id
+                  :album_id, :genre_ids, :lyrics
  
   def label_cached
     Rails.cache.fetch('Track.label'+ self.id.to_s) { self.album.label.name }

@@ -112,7 +112,6 @@ class AlbumsController < ApplicationController
 
       if @album.update_attributes(params[:album])
 
-=begin TODO: This breaks best_in_place
         i=0
         g=""
         @album.genres.each do |genre|
@@ -125,7 +124,7 @@ class AlbumsController < ApplicationController
         end
         @album.genre = g
         @album.total_duration = @album.duration
-        @album.save(false)
+        @album.save(validate: false)
 
         #set defaults for tracks
         @album.tracks.each do |track|
@@ -136,9 +135,8 @@ class AlbumsController < ApplicationController
           track.gender = @album.gender if track.gender.nil?
           track.genres = @album.genres if track.genres.empty? && !params[:album][:genre_ids].nil?
           track.genre = @album.genre
-          track.save(false)
+          track.save(validate: false)
         end
-=end
 
         flash[:notice] = 'Album was successfully updated.'
         format.html { redirect_to edit_album_path(@album) }
@@ -183,7 +181,7 @@ class AlbumsController < ApplicationController
         Track.update_all "to_delete = 1",
                          "album_id=" + params[:id]
         @album.to_delete = true
-        @album.save(false)
+        @album.save(validate: false)
         flash[:notice] = 'Album will be deleted when approved by administrator'
       end
     else
@@ -259,7 +257,7 @@ album or track from album is in use by playlists'
     Track.update_all "to_delete = 0",
                      "album_id=" + params[:id]
     @album.to_delete = false
-    @album.save(false)
+    @album.save(validate: false)
     flash[:notice] = 'Album has been restored'
     respond_to do |format|
       format.html { redirect_to(:back) }

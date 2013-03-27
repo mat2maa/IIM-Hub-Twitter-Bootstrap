@@ -5,7 +5,7 @@
     <div id="poster-thumbnail">
       <%= link_to(image_tag(@video.poster.url(:small)),
                   @video.poster.url,
-                  popup: true) %>
+                  target: "_blank") %>
       <br/>
       <a href="http://images.google.com/images?hl=en&q=tv+still+<%= @video.programme_title %>" target="_blank">Search
         Google Images</a><br/>
@@ -54,7 +54,7 @@
 
                             label: ("Distributor " + link_to("[edit]",
                                                              suppliers_path,
-                                                             popup: true)).html_safe,
+                                                             target: "_blank")).html_safe,
                             collection: Supplier.video_distributors.collect { |p| [p.company_name,
                                                                                    p.id] } %>
 
@@ -71,7 +71,7 @@
 
                             label: ("Production Studio " + link_to("[edit]",
                                                                    suppliers_path,
-                                                                   popup: true)).html_safe,
+                                                                   target: "_blank")).html_safe,
                             collection: Supplier.production_studios.collect { |p| [p.company_name,
                                                                                    p.id] } %>
                 <%= f.input :episodes_available,
@@ -88,7 +88,7 @@
 
                             label: ("Laboratory "+ link_to("[edit]",
                                                            suppliers_path,
-                                                           popup: true)).html_safe,
+                                                           target: "_blank")).html_safe,
                             collection: Supplier.laboratories.collect { |p| [p.company_name,
                                                                              p.id] } %>
                 <%= f.input :on_going_series,

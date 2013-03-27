@@ -50,7 +50,7 @@ class TracksController < ApplicationController
     respond_to do |format|
       if @track.save
         @track.album.total_duration = @track.album.duration
-        @track.album.save(false)
+        @track.album.save(validate: false)
         flash[:notice] = 'Track was successfully created.'
         format.html { redirect_to edit_album_path(@track.album) }
       else
@@ -83,7 +83,7 @@ class TracksController < ApplicationController
     end
     @track.duration = (params[:dur_min].to_i * 60 *1000) + (params[:dur_sec].to_i * 1000)
     @track.label = @track.album.label.name if !@track.album.label_id.nil?
-    @track.save(false)
+    @track.save(validate: false)
 
     respond_to do |format|
 
@@ -105,7 +105,7 @@ class TracksController < ApplicationController
           @track.genre = g
         end
         @track.attributes = params[:track]
-        @track.save(false)
+        @track.save(validate: false)
         flash[:notice] = 'Track was successfully updated.'
         format.html { redirect_to edit_track_path(@track) }
       else
@@ -128,12 +128,12 @@ class TracksController < ApplicationController
       if permitted_to? :admin_delete,
                        :tracks
         @track.album.total_duration = @track.album.duration
-        @track.album.save(false)
+        @track.album.save(validate: false)
         @track.destroy
         @track_is_deleted = true
       else
         @track.to_delete = true
-        @track.save(false)
+        @track.save(validate: false)
         flash[:notice] = 'Track will be deleted when approved by administrator'
         @track_is_deleted = false
       end
@@ -166,7 +166,7 @@ class TracksController < ApplicationController
   def restore
     @track = Track.find(params[:id])
     @track.to_delete = false
-    @track.save(false)
+    @track.save(validate: false)
     flash[:notice] = 'Track has been restored'
     respond_to do |format|
       format.html { redirect_to(:back) }

@@ -56,7 +56,7 @@ namespace :db do
         
       end
       
-      new_playlist.save(false)
+      new_playlist.save(validate: false)
       
     end
     

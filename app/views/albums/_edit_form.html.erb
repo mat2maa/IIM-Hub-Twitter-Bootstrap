@@ -1,5 +1,6 @@
-<%= form_for :album,
-             url: {action: "create"} do |form| %>
+<%= form_for(@album,
+             html: {multipart: true}) do |form| %>
+    <%= error_messages_for form.object %>
     <table class="edit">
       <tr>
         <th>Album Title (Original)</th>
@@ -157,11 +158,34 @@ or PNG files up to 500 KB)</span>
         </td>
       </tr>
     </table>
-
     <br/>
-    <%= submit_tag "Create",
-                   class: "submit" %> &nbsp;
-    <%= link_to "cancel",
-                {action: "index"},
-                class: "Cancel" %>
+    <%= submit_tag "Save",
+                   class: "submit" %>
+
+    <div class="nav-tab">
+      <%= link_to :Tracks,
+                  remote: true,
+                  action: "show_tracks",
+                  id: @album.id %>
+      <%= link_to "Genre",
+                  remote: true,
+                  action: "show_genre",
+                  id: @album.id %>
+      <%= link_to "Synopsis",
+                  remote: true,
+                  action: "show_synopsis",
+                  id: @album.id %>
+      <%= link_to "For Translation",
+                  remote: true,
+                  action: "show_tracks_translation",
+                  id: @album.id %>
+      <%= link_to "Playlists",
+                  remote: true,
+                  action: "show_playlists",
+                  id: @album.id %>
+    </div>
+    <div id="tab-area">
+      <%= render partial: 'show_tracks',
+                 locals: {tracks: 'tracks'} %>
+    </div>
 <% end %>

@@ -11,7 +11,7 @@
             <th width="170">(<%= video_master_playlist_item.position %>) Programme Title
               [<%= link_to "Edit",
                            edit_video_path(video_master_playlist_item.master.video.id),
-                           popup: true %>]:
+                           target: "_blank" %>]:
             </th>
             <td width="200"><%= video_master_playlist_item.master.video.programme_title %></td>
             <th width="85">Lang Track 1:</th>
@@ -27,7 +27,7 @@
             <th width="130">Episode Title
               [<%= link_to "Edit",
                            edit_master_path(video_master_playlist_item.master.id),
-                           popup: true %>]:
+                           target: "_blank" %>]:
             </th>
             <td width="200"><%= video_master_playlist_item.master.episode_title %></td>
             <th>Episode #:</th>

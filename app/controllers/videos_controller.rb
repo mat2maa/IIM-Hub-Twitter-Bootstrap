@@ -36,8 +36,7 @@ class VideosController < ApplicationController
           .paginate(page: params[:page],
                     per_page: 10)
           #@search.conditions.active_equals = true
-          @search.conditions.programme_title_cont = params[:q][:conditions][:programme_title_cont].gsub(/\'s|\'t/,
-                                                                                                        "")
+          #@search.conditions.programme_title_cont = params[:q][:conditions][:programme_title_cont].gsub(/\'s|\'t/,"")
           #@search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:programme_title_keywords]           
         end
       else
@@ -78,7 +77,7 @@ class VideosController < ApplicationController
   end
 
   def new
-    @video_genres = VideoParentGenre.find(:all)
+    @video_genres = VideoParentGenre.all
     @languages = IIM::MOVIE_LANGUAGES
 
     @video = Video.new
@@ -230,7 +229,7 @@ class VideosController < ApplicationController
         @video_is_deleted = true
       else
         @video.to_delete = true
-        @video.save(false)
+        @video.save(validate: false)
         flash[:notice] = 'Video will be deleted when approved by administrator'
         @video_is_deleted = false
       end
@@ -258,7 +257,7 @@ class VideosController < ApplicationController
   def restore
     @video = Video.find(params[:id])
     @video.to_delete = false
-    @video.save(false)
+    @video.save(validate: false)
     flash[:notice] = ' Video has been restored '
     respond_to do |format|
         format.html { redirect_to(:back) }

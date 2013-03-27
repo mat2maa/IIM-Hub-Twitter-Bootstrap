@@ -19,7 +19,7 @@ namespace :db do
       		master.episode_title = row[3] 
       		master.episode_number = row[4]
     
-      		master.save(false)
+      		master.save(validate: false)
   	    end
       end
     end 

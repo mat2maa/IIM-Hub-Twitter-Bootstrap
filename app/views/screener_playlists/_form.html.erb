@@ -11,7 +11,7 @@
                        {include_blank: true}) %> <%= link_to "+",
                                                              airlines_path,
                                                              id: "add",
-                                                             popup: true %></td>
+                                                             target: "_blank" %></td>
         <td class="pl-title">Start Cycle :</td>
         <td><%= form.date_select :start_cycle,
                                  discard_day: true,
@@ -40,7 +40,7 @@
           <%= link_to "+",
                       video_playlist_types_path,
                       id: "add",
-                      popup: true %></td>
+                      target: "_blank" %></td>
         <td class="pl-title">Programmer :</td>
         <td><%= @screener_playlist.user.login if !@screener_playlist.user_id.nil? %></td>
       </tr>

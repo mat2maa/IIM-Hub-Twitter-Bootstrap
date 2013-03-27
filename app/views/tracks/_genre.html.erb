@@ -1,7 +1,7 @@
 <%= link_to "+ add genre",
             genres_path,
             id: 'add',
-            popup: true %>
+            target: "_blank" %>
 <ul class="checkbox-list">
   <% @track_genres = @track.genres %>
   <% @genres.each do |genre| -%>

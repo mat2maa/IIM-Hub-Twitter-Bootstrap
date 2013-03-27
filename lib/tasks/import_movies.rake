@@ -89,7 +89,7 @@ namespace :db do
           
         end
     		
-    		movie.save(false)
+    		movie.save(validate: false)
     		
       end
     end 

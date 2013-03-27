@@ -166,7 +166,7 @@ class MastersController < ApplicationController
   def restore
     @master = Master.find(params[:id])
     @master.to_delete = false
-    @master.save(false)
+    @master.save(validate: false)
     flash[:notice] = ' Master has been restored '
     respond_to do |format|
         format.html { redirect_to(:back) }

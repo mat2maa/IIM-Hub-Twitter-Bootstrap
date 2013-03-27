@@ -41,7 +41,7 @@ namespace :db do
           movie.movie_distributor = distributor 
       		movie.laboratory = laboratory #Lab
           movie.movie_type = row[3]
-      		movie.save(false)
+      		movie.save(validate: false)
     		end
       end
     end 

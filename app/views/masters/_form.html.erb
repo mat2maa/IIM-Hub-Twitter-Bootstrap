@@ -64,15 +64,12 @@
 
             <td><%= f.input :tape_format,
                             as: :select,
-                            collection: ["PAL",
-                                         "NTSC"],
+                            collection: %w(PAL NTSC),
                             label: "Tape Format",
                             include_blank: false %></td>
             <td><%= f.input :tape_size,
                             as: :select,
-                            collection: ["Small",
-                                         "Large",
-                                         "DVD"],
+                            collection: %w(Small Large DVD),
                             label: "Tape Size",
                             include_blank: true %></td>
             <td><%= f.input :video_subtitles_1,
@@ -90,18 +87,18 @@
             <td rowspan="2">Episode Synopsis: <%= f.text_area :synopsis,
                                                               size: "29x3" %></td>
             <td>
-              <%= f.input (:language_track_1,
-                           as: :select,
-                           collection: @languages,
-                           include_blank: true,
-                           label: "Lang Track 1<br/>") %>
+              <%= f.input(:language_track_1,
+                          as: :select,
+                          collection: @languages,
+                          include_blank: true,
+                          label: "Lang Track 1<br/>") %>
             </td>
             <td>
-              <%= f.input (:language_track_2,
-                           as: :select,
-                           collection: @languages,
-                           include_blank: true,
-                           label: "Lang Track 2<br/>") %>
+              <%= f.input(:language_track_2,
+                          as: :select,
+                          collection: @languages,
+                          include_blank: true,
+                          label: "Lang Track 2<br/>") %>
             </td>
             <td><%= f.input :language_track_3,
                             as: :select,
@@ -114,12 +111,10 @@
                             include_blank: true,
                             label: "Lang Track 4<br/>" %></td>
             <td>
-              <%= f.input (:aspect_ratio,
-                           as: :select,
-                           collection: ["4:3",
-                                        "16:9",
-                                        "14:9"],
-                           include_blank: false) %>
+              <%= f.input(:aspect_ratio,
+                          as: :select,
+                          collection: %w(4:3 16:9 14:9),
+                          include_blank: false) %>
             </td>
           </tr>
           <tr>
@@ -139,7 +134,7 @@
                             input_html: {class: "master_time"},
                             label: "Time Out" %></td>
             <td>Duration: <br/><%= f.object.duration %></td>
-            <td colspan="2"><%= f.buttons %></td>
+            <td colspan="2"><%= f.actions %></td>
           </tr>
         </table>
 

@@ -25,23 +25,23 @@
     <div id="poster-thumbnail">
       <%= link_to(image_tag(@movie.poster.url(:small)),
                   @movie.poster.url,
-                  popup: true) %>
+                  target: "_blank") %>
       <br/><br/>
       <%= link_to("Search Box Office Mojo",
                   "http://www.boxofficemojo.com/search/?q=" + @movie.movie_title.to_s,
-                  popup: true) %>
+                  target: "_blank") %>
       <br/>
       <%= link_to("Search Yahoo Movies",
                   "http://movies.yahoo.com/mv/search?fr=ush-movies&toggle=1&cop=&ei=UTF-8&p=" + @movie.movie_title.to_s,
-                  popup: true) %>
+                  target: "_blank") %>
       <br/>
       <%= link_to("Search Rotten Tomatoes",
                   "http://www.rottentomatoes.com/search/full_search.php?search=" + @movie.movie_title.to_s,
-                  popup: true) %>
+                  target: "_blank") %>
       <br/>
       <%= link_to("Search IMDB",
                   "http://www.imdb.com/find?s=all&q=" + @movie.movie_title.to_s,
-                  popup: true) %>
+                  target: "_blank") %>
       <br/>
     </div>
     <table width="700" cellpadding="5" class="movie">

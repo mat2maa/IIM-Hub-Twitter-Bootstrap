@@ -10,7 +10,7 @@ class MoviePlaylistItem < ActiveRecord::Base
     movie.in_playlists = MoviePlaylist.where("movies.id=#{self.movie.id}")
                                       .includes("movies")
                                       .collect { |playlist| playlist.id }.join(',')
-    movie.save(false)
+    movie.save(validate: false)
   end
 
   def before_destroy
@@ -18,7 +18,7 @@ class MoviePlaylistItem < ActiveRecord::Base
     movie.in_playlists = MoviePlaylist.where("movies.id=#{self.movie.id}")
                                       .includes("movies")
                                       .collect { |playlist| playlist.id }.join(',')
-    movie.save(false)
+    movie.save(validate: false)
   end
 
 end
