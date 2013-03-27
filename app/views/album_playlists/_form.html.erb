@@ -42,7 +42,7 @@
 
       <% if params[:action] == "new" %>
           <%= form.submit "Next" %>
-      <% elsif params[:action] == "edit" %>
+      <% else %>
           <%= form.submit "Update" %>
       <% end %>
     </p>
