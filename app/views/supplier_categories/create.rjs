@@ -1,6 +1,0 @@
-page.insert_html :bottom,
-                 'categories',
-                 partial: 'category',
-                 locals: {category: @category}
-page[:category_form].reset
-flash.discard

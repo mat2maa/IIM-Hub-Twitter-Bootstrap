@@ -1,7 +1,7 @@
 <%= render partial: 'header' %>
 <div id="content">
   <center>
-    <% search_form_for @search do |rights| %>
+    <%= search_form_for @search do |rights| %>
         <fieldset>
           <legend>Search Rights</legend>
 
@@ -27,8 +27,9 @@
 
         </fieldset>
     <% end %>
+    <br />
 
-    <%= render partial: 'form' %>
+    <%= render 'form' %>
 
     <% if @rights_count > 0 %>
         <div>

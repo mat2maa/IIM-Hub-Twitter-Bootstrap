@@ -70,8 +70,7 @@ class AirlineRightsCountriesController < ApplicationController
       @airline_rights_country = AirlineRightsCountry.find(id)
       @airline_rights_country.destroy
     else
-      flash[:notice] = 'Airline Rights Country could not be deleted,
-airline_rights_country is in use by some movies'
+      flash[:notice] = 'Airline Rights Country could not be deleted, airline_rights_country is in use by some movies'
     end
 
     respond_to do |format|

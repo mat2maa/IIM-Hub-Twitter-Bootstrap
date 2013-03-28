@@ -2,15 +2,14 @@ class SupplierCategoriesController < ApplicationController
   before_filter :require_user
   filter_access_to :all
 
-  before_filter only: [:index,
-                       :new] do
+  before_filter only: [:index, :new] do
     @category = SupplierCategory.new
   end
 
   def index
     @categories = SupplierCategory.order("name asc")
-    .paginate(page: params[:page],
-              per_page: 10)
+                                  .paginate(page: params[:page],
+                                            per_page: 10)
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -25,7 +24,7 @@ class SupplierCategoriesController < ApplicationController
   end
 
   def create
-    @category = SupplierCategory.new params[:category]
+    @category = SupplierCategory.new params[:supplier_category]
 
     respond_to do |format|
       if @category.save
@@ -64,16 +63,16 @@ class SupplierCategoriesController < ApplicationController
   def destroy
 
     count = Supplier.where("supplier_category_id=?",
-                           params[:id]).count(from: :supplier_categories_suppliers)
+                           params[:id])
+                    .count(from: "supplier_categories_suppliers")
 
-    if  count.zero?
+    if count.zero?
 
       @category = SupplierCategory.find(params[:id])
       @category.destroy
 
     else
-      flash[:notice] = 'Category could not be deleted,
-category is in use in some suppliers'
+      flash[:notice] = 'Category could not be deleted, category is in use in some suppliers'
     end
 
     respond_to do |format|

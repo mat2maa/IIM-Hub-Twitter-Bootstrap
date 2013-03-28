@@ -1,7 +1,7 @@
 var $ = jQuery;
 
 var newRow = " <%= escape_javascript(render(partial: "right",
-object: @right)) %> ";
+                                            object: @right)) %> ";
 
 $("#right_form")
         .find("input[type=text]").val("");

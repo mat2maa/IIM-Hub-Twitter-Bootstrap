@@ -1,16 +1,21 @@
-<div class="settings-forms">
-  <%= semantic_form_for @category do |form| %>
-      <%= form.semantic_errors %>
+<%= form_for @category,
+             remote: true,
+             html: {id: "category_form"} do |f| %>
 
-      <%= form.inputs do %>
-          <%= form.input :name %>
-          <%= form.input :remarks %>
-      <% end %>
+    <table>
+      <tr>
+        <td>Category Name</td>
+        <td>
+          <%= f.text_field :name %>
+        </td>
+        <td>Remarks</td>
+        <td>
+          <%= f.text_field :remarks %>
+        </td>
+        <td colspan="2">
+          <%= f.submit "Add New Category" %>
+        </td>
+      </tr>
+    </table>
 
-      <%= form.actions do %>
-          <%= form.action :submit,
-                          as: :button %>
-      <% end %>
-
-  <% end %>
-</div>
+<% end %>

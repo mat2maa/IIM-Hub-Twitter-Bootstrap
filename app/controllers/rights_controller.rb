@@ -1,6 +1,9 @@
 class RightsController < ApplicationController
   before_filter :require_user
   filter_access_to :all
+  before_filter only: [:index, :new] do
+    @right = Right.new
+  end
 
   def index
     @search = Right.ransack(params[:q])
@@ -11,19 +14,29 @@ class RightsController < ApplicationController
   end
 
   def new
-    @right = Right.new
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml { render xml: @right }
+    end
   end
 
   def create
-    @right = Right.new(params[:right])
-    if @right.save
-      flash[:notice] = "Right created"
-      respond_to do |format|
-        format.html { redirect_to(rights_path) }
+    @right = Right.new params[:right]
+
+    respond_to do |format|
+      if @right.save
+        format.html { redirect_to @right,
+                                  notice: 'Right was successfully created.' }
+        format.json { render json: @right,
+                             status: :created,
+                             location: @right }
+        format.js
+      else
+        format.html { render action: "new" }
+        format.json { render json: @right.errors,
+                             status: :unprocessable_entity }
         format.js
       end
-    else
-      render action: :new
     end
   end
 

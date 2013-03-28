@@ -9,32 +9,35 @@ class VideosController < ApplicationController
       if !params[:language].nil?
         #before search
         if params[:language][:track]!="" && params[:language][:subtitle]==""
-          @search = Video.with_language_track(params[:language][:track]).ransack(params[:q])
+          @search = Video.with_language_track(params[:language][:track])
+                         .ransack(params[:q])
           @videos = @search.result(distinct: true)
-          .paginate(page: params[:page],
-                    per_page: 10)
+                           .paginate(page: params[:page],
+                                     per_page: 10)
           #@search.conditions.active_equals = true
 
         elsif params[:language][:subtitle]!="" && params[:language][:track]=="" && !params[:language].nil?
-          @search = Video.with_language_subtitle(params[:language][:subtitle]).ransack(params[:q])
+          @search = Video.with_language_subtitle(params[:language][:subtitle])
+                         .ransack(params[:q])
           @videos = @search.result(distinct: true)
-          .paginate(page: params[:page],
-                    per_page: 10)
+                           .paginate(page: params[:page],
+                                     per_page: 10)
           #@search.conditions.active_equals = true
 
         elsif params[:language][:subtitle]!="" && params[:language][:track]!="" && !params[:language].nil?
           @search = Video.with_language_subtitle(params[:language][:subtitle])
-          .with_language_track(params[:language][:track]).ransack(params[:q])
+                         .with_language_track(params[:language][:track])
+                         .ransack(params[:q])
           @videos = @search.result(distinct: true)
-          .paginate(page: params[:page],
-                    per_page: 10)
+                           .paginate(page: params[:page],
+                                     per_page: 10)
           #@search.conditions.active_equals = true
 
         else
           @search = Video.ransack(params[:q])
           @videos = @search.result(distinct: true)
-          .paginate(page: params[:page],
-                    per_page: 10)
+                           .paginate(page: params[:page],
+                                     per_page: 10)
           #@search.conditions.active_equals = true
           #@search.conditions.programme_title_cont = params[:q][:conditions][:programme_title_cont].gsub(/\'s|\'t/,"")
           #@search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:programme_title_keywords]           

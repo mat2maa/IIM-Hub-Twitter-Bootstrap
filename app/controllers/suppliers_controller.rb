@@ -33,21 +33,13 @@ class SuppliersController < ApplicationController
   end
 
   def create
-    @supplier = Supplier.new params[:supplier]
-
     respond_to do |format|
+      @supplier = Supplier.new params[:supplier]
       if @supplier.save
-        format.html { redirect_to @supplier,
-                                  notice: 'Supplier was successfully created.' }
-        format.json { render json: @supplier,
-                             status: :created,
-                             location: @supplier }
+        flash[:notice] = 'Supplier was successfully created.'
+        format.html  { redirect_to(suppliers_path) }
         format.js
       else
-        format.html { render action: "new" }
-        format.json { render json: @supplier.errors,
-                             status: :unprocessable_entity }
-        format.js
       end
     end
   end
