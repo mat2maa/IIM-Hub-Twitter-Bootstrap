@@ -1,5 +1,5 @@
 class VideoMasterPlaylist < ActiveRecord::Base
-  include Iim
+  include TimeUtils
   
   has_many :video_master_playlist_items, :dependent => :destroy
   has_many :masters, :through => :video_master_playlist_items, :order => "position"

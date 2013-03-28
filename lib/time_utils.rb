@@ -1,4 +1,4 @@
-module Iim
+module TimeUtils
   def timecode_format(timecode)
     t = timecode.split(/:/)
     tc = convert_to_two_digits(t[0].to_i) + ":" + convert_to_two_digits(t[1].to_i) + ":" + convert_to_two_digits(t[2].to_i) + ":"  + convert_to_two_digits(t[3].to_i)
@@ -40,5 +40,4 @@ module Iim
     ss = (seconds - (hh*60*60) - (mm*60))
     timecode = convert_to_two_digits(hh).to_s + ":" + convert_to_two_digits(mm).to_s + ":" + convert_to_two_digits(ss).to_s 
   end
-  
 end

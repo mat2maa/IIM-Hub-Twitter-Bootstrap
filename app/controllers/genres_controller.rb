@@ -96,8 +96,7 @@ class GenresController < ApplicationController
       @genre.destroy
 
     else
-      flash[:notice] = 'Genre could not be deleted,
-genre is in use in some albums or tracks'
+      flash[:notice] = 'Genre could not be deleted, genre is in use in some albums or tracks'
     end
 
 

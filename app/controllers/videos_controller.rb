@@ -5,62 +5,21 @@ class VideosController < ApplicationController
   def index
     @languages = IIM::MOVIE_LANGUAGES
 
-    if !params[:q].nil?
-      if !params[:language].nil?
-        #before search
-        if params[:language][:track]!="" && params[:language][:subtitle]==""
-          @search = Video.with_language_track(params[:language][:track])
-                         .ransack(params[:q])
-          @videos = @search.result(distinct: true)
-                           .paginate(page: params[:page],
-                                     per_page: 10)
-          #@search.conditions.active_equals = true
+    @search = Video.ransack(params[:q])
+    @videos = @search.result(distinct: true)
+                     .where(active: true)
+                     .order("id DESC")
+                     .paginate(page: params[:page],
+                               per_page: 10)
 
-        elsif params[:language][:subtitle]!="" && params[:language][:track]=="" && !params[:language].nil?
-          @search = Video.with_language_subtitle(params[:language][:subtitle])
-                         .ransack(params[:q])
-          @videos = @search.result(distinct: true)
-                           .paginate(page: params[:page],
-                                     per_page: 10)
-          #@search.conditions.active_equals = true
+    if params[:language].present?
 
-        elsif params[:language][:subtitle]!="" && params[:language][:track]!="" && !params[:language].nil?
-          @search = Video.with_language_subtitle(params[:language][:subtitle])
-                         .with_language_track(params[:language][:track])
-                         .ransack(params[:q])
-          @videos = @search.result(distinct: true)
-                           .paginate(page: params[:page],
-                                     per_page: 10)
-          #@search.conditions.active_equals = true
+      @videos = @videos.with_language_track(params[:language][:track]) if params[:language][:track].present?
+      @videos = @videos.with_language_subtitle(params[:language][:subtitle]) if params[:language][:subtitle].present?
 
-        else
-          @search = Video.ransack(params[:q])
-          @videos = @search.result(distinct: true)
-                           .paginate(page: params[:page],
-                                     per_page: 10)
-          #@search.conditions.active_equals = true
-          #@search.conditions.programme_title_cont = params[:q][:conditions][:programme_title_cont].gsub(/\'s|\'t/,"")
-          #@search.conditions.or_foreign_language_title_keywords = params[:search][:conditions][:programme_title_keywords]           
-        end
-      else
-        @search = Video.ransack(params[:q])
-        @videos = @search.result(distinct: true)
-        .paginate(page: params[:page],
-                  per_page: 10)
-        #@search.conditions.active_equals = true
-      end
-
-    else
-      @search = Video.ransack(params[:q])
-      @videos = @search.result(distinct: true)
-      .order("id DESC")
-      .paginate(page: params[:page],
-                per_page: 10)
-      #@search.conditions.active_equals = true
+      @videos = @videos.with_screeners if params[:screeners] == '1'
+      @videos = @videos.with_masters if params[:masters] == '1'
     end
-    @search.conditions.screeners_count_gteq = params[:screeners].to_i if params[:screeners]=='1'
-    @search.conditions.masters_count_gteq = params[:masters].to_i if params[:masters]=='1'
-    #@search.conditions.active_equals = true
 
 
     @videos_count = @videos.count

@@ -1,5 +1,5 @@
 class Master < ActiveRecord::Base
-  include Iim
+  include TimeUtils
 
   has_many :video_master_playlist_items
   has_many :video_master_playlists, :through=>:video_master_playlist_items
@@ -44,7 +44,7 @@ class Master < ActiveRecord::Base
     end
 
     if !self[:time_in].nil? && !self[:time_out].nil?
-      self[:duration]=timecode_duration(self[:time_in],self[:time_out], fps)
+      self[:duration] = timecode_duration(self[:time_in], self[:time_out], fps)
     else 
       "-"
     end

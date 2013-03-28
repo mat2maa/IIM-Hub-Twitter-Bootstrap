@@ -32,15 +32,22 @@ class Video < ActiveRecord::Base
    
   serialize :language_tracks
   serialize :language_subtitles
-  
-  scope :with_language_track, lambda { |language_track|
-        { :conditions => "language_tracks like '%#{sanitize_sql(language_track)}%'"  }
-      }
+
+  scope :with_language_track, -> language_track {
+    where("language_tracks like ?", "%#{language_track}%")
+  }
+
       
-  scope :with_language_subtitle, lambda { |language_subtitle|
-        { :conditions => "language_subtitles like '%#{sanitize_sql(language_subtitle)}%'"  }
-      }
-   
+  scope :with_language_subtitle,-> language_subtitle {
+    where("language_subtitles like ?", "%#{language_subtitle}%")
+  }
+
+  scope :with_screeners,
+        where("(select count(id) from screeners where screeners.video_id = videos.id) >= 1")
+
+  scope :with_masters,
+        where("(select count(id) from masters where masters.video_id = videos.id) >= 1")
+
   VIDEO_TYPES = ["Short Subject Programme", "Movie EPK", "Movie Trailer", "Movie Master", "TV Special", "Graphics", "Airline Master"]
   TAPE_MEDIA = ["Betacam SP", "Betacam SX", "Digital Betacam", "DV", "DVCCAM", "DVCAM Pro", "DVD", "H.264", "HDCAM", "MPEG IMX", "Pro Res HQ", "Pro Res Proxy"]
   

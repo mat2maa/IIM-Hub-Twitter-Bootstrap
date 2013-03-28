@@ -249,7 +249,9 @@ class AudioPlaylistsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js {
+      #format.js
+      format.js do
+
         if params[:audio_playlists].nil? && params[:search].nil?
           render action: 'add_track_to_playlist.html.erb',
                  layout: false
@@ -259,7 +261,7 @@ class AudioPlaylistsController < ApplicationController
                               partial: "tracks"
           end
         end
-      }
+      end
     end
   end
 
