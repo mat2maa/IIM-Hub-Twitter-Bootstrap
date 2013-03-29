@@ -5,51 +5,21 @@ class MoviesController < ApplicationController
   def index
     @languages = IIM::MOVIE_LANGUAGES
 
-    if !params[:q].nil?
-      if !params[:language].nil?
-        if params[:language][:track]!="" && params[:language][:subtitle]==""
-          @search = Movie.with_language_track(params[:language][:track]).ransack(params[:q])
-        elsif params[:language][:subtitle]!="" && params[:language][:track]=="" && !params[:language].nil?
-          @search = Movie.with_language_subtitle(params[:language][:subtitle]).ransack(params[:q])
-        elsif params[:language][:subtitle]!="" && params[:language][:track]!="" && !params[:language].nil?
-          @search = Movie.with_language_subtitle(params[:language][:subtitle]).with_language_track(params[:language][:track]).ransack(params[:q])
-        else
-          @search = Movie.ransack(params[:q])
-          #@search.conditions.active_equals = true
+    @search = Movie.ransack(params[:q])
+    @movies = @search.result(distinct: true)
+                     .where(active: true)
+                     .order("id DESC")
+                     .paginate(page: params[:page],
+                               per_page: 10)
 
-          #@search.conditions.or_movie_title_keywords = params[:search][:conditions][:or_movie_title_keywords].gsub
-          # (/\'s|\'t/,"")
+    if params[:language].present?
+      @movies = @movies.with_language_track(params[:language][:track]) if params[:language][:track].present?
+      @movies = @movies.with_language_subtitle(params[:language][:subtitle]) if params[:language][:subtitle].present?
 
-          #@search.conditions.or_foreign_language_title_keywords =
-          # params[:search][:conditions][:or_movie_title_keywords].gsub(/\'s|\'t/,"")
-        end
-
-        if params[:screener][:destroyed] == "1"
-          @search.conditions.screener_destroyed_date_not_equal = nil
-          @search.conditions.and_screener_destroyed_date_not_equal = ""
-        end
-        if params[:screener][:held] == "1"
-          @search.conditions.screener_received_date_not_equal = nil
-          @search.conditions.and_screener_received_date_not_equal = ""
-        end
-
-      else
-        @search = Movie.ransack(params[:q])
-        @search.conditions.active_equals = true
-
-      end
-    else
-      #no search made yet
-      @search = Movie.ransack(params[:q])
-      #TODO What is active_equals?
-      #@search.conditions.active_equals = true
+      @movies = @movies.with_screener_destroyed if params[:screener][:destroyed] == '1'
+      @movies = @movies.with_screener_held if params[:screener][:held] == '1'
     end
 
-    #@search.conditions.active_equals = true
-    @movies = @search.result(distinct: true)
-    .order("id DESC")
-    .paginate(page: params[:page],
-              per_page: 10)
     @movies_count = @movies.count
 
     if @movies_count == 1
@@ -58,7 +28,6 @@ class MoviesController < ApplicationController
 
     session[:movies_search] = collection_to_id_array(@movies)
   end
-
 
   def show
     @movie = Movie.find(params[:id])

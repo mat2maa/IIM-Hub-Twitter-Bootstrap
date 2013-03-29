@@ -1,8 +1,13 @@
 var $ = jQuery;
 
 var $element = $("#album-<%= @album.id %>");
+var notice = "<%= escape_javascript(flash[:notice]) %>";
 
-$element.fadeOut("fast");
+<% if @album_is_deleted %>
+    $element.fadeOut("fast");
+<% else %>
+    $('#notice').html(notice);
+<% end %>
 
 /*
 if @album_is_deleted

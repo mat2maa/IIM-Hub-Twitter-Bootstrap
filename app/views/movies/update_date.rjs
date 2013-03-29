@@ -1,6 +1,0 @@
-date_day = params[:id] + "_3i"
-date_month = params[:id] + "_2i"
-date_year = params[:id] + "_1i"
-page[date_day].value = Date.today.day
-page[date_month].value = Date.today.month
-page[date_year].value = Date.today.year

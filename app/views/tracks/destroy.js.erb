@@ -1,8 +1,14 @@
 var $ = jQuery;
 
 var $element = $("#track-<%= @track.id %>");
+var notice = "<%= escape_javascript(flash[:notice]) %>";
 
-$element.fadeOut("fast");
+<% if @track_is_deleted %>
+    $element.fadeOut("fast");
+<% else %>
+    $('#notice').html(notice);
+<% end %>
+
 
 /*
 if @track_is_deleted

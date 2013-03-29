@@ -77,6 +77,7 @@
                     label: "Movie Title",
                     input_html: {tabindex: 1},
                     size: 5 %>
+        <!-- TODO: Update to Rails 3 -->
         <%= f.input :movie_type,
                     label: "Movie Type",
                     as: :select,
@@ -169,10 +170,9 @@
           <tr>
             <td>
               Screener Received Date
-              <%= link_to("[today]",
-                          remote: true,
-                          url: {action: "update_date",
-                                id: "movie_screener_received_date"}) %>
+              <%= link_to '[today]',
+                          update_date_path("movie_screener_received_date"),
+                          remote: true %>
               <%= f.input :screener_received_date,
                           input_html: {tabindex: 10},
                           label: false,
@@ -187,10 +187,9 @@
             </td>
             <td>
               Screener Destroyed Date
-              <%= link_to("[today]",
-                          remote: true,
-                          url: {action: "update_date",
-                                id: "movie_screener_destroyed_date"}) %>
+              <%= link_to '[today]',
+                          update_date_path("movie_screener_destroyed_date"),
+                          remote: true %>
               <%= f.input :screener_destroyed_date,
                           input_html: {tabindex: 11},
                           order: [:day,
@@ -223,12 +222,7 @@
                           input_html: {tabindex: 14},
                           label: "Rating",
                           as: :select,
-                          collection: ["NR",
-                                       "G",
-                                       "PG",
-                                       "PG-13",
-                                       "R",
-                                       "NC-17"],
+                          collection: %w(NR G PG PG-13 R NC-17),
                           include_blank: false %>
             </td>
             <td>
@@ -249,6 +243,7 @@
                     as: :check_boxes,
                     collection: Movie::RELEASE_VERSIONS %>
 
+        <!-- TODO: Update to Rails 3 -->
         <%= f.input :screener_remarks,
                     label: "Screener Remarks",
                     as: :check_boxes,
@@ -272,6 +267,7 @@
 
         <div class="clear"></div>
 
+        <!-- TODO: Update to Rails 3 -->
         <%= f.input :airline_rights,
                     label: "Airline Rights",
                     as: :select,
@@ -286,10 +282,11 @@
                                         with: "'movie_airline_rights=' + $('movie_airline_rights').value"}} %>
         <% if (@movie.airline_rights=="Worldwide") || (@movie.airline_rights=="North America") %>
             <%#= f.input :airline_rights_countries,
-input_html:  {disabled:  true} ,as:  :check_boxes,
-                                        label:  "Countries "+ link_to("[edit]",
-airline_rights_countries_path,
-target: "_blank") %>
+                         input_html:  {disabled:  true} ,
+                         as:  :check_boxes,
+                         label:  "Countries "+ link_to("[edit]",
+                         airline_rights_countries_path,
+                         target: "_blank") %>
             <%= f.input :airline_countries,
                         input_html: {disabled: true,
                                      tabindex: 21} %>
@@ -298,10 +295,10 @@ target: "_blank") %>
                         label: "Airline Countries",
                         input_html: {tabindex: 21} %>
             <%#= f.input :airline_rights_countries,
-as:  :check_boxes,
-label:  "Countries "+ link_to("[edit]",
-airline_rights_countries_path,
-                                    target: "_blank") %>
+                         as:  :check_boxes,
+                         label:  "Countries "+ link_to("[edit]",
+                         airline_rights_countries_path,
+                         target: "_blank") %>
         <% end %>
 
         <%= f.input :language_tracks,

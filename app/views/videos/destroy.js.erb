@@ -1,8 +1,17 @@
 var $ = jQuery;
 
 var $element = $("#video-<%= @video.id %>");
+var notice = "<%= escape_javascript(flash[:notice]) %>";
 
-$element.fadeOut("fast");
+<% if @video_is_deleted %>
+    <% if @video.active %>
+        $element.fadeOut("fast");
+    <% else %>
+        window.location = "<%= escape_javascript(videos_url) %>";
+    <% end %>
+<% else %>
+    $('#notice').html(notice);
+<% end %>
 
 /*
 #page.visual_effect :fade,

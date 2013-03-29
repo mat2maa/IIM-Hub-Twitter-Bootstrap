@@ -7,13 +7,11 @@ class VideosController < ApplicationController
 
     @search = Video.ransack(params[:q])
     @videos = @search.result(distinct: true)
-                     .where(active: true)
                      .order("id DESC")
                      .paginate(page: params[:page],
                                per_page: 10)
 
     if params[:language].present?
-
       @videos = @videos.with_language_track(params[:language][:track]) if params[:language][:track].present?
       @videos = @videos.with_language_subtitle(params[:language][:subtitle]) if params[:language][:subtitle].present?
 
@@ -21,6 +19,9 @@ class VideosController < ApplicationController
       @videos = @videos.with_masters if params[:masters] == '1'
     end
 
+    @videos = params[:active] == '1' ? @videos.where(active: false) : @videos.where(active: true)
+
+    @videos = @videos.where(to_delete: true) if params[:to_delete] == '1'
 
     @videos_count = @videos.count
 
@@ -29,8 +30,7 @@ class VideosController < ApplicationController
     end
 
     session[:videos_search] = collection_to_id_array(@videos)
-
-  end
+ end
 
 
   def show
@@ -127,8 +127,8 @@ class VideosController < ApplicationController
   def edit
     @search = Video.ransack(params[:q])
     @videos = @search.result(distinct: true)
-    .paginate(page: params[:page],
-              per_page: 10)
+                     .paginate(page: params[:page],
+                               per_page: 10)
     @videos_count = @videos.count
 
     @languages = IIM::MOVIE_LANGUAGES
@@ -199,7 +199,7 @@ class VideosController < ApplicationController
 
       @video.active = false
       @video.save
-      flash[:notice] = "Successfully deleted video."
+      flash[:notice] = "Successfully deactivated video. Video is still in use by some playlists."
       @video_is_deleted = true
 
       # flash[:notice] = 'Video could not be deleted, video is in use by playlists '
@@ -219,8 +219,8 @@ class VideosController < ApplicationController
   def restore
     @video = Video.find(params[:id])
     @video.to_delete = false
-    @video.save(validate: false)
-    flash[:notice] = ' Video has been restored '
+    #@video.save(validate: false)
+    flash.now[:notice] = ' Video has been restored '
     respond_to do |format|
         format.html { redirect_to(:back) }
         format.js

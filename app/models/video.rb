@@ -37,8 +37,7 @@ class Video < ActiveRecord::Base
     where("language_tracks like ?", "%#{language_track}%")
   }
 
-      
-  scope :with_language_subtitle,-> language_subtitle {
+  scope :with_language_subtitle, -> language_subtitle {
     where("language_subtitles like ?", "%#{language_subtitle}%")
   }
 

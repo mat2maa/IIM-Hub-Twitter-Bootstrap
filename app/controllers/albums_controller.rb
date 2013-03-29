@@ -186,8 +186,7 @@ class AlbumsController < ApplicationController
       end
     else
       @album_is_deleted = false
-      flash[:notice] = 'Album could not be deleted,
-album or track from album is in use by playlists'
+      flash[:notice] = 'Album could not be deleted, album or track from album is in use by playlists'
     end
 
     respond_to do |format|

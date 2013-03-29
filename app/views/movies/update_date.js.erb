@@ -1,0 +1,14 @@
+var $ = jQuery;
+
+var date_day = '#<%= escape_javascript(params[:id]) %>_3i';
+var date_month = '#<%= escape_javascript(params[:id]) %>_2i';
+var date_year = '#<%= escape_javascript(params[:id]) %>_1i';
+
+var today = new Date();
+var day = today.getDate();
+var month = today.getMonth() + 1;
+var year = today.getFullYear();
+
+$(date_day).val(day);
+$(date_month).val(month);
+$(date_year).val(year);

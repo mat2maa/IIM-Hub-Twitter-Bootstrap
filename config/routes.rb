@@ -33,6 +33,11 @@ Iim::Application.routes.draw do
   match "/video_master_playlists/export_to_excel/:id" => "video_master_playlists#export_to_excel", as: :export_to_excel
   match "/screener_playlists/print/:id" => "screener_playlists#print", as: :print
   match "/screener_playlists/export_to_excel/:id" => "screener_playlists#export_to_excel", as: :export_to_excel
+  match "/movies/update_date/:id" => "movies#update_date", as: :update_date
+  match "/movies/check_airline_rights/:id" => "movies#check_airline_rights", as: :check_airline_rights
+  match "/movies/check_screener_remarks/:id" => "movies#check_screener_remarks", as: :check_screener_remarks
+  match "/movies/check_movie_type/:id" => "movies#check_movie_type", as: :check_movie_type
+  match "/videos/restore/:id" => "videos#restore", as: :restore_video
 
   resources :users do
     member do
@@ -170,16 +175,7 @@ Iim::Application.routes.draw do
   resources :supplier_categories
   resources :find_albums
   resources :find_songs
-
-  resources :movies do
-    new do
-      post 'check_airline_rights'
-      post 'check_screener_remarks'
-      post 'check_movie_type'
-      post 'update_date'
-    end
-  end
-
+  resources :movies
   resources :suppliers
   resources :airline_rights_countries
   resources :movie_genres

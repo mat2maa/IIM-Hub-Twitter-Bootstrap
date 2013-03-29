@@ -54,9 +54,8 @@
                             with: "'redirect_url=#{request.url}'" %>
             <% end %>
             <%= link_to 'Restore',
+                        restore_video_path(video.id),
                         remote: true,
-                        url: {action: "restore",
-                              id: video.id},
                         loading: "Element.show('spinner')",
                         complete: "Element.hide('spinner')" %>
         <% end %>

@@ -107,6 +107,13 @@ true]] %>
             <%= videos.text_field :id_eq,
                                   size: 6 %>
           </td>
+          <td valign="top">
+            Deactivated Video:<br/>
+            <%= check_box_tag :active, '1', params[:active].to_i == 1 %>
+            <br/>
+            For Deletion:<br/>
+            <%= check_box_tag :to_delete, '1', params[:to_delete].to_i == 1 %>
+          </td>
         </tr>
       </table>
 
