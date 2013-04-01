@@ -1,30 +1,8 @@
 <script type="text/javascript" src="http://mediaplayer.yahoo.com/js"></script>
 <table width="100%">
   <% @accum_duration = 0 %>
-  <tbody id="audioplaylist" style="cursor: move">
+  <tbody id="audioplaylist" class="sort-list" style="cursor: move">
   <%= render partial: 'playlist_track',
              collection: @audio_playlist.audio_playlist_tracks_sorted %>
   </tbody>
 </table>
-
-<script>
-
-    var $ = jQuery;
-
-    $(document).ready(function () {
-        $("#audioplaylist").sortable({
-            axis: 'y',
-            containment: 'parent',
-            cursor: 'crosshair',
-            items: 'tr.sortable'
-        });
-    });
-
-</script>
-
-<%#= sortable_element "audioplaylist",
-    url: {action: "sort"},
-    complete:  visual_effect(:highlight,
-"audioplaylist"),
-    tag: 'tr'
-%>

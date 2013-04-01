@@ -7,7 +7,6 @@ class MoviesController < ApplicationController
 
     @search = Movie.ransack(params[:q])
     @movies = @search.result(distinct: true)
-                     .where(active: true)
                      .order("id DESC")
                      .paginate(page: params[:page],
                                per_page: 10)
@@ -19,6 +18,10 @@ class MoviesController < ApplicationController
       @movies = @movies.with_screener_destroyed if params[:screener][:destroyed] == '1'
       @movies = @movies.with_screener_held if params[:screener][:held] == '1'
     end
+
+    @movies = params[:active] == '1' ? @movies.where(active: false) : @movies.where(active: true)
+
+    @movies = @movies.where(to_delete: true) if params[:to_delete] == '1'
 
     @movies_count = @movies.count
 
@@ -138,7 +141,7 @@ class MoviesController < ApplicationController
     else
       @movie.active = false
       @movie.save
-      flash[:notice] = "Successfully deleted movie."
+      flash[:notice] = "Successfully deactivated movie."
       @movie_is_deleted = true
 
       #flash[:notice] = 'Movie could not be deleted, movie is in use for by playlists '
@@ -147,24 +150,6 @@ class MoviesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(movies_url) }
       format.js
-    end
-  end
-  
-  def check_airline_rights
-    respond_to do |format|
-        format.js
-    end
-  end
-  
-  def check_screener_remarks
-    respond_to do |format|
-        format.js
-    end
-  end
-  
-  def check_movie_type
-    respond_to do |format|
-        format.js
     end
   end
   
@@ -178,8 +163,7 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     @movie.to_delete = false
     @movie.save(validate: false)
-    flash[:notice] = '
-                        Movie has been restored '
+    flash[:notice] = 'Movie has been restored '
     respond_to do |format|
         format.html { redirect_to(:back) }
         format.js

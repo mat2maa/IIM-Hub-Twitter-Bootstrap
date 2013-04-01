@@ -219,7 +219,7 @@ class VideosController < ApplicationController
   def restore
     @video = Video.find(params[:id])
     @video.to_delete = false
-    #@video.save(validate: false)
+    @video.save(validate: false)
     flash.now[:notice] = ' Video has been restored '
     respond_to do |format|
         format.html { redirect_to(:back) }

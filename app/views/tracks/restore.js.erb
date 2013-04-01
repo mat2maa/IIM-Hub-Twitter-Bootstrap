@@ -1,8 +1,10 @@
-page.replace "track-#{@track.id}",
-             partial: "track",
-             object: @track
-page.replace_html :notice,
-                  flash[:notice]
-page.visual_effect :highlight,
-                   :notice
-flash.discard
+var $ = jQuery
+
+var content = "<%= escape_javascript(render(partial: "track",
+                                            object: @track)) %>";
+
+var $track = $("#track-<%= @track.id %>");
+$track.replaceWith(content);
+
+var notice = "<%= escape_javascript(flash[:notice]) %>";
+$('#notice').html(notice);

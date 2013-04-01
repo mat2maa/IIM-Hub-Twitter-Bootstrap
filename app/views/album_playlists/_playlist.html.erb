@@ -1,28 +1,6 @@
 <table width="100%">
-  <tbody id="albumplaylist" style="cursor: move">
+  <tbody id="albumplaylist" class="sort-list" style="cursor: move">
   <%= render partial: 'playlist_item',
              collection: @album_playlist.album_playlist_items_sorted %>
   </tbody>
 </table>
-
-<script>
-
-    var $ = jQuery;
-
-    $(document).ready(function () {
-        $("#albumplaylist").sortable({
-            axis: 'y',
-            containment: 'parent',
-            cursor: 'crosshair',
-            items: 'tr.sortable'
-        });
-    });
-
-</script>
-
-<%#= sortable_element "albumplaylist",
-url: {action: "sort"},
-complete:  visual_effect(:highlight,
-"albumplaylist"),
-tag: 'tr'
-%>

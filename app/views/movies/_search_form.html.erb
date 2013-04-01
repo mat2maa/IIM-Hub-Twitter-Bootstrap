@@ -100,16 +100,22 @@ true]] %>
             <br/>
           </td>
           <td valign="top">
-            Movie ID:<br/>
-            <%= movies.text_field :id_eq,
-                                  size: 5 %>
-            <br/>
             Theatrical Release Year:<br/>
             <%= movies.select :theatrical_release_year_eq,
                               movie_release_years,
-                              include_blank: true %></td>
+                              include_blank: true %>
+            <br/>
+            Movie ID:<br/>
+            <%= movies.text_field :id_eq,
+                                  size: 5 %>
           </td>
-
+          <td valign="top">
+            Deactivated Movie:<br/>
+            <%= check_box_tag :active, '1', params[:active].to_i == 1 %>
+            <br/>
+            Pending Delete:<br/>
+            <%= check_box_tag :to_delete, '1', params[:to_delete].to_i == 1 %>
+          </td>
         </tr>
       </table>
       <%= movies.submit "Search" %>

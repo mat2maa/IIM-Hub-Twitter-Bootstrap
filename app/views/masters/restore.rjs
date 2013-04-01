@@ -1,8 +1,0 @@
-page.replace "master-#{@master.id}",
-             partial: "master",
-             object: @master
-page.replace_html :notice,
-                  flash[:notice]
-page.visual_effect :highlight,
-                   :notice
-flash.discard

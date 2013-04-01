@@ -83,9 +83,7 @@
                     as: :select,
                     collection: Movie::MOVIE_TYPE,
                     include_blank: true,
-                    input_html: {tabindex: 2,
-                                 data: {url: {action: "check_movie_type"},
-                                        with: "'movie_type=' + $('movie_movie_type').value"}} %>
+                    input_html: {tabindex: 2} %>
 
         <% if @movie.movie_type=="Hollywood Movie" %>
             <%= f.input :foreign_language_title,
@@ -248,21 +246,12 @@
                     label: "Screener Remarks",
                     as: :check_boxes,
                     collection: Movie::SCREENER_REMARKS,
-                    input_html: {tabindex: 18,
-                                 data: {url: {action: "check_screener_remarks"},
-                                        with: "'screener_remarks=' + $('movie_screener_remarks_other').checked"}} %>
-        <% if @movie.screener_remarks.include?("Other") %>
-            <%= f.input :screener_remarks_other,
-                        input_html: {tabindex: 19},
-                        label: "Other",
-                        id: 'movie_screener_remarks_other_other' %>
-        <% else %>
-            <%= f.input :screener_remarks_other,
-                        input_html: {tabindex: 19},
-                        label: "Other",
-                        id: 'movie_screener_remarks_other_other',
-                        input_html: {disabled: true} %>
-        <% end %>
+                    input_html: {tabindex: 18} %>
+        <%= f.input :screener_remarks_other,
+                    input_html: {tabindex: 19},
+                    label: "Other",
+                    id: 'movie_screener_remarks_other_other',
+                    input_html: @movie.screener_remarks.include?("Other") ? {disabled: false} : {disabled: true} %>
 
 
         <div class="clear"></div>
@@ -277,29 +266,10 @@
                                  "North America",
                                  "Limited"],
                     include_blank: true,
-                    input_html: {tabindex: 20,
-                                 data: {url: {action: "check_airline_rights"},
-                                        with: "'movie_airline_rights=' + $('movie_airline_rights').value"}} %>
-        <% if (@movie.airline_rights=="Worldwide") || (@movie.airline_rights=="North America") %>
-            <%#= f.input :airline_rights_countries,
-                         input_html:  {disabled:  true} ,
-                         as:  :check_boxes,
-                         label:  "Countries "+ link_to("[edit]",
-                         airline_rights_countries_path,
-                         target: "_blank") %>
-            <%= f.input :airline_countries,
-                        input_html: {disabled: true,
-                                     tabindex: 21} %>
-        <% else %>
-            <%= f.input :airline_countries,
-                        label: "Airline Countries",
-                        input_html: {tabindex: 21} %>
-            <%#= f.input :airline_rights_countries,
-                         as:  :check_boxes,
-                         label:  "Countries "+ link_to("[edit]",
-                         airline_rights_countries_path,
-                         target: "_blank") %>
-        <% end %>
+                    input_html: {tabindex: 20} %>
+        <%= f.input :airline_countries,
+                    input_html: {disabled: ((@movie.airline_rights=="Worldwide") || (@movie.airline_rights=="North America")) ? true : false,
+                                 tabindex: 21} %>
 
         <%= f.input :language_tracks,
                     input_html: {tabindex: 22},
@@ -352,3 +322,16 @@
 
     <center><%= f.actions %></center>
 <% end %>
+
+<script>
+
+    var $ = jQuery;
+
+    $(document).ready(function() {
+        $('#movie_movie_type').click(function() {
+            alert("hello");
+        });
+    });
+
+
+</script>

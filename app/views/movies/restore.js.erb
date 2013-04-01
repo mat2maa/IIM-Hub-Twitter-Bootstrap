@@ -1,0 +1,10 @@
+var $ = jQuery
+
+var content = "<%= escape_javascript(render(partial: "movie",
+                                            object: @movie)) %>";
+
+var $movie = $("#movie-<%= @movie.id %>");
+$movie.replaceWith(content);
+
+var notice = "<%= escape_javascript(flash[:notice]) %>";
+$('#notice').html(notice);

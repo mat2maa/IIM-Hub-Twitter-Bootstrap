@@ -6,26 +6,13 @@ class ScreenersController < ApplicationController
     @languages = MasterLanguage.order("name")
                                .collect { |language| language.name }
 
-    if !params[:q].nil?
-      @search = Screener.ransack(params[:q])
-      @screeners = @search.result(distinct: true)
-                          .paginate(page: params[:page],
-                                    per_page: 10)
-      #@search.conditions.active_equals = true
-      #@search.conditions.video.programme_title_keywords =
-      # params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/,"")
-      #@search.conditions.episode_title_keywords = params[:search][:conditions][:episode_title_keywords].gsub
-      # (/\'s|\'t/,"")
-    else
-      #no search made yet
-      @search = Screener.ransack(params[:q])
-      @screeners = @search.result(distinct: true)
-                          .order("id DESC")
-                          .paginate(page: params[:page],
-                                    per_page: 10)
-      #@search.conditions.active_equals = true
+    @search = Screener.ransack(params[:q])
+    @screeners = @search.result(distinct: true)
+                        .order("id DESC")
+                        .paginate(page: params[:page],
+                                  per_page: 10)
 
-    end
+    @screeners = params[:active] == '1' ? @screeners.where(active: false) : @screeners.where(active: true)
 
     @screeners_count = @screeners.count
 
@@ -140,7 +127,7 @@ class ScreenersController < ApplicationController
       else
         @screener.active = false
         @screener.save
-        flash[:notice] = "Successfully deleted screener."
+        flash[:notice] = "Successfully deactivated screener."
 
         # flash[:notice] = 'Screener could not be deleted, screener is in use by playlists '
         @screener_is_deleted = true

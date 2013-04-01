@@ -3,12 +3,15 @@
                    complete: "Element.hide('spinner')" do |screeners| %>
     <fieldset>
       <legend>Search Screeners</legend>
-      <!--Match ANY or ALL of the conditions:<br />-->
-      <%#= screeners.select :any,[["All",false],["Any",true]] %>
+      Match ANY or ALL of the conditions:
+      <%= screeners.combinator_select %>
       <br/>
+
       <%= image_tag 'spinner.gif',
                     id: 'spinner',
                     style: 'display:none;' %>
+      <br/>
+
       <table>
         <tr>
           <td valign="top">
@@ -75,6 +78,10 @@
             <%= screeners.text_field :video_id_eq,
                                      size: 6 %>
           </td>
+          <td valign="top">
+            Deactivated Screener:<br/>
+            <%= check_box_tag :active, '1', params[:active].to_i == 1 %>
+          </td>
         </tr>
       </table>
       <!--
@@ -82,13 +89,13 @@
 		<tr>
 			<td valign="top">
 				Episode Title:<br/>
-				<%= screeners.text_field :episode_title %><br/>
+				<%#= screeners.text_field :episode_title %><br/>
 			</td>
 			<td valign="top">
 			</td>
 			<td valign="top">
 				Location:<br/>
-				<%= screeners.text_field :location %><br/>
+				<%#= screeners.text_field :location %><br/>
 			</td>
 		</tr>
 	</table>

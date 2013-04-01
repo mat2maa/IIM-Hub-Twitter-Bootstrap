@@ -34,9 +34,10 @@ Iim::Application.routes.draw do
   match "/screener_playlists/print/:id" => "screener_playlists#print", as: :print
   match "/screener_playlists/export_to_excel/:id" => "screener_playlists#export_to_excel", as: :export_to_excel
   match "/movies/update_date/:id" => "movies#update_date", as: :update_date
-  match "/movies/check_airline_rights/:id" => "movies#check_airline_rights", as: :check_airline_rights
-  match "/movies/check_screener_remarks/:id" => "movies#check_screener_remarks", as: :check_screener_remarks
-  match "/movies/check_movie_type/:id" => "movies#check_movie_type", as: :check_movie_type
+
+  match "/albums/restore/:id" => "albums#restore", as: :restore_album
+  match "/movies/restore/:id" => "movies#restore", as: :restore_movie
+  match "/tracks/restore/:id" => "tracks#restore", as: :restore_track
   match "/videos/restore/:id" => "videos#restore", as: :restore_video
 
   resources :users do

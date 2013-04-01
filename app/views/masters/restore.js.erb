@@ -1,0 +1,10 @@
+var $ = jQuery
+
+var content = "<%= escape_javascript(render(partial: "master",
+                                            object: @master)) %>";
+
+var $master = $("#master-<%= @master.id %>");
+$master.replaceWith(content);
+
+var notice = "<%= escape_javascript(flash[:notice]) %>";
+$('#notice').html(notice);

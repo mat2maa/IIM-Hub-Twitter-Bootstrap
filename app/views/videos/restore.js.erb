@@ -1,14 +1,10 @@
 var $ = jQuery
 
-alert("hello");
-
-var content = "<%= escape_javascript(render 'video', object: @video) %>";
-alert(content);
+var content = "<%= escape_javascript(render(partial: "video",
+                                            object: @video)) %>";
 
 var $video = $("#video-<%= @video.id %>");
-
-$video.html(content);
+$video.replaceWith(content);
 
 var notice = "<%= escape_javascript(flash[:notice]) %>";
-
 $('#notice').html(notice);

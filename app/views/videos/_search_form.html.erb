@@ -12,12 +12,8 @@
                       loading: "Element.show('spinner')",
                       complete: "Element.hide('spinner')" do |videos| %>
 
-      <!--Match ANY or ALL of the conditions:<br />-->
-      <%#= videos.select :any,
-[["All",
-false],
-["Any",
-true]] %>
+      Match ANY or ALL of the conditions:
+      <%= videos.combinator_select %>
       <br/>
 
       <%= image_tag 'spinner.gif',
@@ -111,7 +107,7 @@ true]] %>
             Deactivated Video:<br/>
             <%= check_box_tag :active, '1', params[:active].to_i == 1 %>
             <br/>
-            For Deletion:<br/>
+            Pending Delete:<br/>
             <%= check_box_tag :to_delete, '1', params[:to_delete].to_i == 1 %>
           </td>
         </tr>

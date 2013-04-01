@@ -1,0 +1,10 @@
+var $ = jQuery
+
+var content = "<%= escape_javascript(render(partial: "album",
+                                            object: @album)) %>";
+
+var $album = $("#album-<%= @album.id %>");
+$album.replaceWith(content);
+
+var notice = "<%= escape_javascript(flash[:notice]) %>";
+$('#notice').html(notice);

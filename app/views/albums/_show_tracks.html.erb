@@ -16,31 +16,8 @@
   </tr>
 </table>
 <table id="tracks" width="80%">
-  <tbody id="tracklist" style="cursor: move">
+  <tbody id="tracklist" class="sort-list" style="cursor: move">
   <%= render partial: 'track',
              collection: @tracks %>
   </tbody>
 </table>
-
-<script>
-
-    var $ = jQuery;
-
-    $(document).ready(function () {
-        $("#tracklist").sortable({
-            axis: 'y',
-            containment: 'parent',
-            cursor: 'crosshair',
-            items: 'tr.sortable'
-        });
-    });
-
-</script>
-
-
-<%#= sortable_element "tracklist",
-                     url: {action: "sort"},
-                     complete: visual_effect(:highlight,
-                                             "tracklist"),
-                     tag: 'tr'
-%>

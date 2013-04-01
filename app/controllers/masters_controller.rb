@@ -4,28 +4,16 @@ class MastersController < ApplicationController
 
   def index
     @languages = MasterLanguage.order("name")
-    .collect { |language| language.name }
+                               .collect { |language| language.name }
 
-    if !params[:q].nil?
-      @search = Master.ransack(params[:q])
-      @masters = @search.result(distinct: true)
-      .paginate(page: params[:page],
-                per_page: 10)
-      #@search.conditions.active_equals = true
-      #@search.conditions.video.programme_title_keywords =
-      # params[:search][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/,"")
-      #@search.conditions.episode_title_keywords = params[:search][:conditions][:episode_title_keywords].gsub
-      # # (/\'s|\'t/, "")
-    else
-      #no search made yet
-      @search = Master.ransack(params[:q])
-      @masters = @search.result(distinct: true)
-      .order("id DESC")
-      .paginate(page: params[:page],
-                per_page: 10)
-      #@search.conditions.active_equals = true
+    @search = Master.ransack(params[:q])
+    @masters = @search.result(distinct: true)
+                      .order("id DESC")
+                      .paginate(page: params[:page],
+                                per_page: 10)
 
-    end
+    @masters = params[:active] == '1' ? @masters.where(active: false) : @masters.where(active: true)
+
     @masters_count = @masters.count
 
     if @masters_count == 1
@@ -142,7 +130,7 @@ class MastersController < ApplicationController
     else
       @master.active = false
       @master.save
-      flash[:notice] = "Successfully deleted master."
+      flash[:notice] = "Successfully deactivated master."
 
       # flash[:notice] = 'Master could not be deleted, master is in use by playlists '
       @master_is_deleted = true
@@ -165,7 +153,7 @@ class MastersController < ApplicationController
   
   def restore
     @master = Master.find(params[:id])
-    @master.to_delete = false
+    #@master.to_delete = false
     @master.save(validate: false)
     flash[:notice] = ' Master has been restored '
     respond_to do |format|

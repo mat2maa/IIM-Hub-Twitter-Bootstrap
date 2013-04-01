@@ -55,9 +55,8 @@
                             complete: "Element.hide('spinner')" %>
             <% else %>
                 <%= link_to 'Restore',
+                            restore_track_path(track.id),
                             remote: true,
-                            url: {action: "restore",
-                                  id: track.id},
                             loading: "Element.show('spinner')",
                             complete: "Element.hide('spinner')" %>
             <% end %>

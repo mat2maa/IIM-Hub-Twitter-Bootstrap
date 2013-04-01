@@ -66,9 +66,8 @@
                             complete: "Element.hide('spinner')" %>
             <% end %>
             <%= link_to 'Restore',
+                        restore_album_path(album.id),
                         remote: true,
-                        url: {action: "restore",
-                              id: album.id},
                         loading: "Element.show('spinner')",
                         complete: "Element.hide('spinner')" %>
         <% end %>

@@ -50,9 +50,8 @@
                             complete: "Element.hide('spinner')" %>
             <% end %>
             <%= link_to 'Restore',
+                        restore_movie_path(movie.id),
                         remote: true,
-                        url: {action: "restore",
-                              id: movie.id},
                         loading: "Element.show('spinner')",
                         complete: "Element.hide('spinner')" %>
         <% end %>

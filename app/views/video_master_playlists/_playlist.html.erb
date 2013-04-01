@@ -1,28 +1,6 @@
 <table width="100%">
-  <tbody id="videoplaylist" style="cursor: move">
+  <tbody id="videoplaylist" class="sort-list" style="cursor: move">
   <%= render partial: 'video_master_playlist_item',
              collection: @video_master_playlist.video_master_playlist_items_sorted %>
   </tbody>
 </table>
-
-<script>
-
-    var $ = jQuery;
-
-    $(document).ready(function () {
-        $("#videoplaylist").sortable({
-            axis: 'y',
-            containment: 'parent',
-            cursor: 'crosshair',
-            items: 'tr.sortable'
-        });
-    });
-
-</script>
-
-<%#= sortable_element "videoplaylist",
-                     url: {action: "sort"},
-                     complete: visual_effect(:highlight,
-                                             "videoplaylist"),
-                     tag: 'tr'
-%>
