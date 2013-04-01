@@ -191,7 +191,9 @@ class AlbumsController < ApplicationController
   end
 
   def add_track
-
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create_track

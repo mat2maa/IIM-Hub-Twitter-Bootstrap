@@ -1,0 +1,7 @@
+var $ = jQuery;
+
+alert("hello");
+
+var form = "<%= escape_javascript(render(partial: "track_form")) %>";
+
+$("#track_form").html(form);

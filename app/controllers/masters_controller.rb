@@ -112,7 +112,6 @@ class MastersController < ApplicationController
   end
 
   def destroy
-
     @master = Master.find(params[:id])
 
     #check if video is in any playlists
@@ -136,7 +135,7 @@ class MastersController < ApplicationController
       @master_is_deleted = true
     end	
     respond_to do |format|    
-      format.html { redirect_to edit_video_url(@master.video.id) } 
+      format.html {  redirect_to(masters_url)  }
       format.js { render layout:  false}
     end
   end

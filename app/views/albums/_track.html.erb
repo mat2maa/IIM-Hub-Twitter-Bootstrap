@@ -14,7 +14,8 @@
   <td width="10%"><%= duration(track.duration) %></td>
   <td width="15%">
     <%= link_to 'Edit',
-                edit_track_path(track) %>
+                edit_track_path(track),
+                target: "_blank" %>
     <%= link_to 'Delete',
                 track,
                 confirm: 'Are you sure?',

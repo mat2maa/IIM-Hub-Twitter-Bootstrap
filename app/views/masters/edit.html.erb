@@ -1,5 +1,10 @@
 <%= render partial: 'layouts/master_header' %>
-<center><p style="color: green"><%= flash[:notice] %></p></center>
+<center>
+  <p style="color: green">
+    <%= flash[:notice] %>
+  </p>
+</center>
+
 <div id="content-header-wrapper">
   <div id="content-header-actions">
     [ <%= link_to "Prev",
@@ -10,7 +15,6 @@
                         :masters %>
         <%= link_to 'Delete',
                     master_url(@master),
-                    remote: true,
                     method: :delete,
                     confirm: 'Are you sure?' %>
     <% end %>
@@ -19,6 +23,7 @@
   <div id="content-header">Edit Master<br/>
   </div>
 </div>
+
 <div id="content">
   <center>
     <h1>Edit Master</h1>

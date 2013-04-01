@@ -20,8 +20,7 @@
     <% if permitted_to? :admin_delete,
                         :movies %>
         <%= link_to 'Delete',
-                    remote: true,
-                    url: movie_url(@movie),
+                    movie_url(@movie),
                     method: :delete,
                     confirm: 'Are you sure?' %>
     <% end %>

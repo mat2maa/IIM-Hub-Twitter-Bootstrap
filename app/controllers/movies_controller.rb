@@ -101,9 +101,9 @@ class MoviesController < ApplicationController
   def update
     @search = Movie.ransack(params[:q])
     @movies = @search.result(distinct: true)
-    .order("id DESC")
-    .paginate(page: params[:page],
-              per_page: 10)
+                     .order("id DESC")
+                     .paginate(page: params[:page],
+                               per_page: 10)
     @movies_count = @movies.count
 
     @movie = Movie.find(params[:id])

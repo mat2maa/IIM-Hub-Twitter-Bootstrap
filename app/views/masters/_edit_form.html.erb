@@ -1,5 +1,4 @@
-<%= semantic_form_for(@master,
-                      html: {class: 'ajaxForm'}) do |f| %>
+<%= semantic_form_for @master do |f| %>
     <div id="flash_notice"></div>
 
     <%= error_messages_for(f.object) %><br/>
@@ -55,12 +54,12 @@
                           as: :select,
                           collection: @languages,
                           include_blank: true,
-                          label: ("Lang Track 1<br/>").html_safe) if !f.object.id.nil? %>
+                          label: "Lang Track 1<br/>") if !f.object.id.nil? %>
               <%= f.input(:language_track_1,
                           as: :select,
                           collection: @languages,
                           include_blank: true,
-                          label: ("Lang Track 1<br/>").html_safe,
+                          label: "Lang Track 1<br/>",
                           selected: "Eng") if f.object.id.nil? %>
             </td>
             <td>
@@ -68,30 +67,29 @@
                           as: :select,
                           collection: @languages,
                           include_blank: true,
-                          label: ("Lang Track 1<br/>").html_safe) if !f.object.id.nil? %>
+                          label: "Lang Track 1<br/>") if !f.object.id.nil? %>
               <%= f.input(:language_track_2,
                           as: :select,
                           collection: @languages,
                           include_blank: true,
-                          label: ("Lang Track 1<br/>").html_safe,
+                          label: "Lang Track 1<br/>",
                           selected: "Eng") if f.object.id.nil? %>
             </td>
             <td><%= f.input :language_track_3,
                             as: :select,
                             collection: @languages,
                             include_blank: true,
-                            label: ("Lang Track 3<br/>").html_safe %></td>
+                            label: "Lang Track 3<br/>" %></td>
             <td><%= f.input :language_track_4,
                             as: :select,
                             collection: @languages,
                             include_blank: true,
-                            label: ("Lang Track 4<br/>").html_safe %></td>
+                            label: "Lang Track 4<br/>" %></td>
             <td>
               <%= f.input(:aspect_ratio,
                           as: :select,
                           collection: %w(4:3 16:9 14:9),
-                          include_blank: true,
-                          label: ("Aspect Ratio<br/>").html_safe) %>
+                          include_blank: true) %>
             </td>
           </tr>
           <tr>

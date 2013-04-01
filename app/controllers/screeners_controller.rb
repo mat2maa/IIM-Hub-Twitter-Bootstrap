@@ -136,11 +136,8 @@ class ScreenersController < ApplicationController
     end
 
     respond_to do |format|    
-      format.html { redirect_to edit_video_url(@screener.video.id) } 
-      format.js {
-        render layout: false
-        redirect_to videos_url
-      }
+      format.html { redirect_to(screeners_url) }
+      format.js { render layout: false }
     end
   end
   

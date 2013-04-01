@@ -1,3 +1,0 @@
-page.replace_html("track_form",
-                  partial: 'track_form')
-#page[:track_form].visual_effect :blind_down

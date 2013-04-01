@@ -1,5 +1,6 @@
-<% form_remote_tag url: {action: 'create_track'},
-                   html: {id: 'add_track_form'} do %>
+<%= form_tag url: {action: 'create_track'},
+            html: {id: 'add_track_form'},
+            remote: true do %>
     <table class="edit">
       <tr>
         <td>Track Title (Original)</td>
@@ -7,8 +8,8 @@
         <td>Tempo</td>
         <td><%= select("track",
                        "tempo",
-                       Tempo.find(:all).collect { |p| [p.name,
-                                                       p.id] },
+                       Tempo.all
+                            .collect { |p| [p.name, p.id] },
                        {include_blank: true}) %></td>
       </tr>
       <tr>
@@ -17,8 +18,8 @@
         <td>Intro Tempo</td>
         <td><%= select("track",
                        "tempo_intro",
-                       Tempo.find(:all).collect { |p| [p.name,
-                                                       p.id] },
+                       Tempo.all
+                            .collect { |p| [p.name, p.id] },
                        {include_blank: true}) %></td>
       </tr>
       <tr>
@@ -27,8 +28,8 @@
         <td>Outro Tempo</td>
         <td><%= select("track",
                        "tempo_outro",
-                       Tempo.find(:all).collect { |p| [p.name,
-                                                       p.id] },
+                       Tempo.all
+                            .collect { |p| [p.name, p.id] },
                        {include_blank: true}) %></td>
       </tr>
       <tr>
@@ -46,8 +47,8 @@
         <td>Language</td>
         <td><%= select("track",
                        "language",
-                       Language.find(:all).collect { |p| [p.name,
-                                                          p.id] },
+                       Language.all
+                               .collect { |p| [p.name, p.id] },
                        {include_blank: true}) %></td>
       </tr>
       <tr>
@@ -64,8 +65,8 @@
         <td>Origin</td>
         <td><%= select("track",
                        "origin",
-                       Origin.find(:all).collect { |p| [p.name,
-                                                        p.id] },
+                       Origin.all
+                             .collect { |p| [p.name, p.id] },
                        {include_blank: true}) %></td>
         <td></td>
         <td></td>

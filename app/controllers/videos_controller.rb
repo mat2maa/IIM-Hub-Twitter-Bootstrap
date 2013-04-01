@@ -78,9 +78,9 @@ class VideosController < ApplicationController
       @video.masters.build
     end
 
-    master = Master.where("location IS NOT NULL").order("location DESC").limit(1)
-    if !master.nil?
-      @master_location = master.location + 1
+    @master = Master.where("location IS NOT NULL").order("location DESC").limit(1)
+    if !@master.nil?
+      @master_location = @master[0]['location'] + 1
     else
       @master_location = 0
     end
@@ -94,23 +94,22 @@ class VideosController < ApplicationController
     @video.programme_title = @video.programme_title.upcase
     @video.foreign_language_title = @video.foreign_language_title.upcase if !@video.foreign_language_title.nil?
 
-    # if production studio is empty,
-    set it to the same as movie distributor supplier
+    # if production studio is empty, set it to the same as movie distributor supplier
     if @video.production_studio_id.nil?
-      count_suppliers = SupplierCategory.count('supplier_id',
-                                               include: :suppliers,
-                                               conditions: ["supplier_id = ? and supplier_categories.name = ? ",
-                                                            @video.video_distributor_id,
-                                                            "Production Studios"])
+      count_suppliers = SupplierCategory.joins(:suppliers)
+                                        .where("supplier_id = ? and supplier_categories.name = ? ",
+                                               @video.video_distributor_id,
+                                               "Production Studios")
+                                        .count('supplier_id')
       @video.production_studio_id = @video.video_distributor_id if !count_suppliers.zero?
     end
 
     if @video.laboratory_id.nil?
-      count_suppliers = SupplierCategory.count('supplier_id',
-                                               include: :suppliers,
-                                               conditions: ["supplier_id = ? and supplier_categories.name = ? ",
-                                                            @video.video_distributor_id,
-                                                            "Laboratories"])
+      count_suppliers = SupplierCategory.joins(:suppliers)
+                                        .where("supplier_id = ? and supplier_categories.name = ? ",
+                                               @video.video_distributor_id,
+                                               "Laboratories")
+                                        .count('supplier_id')
       @video.laboratory_id = @video.video_distributor_id if !count_suppliers.zero?
     end
 
@@ -144,15 +143,13 @@ class VideosController < ApplicationController
       end
     end
 
-=begin
     master = Master.where("location IS NOT NULL").order("location DESC").limit(1)
 
     if !master.nil?
-      @master_location = master.location + 1
+      @master_location = master[0]['location'] + 1
     else
       @master_location = 0
     end
-=end
 
   end
 
@@ -206,11 +203,9 @@ class VideosController < ApplicationController
       # @video_is_deleted = false
       
     end
-        
+
     respond_to do |format|
-      format.html { 
-        redirect_to(:back)
-      }
+      format.html { redirect_to(videos_url) }
       format.js
     end
     

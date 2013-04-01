@@ -7,10 +7,9 @@
 
 <div id="content-header-wrapper">
   <div id="content-header-actions">
-    <%= link_to "Add a track",
-                remote: true,
-                url: {action: "add_track",
-                      id: @album} %>
+    <%#= link_to 'Add a track',
+                add_track_path(),
+                remote: true %>
   </div>
   <div id="content-header">New Album<br/>
   </div>
@@ -24,4 +23,6 @@
 
   </center>
   <br/><br/>
+  <div id="track_form">
+  </div>
 </div>

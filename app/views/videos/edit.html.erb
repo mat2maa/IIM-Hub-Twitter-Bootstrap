@@ -15,7 +15,6 @@
                         :videos %>
         <%= link_to 'Delete',
                     video_url(@video),
-                    remote: true,
                     method: :delete,
                     confirm: 'Are you sure?' %>
     <% end %>
