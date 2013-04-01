@@ -25,17 +25,10 @@ class RightsController < ApplicationController
 
     respond_to do |format|
       if @right.save
-        format.html { redirect_to @right,
+        format.html { redirect_to rights_url,
                                   notice: 'Right was successfully created.' }
-        format.json { render json: @right,
-                             status: :created,
-                             location: @right }
-        format.js
       else
         format.html { render action: "new" }
-        format.json { render json: @right.errors,
-                             status: :unprocessable_entity }
-        format.js
       end
     end
   end

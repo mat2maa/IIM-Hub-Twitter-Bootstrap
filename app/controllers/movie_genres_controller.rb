@@ -63,7 +63,7 @@ class MovieGenresController < ApplicationController
   def destroy
 
     id = params[:id]
-    @movies = Movie.where("movie_genre_id = ?",
+    @movies = MovieGenre.where("movie_genre_id = ?",
                           id)
     if @movies.length.zero?
       @movie_genre = MovieGenre.find(id)

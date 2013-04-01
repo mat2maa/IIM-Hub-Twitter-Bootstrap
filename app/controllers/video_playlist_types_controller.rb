@@ -64,10 +64,8 @@ class VideoPlaylistTypesController < ApplicationController
   def destroy
 
     id = params[:id]
-    @master_playlists = VideoMasterPlaylistItem.where("video_playlist_type_id = ?",
-                                                      id)
-    @screener_playlists = ScreenerPlaylistItem.where("video_playlist_type_id = ?",
-                                                     id)
+    @master_playlists = VideoPlaylist.where("video_playlist_type_id = ?", id)
+    @screener_playlists = ScreenerPlaylist.where("video_playlist_type_id = ?", id)
     if @master_playlists.length.zero? && @screener_playlists.length.zero?
       @video_playlist_type = VideoPlaylistType.find(id)
       @video_playlist_type.destroy

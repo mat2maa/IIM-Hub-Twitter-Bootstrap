@@ -18,7 +18,7 @@ class RolesController < ApplicationController
     @role = Role.new(params[:role])
     if @role.save
       flash[:notice] = "Role created"
-      redirect_back_or_default roles_path
+      redirect_back_or_default roles_url
     else
       render action: :new
     end

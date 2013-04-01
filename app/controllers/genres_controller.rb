@@ -87,8 +87,7 @@ class GenresController < ApplicationController
 
     @albums = AlbumsGenre.where("genre_id = ?",
                                 params[:id])
-    @tracks = TracksGenre.where("genre_id = ?",
-                                params[:id])
+    @tracks = TracksGenre.where("genre_id = ?",params[:id])
 
     if  @tracks.length.zero? && @albums.length.zero?
 
