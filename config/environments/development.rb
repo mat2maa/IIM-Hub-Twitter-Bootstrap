@@ -36,6 +36,9 @@ Iim::Application.configure do
   config.assets.debug = true
   #
 
+  # Enable threaded mode
+  #config.threadsafe!
+
 end
 
 PDFKit.configure do |config|

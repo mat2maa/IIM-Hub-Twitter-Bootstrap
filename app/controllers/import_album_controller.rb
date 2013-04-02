@@ -209,8 +209,7 @@ class ImportAlbumController < ApplicationController
     end
   end
 
-  # set mp3_exists flag to true for albums that exist already,
-  and just had mp3s ripped
+  # set mp3_exists flag to true for albums that exist already, and just had mp3s ripped
   # curl -d "id=123" http://login:password@localhost:3000/import_album/update_album_mp3_exists
   def update_album_mp3_exists
     @album = Album.find(params[:id])
