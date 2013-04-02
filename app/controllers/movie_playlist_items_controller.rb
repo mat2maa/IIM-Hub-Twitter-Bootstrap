@@ -16,4 +16,17 @@ class MoviePlaylistItemsController < ApplicationController
       format.js
     end
   end
+
+  def sort
+    @movieplaylistitem = MoviePlaylistItem.find(params[:id])
+
+    # .attributes is a useful shorthand for mass-assigning
+    # values via a hash
+    @movieplaylistitem.attributes = params[:position]
+    @movieplaylistitem.save
+
+    # this action will be called via ajax
+    render nothing: true
+  end
+
 end

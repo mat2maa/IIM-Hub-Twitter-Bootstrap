@@ -36,6 +36,8 @@ Iim::Application.routes.draw do
   match "/movies/update_date/:id" => "movies#update_date", as: :update_date
   match "/albums/add_track" => "albums#add_track", as: :add_track
 
+  match "/movie_playlist_items/sort" => "movie_playlist_items#sort", as: :sort_movie_playlist
+
   match "/albums/restore/:id" => "albums#restore", as: :restore_album
   match "/movies/restore/:id" => "movies#restore", as: :restore_movie
   match "/tracks/restore/:id" => "tracks#restore", as: :restore_track

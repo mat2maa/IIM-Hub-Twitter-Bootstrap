@@ -187,7 +187,7 @@ authorization do
     has_permission_on :publishers, :to => :manage
     has_permission_on :album_playlist_items, :to => :manage
     has_permission_on :audio_playlist_tracks, :to => :manage
-    has_permission_on :movie_playlist_items, :to => :manage
+    has_permission_on :movie_playlist_items, :to => [:manage, :sort]
     has_permission_on :video_playlist_items, :to => :manage
     has_permission_on :video_master_playlist_items, :to => :manage
     has_permission_on :screener_playlist_items, :to => :manage

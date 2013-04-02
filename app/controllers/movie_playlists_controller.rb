@@ -351,6 +351,7 @@ class MoviePlaylistsController < ApplicationController
               filename: "#{airline_code}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_type}.xls"
   end
 
+=begin
   def sort
     params[:movieplaylist].each_with_index do |id,
         pos|
@@ -359,6 +360,7 @@ class MoviePlaylistsController < ApplicationController
     end
     render nothing: true
   end
+=end
 
   def duplicate
 

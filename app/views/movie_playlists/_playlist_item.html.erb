@@ -1,6 +1,6 @@
 <% @movie = playlist_item.movie %>
 <% @movie_playlist_item = playlist_item %>
-<tr id="item_<%= playlist_item.id %>" class="sortable">
+<tr id="item_<%= playlist_item.id %>" class="sortable" data-id="<%= playlist_item.id %>">
   <% if playlist_item.movie.nil? %>
       <td colspan="2">Missing movie <%= playlist_item.movie_id %></td>
   <% else %>

@@ -1,7 +1,7 @@
 class VideoPlaylistItem < ActiveRecord::Base
   belongs_to :video
   belongs_to :video_playlist
-  acts_as_list :scope => :video_playlist
+#  acts_as_list :scope => :video_playlist
 
   attr_accessible :video_id, :position, :video_playlist_id
 

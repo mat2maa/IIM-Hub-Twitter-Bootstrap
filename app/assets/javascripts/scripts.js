@@ -56,11 +56,38 @@ $(document).ready(function () {
     $('.best_in_place').best_in_place();
 
     //jQuery UI Sortable and Mixonic Ranked-Model to sort and submit playlist orders
+    var item_id,
+        position,
+        url;
+
     $(".sort-list").sortable({
         axis: 'y',
         containment: 'parent',
         cursor: 'crosshair',
-        items: 'tr.sortable'
+        items: 'tr.sortable',
+
+        stop: function(e, ui) {
+            ui.item.children('td').effect('highlight', {}, 1000);
+        },
+        update: function(e, ui) {
+            item_id = ui.item.attr('data-id');
+            position = ui.item.index();
+            url = $(this).attr('data-url')
+            console.log(item_id + " " + position + " " + url);
+            $.ajax({
+                type: 'POST',
+                url: $(this).data('url'),
+                dataType: 'json',
+
+                //the :thing hash gets passed to @thing.attributes
+                data: {
+                    id: item_id,
+                    movie_playlist_item: {
+                        position_position: position
+                    }
+                }
+            });
+        }
     });
 
     //Auto-completing sections of the movies form based on selected inputs

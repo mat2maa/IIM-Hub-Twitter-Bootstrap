@@ -1,5 +1,5 @@
 <table width="100%">
-  <tbody id="movieplaylist" class="sort-list" style="cursor: move">
+  <tbody id="movieplaylist" class="sort-list" data-url="<%= sort_movie_playlist_path %>" style="cursor: move">
   <%= render partial: 'playlist_item',
              collection: @movie_playlist.movie_playlist_items_sorted %>
   </tbody>
