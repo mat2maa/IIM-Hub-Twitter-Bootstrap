@@ -17,7 +17,7 @@
     <strong>Search MusicBrainz for Album</strong>
     <br/><br/>
 
-    <%= form_tag url: {action: 'find_release'},
+    <%= form_tag find_release_path,
                  remote: true,
                  html: {id: 'import_album_form'},
                  loading: "Element.show('spinner')",

@@ -5,7 +5,7 @@ class MoviePlaylistItem < ActiveRecord::Base
   include RankedModel
   ranks :position
 
-  attr_accessible :movie_id, :movie_playlist_id
+  attr_accessible :movie_id, :movie_playlist_id, :position_position
 
   def after_save
     movie = Movie.find(self.movie.id)

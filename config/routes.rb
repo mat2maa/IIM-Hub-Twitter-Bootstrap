@@ -35,6 +35,8 @@ Iim::Application.routes.draw do
   match "/screener_playlists/export_to_excel/:id" => "screener_playlists#export_to_excel", as: :export_to_excel
   match "/movies/update_date/:id" => "movies#update_date", as: :update_date
   match "/albums/add_track" => "albums#add_track", as: :add_track
+  match "/import_album/find_release" => "import_album#find_release", as: :find_release
+  match "/import_album/import_release" => "import_album#import_release", as: :import_release
 
   match "/movie_playlist_items/sort" => "movie_playlist_items#sort", as: :sort_movie_playlist
 

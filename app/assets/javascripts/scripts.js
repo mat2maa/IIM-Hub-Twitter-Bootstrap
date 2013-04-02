@@ -82,7 +82,7 @@ $(document).ready(function () {
                 //the :thing hash gets passed to @thing.attributes
                 data: {
                     id: item_id,
-                    movie_playlist_item: {
+                    movie_playlist_item_position: {
                         position_position: position
                     }
                 }
