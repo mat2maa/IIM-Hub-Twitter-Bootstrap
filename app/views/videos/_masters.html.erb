@@ -12,7 +12,7 @@
     <th></th>
   </tr>
   <% Master.where("video_id = #{video_id} AND active=true").each do |master| %>
-      <tr>
+      <tr id="master-<%= master.id %>">
         <td><%= master.episode_title %></td>
         <td><%= master.episode_number %></td>
         <td><%= master.location %></td>

@@ -2,7 +2,7 @@
     jQuery.ajaxSetup({ 'beforeSend': function (xhr) {
         xhr.setRequestHeader("Accept",
                 "text/javascript")
-    } })
+    } });
 
     jQuery.fn.submitWithAjax = function () {
         this.unbind('submit',
@@ -13,7 +13,7 @@
                     null,
                     "script");
             return false;
-        })
+        });
 
         return this;
     };
@@ -38,13 +38,13 @@
     });
 </script>
 
-<% semantic_form_for(@master,
+<%= semantic_form_for(@master,
                      html: {class: 'ajaxForm'}) do |f| %>
     <div id="flash_notice"></div>
 
     <%= error_messages_for(f.object) %><br/>
 
-    <% f.inputs do %>
+    <%= f.inputs do %>
 
         <%= f.input :video_id,
                     as: :hidden %>

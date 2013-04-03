@@ -25,12 +25,14 @@ class MastersController < ApplicationController
 
   def new
     @languages = MasterLanguage.order("name")
-    .collect { |language| language.name }
+                               .collect { |language| language.name }
 
     @master = Master.new
     @master.video_id = params[:id]
+
     # @master.language_track_1 = 'Eng'
     # @master.language_track_2 = 'Eng'
+
     respond_to do |format|
       format.js { render layout: false }
     end

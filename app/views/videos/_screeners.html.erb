@@ -12,7 +12,7 @@
     <th></th>
   </tr>
   <% Screener.find_all_by_video_id(video_id).each do |screener| %>
-      <tr>
+      <tr id="screener-<%= screener.id %>">
         <td><%= screener.episode_title %></td>
         <td><%= screener.episode_number %></td>
         <td><%= screener.location %></td>

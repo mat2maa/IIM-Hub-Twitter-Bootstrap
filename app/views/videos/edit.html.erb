@@ -92,9 +92,11 @@
                     $('#create_master_dialog').dialog('destroy')
                 }
             });
-            $.ajax({ url: '/masters/new',
+            $.ajax({ url: '/masters/new/',
                 type: 'get',
-                dataType: 'script' });
+                dataType: 'script',
+                data: { id: <%= @video.id %> }
+            });
         });
 
         $(".edit_master").live('click',
@@ -134,11 +136,6 @@
                 });
 
         $("#add_screener").click(function (screener) {
-            screener.preventDefault();
-            $.ajax({ url: '/screeners/new/<%= @video.id %>',
-                type: 'get',
-                dataType: 'script' });
-
             $('#create_screener_dialog').dialog({
                 title: 'New Screener',
                 modal: true,
@@ -149,6 +146,12 @@
                 close: function (screener, ui) {
                     $('#create_screener_dialog').dialog('destroy')
                 }
+            });
+            screener.preventDefault();
+            $.ajax({ url: '/screeners/new',
+                type: 'get',
+                dataType: 'script',
+                data: { id: <%= @video.id %> }
             });
         });
 
