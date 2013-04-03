@@ -1,7 +1,7 @@
 <script type="text/javascript" src="http://mediaplayer.yahoo.com/js"></script>
 <table width="100%">
   <% @accum_duration = 0 %>
-  <tbody id="audioplaylist" class="sort-list" style="cursor: move">
+  <tbody id="audioplaylist" class="sort-list" data-url="<%= sort_audio_playlist_path %>" style="cursor: move">
   <%= render partial: 'playlist_track',
              collection: @audio_playlist.audio_playlist_tracks_sorted %>
   </tbody>

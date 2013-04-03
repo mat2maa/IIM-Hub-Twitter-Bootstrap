@@ -23,11 +23,7 @@ class FindSongsController < ApplicationController
     if params['title'].strip.length > 0
 
       @tracks = Track.search(params['title'],
-                             ['tracks.title_original',
-                              'tracks.title_english',
-                              'tracks.artist_original',
-                              'tracks.artist_english',
-                              'labels.name'],
+                             %w(tracks.title_original tracks.title_english tracks.artist_original tracks.artist_english labels.name),
                              {conditions: conditions,
                               from: '(tracks left join albums on albums.id=tracks.album_id) left join labels on albums.label_id=labels.id',
                               select: 'tracks.*'})

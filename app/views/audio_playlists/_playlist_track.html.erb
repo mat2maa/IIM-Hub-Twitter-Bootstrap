@@ -1,4 +1,4 @@
-<tr id="item_<%= playlist_track.id %>" class="sortable">
+<tr id="item_<%= playlist_track.id %>" class="sortable" data-id="<%= playlist_track.id %>">
   <td>
     <% if playlist_track.track.nil? %>
         Missing Track <%= playlist_track.track_id %>

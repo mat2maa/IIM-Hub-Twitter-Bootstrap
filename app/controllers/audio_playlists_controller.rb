@@ -20,13 +20,13 @@ class AudioPlaylistsController < ApplicationController
     @search = AudioPlaylist.ransack(params[:q])
     if !params[:q].nil?
       @audio_playlists = @search.result(distinct: true)
-      .paginate(page: params[:page],
-                per_page: 10)
+                                .paginate(page: params[:page],
+                                          per_page: 10)
     else
       @audio_playlists = @search.result(distinct: true)
-      .order("id DESC")
-      .paginate(page: params[:page],
-                per_page: 10)
+                                .order("id DESC")
+                                .paginate(page: params[:page],
+                                          per_page: 10)
     end
     @audio_playlists_count = @audio_playlists.count
   end
@@ -44,6 +44,7 @@ class AudioPlaylistsController < ApplicationController
     end
   end
 
+=begin
   def sort
 
     params[:audioplaylist].each_with_index do |id,
@@ -53,6 +54,7 @@ class AudioPlaylistsController < ApplicationController
     end
     render nothing: true
   end
+=end
 
 
   def new
@@ -214,54 +216,26 @@ class AudioPlaylistsController < ApplicationController
   #display overlay
   def add_track_to_playlist
 
+    @audio_playlist = AudioPlaylist.find(params[:id])
+
     dur_min = (params[:dur_min_min].to_i * 60 *1000) + (params[:dur_min_sec].to_i * 1000)
     dur_max = (params[:dur_max_min].to_i * 60 *1000) + (params[:dur_max_sec].to_i * 1000)
 
-    if !params[:audio_playlists].nil?
+    @search = Track.ransack(params[:q])
+    @tracks = @search.result(distinct: true)
+                     .order("id DESC")
+                     .paginate(page: params[:page],
+                               per_page: 10)
 
-      @search = Track.ransack(params[:q])
-      @search.conditions.to_delete_equals=0
-      @search.conditions.duration_greater_than = dur_min
-      if !dur_max.zero?
-        @search.conditions.duration_less_than = dur_max
-      end
-
-      if !params[:search].nil?
-        search = params[:search]
-        @search.per_page = search[:per_page] if !search[:per_page].nil?
-        @search.page = search[:page] if !search[:page].nil?
-      end
-
-      @tracks = @search.result(distinct: true)
-      .paginate(page: params[:page],
-                per_page: 10)
-      @tracks_count = @tracks.count
-
-    else
-      @search = Track.ransack(params[:q])
-      @tracks = @search.result(distinct: true)
-                       .paginate(page: params[:page],
-                                 per_page: 10)
-      @tracks_count = @tracks.count
-#      @tracks = nil
-#      @tracks_count = 0
+    unless dur_max.zero?
+      @tracks = @tracks.greater_than_dur_min(dur_min)
+      @tracks = @tracks.less_than_dur_max(dur_max)
     end
 
-    respond_to do |format|
-      format.html
-      #format.js
-      format.js do
+    @tracks_count = @tracks.count
 
-        if params[:audio_playlists].nil? && params[:search].nil?
-          render action: 'add_track_to_playlist.html.erb',
-                 layout: false
-        else
-          render :update do |page|
-            page.replace_html "tracks",
-                              partial: "tracks"
-          end
-        end
-      end
+    respond_to do |format|
+      format.js { render layout: false }
     end
   end
 
@@ -273,12 +247,11 @@ class AudioPlaylistsController < ApplicationController
     @audio_playlist.save
     @audio_playlist_track = AudioPlaylistTrack.new(audio_playlist_id: params[:id],
                                                    track_id: params[:track_id],
-                                                   position: @audio_playlist.tracks.count + 1)
+                                                   position: @audio_playlist.tracks.count)
 
     #check if track has been added to a previous playlist before
-    @playlists_with_track = AudioPlaylistTrack.find(:all,
-                                                    conditions: "track_id=#{params[:track_id]}",
-                                                    group: "audio_playlist_id")
+    @playlists_with_track = AudioPlaylistTrack.where("track_id = ?", params[:track_id])
+                                              .group("audio_playlist_id")
 
     @notice=""
 

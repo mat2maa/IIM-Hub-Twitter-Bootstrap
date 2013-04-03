@@ -33,11 +33,15 @@ Iim::Application.routes.draw do
   match "/video_master_playlists/export_to_excel/:id" => "video_master_playlists#export_to_excel", as: :export_to_excel
   match "/screener_playlists/print/:id" => "screener_playlists#print", as: :print
   match "/screener_playlists/export_to_excel/:id" => "screener_playlists#export_to_excel", as: :export_to_excel
+
   match "/movies/update_date/:id" => "movies#update_date", as: :update_date
+
   match "/albums/add_track" => "albums#add_track", as: :add_track
+
   match "/import_album/find_release" => "import_album#find_release", as: :find_release
   match "/import_album/import_release" => "import_album#import_release", as: :import_release
 
+  match "/audio_playlist_tracks/sort" => "audio_playlist_tracks#sort", as: :sort_audio_playlist
   match "/movie_playlist_items/sort" => "movie_playlist_items#sort", as: :sort_movie_playlist
 
   match "/albums/restore/:id" => "albums#restore", as: :restore_album
@@ -59,6 +63,7 @@ Iim::Application.routes.draw do
       post 'duplicate'
       post 'lock'
       post 'unlock'
+      post 'add_track'
 
       get 'zip', action: 'mp3', as: 'audio_playlist_zip'
 

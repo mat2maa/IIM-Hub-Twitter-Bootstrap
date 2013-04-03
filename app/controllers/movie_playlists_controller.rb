@@ -118,7 +118,7 @@ class MoviePlaylistsController < ApplicationController
 
       format.js {
         if params[:movie_playlists].nil? && params[:search].nil?
-          render action: 'add_movie_to_playlist.rhtml',
+          render action: 'add_movie_to_playlist.html',
                  layout: false
         else
           render :update do |page|
@@ -201,7 +201,9 @@ class MoviePlaylistsController < ApplicationController
   def print
 
     @movie_playlist = MoviePlaylist.find(params[:id])
-    headers["Content-Disposition"] = "attachment; filename=\"#{@movie_playlist.airline.code if !@movie_playlist.airline.code.nil?}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_type if !@movie_playlist.movie_type.nil?}.pdf\""
+    headers["Content-Disposition"] = "attachment; filename=\"#{@movie_playlist.airline.code if !@movie_playlist
+    .airline.code.nil?}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_type if
+        !@movie_playlist.movie_type.nil?}.pdf\""
 
     respond_to do |format|
       format.html

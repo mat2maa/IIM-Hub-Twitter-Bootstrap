@@ -19,21 +19,21 @@
             Artist Original:<br>
             <%= tracks.text_field :artist_original_cont %>
             <br>
-            Duration:<br>
+            Duration: <br>
             <%= text_field_tag 'dur_min_min',
-                               '',
+                               params[:dur_min_min],
                                size: 3 %>
             :
             <%= text_field_tag 'dur_min_sec',
-                               '',
+                               params[:dur_min_sec],
                                size: 3 %>
             to
             <%= text_field_tag 'dur_max_min',
-                               '',
+                               params[:dur_max_min],
                                size: 3 %>
             :
             <%= text_field_tag 'dur_max_sec',
-                               '',
+                               params[:dur_max_sec],
                                size: 3 %>
             <br>
           </td>

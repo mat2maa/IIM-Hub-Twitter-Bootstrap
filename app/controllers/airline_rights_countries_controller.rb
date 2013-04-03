@@ -63,11 +63,9 @@ class AirlineRightsCountriesController < ApplicationController
 
     id = params[:id]
 
-    @movies = Movie.where("airline_rights_country_id = ?",
-                          params[:id])
+    @airline_rights_country = AirlineRightsCountry.find(id)
 
-    if @movies.length.zero?
-      @airline_rights_country = AirlineRightsCountry.find(id)
+    if @airline_rights_country.movies.count == 0
       @airline_rights_country.destroy
     else
       flash[:notice] = 'Airline Rights Country could not be deleted, airline_rights_country is in use by some movies'

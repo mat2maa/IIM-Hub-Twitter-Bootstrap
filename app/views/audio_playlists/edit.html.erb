@@ -24,12 +24,15 @@
   <center>
     <h1>Edit Songs Playlist</h1>
 
+<!--
     <div class="action-button">
-      <%= link_to 'add track',
+      <%#= link_to 'add track',
                   add_track_to_playlist_path(@audio_playlist.id),
                   { class: "modal-dialog" }%>
     </div>
+-->
 
+    <%= link_to "Add Track", add_track_to_playlist_path(id: @audio_playlist.id), id: "add_track_to_playlist" %>
     <br/>
 
     <%= render 'form' %>
@@ -38,42 +41,39 @@
       <%= render partial: 'playlist',
                  object: @audio_playlist %>
     </div>
+
     <%= link_to 'Back',
                 audio_playlists_path %>
+
   </center>
+
+  <div id="add_track_dialog" style="display:none;">
+    <div id="add_track">
+    </div>
+  </div>
+
 </div>
 
 <script type="text/javascript">
-
     var $ = jQuery;
 
-    $(function (){
-        $('a.modal-dialog').click(function() {
-            var url = this.href;
-            // show a spinner or something via css
-            var dialog = $('<div style="display:none" class="loading"></div>').appendTo('body');
-            // open the dialog
-            dialog.dialog({
-                // add a close listener to prevent adding multiple divs to the document
-                close: function(event, ui) {
-                    // remove div with all data and events
-                    dialog.remove();
-                },
+    $(function () {
+        $(document).on("click", "#add_track_to_playlist", function (track) {
+            track.preventDefault();
+            $('#add_track_dialog').dialog({
+                title: 'Add Track',
                 modal: true,
+                width: 740,
                 height: 540,
-                width: 740
+                position: ['center', 100],
+                close: function (track, ui) {
+                    $('#add_track_dialog').dialog('destroy')
+                }
             });
-            // load remote content
-            dialog.load(
-                    url,
-                    {}, // omit this param object to issue a GET request instead a POST request, otherwise you may provide post parameters within the object
-                    function (responseText, textStatus, XMLHttpRequest) {
-                        // remove the loading class
-                        dialog.removeClass('loading');
-                    }
-            );
-            //prevent the browser to follow the link
-            return false;
+            $.ajax({ url: '/add_track_to_playlist/<%= @audio_playlist.id %>',
+                type: 'get',
+                dataType: 'script'
+            });
         });
     });
 </script>

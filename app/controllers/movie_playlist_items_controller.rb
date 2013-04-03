@@ -22,11 +22,15 @@ class MoviePlaylistItemsController < ApplicationController
 
     # .attributes is a useful shorthand for mass-assigning
     # values via a hash
-    @movieplaylistitem.attributes = params[:movie_playlist_item_position]
-    @movieplaylistitem.save
+    @movieplaylistitem.update_attributes(params[:movie_playlist_item])
+
+    if @movieplaylistitem.save
+      render nothing: true, status: :ok
+    else
+      render nothing: true, status: :unprocessable_entity
+    end
 
     # this action will be called via ajax
-    render nothing: true
   end
 
 end

@@ -72,7 +72,7 @@ $(document).ready(function () {
         update: function(e, ui) {
             item_id = ui.item.attr('data-id');
             position = ui.item.index();
-            url = $(this).attr('data-url')
+            url = $(this).attr('data-url');
             console.log(item_id + " " + position + " " + url);
             $.ajax({
                 type: 'POST',
@@ -82,9 +82,7 @@ $(document).ready(function () {
                 //the :thing hash gets passed to @thing.attributes
                 data: {
                     id: item_id,
-                    movie_playlist_item_position: {
-                        position_position: position
-                    }
+                    position_position: position
                 }
             });
         }
@@ -220,6 +218,10 @@ $(document).ready(function () {
                 $('#movie_airline_countries').prop('disabled', false);
                 break;
         }
+    });
+
+    $(document).on('load', '.pagination', function(event) {
+        $('.pagination > a').attr('data-remote', true);
     });
 
 });

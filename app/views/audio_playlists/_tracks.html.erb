@@ -46,10 +46,8 @@ params_scope: :audio_playlists  %></th>
                               disabled: true) %></td>
             <td>
               <%= link_to "add to playlist",
-                          url: {controller: "audio_playlists",
-                                action: "add_track",
-                                id: params[:id],
-                                track_id: track.id},
+                          add_track_audio_playlist_path(@audio_playlist, track_id: track.id),
+                          method: :post,
                           remote: true,
                           loading: "Element.show('spinner')",
                           complete: "Element.hide('spinner')" %>

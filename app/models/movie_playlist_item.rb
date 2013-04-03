@@ -1,8 +1,10 @@
 class MoviePlaylistItem < ActiveRecord::Base
+  include RankedModel
+
   belongs_to :movie
   belongs_to :movie_playlist
 #  acts_as_list :scope => :movie_playlist
-  include RankedModel
+
   ranks :position
 
   attr_accessible :movie_id, :movie_playlist_id, :position_position

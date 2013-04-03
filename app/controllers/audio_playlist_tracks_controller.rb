@@ -44,5 +44,20 @@ class AudioPlaylistTracksController < ApplicationController
     end
   end
 
+  def sort
+    @audioplaylisttrack = AudioPlaylistTrack.find(params[:id])
+
+    # .attributes is a useful shorthand for mass-assigning
+    # values via a hash
+    @audioplaylisttrack.update_attribute(:position_position, params[:position_position])
+
+    if @audioplaylisttrack.save
+      render nothing: true, status: :ok
+    else
+      render nothing: true, status: :unprocessable_entity
+    end
+
+    # this action will be called via ajax
+  end
 
 end

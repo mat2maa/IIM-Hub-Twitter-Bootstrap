@@ -63,14 +63,15 @@ class MovieGenresController < ApplicationController
   def destroy
 
     id = params[:id]
-    @movies = MovieGenre.where("movie_genre_id = ?",
-                          id)
+
+    @movie_genre = MovieGenre.find(id)
+
+    @movies = @movie_genre.movies
+
     if @movies.length.zero?
-      @movie_genre = MovieGenre.find(id)
       @movie_genre.destroy
     else
-      flash[:notice] = 'MovieGenre could not be deleted,
-movie_genre is in use in some tracks'
+      flash[:notice] = 'MovieGenre could not be deleted, movie_genre is in use in some tracks'
     end
 
     respond_to do |format|
