@@ -1,4 +1,7 @@
 class VideoMasterPlaylistItem < ActiveRecord::Base
+  include RankedModel
+  ranks :position, with_same: :video_master_playlist_id
+
   belongs_to :master
   belongs_to :video_master_playlist
 #  acts_as_list :scope => :video_master_playlist

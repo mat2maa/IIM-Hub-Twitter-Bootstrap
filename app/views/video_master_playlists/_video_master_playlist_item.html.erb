@@ -1,6 +1,6 @@
 <% @master = video_master_playlist_item.master %>
 <% @video_master_playlist_item = video_master_playlist_item %>
-<tr id="item_<%= video_master_playlist_item.id %>" class="sortable">
+<tr id="item_<%= video_master_playlist_item.id %>" class="sortable" data-id="<%= video_master_playlist_item.id %>">
   <% if video_master_playlist_item.master.nil? %>
       <td colspan="2">Missing master <%= video_master_playlist_item.master_id %> id
         = <%= video_master_playlist_item.id %></td>

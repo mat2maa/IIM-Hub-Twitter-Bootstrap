@@ -167,7 +167,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-mysql-adapter
   authlogic
-  bcrypt-ruby (~> 3.0.0)
+  bcrypt-ruby (~> 3.0.1)
   best_in_place
   coffee-rails (~> 3.2.1)
   declarative_authorization

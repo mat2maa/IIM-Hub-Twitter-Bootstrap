@@ -1,10 +1,9 @@
 class AudioPlaylistTrack < ActiveRecord::Base
   include RankedModel
+  ranks :position, with_same: :audio_playlist_id
 
   belongs_to :audio_playlist
   belongs_to :track
-
-  ranks :position, with_same: :audio_playlist_id
 
 #  acts_as_list :scope => :audio_playlist
 

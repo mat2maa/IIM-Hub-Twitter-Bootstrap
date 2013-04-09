@@ -1,4 +1,7 @@
 class ScreenerPlaylistItem < ActiveRecord::Base
+  include RankedModel
+  ranks :position, with_same: :screener_playlist_id
+
   belongs_to :screener
   belongs_to :screener_playlist
 #  acts_as_list :scope => :screener_playlist

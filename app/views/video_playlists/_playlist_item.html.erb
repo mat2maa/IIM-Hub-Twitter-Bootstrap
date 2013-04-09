@@ -1,6 +1,6 @@
 <% @video = playlist_item.video %>
 <% @video_playlist_item = playlist_item %>
-<tr id="item_<%= playlist_item.id %>" class="sortable">
+<tr id="item_<%= playlist_item.id %>" class="sortable" data-id="<%= playlist_item.id %>">
   <% if playlist_item.video.nil? %>
       <td colspan="2">Missing video <%= playlist_item.video_id %></td>
   <% else %>

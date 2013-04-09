@@ -42,7 +42,11 @@ Iim::Application.routes.draw do
   match "/import_album/import_release" => "import_album#import_release", as: :import_release
 
   match "/audio_playlist_tracks/sort" => "audio_playlist_tracks#sort", as: :sort_audio_playlist
+  match "/album_playlist_items/sort" => "album_playlist_items#sort", as: :sort_album_playlist
   match "/movie_playlist_items/sort" => "movie_playlist_items#sort", as: :sort_movie_playlist
+  match "/video_playlist_items/sort" => "video_playlist_items#sort", as: :sort_video_playlist
+  match "/video_master_playlist_items/sort" => "video_master_playlist_items#sort", as: :sort_video_master_playlist
+  match "/screener_playlist_items/sort" => "screener_playlist_items#sort", as: :sort_screener_playlist
 
   match "/albums/restore/:id" => "albums#restore", as: :restore_album
   match "/movies/restore/:id" => "movies#restore", as: :restore_movie

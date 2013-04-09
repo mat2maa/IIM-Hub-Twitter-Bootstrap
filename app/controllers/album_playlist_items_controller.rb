@@ -30,4 +30,21 @@ class AlbumPlaylistItemsController < ApplicationController
       format.js
     end
   end
+
+
+  def sort
+    @albumplaylistitem = AlbumPlaylistItem.find(params[:id])
+
+    # .attributes is a useful shorthand for mass-assigning
+    # values via a hash
+    @albumplaylistitem.update_attribute(:position_position, params[:position_position])
+
+    if @albumplaylistitem.save
+      render nothing: true, status: :ok
+    else
+      render nothing: true, status: :unprocessable_entity
+    end
+
+    # this action will be called via ajax
+  end
 end

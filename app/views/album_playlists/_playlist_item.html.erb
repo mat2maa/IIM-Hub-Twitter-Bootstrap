@@ -1,6 +1,6 @@
 <% @album = playlist_item.album %>
 <% @album_playlist_item = playlist_item %>
-<tr id="item_<%= playlist_item.id %>" class="sortable">
+<tr id="item_<%= playlist_item.id %>" class="sortable" data-id="<%= playlist_item.id %>">
   <% if playlist_item.album.nil? %>
 
       <td colspan="2">Missing album <%= playlist_item.album_id %></td>
