@@ -31,10 +31,7 @@
   <center>
     <h2>Edit Album Playlist</h2>
 
-    <div class="action-button">
-      <%= link_to_show_overlay 'add album',
-                               add_album_to_playlist_path(@album_playlist.id) %>
-    </div>
+    <%= link_to "Add Album", add_album_to_playlist_path(id: @album_playlist.id), id: "add_album_to_playlist" %>
     <br/>
     <br/>
 
@@ -49,4 +46,34 @@
                 album_playlists_path %>
 
   </center>
+
+  <div id="add_album_dialog" style="display:none;">
+    <div id="add_album">
+    </div>
+  </div>
+
 </div>
+
+<script type="text/javascript">
+    var $ = jQuery;
+
+    $(function () {
+        $(document).on("click", "#add_album_to_playlist", function (track) {
+            track.preventDefault();
+            $('#add_album_dialog').dialog({
+                title: 'Add Album',
+                modal: true,
+                width: 740,
+                height: 540,
+                position: ['center', 100],
+                close: function (track, ui) {
+                    $('#add_album_dialog').dialog('destroy')
+                }
+            });
+            $.ajax({ url: '/add_album_to_playlist/<%= @album_playlist.id %>',
+                type: 'get',
+                dataType: 'script'
+            });
+        });
+    });
+</script>

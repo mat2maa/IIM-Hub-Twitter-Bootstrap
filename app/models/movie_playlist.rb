@@ -26,5 +26,11 @@ class MoviePlaylist < ActiveRecord::Base
 	def movies_already_programmed(movie_id)
 	  MoviePlaylist.with_same_airline_and_movie(movie_id, airline_id)
 	end
-  
+
+  scope :with_screener_destroyed,
+        where("screener_destroyed_date <> 'NULL'")
+
+  scope :with_screener_held,
+        where("screener_received_date <> 'NULL'")
+
 end

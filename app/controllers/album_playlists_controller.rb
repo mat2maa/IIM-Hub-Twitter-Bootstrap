@@ -89,49 +89,19 @@ class AlbumPlaylistsController < ApplicationController
   #display overlay
   def add_album_to_playlist
 
-    if !params[:album_playlists].nil?
+    @album_playlist = AlbumPlaylist.find(params[:id])
 
-      @search = Album.ransack(params[:q])
+    @search = Album.ransack(params[:q])
+    @albums = @search.result(distinct: true)
+                     .where("to_delete = ?", "0")
+                     .order("id DESC")
+                     .paginate(page: params[:page],
+                               per_page: 10)
 
-      @search.conditions.to_delete_equals=0
-
-      if !params[:search].nil?
-        search = params[:search]
-        @search.per_page = search[:per_page] if !search[:per_page].nil?
-        @search.page = search[:page] if !search[:page].nil?
-      end
-
-      @albums = @search.result(distinct: true)
-      .paginate(page: params[:page],
-                per_page: 10)
-      @albums_count = @albums.count
-
-    else
-      @albums = nil
-      @albums_count = 0
-      @search = Album.ransack(params[:q])
-    end
-    # @search.conditions.to_delete_equals=0
-    #     if params[:album_playlists].nil? && params[:search].nil?
-    #       @search.order_by = :id
-    #       @search.order_as = "DESC"
-    #       @search.per_page = 10
-    #     end
+    @albums_count = @albums.count
 
     respond_to do |format|
-      format.html
-
-      format.js {
-        if params[:album_playlists].nil? && params[:search].nil?
-          render action: 'add_album_to_playlist.html.erb',
-                 layout: false
-        else
-          render :update do |page|
-            page.replace_html "albums",
-                              partial: "albums"
-          end
-        end
-      }
+      format.js { render layout: false }
     end
   end
 
@@ -141,7 +111,7 @@ class AlbumPlaylistsController < ApplicationController
     @album_playlist_item = AlbumPlaylistItem.new(album_playlist_id: params[:id],
                                                  category_id: 1,
                                                  album_id: params[:album_id],
-                                                 position: @album_playlist.albums.count + 1)
+                                                 position: @album_playlist.albums.count)
 
     #check if album has been added to a previous playlist before    
     @playlists_with_album = AlbumPlaylistItem.where("album_id=#{params[:album_id]}").group("album_playlist_id")

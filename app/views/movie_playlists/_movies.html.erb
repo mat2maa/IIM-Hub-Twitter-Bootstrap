@@ -1,12 +1,14 @@
 <% if @movies_count > 0 %>
-    <% form_remote_tag html: {action: url_for(controller: "movie_playlists",
+    <%= form_tag html: {action: url_for(controller: "movie_playlists",
                                               action: "add_multiple_movies"),
-                              id: "multiple_movies"} do %>
+                              id: "multiple_movies"},
+                              remote: true do %>
         <%= hidden_field_tag 'playlist_id',
                              params[:id] %>
-        <%= submit_to_remote 'add_multiple_btn',
-                             'Add Selected to Playlist',
-                             url: {action: 'add_multiple_movies'} %><br/>
+        <%#= submit_to 'add_multiple_btn',
+                      'Add Selected to Playlist',
+                      url: {action: 'add_multiple_movies'},
+                      remote: true %><br/>
         <%= @movies_count %> movies found
         <table cellspacing="0" width="100%">
           <tr>
@@ -14,18 +16,26 @@
                                             'check_all',
                                             false,
                                             onclick: "$$('#movie_ids_').each(function(box){box.checked=($('check_all').checked)?true:false});") %></th>
-            <th><%= remote_order_by_link :id,
-                                         search_obj: @search,
-                                         params_scope: :movie_playlists %></th>
-            <th><%= remote_order_by_link :movie_title,
-                                         search_obj: @search,
-                                         params_scope: :movie_playlists %></th>
-            <th><%= remote_order_by_link :movie_type,
-                                         search_obj: @search,
-                                         params_scope: :movie_playlists %></th>
-            <th><%= remote_order_by_link :airline_release_date,
-                                         search_obj: @search,
-                                         params_scope: :movie_playlists %></th>
+            <th>
+              <%= sort_link(@search,
+                            :id,
+                            "ID") %>
+            </th>
+            <th>
+              <%= sort_link(@search,
+                            :movie_title,
+                            "Movie Title") %>
+            </th>
+            <th>
+              <%= sort_link(@search,
+                            :movie_type,
+                            "Movie Type") %>
+            </th>
+            <th>
+              <%= sort_link(@search,
+                            :airline_release_date,
+                            "Airline Release Date") %>
+            </th>
             <th>In Playlists With<br/>Same Airline</th>
             <th>&nbsp;</th>
           </tr>
@@ -52,13 +62,13 @@
 										<% end %>
 									</span>
                 </td>
-                <td><%= link_to_remote "add to playlist",
-                                       url: {controller: "movie_playlists",
-                                             action: "add_movie",
-                                             id: params[:id],
-                                             movie_id: movie.id},
-                                       loading: "Element.show('spinner')",
-                                       complete: "Element.hide('spinner')" %>
+                <td>
+                  <%= link_to "add to playlist",
+                              add_movie_movie_playlist_path(@movie_playlist, movie_id: movie.id),
+                              method: :post,
+                              remote: true,
+                              loading: "Element.show('spinner')",
+                              complete: "Element.hide('spinner')" %>
                 </td>
               </tr>
           <% end %>
@@ -66,15 +76,7 @@
     <% end %>
     <br/>
     <br/>
-
-    Per page: <%= remote_per_page_select %>
-
-    <% if @search.page_count > 1 %>
-        <br/><br/>
-        <div class="page_links">
-          <%= page_links() %>
-        </div>
-    <% end %>
+    <%= will_paginate @movies %>
 <% else %>
     No movies were found
 <% end %>

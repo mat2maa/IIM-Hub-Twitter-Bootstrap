@@ -13,7 +13,7 @@ Iim::Application.routes.draw do
   match "/add_album_to_playlist/:id" => "album_playlists#add_album_to_playlist", as: :add_album_to_playlist
   match "/add_movie_to_playlist/:id" => "movie_playlists#add_movie_to_playlist", as: :add_movie_to_playlist
   match "/add_video_to_playlist/:id" => "video_playlists#add_video_to_playlist", as: :add_video_to_playlist
-  match "/add_master_to_playlist/:id" => "video_master_playlists#add_master_to_playlist", as: :add_master_to_playlist
+  match "/add_video_master_to_playlist/:id" => "video_master_playlists#add_video_master_to_playlist", as: :add_video_master_to_playlist
   match "/add_screener_to_playlist/:id" => "screener_playlists#add_screener_to_playlist", as: :add_screener_to_playlist
   match "/download_track_mp3/:id" => "audio_playlists#download_mp3", as: :download_tracks_mp3
   match "/download_album_mp3/:id" => "album_playlists#download_mp3", as: :download_album_tracks_mp3
@@ -90,6 +90,7 @@ Iim::Application.routes.draw do
       post 'duplicate'
       post 'lock'
       post 'unlock'
+      post 'add_album'
     end
     collection do
       post 'export_albums_programmed_per_airline_to_excel'
@@ -103,6 +104,7 @@ Iim::Application.routes.draw do
       post 'duplicate'
       post 'lock'
       post 'unlock'
+      post 'add_movie'
     end
     collection do
       put 'add_multiple_movies'
@@ -116,6 +118,7 @@ Iim::Application.routes.draw do
       post 'duplicate'
       post 'lock'
       post 'unlock'
+      post 'add_video'
     end
     collection do
       put 'add_multiple_videos'
@@ -129,6 +132,7 @@ Iim::Application.routes.draw do
       post 'duplicate'
       post 'lock'
       post 'unlock'
+      post 'add_master'
     end
     collection do
       put 'add_multiple_masters'
@@ -142,6 +146,7 @@ Iim::Application.routes.draw do
       post 'duplicate'
       post 'lock'
       post 'unlock'
+      post 'add_screener'
     end
     collection do
       put 'add_multiple_screeners'

@@ -6,7 +6,7 @@ class MoviePlaylistItem < ActiveRecord::Base
   belongs_to :movie_playlist
 #  acts_as_list :scope => :movie_playlist
 
-  attr_accessible :movie_id, :movie_playlist_id, :position_position
+  attr_accessible :movie_id, :movie_playlist_id, :position, :position_position
 
   def after_save
     movie = Movie.find(self.movie.id)

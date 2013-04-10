@@ -1,7 +1,10 @@
 <% cache 'album_search_form' do %>
     <fieldset>
       <legend>Search Albums</legend>
-      <% search_form_for @search,
+      <%= search_form_for @search,
+                         url: add_album_to_playlist_path(id: @album_playlist.id),
+                         remote: true,
+                         id: "album_search_form",
                          loading: "Element.show('spinner')",
                          complete: "Element.hide('spinner')" do |albums| %>
 
@@ -40,13 +43,11 @@
               </td>
               <td valign="top">
                 Label:<br>
-                <% albums.fields_for albums.object.label do |label| %>
-                    <%= label.select :id_equals,
-                                     Label.all
-                                     .collect { |p| [p.name,
-                                                     p.id] },
-                                     {include_blank: true} %>
-                <% end %>
+                <%= albums.select :label_id_eq,
+                                   Label.all
+                                   .collect { |p| [p.name,
+                                                   p.id] },
+                                   {include_blank: true} %>
               </td>
             </tr>
           </table>

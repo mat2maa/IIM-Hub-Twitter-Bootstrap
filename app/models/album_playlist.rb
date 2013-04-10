@@ -14,4 +14,5 @@ class AlbumPlaylist < ActiveRecord::Base
 	
   attr_accessible :client_playlist_code, :in_out, :start_playdate, :start_playdate, :start_playdate, :end_playdate,
                   :end_playdate, :end_playdate, :airline_id
+
 end

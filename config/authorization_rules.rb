@@ -24,7 +24,7 @@ authorization do
 		has_permission_on :video_playlists, :to => [:read, :create, :update, :print, :add_video, :add_video_to_playlist, 
                 :sort, :export_to_excel, :add_multiple_videos, :duplicate]
 
-		has_permission_on :video_master_playlists, :to => [:read, :create, :update, :print, :add_master, :add_master_to_playlist, 
+		has_permission_on :video_master_playlists, :to => [:read, :create, :update, :print, :add_master, :add_video_master_to_playlist,
                 :sort, :export_to_excel, :add_multiple_masters, :set_video_master_playlist_item_mastering, :duplicate]
 
 		has_permission_on :screener_playlists, :to => [:manage,:print, :add_screener, :add_screener_to_playlist, 
@@ -138,7 +138,7 @@ authorization do
     has_permission_on :video_playlists, :to => [:manage,:print, :add_video, :add_video_to_playlist,
                 :sort, :export_to_excel, :add_multiple_videos, :duplicate]
 
-		has_permission_on :video_master_playlists, :to => [:manage,:print, :add_master, :add_master_to_playlist,
+		has_permission_on :video_master_playlists, :to => [:manage,:print, :add_master, :add_video_master_to_playlist,
                 :sort, :export_to_excel, :add_multiple_masters, :set_video_master_playlist_item_mastering, :duplicate]
 
 		has_permission_on :screener_playlists, :to => [:manage,:print, :add_screener, :add_screener_to_playlist,
@@ -214,7 +214,7 @@ authorization do
                                                 :sort, :export_to_excel, :add_multiple_videos, :duplicate, :lock,
                                                 :unlock]
 
-    has_permission_on :video_master_playlists, :to => [:manage,:print, :add_master, :add_master_to_playlist,
+    has_permission_on :video_master_playlists, :to => [:manage,:print, :add_master, :add_video_master_to_playlist,
                                                        :sort, :export_to_excel, :add_multiple_masters,
                                                        :set_video_master_playlist_item_mastering, :duplicate, :lock,
                                                        :unlock]

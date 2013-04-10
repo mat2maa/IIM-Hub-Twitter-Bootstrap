@@ -50,8 +50,7 @@ format: "pdf"}%>
   <center>
     <h2>Edit Video Playlist</h2>
 
-    <div class="action-button"><%= link_to_show_overlay 'add video',
-                                                        add_video_to_playlist_path(@video_playlist.id) %></div>
+    <%= link_to "Add Video", add_video_to_playlist_path(id: @video_playlist.id), id: "add_video_to_playlist" %>
     <br/>
     <br/>
 
@@ -66,4 +65,34 @@ format: "pdf"}%>
                 video_playlists_path %>
 
   </center>
+
+  <div id="add_video_dialog" style="display:none;">
+    <div id="add_video">
+    </div>
+  </div>
+
 </div>
+
+<script type="text/javascript">
+    var $ = jQuery;
+
+    $(function () {
+        $(document).on("click", "#add_video_to_playlist", function (video) {
+            video.preventDefault();
+            $('#add_video_dialog').dialog({
+                title: 'Add Video',
+                modal: true,
+                width: 740,
+                height: 540,
+                position: ['center', 100],
+                close: function (video, ui) {
+                    $('#add_video_dialog').dialog('destroy')
+                }
+            });
+            $.ajax({ url: '/add_video_to_playlist/<%= @video_playlist.id %>',
+                type: 'get',
+                dataType: 'script'
+            });
+        });
+    });
+</script>

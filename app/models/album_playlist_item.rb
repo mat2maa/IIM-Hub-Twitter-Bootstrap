@@ -7,5 +7,5 @@ class AlbumPlaylistItem < ActiveRecord::Base
 #  acts_as_list :scope => :album_playlist
   belongs_to :category
 
-  attr_accessible :category_id
+  attr_accessible :category_id, :album_playlist_id, :album_id, :position
 end

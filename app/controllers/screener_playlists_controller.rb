@@ -79,47 +79,21 @@ class ScreenerPlaylistsController < ApplicationController
 
   #display overlay
   def add_screener_to_playlist
+
+    @screener_playlist = ScreenerPlaylist.find(params[:id])
     @languages = MasterLanguage.order("name")
                                .collect { |language| language.name }
-    @screener_playlist = ScreenerPlaylist.find(params[:id])
 
-    if !params[:screener_playlists].nil?
-      @search = Screener.new_search(params[:screener_playlists])
-      @search.conditions.video.programme_title_keywords = params[:screener_playlists][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/,
-                                                                                                                                           "")
-      @search.conditions.episode_title_keywords = params[:screener_playlists][:conditions][:episode_title_keywords].gsub(/\'s|\'t/,
-                                                                                                                         "")
+    @search = Screener.ransack(params[:q])
+    @screeners = @search.result(distinct: true)
+                        .order("id DESC")
+                        .paginate(page: params[:page],
+                                  per_page: 10)
 
-      if !params[:search].nil?
-        search = params[:search]
-        @search.per_page = search[:per_page] if !search[:per_page].nil?
-        @search.page = search[:page] if !search[:page].nil?
-      end
-
-      @screeners,
-          @screeners_count = @search.all,
-          @search.count
-
-    else
-      @screeners = nil
-      @screeners_count = 0
-      @search = Screener.new_search
-    end
+    @screeners_count = @screeners.count
 
     respond_to do |format|
-      format.html
-
-      format.js {
-        if params[:screener_playlists].nil? && params[:search].nil?
-          render action: 'add_screener_to_playlist.rhtml',
-                 layout: false
-        else
-          render :update do |page|
-            page.replace_html "screeners",
-                              partial: "screeners"
-          end
-        end
-      }
+      format.js { render layout: false }
     end
   end
 
@@ -129,7 +103,7 @@ class ScreenerPlaylistsController < ApplicationController
     @screener_playlist = ScreenerPlaylist.find(params[:id])
     @screener_playlist_item = ScreenerPlaylistItem.new(screener_playlist_id: params[:id],
                                                        screener_id: params[:screener_id],
-                                                       position: @screener_playlist.screener_playlist_items.count + 1)
+                                                       position: @screener_playlist.screener_playlist_items.count)
 
     @notice=""
 

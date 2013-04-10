@@ -58,10 +58,7 @@ format: "pdf"} %>
   <center>
     <h2>Edit Movie Playlist</h2>
 
-    <div class="action-button">
-      <%= link_to_show_overlay 'add movie',
-                               add_movie_to_playlist_path(@movie_playlist.id) %>
-    </div>
+    <%= link_to "Add Movie", add_movie_to_playlist_path(id: @movie_playlist.id), id: "add_movie_to_playlist" %>
 
     <br/>
     <br/>
@@ -74,4 +71,34 @@ format: "pdf"} %>
     </div>
 
   </center>
+
+  <div id="add_movie_dialog" style="display:none;">
+    <div id="add_movie">
+    </div>
+  </div>
+
 </div>
+
+<script type="text/javascript">
+    var $ = jQuery;
+
+    $(function () {
+        $(document).on("click", "#add_movie_to_playlist", function (movie) {
+            movie.preventDefault();
+            $('#add_movie_dialog').dialog({
+                title: 'Add Movie',
+                modal: true,
+                width: 740,
+                height: 540,
+                position: ['center', 100],
+                close: function (movie, ui) {
+                    $('#add_movie_dialog').dialog('destroy')
+                }
+            });
+            $.ajax({ url: '/add_movie_to_playlist/<%= @movie_playlist.id %>',
+                type: 'get',
+                dataType: 'script'
+            });
+        });
+    });
+</script>

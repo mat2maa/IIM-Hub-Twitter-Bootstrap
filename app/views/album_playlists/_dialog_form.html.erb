@@ -1,8 +1,8 @@
 <center>
-    <strong>Add Track to Playlist</strong><br/>
+    <strong>Add Album to Playlist</strong><br/>
 
     <div id="search_form">
-      <%= render partial: 'track_search_form',
+      <%= render partial: 'album_search_form',
                  object: @search %>
     </div>
     <%= image_tag 'spinner.gif',
@@ -11,8 +11,8 @@
 
     <div id="item_added"></div>
 
-    <div id="tracks">
-      <%= render partial: "tracks" %>
+    <div id="albums">
+      <%= render partial: "albums" %>
     </div>
 </center>
 
@@ -21,13 +21,13 @@
     var $ = jQuery;
 
     $(function () {
-        $("#track_search_form").submit(function (form) {
+        $("#album_search_form").submit(function (form) {
             form.preventDefault();
-            $.ajax({ url: '/tracks',
+            $.ajax({ url: '/albums',
                 type: 'get',
                 success: function() {
-                    var tracks = " <%= escape_javascript(render("tracks")) %> ";
-                    $("#tracks").html(tracks);
+                    var albums = " <%= escape_javascript(render("albums")) %> ";
+                    $("#albums").html(albums);
                 }
             });
         });

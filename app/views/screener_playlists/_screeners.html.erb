@@ -46,13 +46,13 @@ params_scope: :screener_playlists  %></th>
 									</span>
                 </td>
                 <%# end %>
-                <td><%= link_to_remote "add to playlist",
-                                       url: {controller: "screener_playlists",
-                                             action: "add_screener",
-                                             id: params[:id],
-                                             screener_id: screener.id},
-                                       loading: "Element.show('spinner')",
-                                       complete: "Element.hide('spinner')" %>
+                <td>
+                  <%= link_to "add to playlist",
+                              add_screener_screener_playlist_path(@screener_playlist, screener_id: screener.id),
+                              method: :post,
+                              remote: true,
+                              loading: "Element.show('spinner')",
+                              complete: "Element.hide('spinner')" %>
                 </td>
               </tr>
           <% end %>
@@ -60,15 +60,7 @@ params_scope: :screener_playlists  %></th>
     <% end %>
     <br/>
     <br/>
-
-    Per page: <%= remote_per_page_select %>
-
-    <% if @search.page_count > 1 %>
-        <br/><br/>
-        <div class="page_links">
-          <%= page_links() %>
-        </div>
-    <% end %>
+    <%= will_paginate @tracks %>
 <% else %>
     No screeners were found
 <% end %>

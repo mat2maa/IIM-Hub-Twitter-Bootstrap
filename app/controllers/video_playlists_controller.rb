@@ -75,49 +75,23 @@ class VideoPlaylistsController < ApplicationController
 
   #display overlay
   def add_video_to_playlist
-    @languages = MasterLanguage.order("name").collect { |language| language.name }
 
     @video_playlist = VideoPlaylist.find(params[:id])
+    @languages = MasterLanguage.order("name")
+                               .collect { |language| language.name }
 
-    if !params[:video_playlists].nil?
-      @search = Video.ransack(params[:q])
-      @search.conditions.to_delete_equals = 0
-      @search.conditions.or_programme_title_keywords = params[:video_playlists][:conditions][:or_programme_title_keywords].gsub(/\'s|\'t/,
-                                                                                                                                "")
-      @search.conditions.or_foreign_language_title_keywords = params[:video_playlists][:conditions][:or_programme_title_keywords].gsub(/\'s|\'t/,
-                                                                                                                                       "")
-      if !params[:search].nil?
-        search = params[:search]
+    @search = Video.ransack(params[:q])
+    @videos = @search.result(distinct: true)
+                     .where("to_delete = ?", "0")
+                     .order("id DESC")
+                     .paginate(page: params[:page],
+                               per_page: 10)
 
-        @search.per_page = search[:per_page] if !search[:per_page].nil?
-        @search.page = search[:page] if !search[:page].nil?
-      end
-
-      @videos,
-          @videos_count = @search.all,
-          @search.count
-      session[:videos_search] = collection_to_id_array(@videos)
-
-    else
-      @videos = nil
-      @videos_count = 0
-      @search = Video.new_search
-    end
+    @videos_count = @videos.count
+    session[:videos_search] = collection_to_id_array(@videos)
 
     respond_to do |format|
-      format.html
-
-      format.js {
-        if params[:video_playlists].nil? && params[:search].nil?
-          render action: 'add_video_to_playlist.rhtml',
-                 layout: false
-        else
-          render :update do |page|
-            page.replace_html "videos",
-                              partial: "videos"
-          end
-        end
-      }
+      format.js { render layout: false }
     end
   end
 
@@ -127,7 +101,7 @@ class VideoPlaylistsController < ApplicationController
     @video_playlist = VideoPlaylist.find(params[:id])
     @video_playlist_item = VideoPlaylistItem.new(video_playlist_id: params[:id],
                                                  video_id: params[:video_id],
-                                                 position: @video_playlist.video_playlist_items.count + 1)
+                                                 position: @video_playlist.video_playlist_items.count)
 
     @notice=""
 

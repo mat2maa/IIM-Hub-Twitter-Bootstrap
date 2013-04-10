@@ -3,26 +3,31 @@
 
     <table cellspacing="0" width="100%">
       <tr>
-        <th><%= remote_order_by_link :id,
-                                     search_obj: @search,
-                                     params_scope: :album_playlists %></th>
-        <th><%= remote_order_by_link :title_original,
-                                     search_obj: @search,
-                                     params_scope: :album_playlists %></th>
-        <th><%= remote_order_by_link :artist_original,
-                                     search_obj: @search,
-                                     params_scope: :album_playlists %></th>
-        <!--
-						<th>Label<%#= remote_order_by_link label: :name,
-search_obj: @search,
-params_scope: :album_playlists  %></th>
-					-->
-        <th><%= remote_order_by_link :release_year,
-                                     search_obj: @search,
-                                     params_scope: :album_playlists %></th>
-        <th><%= remote_order_by_link :cd_code,
-                                     search_obj: @search,
-                                     params_scope: :album_playlists %></th>
+        <th>
+          <%= sort_link @search,
+                        :id,
+                        'ID' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :title_original,
+                        'Original Title' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :artist_original,
+                        'Original Artist' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :release_year,
+                        'Release Year' %>
+        </th>
+        <th>
+          <%= sort_link @search,
+                        :cd_code,
+                        'CD Code' %>
+        </th>
         <th>&nbsp;</th>
       </tr>
       <% @albums.each do |album| %>
@@ -39,13 +44,13 @@ params_scope: :album_playlists  %></th>
                 <td><%= album.release_year %>&nbsp;</td>
                 <td><%= album.cd_code %>&nbsp;</td>
             <% end %>
-            <td><%= link_to_remote "add to playlist",
-                                   url: {controller: "album_playlists",
-                                         action: "add_album",
-                                         id: params[:id],
-                                         album_id: album.id},
-                                   loading: "Element.show('spinner')",
-                                   complete: "Element.hide('spinner')" %>
+            <td>
+              <%= link_to "add to playlist",
+                          add_album_album_playlist_path(@album_playlist, album_id: album.id),
+                          method: :post,
+                          remote: true,
+                          loading: "Element.show('spinner')",
+                          complete: "Element.hide('spinner')" %>
             </td>
           </tr>
 
@@ -53,12 +58,7 @@ params_scope: :album_playlists  %></th>
     </table>
     <br/>
     <br/>
-
-    Per page: <%= remote_per_page_select %>
-
-    <% if @search.page_count > 1 %>
-        <br/>Page: <%= remote_page_select %>
-    <% end %>
+    <%= will_paginate @albums %>
 <% else %>
     No albums were found
 <% end %>

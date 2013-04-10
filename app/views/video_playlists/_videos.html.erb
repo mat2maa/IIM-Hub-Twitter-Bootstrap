@@ -1,10 +1,11 @@
 <% if @videos_count > 0 %>
-    <% form_remote_tag html: {action: url_for(controller: "video_playlists",
-                                              action: "add_multiple_videos"),
-                              id: "multiple_videos"} do %>
+    <%= form_tag html: {action: url_for(controller: "video_playlists",
+                                        action: "add_multiple_videos"),
+                              id: "multiple_videos"},
+                              remote: true do %>
         <%= hidden_field_tag 'playlist_id',
                              params[:id] %>
-        <%= submit_to_remote 'add_multiple_btn',
+        <%#= submit_to_remote 'add_multiple_btn',
                              'Add Selected to Playlist',
                              url: {action: 'add_multiple_videos'} %><br/>
         <%= @videos_count %> videos found
@@ -14,15 +15,21 @@
                                             'check_all',
                                             false,
                                             onclick: "$$('#video_ids_').each(function(box){box.checked=($('check_all').checked)?true:false});") %></th>
-            <th><%= remote_order_by_link :id,
-                                         search_obj: @search,
-                                         params_scope: :video_playlists %></th>
-            <th><%= remote_order_by_link :programme_title,
-                                         search_obj: @search,
-                                         params_scope: :video_playlists %></th>
-            <th><%= remote_order_by_link :video_type,
-                                         search_obj: @search,
-                                         params_scope: :video_playlists %></th>
+            <th>
+              <%= sort_link @search,
+                            :id,
+                            'ID' %>
+            </th>
+            <th>
+              <%= sort_link @search,
+                            :programme_title,
+                            'Programme Title' %>
+            </th>
+            <th>
+              <%= sort_link @search,
+                            :video_type,
+                            'Video Type' %>
+            </th>
             <th>In Playlists With<br/>Same Airline</th>
             <th>&nbsp;</th>
           </tr>
@@ -48,13 +55,13 @@
 									</span>
                 </td>
                 <%# end %>
-                <td><%= link_to_remote "add to playlist",
-                                       url: {controller: "video_playlists",
-                                             action: "add_video",
-                                             id: params[:id],
-                                             video_id: video.id},
-                                       loading: "Element.show('spinner')",
-                                       complete: "Element.hide('spinner')" %>
+                <td>
+                  <%= link_to "add to playlist",
+                              add_video_video_playlist_path(@video_playlist, video_id: video.id),
+                              method: :post,
+                              remote: true,
+                              loading: "Element.show('spinner')",
+                              complete: "Element.hide('spinner')" %>
                 </td>
               </tr>
           <% end %>
@@ -62,15 +69,7 @@
     <% end %>
     <br/>
     <br/>
-
-    Per page: <%= remote_per_page_select %>
-
-    <% if @search.page_count > 1 %>
-        <br/><br/>
-        <div class="page_links">
-          <%= page_links() %>
-        </div>
-    <% end %>
+    <%= will_paginate @videos %>
 <% else %>
     No videos were found
 <% end %>

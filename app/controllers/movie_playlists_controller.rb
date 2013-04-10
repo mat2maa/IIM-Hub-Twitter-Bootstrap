@@ -11,13 +11,13 @@ class MoviePlaylistsController < ApplicationController
     @search = MoviePlaylist.ransack(params[:q])
     if !params[:q].nil?
       @movie_playlists = @search.result(distinct: true)
-      .paginate(page: params[:page],
-                per_page: 10)
+                                .paginate(page: params[:page],
+                                          per_page: 10)
     else
       @movie_playlists = @search.result(distinct: true)
-      .order("id DESC")
-      .paginate(page: params[:page],
-                per_page: 10)
+                                .order("id DESC")
+                                .paginate(page: params[:page],
+                                          per_page: 10)
     end
 
     @movie_playlists_count = @movie_playlists.count
@@ -79,54 +79,27 @@ class MoviePlaylistsController < ApplicationController
 
   #display overlay
   def add_movie_to_playlist
+
     @movie_playlist = MoviePlaylist.find(params[:id])
     @languages = MasterLanguage.order("name")
-    .collect { |language| language.name }
+                               .collect { |language| language.name }
 
-    if !params[:movie_playlists].nil?
-      @search = Movie.new_search(params[:movie_playlists])
-      @search.conditions.to_delete_equals=0
-      @search.conditions.or_movie_title_keywords = params[:movie_playlists][:conditions][:or_movie_title_keywords].gsub(/\'s|\'t/,
-                                                                                                                        "")
-      @search.conditions.or_foreign_language_title_keywords = params[:movie_playlists][:conditions][:or_movie_title_keywords].gsub(/\'s|\'t/,
-                                                                                                                                   "")
+    @search = Movie.ransack(params[:q])
+    @movies = @search.result(distinct: true)
+                     .where("to_delete = ?", "0")
+                     .order("id DESC")
+                     .paginate(page: params[:page],
+                               per_page: 10)
 
-      if !params[:search].nil?
-        search = params[:search]
-        @search.per_page = search[:per_page] if !search[:per_page].nil?
-        @search.page = search[:page] if !search[:page].nil?
-      end
-
-      if params[:screener][:destroyed] == "1"
-        @search.conditions.screener_destroyed_date_not_equal = nil
-      end
-      if params[:screener][:held] == "1"
-        @search.conditions.screener_destroyed_date_equals = ""
-      end
-
-      @movies = @search.all
-      @movies_count = @movies.count
-
-    else
-      @movies = nil
-      @movies_count = 0
-      @search = Movie.new_search
+    if params[:language].present?
+      @movies = @movies.with_screener_destroyed if params[:screener][:destroyed] == '1'
+      @movies = @movies.with_screener_held if params[:screener][:held] == '1'
     end
 
-    respond_to do |format|
-      format.html
+    @movies_count = @movies.count
 
-      format.js {
-        if params[:movie_playlists].nil? && params[:search].nil?
-          render action: 'add_movie_to_playlist.html',
-                 layout: false
-        else
-          render :update do |page|
-            page.replace_html "movies",
-                              partial: "movies"
-          end
-        end
-      }
+    respond_to do |format|
+      format.js { render layout: false }
     end
   end
 
@@ -136,7 +109,7 @@ class MoviePlaylistsController < ApplicationController
     @movie_playlist = MoviePlaylist.find(params[:id])
     @movie_playlist_item = MoviePlaylistItem.new(movie_playlist_id: params[:id],
                                                  movie_id: params[:movie_id],
-                                                 position: @movie_playlist.movie_playlist_items.count + 1)
+                                                 position: @movie_playlist.movie_playlist_items.count)
     @notice=""
     @movie_to_add = Movie.find(params[:movie_id])
     if @movie_playlist_item.save
@@ -155,7 +128,7 @@ class MoviePlaylistsController < ApplicationController
     movie_ids.each do |movie_id|
       @movie_playlist_item = MoviePlaylistItem.new(movie_playlist_id: params[:playlist_id],
                                                    movie_id: movie_id,
-                                                   position: @movie_playlist.movie_playlist_items.count + 1)
+                                                   position: @movie_playlist.movie_playlist_items.count)
 
       if @movie_playlist_item.save
         flash[:notice] = 'Movies were successfully added.'

@@ -48,8 +48,7 @@ format: "pdf"} %>
   <center>
     <h2>Edit Screener Playlist</h2>
 
-    <div class="action-button"><%= link_to_show_overlay 'add screener',
-                                                        add_screener_to_playlist_path(@screener_playlist.id) %></div>
+    <%= link_to "Add Screener", add_screener_to_playlist_path(id: @screener_playlist.id), id: "add_screener_to_playlist" %>
     <br/>
     <br/>
 
@@ -64,4 +63,35 @@ format: "pdf"} %>
                 screener_playlists_path %>
 
   </center>
+
+  <div id="add_screener_dialog" style="display:none;">
+    <div id="add_screener">
+    </div>
+  </div>
+
 </div>
+
+
+<script type="text/javascript">
+    var $ = jQuery;
+
+    $(function () {
+        $(document).on("click", "#add_screener_to_playlist", function (screener) {
+            screener.preventDefault();
+            $('#add_screener_dialog').dialog({
+                title: 'Add Screener',
+                modal: true,
+                width: 740,
+                height: 540,
+                position: ['center', 100],
+                close: function (screener, ui) {
+                    $('#add_screener_dialog').dialog('destroy')
+                }
+            });
+            $.ajax({ url: '/add_screener_to_playlist/<%= @screener_playlist.id %>',
+                type: 'get',
+                dataType: 'script'
+            });
+        });
+    });
+</script>

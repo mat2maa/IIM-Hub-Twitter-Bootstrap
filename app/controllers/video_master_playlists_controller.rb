@@ -79,57 +79,33 @@ class VideoMasterPlaylistsController < ApplicationController
   end
 
   #display overlay
-  def add_master_to_playlist
+  def add_video_master_to_playlist
+
+    @master_playlist = VideoMasterPlaylist.find(params[:id])
     @languages = MasterLanguage.order("name")
-    .collect { |language| language.name }
-    @video_master_playlist = VideoMasterPlaylist.find(params[:id])
-    if !params[:video_master_playlists].nil?
-      @search = Master.new_search(params[:video_master_playlists])
-      @search.conditions.video.programme_title_keywords = params[:video_master_playlists][:conditions][:video][:programme_title_keywords].gsub(/\'s|\'t/,
-                                                                                                                                               "")
-      @search.conditions.episode_title_keywords = params[:video_master_playlists][:conditions][:episode_title_keywords].gsub(/\'s|\'t/,
-                                                                                                                             "")
-      @search.conditions.active = true
-      if !params[:search].nil?
-        search = params[:search]
-        @search.per_page = search[:per_page] if !search[:per_page].nil?
-        @search.page = search[:page] if !search[:page].nil?
-      end
+                               .collect { |language| language.name }
 
-      @masters,
-          @masters_count = @search.all,
-          @search.count
+    @search = Master.ransack(params[:q])
+    @masters = @search.result(distinct: true)
+                      .where("active = ?", "true")
+                      .order("id DESC")
+                      .paginate(page: params[:page],
+                                per_page: 10)
 
-    else
-      @masters = nil
-      @masters_count = 0
-      @search = Master.ransack(params[:q])
-    end
+    @masters_count = @masters.count
 
     respond_to do |format|
-      format.html
-
-      format.js {
-        if params[:video_master_playlists].nil? && params[:search].nil?
-          render action: 'add_video_master_to_playlist.rhtml',
-                 layout: false
-        else
-          render :update do |page|
-            page.replace_html "masters",
-                              partial: "masters"
-          end
-        end
-      }
+      format.js { render layout: false }
     end
   end
 
   #add master to playlist
-  def add_master
+  def add_video_master
 
     @video_master_playlist = VideoMasterPlaylist.find(params[:id])
     @video_master_playlist_item = VideoMasterPlaylistItem.new(video_master_playlist_id: params[:id],
                                                               master_id: params[:master_id],
-                                                              position: @video_master_playlist.video_master_playlist_items.count + 1)
+                                                              position: @video_master_playlist.video_master_playlist_items.count)
 
     @notice=""
 

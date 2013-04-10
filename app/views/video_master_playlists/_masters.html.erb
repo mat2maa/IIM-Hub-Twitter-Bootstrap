@@ -1,10 +1,11 @@
 <% if @masters_count > 0 %>
-    <% form_remote_tag html: {action: url_for(controller: "video_master_playlists",
-                                              action: "add_multiple_masters"),
-                              id: "multiple_videos"} do %>
+    <%= form_tag html: {action: url_for(controller: "video_master_playlists",
+                                        action: "add_multiple_masters"),
+                              id: "multiple_videos"},
+                              remote: true do %>
         <%= hidden_field_tag 'playlist_id',
                              params[:id] %>
-        <%= submit_to_remote 'add_multiple_btn',
+        <%#= submit_to_remote 'add_multiple_btn',
                              'Add Selected to Playlist',
                              url: {action: 'add_multiple_masters'} %><br/>
         <%= @masters_count %> masters found
@@ -14,18 +15,26 @@
                                             'check_all',
                                             false,
                                             onclick: "$$('#master_ids_').each(function(box){box.checked=($('check_all').checked)?true:false});") %></th>
-            <th><%= remote_order_by_link :id,
-                                         search_obj: @search,
-                                         params_scope: :video_master_playlists %></th>
-            <th><%= remote_order_by_link({video: :programme_title},
-                                         search_obj: @search,
-                                         params_scope: :video_master_playlists) %></th>
-            <th><%= remote_order_by_link :episode_title,
-                                         search_obj: @search,
-                                         params_scope: :video_master_playlists %></th>
-            <th><%= remote_order_by_link :episode_number,
-                                         search_obj: @search,
-                                         params_scope: :video_master_playlists %></th>
+            <th>
+              <%= sort_link(@search,
+                            :id,
+                            'ID') %>
+            </th>
+            <th>
+              <%= sort_link(@search,
+                            :video_programme_title,
+                            'Programme Title') %>
+            </th>
+            <th>
+              <%= sort_link(@search,
+                            :episode_title,
+                            'Episode Title') %>
+            </th>
+            <th>
+              <%= sort_link(@search,
+                            :episode_number,
+                            'Episode Number') %>
+            </th>
             <th>Video Type</th>
             <th>In Playlists With<br/>Same Airline</th>
             <th>&nbsp;</th>
@@ -41,24 +50,23 @@
                 <td><%= master.episode_number %></td>
                 <td><%= master.video.video_type %></td>
                 <td>
-									<span id="exists">
-										<% if (master.in_playlists!="" && !master.in_playlists.nil?) %>
-											<%= VideoMasterPlaylist.with_same_airline_and_master(master.id,
-                                                                                                 (@video_master_playlist.airline_id unless @video_master_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
-                                                                                                                                                                                                              edit_video_master_playlist_path(playlist),
-                                                                                                                                                                                                              target: "_blank") }.join(',
-') %>
-										<% end %>
-									</span>
+                    <span id="exists">
+                        <% if (master.in_playlists!="" && !master.in_playlists.nil?) %>
+                            <%= VideoMasterPlaylist.with_same_airline_and_master(master.id,
+                                                                                 (@video_master_playlist.airline_id unless @video_master_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
+                                                                                                                                                                                              edit_video_master_playlist_path(playlist),
+                                                                                                                                                                                              target: "_blank") }.join(',') %>
+                        <% end %>
+                    </span>
                 </td>
                 <%# end %>
-                <td><%= link_to_remote "add to playlist",
-                                       url: {controller: "video_master_playlists",
-                                             action: "add_master",
-                                             id: params[:id],
-                                             master_id: master.id},
-                                       loading: "Element.show('spinner')",
-                                       complete: "Element.hide('spinner')" %>
+                <td>
+                  <%= link_to "add to playlist",
+                              add_master_master_playlist_path(@master_playlist, master_id: master.id),
+                              method: :post,
+                              remote: true,
+                              loading: "Element.show('spinner')",
+                              complete: "Element.hide('spinner')" %>
                 </td>
               </tr>
           <% end %>
@@ -66,15 +74,7 @@
     <% end %>
     <br/>
     <br/>
-
-    Per page: <%= remote_per_page_select %>
-
-    <% if @search.page_count > 1 %>
-        <br/><br/>
-        <div class="page_links">
-          <%= page_links() %>
-        </div>
-    <% end %>
+    <%= will_paginate @masters %>
 <% else %>
     No masters were found
 <% end %>
