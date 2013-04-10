@@ -1,8 +1,8 @@
 <% if @videos_count > 0 %>
     <%= form_tag html: {action: url_for(controller: "video_playlists",
                                         action: "add_multiple_videos"),
-                              id: "multiple_videos"},
-                              remote: true do %>
+                        id: "multiple_videos"},
+                        remote: true do %>
         <%= hidden_field_tag 'playlist_id',
                              params[:id] %>
         <%#= submit_to_remote 'add_multiple_btn',
@@ -11,10 +11,11 @@
         <%= @videos_count %> videos found
         <table cellspacing="0" width="100%">
           <tr>
-            <th width="8"><%= check_box_tag('check_all',
-                                            'check_all',
-                                            false,
-                                            onclick: "$$('#video_ids_').each(function(box){box.checked=($('check_all').checked)?true:false});") %></th>
+            <th width="8">
+              <%= check_box_tag('check_all',
+                                'check_all',
+                                false) %>
+            </th>
             <th>
               <%= sort_link @search,
                             :id,
@@ -34,7 +35,7 @@
             <th>&nbsp;</th>
           </tr>
           <% @videos.each do |video| %>
-              <tr>
+              <tr class="playlist-entry">
                 <%# cache([video]) do %>
                 <td><%= check_box_tag "video_ids[]",
                                       video.id %></td>
@@ -44,15 +45,14 @@
                 <td><%= video.programme_title %></td>
                 <td><%= video.video_type %></td>
                 <td>
-									<span id="exists">
-										<% if (video.in_playlists!="" && !video.in_playlists.nil?) %>
-											<%= VideoPlaylist.with_same_airline_and_video(video.id,
-                                                                                          (@video_playlist.airline_id unless @video_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
-                                                                                                                                                                                         edit_video_playlist_path(playlist),
-                                                                                                                                                                                         target: "_blank") }.join(',
-') %>
-										<% end %>
-									</span>
+                    <span id="exists">
+                        <% if (video.in_playlists!="" && !video.in_playlists.nil?) %>
+                            <%= VideoPlaylist.with_same_airline_and_video(video.id,
+                                                                          (@video_playlist.airline_id unless @video_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
+                                                                                                                                                                         edit_video_playlist_path(playlist),
+                                                                                                                                                                         target: "_blank") }.join(',') %>
+                        <% end %>
+                    </span>
                 </td>
                 <%# end %>
                 <td>
@@ -73,3 +73,25 @@
 <% else %>
     No videos were found
 <% end %>
+
+<script>
+
+    var $ = jQuery;
+
+    $(document).ready(function () {
+
+        $('#check_all').click(function () {
+            if (this.checked) {
+                $('.playlist-entry').find(':checkbox').each(function () {
+                    this.checked = true;
+                });
+            } else {
+                $('.playlist-entry').find(':checkbox').each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+
+    });
+
+</script>

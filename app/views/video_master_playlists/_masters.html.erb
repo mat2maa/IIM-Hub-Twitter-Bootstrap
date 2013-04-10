@@ -1,8 +1,8 @@
 <% if @masters_count > 0 %>
     <%= form_tag html: {action: url_for(controller: "video_master_playlists",
                                         action: "add_multiple_masters"),
-                              id: "multiple_videos"},
-                              remote: true do %>
+                        id: "multiple_videos"},
+                        remote: true do %>
         <%= hidden_field_tag 'playlist_id',
                              params[:id] %>
         <%#= submit_to_remote 'add_multiple_btn',
@@ -11,10 +11,11 @@
         <%= @masters_count %> masters found
         <table cellspacing="0" width="100%" id="masters">
           <tr>
-            <th width="8"><%= check_box_tag('check_all',
-                                            'check_all',
-                                            false,
-                                            onclick: "$$('#master_ids_').each(function(box){box.checked=($('check_all').checked)?true:false});") %></th>
+            <th width="8">
+              <%= check_box_tag('check_all',
+                                'check_all',
+                                false) %>
+            </th>
             <th>
               <%= sort_link(@search,
                             :id,
@@ -40,7 +41,7 @@
             <th>&nbsp;</th>
           </tr>
           <% @masters.each do |master| %>
-              <tr>
+              <tr class="playlist-entry">
                 <%# cache([video]) do %>
                 <td><%= check_box_tag "master_ids[]",
                                       master.id %></td>
@@ -53,7 +54,7 @@
                     <span id="exists">
                         <% if (master.in_playlists!="" && !master.in_playlists.nil?) %>
                             <%= VideoMasterPlaylist.with_same_airline_and_master(master.id,
-                                                                                 (@video_master_playlist.airline_id unless @video_master_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
+                                                                                 (@master_playlist.airline_id unless @master_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
                                                                                                                                                                                               edit_video_master_playlist_path(playlist),
                                                                                                                                                                                               target: "_blank") }.join(',') %>
                         <% end %>
@@ -62,7 +63,7 @@
                 <%# end %>
                 <td>
                   <%= link_to "add to playlist",
-                              add_master_master_playlist_path(@master_playlist, master_id: master.id),
+                              add_video_master_video_master_playlist_path(@master_playlist, master_id: master.id),
                               method: :post,
                               remote: true,
                               loading: "Element.show('spinner')",
@@ -78,3 +79,25 @@
 <% else %>
     No masters were found
 <% end %>
+
+<script>
+
+    var $ = jQuery;
+
+    $(document).ready(function () {
+
+        $('#check_all').click(function () {
+            if (this.checked) {
+                $('.playlist-entry').find(':checkbox').each(function () {
+                    this.checked = true;
+                });
+            } else {
+                $('.playlist-entry').find(':checkbox').each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+
+    });
+
+</script>

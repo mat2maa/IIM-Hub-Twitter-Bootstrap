@@ -132,7 +132,7 @@ Iim::Application.routes.draw do
       post 'duplicate'
       post 'lock'
       post 'unlock'
-      post 'add_master'
+      post 'add_video_master'
     end
     collection do
       put 'add_multiple_masters'

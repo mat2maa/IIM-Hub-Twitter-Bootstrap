@@ -6,7 +6,7 @@ class VideoMasterPlaylistItem < ActiveRecord::Base
   belongs_to :video_master_playlist
 #  acts_as_list :scope => :video_master_playlist
 
-  attr_accessible :mastering
+  attr_accessible :mastering, :video_master_playlist_id, :master_id, :position
   
   def after_save
     master = Master.find(self.master.id)

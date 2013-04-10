@@ -1,7 +1,7 @@
 <%# cache 'screener_search_form' do %>
 <fieldset>
   <legend>Search Screeners</legend>
-  <% search_form_for @search,
+  <%= search_form_for @search,
                      url: add_screener_to_playlist_path(id: @screener_playlist.id),
                      remote: true,
                      id: "screener_search_form",
@@ -38,21 +38,21 @@ true]] %>
             </td>
             <td valign="top">
               Distributor:<br/>
-              <%= screener.select :video_video_distributor_id_eq,
+              <%= screeners.select :video_video_distributor_id_eq,
                                   Supplier.video_distributors.collect { |p| [p.company_name, p.id] },
                                   include_blank: true %>
               <br/>
               Laboratory:<br/>
-              <%= screener.select :video_laboratory_id_eq,
+              <%= screeners.select :video_laboratory_id_eq,
                                   Supplier.laboratories.collect { |p| [p.company_name, p.id] },
                                   include_blank: true %>
               <br/>
               Video type:<br/>
-              <%= screener.select :video_video_type_eq,
+              <%= screeners.select :video_video_type_eq,
                                   Video::VIDEO_TYPES,
                                   {include_blank: true} %> <br/>
               Production Year:<br/>
-              <%= screener.text_field :video_production_year_eq,
+              <%= screeners.text_field :video_production_year_eq,
                                       size: 6 %>
 
             </td>

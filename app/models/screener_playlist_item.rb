@@ -6,6 +6,8 @@ class ScreenerPlaylistItem < ActiveRecord::Base
   belongs_to :screener_playlist
 #  acts_as_list :scope => :screener_playlist
 
+  attr_accessible :screener_playlist_id, :screener_id, :position
+
   def after_save
     screener = Screener.find(self.screener.id)
     screener.in_playlists = ScreenerPlaylist.find(:all,

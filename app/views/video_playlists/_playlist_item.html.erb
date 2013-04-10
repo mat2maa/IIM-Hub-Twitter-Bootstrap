@@ -7,7 +7,7 @@
       <td>
         <table width="100%">
           <tr>
-            <th width="130">(<%= playlist_item.position %>) Programme Title:</th>
+            <th width="130">(<%= playlist_item_counter + 1 %>) Programme Title:</th>
             <td width="200"><%= link_to playlist_item.video.programme_title,
                                         edit_video_path(playlist_item.video),
                                         target: "_blank" %> <%= playlist_item.video.on_going_series ? "(On-Going)" : "" %></td>
