@@ -47,6 +47,7 @@ gem "in_place_editing"
 gem "newrelic_rpm"
 gem "nokogiri"
 gem "test-unit"
+gem 'dalli'
 
 gem "paperclip", "~> 3.1"
 
