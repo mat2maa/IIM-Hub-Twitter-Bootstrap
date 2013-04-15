@@ -29,7 +29,7 @@ development:
 
 
 test: &test
-  adapter: mysql
+  adapter: mysql2
   encoding: utf8
   database: iim_test
   username: root
@@ -38,7 +38,7 @@ test: &test
   socket: /var/mysql/mysql.sock
 
 production:
-  adapter: mysql
+  adapter: mysql2
   encoding: utf8
   database: iim_production
   username: iim
