@@ -50,6 +50,7 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     commonjs (0.2.6)
+    dalli (2.6.2)
     declarative_authorization (0.5.6)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -170,6 +171,7 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.0.1)
   best_in_place
   coffee-rails (~> 3.2.1)
+  dalli
   declarative_authorization
   formtastic
   hirb
