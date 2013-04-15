@@ -56,6 +56,9 @@ module Iim
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
 
+    # (From Heroku) You can tell Rails not to bootstrap your application during asset compilation in
+    config.assets.initialize_on_precompile = false
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
