@@ -4,20 +4,33 @@
     <table cellspacing="0" width="100%">
       <tr>
         <th>
-          <%= sort_link @search, :audio_playlists_id, 'id' %>
+          <%= sort_link @search,
+                        :audio_playlists_id,
+                        'id',
+                        {},
+                        { remote: true } %>
         </th>
         <th>(track num)
-          <%= sort_link @search, :audio_playlists_title_original, 'Original Title' %>
+          <%= sort_link @search, :audio_playlists_title_original,
+                        'Original Title',
+                        {},
+                        { remote: true } %>
         </th>
         <th>
-          <%= sort_link @search, :audio_playlists_artist_original, 'Original Artist' %>
+          <%= sort_link @search, :audio_playlists_artist_original,
+                        'Original Artist',
+                        {},
+                        { remote: true } %>
         </th>
         <th>Label <%#= remote_order_by_link label: :name,
 search_obj: @search,
 params_scope: :audio_playlists  %></th>
         <th>CD Code</th>
         <th>
-          <%= sort_link @search, :audio_playlists_duration, 'Duration' %>
+          <%= sort_link @search, :audio_playlists_duration,
+                        'Duration',
+                        {},
+                        { remote: true } %>
         </th>
         <th>Explicit Lyrics</th>
         <th>&nbsp;</th>

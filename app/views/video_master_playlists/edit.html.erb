@@ -43,9 +43,10 @@
 <div id="content">
   <center>
     <h2>Edit Video Master Playlist</h2>
-
-    <%= link_to "Add Master", add_video_master_to_playlist_path(id: @video_master_playlist.id), id: "add_video_master_to_playlist" %>
     <br/>
+    <div class="action-button">
+        <%= link_to "Add Master", add_video_master_to_playlist_path(id: @video_master_playlist.id), id: "add_video_master_to_playlist" %>
+    </div>
     <br/>
     <%= render 'form' %>
 

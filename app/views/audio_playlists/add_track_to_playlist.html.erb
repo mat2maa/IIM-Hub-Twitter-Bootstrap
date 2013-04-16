@@ -19,13 +19,3 @@
   </div>
 
 </center>
-
-<script>
-
-    var $ = jQuery;
-
-    $('#track_search_form').submit(function() {
-        $('#tracks').html("<%= escape_javascript(debug(params)) %>");
-    });
-
-</script>

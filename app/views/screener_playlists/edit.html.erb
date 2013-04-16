@@ -47,9 +47,10 @@ format: "pdf"} %>
 <div id="content">
   <center>
     <h2>Edit Screener Playlist</h2>
-
-    <%= link_to "Add Screener", add_screener_to_playlist_path(id: @screener_playlist.id), id: "add_screener_to_playlist" %>
     <br/>
+    <div class="action-button">
+        <%= link_to "Add Screener", add_screener_to_playlist_path(id: @screener_playlist.id), id: "add_screener_to_playlist" %>
+    </div>
     <br/>
 
     <%= render 'form' %>

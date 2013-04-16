@@ -32,7 +32,7 @@ module AudioPlaylistsHelper
   
   def split_alert split_duration, accum_duration
     
-    split = Split.find(:all, :conditions=>{:duration=>split_duration})
+    split = Split.where(duration: split_duration)
         
     s = ""
     
@@ -55,7 +55,7 @@ module AudioPlaylistsHelper
   
   def tot_dur_split_alert airline_duration, total_duration
     
-    split = Split.find(:all, :conditions=>{:duration=>airline_duration})
+    split = Split.where(duration: airline_duration)
         
     s = ""
     

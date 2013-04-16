@@ -1,13 +1,12 @@
 <% if @screeners_count > 0 %>
-    <%= form_tag html: {action: url_for(controller: "screener_playlists",
-                                       action: "add_multiple_screeners"),
-                       id: "multiple_videos"},
-                       remote: true do %>
+    <%= form_tag url_for(controller: "screener_playlists",
+                         action: "add_multiple_screeners"),
+                 id: "multiple_videos",
+                 remote: true do %>
         <%= hidden_field_tag 'playlist_id',
                              params[:id] %>
-        <%#= submit_to_remote 'add_multiple_btn',
-                             'Add Selected to Playlist',
-                             url: {action: 'add_multiple_screeners'} %><br/>
+        <%= submit_tag 'Add Selected to Playlist' %><br/>
+
         <%= @screeners_count %> screeners found
         <table cellspacing="0" width="100%" id="screeners">
           <tr>
@@ -17,10 +16,18 @@
                                 false) %>
             </th>
             <th>
-              <%= sort_link(@search, :id, 'ID') %>
+              <%= sort_link @search,
+                            :id,
+                            'ID',
+                            {},
+                            { remote: true } %>
             </th>
             <th>
-              <%= sort_link(@search, :episode_title, 'Episode Title') %>
+              <%= sort_link @search,
+                            :episode_title,
+                            'Episode Title',
+                            {},
+                            { remote: true } %>
             </th>
             <th><%#= remote_order_by_link :video_type,
 search_obj: @search,
@@ -42,8 +49,7 @@ params_scope: :screener_playlists  %></th>
                             <%= ScreenerPlaylist.with_same_airline_and_screener(screener.id,
                                                                                 (@screener_playlist.airline_id unless @screener_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
                                                                                                                                                                                      edit_screener_playlist_path(playlist),
-                                                                                                                                                                                     target: "_blank") }.join(',
-') %>
+                                                                                                                                                                                     target: "_blank") }.join(',').html_safe %>
                         <% end %>
                     </span>
                 </td>

@@ -30,9 +30,10 @@
 <div id="content">
   <center>
     <h2>Edit Album Playlist</h2>
-
-    <%= link_to "Add Album", add_album_to_playlist_path(id: @album_playlist.id), id: "add_album_to_playlist" %>
     <br/>
+    <div class="action-button">
+        <%= link_to "Add Album", add_album_to_playlist_path(id: @album_playlist.id), id: "add_album_to_playlist" %>
+    </div>
     <br/>
 
     <%= render 'form' %>

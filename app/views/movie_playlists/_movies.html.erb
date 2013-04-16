@@ -1,14 +1,11 @@
 <% if @movies_count > 0 %>
-    <%= form_tag html: {action: url_for(controller: "movie_playlists",
-                                        action: "add_multiple_movies"),
-                        id: "multiple_movies"},
+    <%= form_tag url_for(controller: "movie_playlists",
+                         action: "add_multiple_movies"),
+                        id: "multiple_movies",
                         remote: true do %>
         <%= hidden_field_tag 'playlist_id',
                              params[:id] %>
-        <%= submit_to 'add_multiple_btn',
-                      'Add Selected to Playlist',
-                      url: {action: 'add_multiple_movies'},
-                      remote: true %><br/>
+        <%= submit_tag 'Add Selected to Playlist' %><br/>
         <%= @movies_count %> movies found
         <table cellspacing="0" width="100%">
           <tr>
@@ -18,24 +15,32 @@
                                 false) %>
             </th>
             <th>
-              <%= sort_link(@search,
+              <%= sort_link @search,
                             :id,
-                            "ID") %>
+                            "ID",
+                            {},
+                            { remote: true } %>
             </th>
             <th>
-              <%= sort_link(@search,
+              <%= sort_link @search,
                             :movie_title,
-                            "Movie Title") %>
+                            "Movie Title",
+                            {},
+                            { remote: true } %>
             </th>
             <th>
-              <%= sort_link(@search,
+              <%= sort_link @search,
                             :movie_type,
-                            "Movie Type") %>
+                            "Movie Type",
+                            {},
+                            { remote: true } %>
             </th>
             <th>
-              <%= sort_link(@search,
+              <%= sort_link @search,
                             :airline_release_date,
-                            "Airline Release Date") %>
+                            "Airline Release Date",
+                            {},
+                            { remote: true } %>
             </th>
             <th>In Playlists With<br/>Same Airline</th>
             <th>&nbsp;</th>
@@ -58,7 +63,7 @@
                             <%= MoviePlaylist.with_same_airline_and_movie(movie.id,
                                                                           (@movie_playlist.airline_id unless @movie_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
                                                                                                                                                                          edit_movie_playlist_path(playlist),
-                                                                                                                                                                         target: "_blank") }.join(',') %>
+                                                                                                                                                                         target: "_blank") }.join(',').html_safe %>
                         <% end %>
                     </span>
                 </td>

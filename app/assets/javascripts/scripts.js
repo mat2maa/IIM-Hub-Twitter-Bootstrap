@@ -220,8 +220,8 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('load', '.pagination', function(event) {
-        $('.pagination > a').attr('data-remote', true);
+    $('.ui-dialog .pagination a').live('click', function () {
+        $.rails.handleRemote($(this));
+        return false;
     });
-
 });

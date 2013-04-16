@@ -1,13 +1,11 @@
 <% if @videos_count > 0 %>
-    <%= form_tag html: {action: url_for(controller: "video_playlists",
-                                        action: "add_multiple_videos"),
-                        id: "multiple_videos"},
-                        remote: true do %>
+    <%= form_tag url_for(controller: "video_playlists",
+                         action: "add_multiple_videos"),
+                 id: "multiple_videos",
+                 remote: true do %>
         <%= hidden_field_tag 'playlist_id',
                              params[:id] %>
-        <%#= submit_to_remote 'add_multiple_btn',
-                             'Add Selected to Playlist',
-                             url: {action: 'add_multiple_videos'} %><br/>
+        <%= submit_tag 'Add Selected to Playlist' %><br/>
         <%= @videos_count %> videos found
         <table cellspacing="0" width="100%">
           <tr>
@@ -19,17 +17,23 @@
             <th>
               <%= sort_link @search,
                             :id,
-                            'ID' %>
+                            'ID',
+                            {},
+                            { remote: true } %>
             </th>
             <th>
               <%= sort_link @search,
                             :programme_title,
-                            'Programme Title' %>
+                            'Programme Title',
+                            {},
+                            { remote: true } %>
             </th>
             <th>
               <%= sort_link @search,
                             :video_type,
-                            'Video Type' %>
+                            'Video Type',
+                            {},
+                            { remote: true } %>
             </th>
             <th>In Playlists With<br/>Same Airline</th>
             <th>&nbsp;</th>
@@ -50,7 +54,7 @@
                             <%= VideoPlaylist.with_same_airline_and_video(video.id,
                                                                           (@video_playlist.airline_id unless @video_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
                                                                                                                                                                          edit_video_playlist_path(playlist),
-                                                                                                                                                                         target: "_blank") }.join(',') %>
+                                                                                                                                                                         target: "_blank") }.join(',').html_safe %>
                         <% end %>
                     </span>
                 </td>

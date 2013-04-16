@@ -49,9 +49,10 @@ format: "pdf"}%>
 <div id="content">
   <center>
     <h2>Edit Video Playlist</h2>
-
-    <%= link_to "Add Video", add_video_to_playlist_path(id: @video_playlist.id), id: "add_video_to_playlist" %>
     <br/>
+    <div class="action-button">
+        <%= link_to "Add Video", add_video_to_playlist_path(id: @video_playlist.id), id: "add_video_to_playlist" %>
+    </div>
     <br/>
 
     <%= render 'form' %>

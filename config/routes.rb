@@ -107,7 +107,7 @@ Iim::Application.routes.draw do
       post 'add_movie'
     end
     collection do
-      put 'add_multiple_movies'
+      post 'add_multiple_movies'
     end
   end
 
@@ -121,8 +121,8 @@ Iim::Application.routes.draw do
       post 'add_video'
     end
     collection do
-      put 'add_multiple_videos'
-      end
+      post 'add_multiple_videos'
+    end
   end
 
   resources :video_playlist_items
@@ -135,7 +135,7 @@ Iim::Application.routes.draw do
       post 'add_video_master'
     end
     collection do
-      put 'add_multiple_masters'
+      post 'add_multiple_masters'
     end
   end
 
@@ -149,7 +149,7 @@ Iim::Application.routes.draw do
       post 'add_screener'
     end
     collection do
-      put 'add_multiple_screeners'
+      post 'add_multiple_screeners'
     end
   end
 

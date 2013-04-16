@@ -1,7 +1,0 @@
-page.replace_html 'playlist',
-                  partial: 'playlist',
-                  object: @video_playlist
-page.replace_html 'item_added',
-                  partial: 'items_added',
-                  object: {@video_to_add,
-                           @notice}

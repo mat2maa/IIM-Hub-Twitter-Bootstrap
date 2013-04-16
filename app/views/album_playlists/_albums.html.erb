@@ -6,27 +6,37 @@
         <th>
           <%= sort_link @search,
                         :id,
-                        'ID' %>
+                        'ID',
+                        {},
+                        { remote: true } %>
         </th>
         <th>
           <%= sort_link @search,
                         :title_original,
-                        'Original Title' %>
+                        'Original Title',
+                        {},
+                        { remote: true } %>
         </th>
         <th>
           <%= sort_link @search,
                         :artist_original,
-                        'Original Artist' %>
+                        'Original Artist',
+                        {},
+                        { remote: true } %>
         </th>
         <th>
           <%= sort_link @search,
                         :release_year,
-                        'Release Year' %>
+                        'Release Year',
+                        {},
+                        { remote: true } %>
         </th>
         <th>
           <%= sort_link @search,
                         :cd_code,
-                        'CD Code' %>
+                        'CD Code',
+                        {},
+                        { remote: true } %>
         </th>
         <th>&nbsp;</th>
       </tr>

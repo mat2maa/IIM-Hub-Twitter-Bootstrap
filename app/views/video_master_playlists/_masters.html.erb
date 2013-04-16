@@ -1,13 +1,11 @@
 <% if @masters_count > 0 %>
-    <%= form_tag html: {action: url_for(controller: "video_master_playlists",
-                                        action: "add_multiple_masters"),
-                        id: "multiple_videos"},
-                        remote: true do %>
+    <%= form_tag url_for(controller: "video_master_playlists",
+                         action: "add_multiple_masters"),
+                 id: "multiple_videos",
+                 remote: true do %>
         <%= hidden_field_tag 'playlist_id',
                              params[:id] %>
-        <%#= submit_to_remote 'add_multiple_btn',
-                             'Add Selected to Playlist',
-                             url: {action: 'add_multiple_masters'} %><br/>
+        <%= submit_tag 'Add Selected to Playlist' %><br/>
         <%= @masters_count %> masters found
         <table cellspacing="0" width="100%" id="masters">
           <tr>
@@ -17,24 +15,32 @@
                                 false) %>
             </th>
             <th>
-              <%= sort_link(@search,
+              <%= sort_link @search,
                             :id,
-                            'ID') %>
+                            'ID',
+                            {},
+                            { remote: true } %>
             </th>
             <th>
-              <%= sort_link(@search,
+              <%= sort_link @search,
                             :video_programme_title,
-                            'Programme Title') %>
+                            'Programme Title',
+                            {},
+                            { remote: true } %>
             </th>
             <th>
-              <%= sort_link(@search,
+              <%= sort_link @search,
                             :episode_title,
-                            'Episode Title') %>
+                            'Episode Title',
+                            {},
+                            { remote: true } %>
             </th>
             <th>
-              <%= sort_link(@search,
+              <%= sort_link @search,
                             :episode_number,
-                            'Episode Number') %>
+                            'Episode Number',
+                            {},
+                            { remote: true } %>
             </th>
             <th>Video Type</th>
             <th>In Playlists With<br/>Same Airline</th>
@@ -56,7 +62,7 @@
                             <%= VideoMasterPlaylist.with_same_airline_and_master(master.id,
                                                                                  (@master_playlist.airline_id unless @master_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
                                                                                                                                                                                               edit_video_master_playlist_path(playlist),
-                                                                                                                                                                                              target: "_blank") }.join(',') %>
+                                                                                                                                                                                              target: "_blank") }.join(',').html_safe %>
                         <% end %>
                     </span>
                 </td>
