@@ -64,8 +64,7 @@
                               add_video_video_playlist_path(@video_playlist, video_id: video.id),
                               method: :post,
                               remote: true,
-                              loading: "Element.show('spinner')",
-                              complete: "Element.hide('spinner')" %>
+                              class: 'spinner-trigger' %>
                 </td>
               </tr>
           <% end %>

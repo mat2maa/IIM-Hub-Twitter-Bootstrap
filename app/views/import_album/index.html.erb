@@ -20,8 +20,7 @@
     <%= form_tag find_release_path,
                  remote: true,
                  html: {id: 'import_album_form'},
-                 loading: "Element.show('spinner')",
-                 complete: "Element.hide('spinner')" do %>
+                 class: 'spinner-trigger' do %>
 
         <table class="edit">
           <tr>
@@ -43,7 +42,7 @@
             <td>
               <%= image_tag 'spinner.gif',
                             id: 'spinner',
-                            style: 'display:none;' %>
+                            class: 'transparent' %>
             </td>
           </tr>
         </table>

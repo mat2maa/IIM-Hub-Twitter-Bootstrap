@@ -34,8 +34,7 @@
                               action: "add_album",
                               id: params[:id],
                               album_id: album.id},
-                        loading: "Element.show('spinner')",
-                        complete: "Element.hide('spinner')" %>
+                        class: 'spinner-trigger' %>
         <% else %>
             Pending Deletion
         <% end %>
@@ -52,8 +51,7 @@
                         remote: true,
                         method: :delete,
                         confirm: 'Are you sure? Tracks from the album will be deleted too.',
-                        loading: "Element.show('spinner')",
-                        complete: "Element.hide('spinner')" %>
+                        class: 'spinner-trigger' %>
         <% else %>
             <% if permitted_to? :admin_delete,
                                 :albums %>
@@ -62,14 +60,12 @@
                             remote: true,
                             method: :delete,
                             confirm: 'Are you sure? Tracks from the album will be deleted too.',
-                            loading: "Element.show('spinner')",
-                            complete: "Element.hide('spinner')" %>
+                            class: 'spinner-trigger' %>
             <% end %>
             <%= link_to 'Restore',
                         restore_album_path(album.id),
                         remote: true,
-                        loading: "Element.show('spinner')",
-                        complete: "Element.hide('spinner')" %>
+                        class: 'spinner-trigger' %>
         <% end %>
       </td>
   <% end %>

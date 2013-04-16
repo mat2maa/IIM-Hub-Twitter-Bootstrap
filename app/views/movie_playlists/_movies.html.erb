@@ -72,8 +72,7 @@
                               add_movie_movie_playlist_path(@movie_playlist, movie_id: movie.id),
                               method: :post,
                               remote: true,
-                              loading: "Element.show('spinner')",
-                              complete: "Element.hide('spinner')" %>
+                              class: 'spinner-trigger' %>
                 </td>
               </tr>
           <% end %>

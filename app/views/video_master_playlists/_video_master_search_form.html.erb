@@ -5,8 +5,7 @@
                          url: add_video_master_to_playlist_path(id: @master_playlist.id),
                          remote: true,
                          id: "master_search_form",
-                         loading: "Element.show('spinner')",
-                         complete: "Element.hide('spinner')" do |masters| %>
+                         class: 'spinner-trigger' do |masters| %>
           <!--Match ANY or ALL of the conditions:<br />-->
           <%#= masters.select :any,
 [["All",
@@ -16,7 +15,7 @@ true]] %>
           <br/>
           <%= image_tag 'spinner.gif',
                         id: 'spinner',
-                        style: 'display:none;' %>
+                        class: 'transparent' %>
           <table>
             <tr>
               <td valign="top">

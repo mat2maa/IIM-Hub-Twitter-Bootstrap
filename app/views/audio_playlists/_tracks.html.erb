@@ -62,8 +62,7 @@ params_scope: :audio_playlists  %></th>
                           add_track_audio_playlist_path(@audio_playlist, track_id: track.id),
                           method: :post,
                           remote: true,
-                          loading: "Element.show('spinner')",
-                          complete: "Element.hide('spinner')" %>
+                          class: 'spinner-trigger' %>
             </td>
           </tr>
 

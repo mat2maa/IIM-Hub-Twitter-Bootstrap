@@ -4,8 +4,7 @@
       <%= search_form_for @search,
                           url: add_track_to_playlist_path(id: @audio_playlist.id),
                           remote: true,
-                          loading: "Element.show('spinner')",
-                          complete: "Element.hide('spinner')",
+                          class: 'spinner-trigger',
                           id: "track_search_form" do |tracks| %>
 
           <%= hidden_field_tag 'id',

@@ -5,8 +5,7 @@
                          url: add_album_to_playlist_path(id: @album_playlist.id),
                          remote: true,
                          id: "album_search_form",
-                         loading: "Element.show('spinner')",
-                         complete: "Element.hide('spinner')" do |albums| %>
+                         class: 'spinner-trigger' do |albums| %>
 
           <%= hidden_field_tag 'id',
                                params[:id] %>
@@ -20,10 +19,10 @@
             <tr>
               <td valign="top">
                 Title Original:<br>
-                <%= albums.text_field :title_original_matches %>
+                <%= albums.text_field :title_original_cont %>
                 <br>
                 Artist Original:<br>
-                <%= albums.text_field :artist_original_matches %>
+                <%= albums.text_field :artist_original_cont %>
               </td>
               <td valign="top">
                 Title (Translated):<br>

@@ -8,7 +8,6 @@
                              id: params[:id],
                              movie_id: @movie_to_add.id,
                              add: 1},
-                       loading: "Element.show('spinner')",
-                       complete: "Element.hide('spinner')" %>
+                       class: 'spinner-trigger' %>
 
 <% end %>

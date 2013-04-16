@@ -59,8 +59,7 @@ params_scope: :screener_playlists  %></th>
                               add_screener_screener_playlist_path(@screener_playlist, screener_id: screener.id),
                               method: :post,
                               remote: true,
-                              loading: "Element.show('spinner')",
-                              complete: "Element.hide('spinner')" %>
+                              class: 'spinner-trigger' %>
                 </td>
               </tr>
           <% end %>

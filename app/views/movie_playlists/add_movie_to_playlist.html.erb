@@ -8,8 +8,7 @@
 
     <div id="search_form">
       <% remote_form_for :movie_playlists,
-                         loading: "Element.show('spinner')",
-                         complete: "Element.hide('spinner')" do |f| %>
+                         class: 'spinner-trigger' do |f| %>
           <%= hidden_field_tag 'id',
                                params[:id] %>
           <%= hidden_field_tag 'playlist_id',
@@ -20,7 +19,7 @@
     </div>
     <%= image_tag 'spinner.gif',
                   id: 'spinner',
-                  style: 'display:none;' %>
+                  class: 'transparent' %>
     <br/>
 
     <div id="item_added"></div>

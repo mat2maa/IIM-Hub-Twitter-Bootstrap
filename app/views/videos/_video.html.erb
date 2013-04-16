@@ -21,8 +21,7 @@
                               action: "add_video",
                               id: params[:id],
                               video_id: video.id},
-                        loading: "Element.show('spinner')",
-                        complete: "Element.hide('spinner')" %>
+                        class: 'spinner-trigger' %>
         <% else %>
             Pending Deletion
         <% end %>
@@ -38,8 +37,7 @@
                         remote: true,
                         method: :delete,
                         confirm: 'Are you sure?',
-                        loading: "Element.show('spinner')",
-                        complete: "Element.hide('spinner')",
+                        class: 'spinner-trigger',
                         with: "'redirect_url=#{request.url}'" %>
         <% else %>
             <% if permitted_to? :admin_delete,
@@ -49,15 +47,13 @@
                             remote: true,
                             method: :delete,
                             confirm: 'Are you sure?',
-                            loading: "Element.show('spinner')",
-                            complete: "Element.hide('spinner')",
+                            class: 'spinner-trigger',
                             with: "'redirect_url=#{request.url}'" %>
             <% end %>
             <%= link_to 'Restore',
                         restore_video_path(video.id),
                         remote: true,
-                        loading: "Element.show('spinner')",
-                        complete: "Element.hide('spinner')" %>
+                        class: 'spinner-trigger' %>
         <% end %>
       </td>
   <% end %>

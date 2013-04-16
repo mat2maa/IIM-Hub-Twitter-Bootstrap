@@ -220,8 +220,21 @@ $(document).ready(function () {
         }
     });
 
+    // Remote pagination links for UI Dialog forms
     $('.ui-dialog .pagination a').live('click', function () {
         $.rails.handleRemote($(this));
         return false;
     });
+
+    // Show and hide "working" spinner
+    $(".spinner-trigger[data-remote='true']")
+        .live("ajax:beforeSend",  function() {
+            $('#spinner').removeClass('transparent');
+            console.log("on");
+        })
+        .live("ajax:ajaxComplete", function() {
+            $('#spinner').addClass('transparent');
+            console.log("off");
+        })
+
 });

@@ -626,6 +626,11 @@ table.movie td, table.movie t{
 	padding:5px;
 }
 
+/* Spinner */
+#spinner.transparent {
+    opacity:0;
+}
+
 @media print {  
 	body, html{
 		margin:0;

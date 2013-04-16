@@ -2,14 +2,13 @@
   <legend>Search Songs Playlists</legend>
 
   <%= search_form_for @search,
-                      loading: "Element.show('spinner')",
-                      complete: "Element.hide('spinner')" do |audio_playlists| %>
+                      class: 'spinner-trigger' do |audio_playlists| %>
 
       Match ANY or ALL of the conditions:
       <%= audio_playlists.combinator_select %>
       <%= image_tag 'spinner.gif',
                     id: 'spinner',
-                    style: 'display:none;' %>
+                    class: 'transparent' %>
       <br/>
       <table>
         <tr>

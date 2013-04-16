@@ -33,8 +33,7 @@
                                   action: "add_track",
                                   id: params[:id],
                                   track_id: track.id},
-                            loading: "Element.show('spinner')",
-                            complete: "Element.hide('spinner')" %>
+                            class: 'spinner-trigger' %>
             <% else %>
                 Pending Deletion
             <% end %>
@@ -51,14 +50,12 @@
                             remote: true,
                             method: :delete,
                             confirm: 'Are you sure?',
-                            loading: "Element.show('spinner')",
-                            complete: "Element.hide('spinner')" %>
+                            class: 'spinner-trigger' %>
             <% else %>
                 <%= link_to 'Restore',
                             restore_track_path(track.id),
                             remote: true,
-                            loading: "Element.show('spinner')",
-                            complete: "Element.hide('spinner')" %>
+                            class: 'spinner-trigger' %>
             <% end %>
           </td>
       <% end %>

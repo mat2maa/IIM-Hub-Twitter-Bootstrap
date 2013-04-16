@@ -5,8 +5,7 @@
                          url: add_video_to_playlist_path(id: @video_playlist.id),
                          remote: true,
                          id: "video_search_form",
-                         loading: "Element.show('spinner')",
-                         complete: "Element.hide('spinner')" do |videos| %>
+                         class: 'spinner-trigger' do |videos| %>
           <!--Match ANY or ALL of the conditions:<br />-->
           <%#= videos.select :any,
 [["All",
@@ -16,7 +15,7 @@ true]] %>
           <br/>
           <%= image_tag 'spinner.gif',
                         id: 'spinner',
-                        style: 'display:none;' %>
+                        class: 'transparent' %>
           <table>
             <tr>
               <td valign="top">

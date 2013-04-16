@@ -1,6 +1,5 @@
 <%= search_form_for @search,
-                    loading: "Element.show('spinner')",
-                    complete: "Element.hide('spinner')" do |masters| %>
+                    class: 'spinner-trigger' do |masters| %>
     <fieldset>
       <legend>Search Masters</legend>
       <br/>
@@ -9,7 +8,7 @@
       <br/>
       <%= image_tag 'spinner.gif',
                     id: 'spinner',
-                    style: 'display:none;' %>
+                    class: 'transparent' %>
       <br/>
       <table>
         <tr>

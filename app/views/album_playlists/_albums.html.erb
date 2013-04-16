@@ -59,8 +59,7 @@
                           add_album_album_playlist_path(@album_playlist, album_id: album.id),
                           method: :post,
                           remote: true,
-                          loading: "Element.show('spinner')",
-                          complete: "Element.hide('spinner')" %>
+                          class: 'spinner-trigger' %>
             </td>
           </tr>
 

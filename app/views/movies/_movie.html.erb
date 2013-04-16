@@ -19,8 +19,7 @@
                               action: "add_movie",
                               id: params[:id],
                               movie_id: movie.id},
-                        loading: "Element.show('spinner')",
-                        complete: "Element.hide('spinner')" %>
+                        class: 'spinner-trigger' %>
         <% else %>
             Pending Deletion
         <% end %>
@@ -36,8 +35,7 @@
                         remote: true,
                         method: :delete,
                         confirm: 'Are you sure?',
-                        loading: "Element.show('spinner')",
-                        complete: "Element.hide('spinner')" %>
+                        class: 'spinner-trigger' %>
         <% else
              if permitted_to? :admin_delete,
                               :movies %>
@@ -46,14 +44,12 @@
                             remote: true,
                             method: :delete,
                             confirm: 'Are you sure?',
-                            loading: "Element.show('spinner')",
-                            complete: "Element.hide('spinner')" %>
+                            class: 'spinner-trigger' %>
             <% end %>
             <%= link_to 'Restore',
                         restore_movie_path(movie.id),
                         remote: true,
-                        loading: "Element.show('spinner')",
-                        complete: "Element.hide('spinner')" %>
+                        class: 'spinner-trigger' %>
         <% end %>
       </td>
   <% end %>

@@ -75,8 +75,7 @@
                               remote: true,
                               method: :delete,
                               confirm: 'Are you sure?',
-                              loading: "Element.show('spinner')",
-                              complete: "Element.hide('spinner')" if audio_playlist.locked!=true %>
+                              class: 'spinner-trigger' if audio_playlist.locked!=true %>
                 </td>
                 <td>
                   <%= link_to 'Duplicate',

@@ -1,6 +1,5 @@
 <%= search_form_for @search,
-                   loading: "Element.show('spinner')",
-                   complete: "Element.hide('spinner')" do |screeners| %>
+                    class: 'spinner-trigger' do |screeners| %>
     <fieldset>
       <legend>Search Screeners</legend>
       Match ANY or ALL of the conditions:
@@ -9,7 +8,7 @@
 
       <%= image_tag 'spinner.gif',
                     id: 'spinner',
-                    style: 'display:none;' %>
+                    class: 'transparent' %>
       <br/>
 
       <table>
