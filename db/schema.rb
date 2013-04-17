@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130403171652) do
+ActiveRecord::Schema.define(:version => 20130417095015) do
 
   create_table "airline_rights_countries", :force => true do |t|
     t.string   "name"
@@ -142,6 +142,13 @@ ActiveRecord::Schema.define(:version => 20130403171652) do
     t.integer  "minutes"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "commercial_run_times_videos", :id => false, :force => true do |t|
+    t.integer  "commercial_run_time_id"
+    t.integer  "video_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
   end
 
   create_table "covers", :force => true do |t|

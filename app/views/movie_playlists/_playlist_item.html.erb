@@ -62,10 +62,11 @@
         <%= image_tag("arrow_move.png") %>
       </td>
   <% end %>
-  <td class="actions"><%= link_to "Delete",
-                                  remote: true,
-                                  confirm: "Are you sure",
-                                  url: playlist_item,
-                                  method: 'delete' %>
+  <td class="actions">
+    <%= link_to "Delete",
+                playlist_item,
+                remote: true,
+                confirm: "Are you sure",
+                method: 'delete' %>
   </td>
 </tr>

@@ -69,8 +69,7 @@ class VideoGenresController < ApplicationController
       @video_genre = VideoGenre.find(id)
       @video_genre.destroy
     else
-      flash[:notice] = 'Video genre could not be deleted,
-video genre is in use by some videos'
+      flash[:notice] = 'Video genre could not be deleted, video genre is in use by some videos'
     end
 
     respond_to do |format|

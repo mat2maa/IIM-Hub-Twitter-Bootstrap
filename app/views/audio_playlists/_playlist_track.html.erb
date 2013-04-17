@@ -96,11 +96,12 @@
      end
   %>
   <td <%= split_alert(playlist_track.split.to_i,
-                      @accum_duration) %>><%= link_to "Delete",
-                                                     playlist_track,
-                                                     remote: true,
-                                                     confirm: "Are you sure?",
-                                                     method: 'delete' %>
+                      @accum_duration) %>>
+    <%= link_to "Delete",
+                playlist_track,
+                remote: true,
+                confirm: "Are you sure?",
+                method: 'delete' %>
     <br/>
     <% if !playlist_track.track.nil? %>
         Accumulated<br/>Duration: <%= duration(@accum_duration + playlist_track.track.duration + (vo_duration*1000)) %>

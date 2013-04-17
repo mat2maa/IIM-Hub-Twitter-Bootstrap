@@ -15,8 +15,8 @@ class Video < ActiveRecord::Base
   belongs_to :video_distributor, :class_name => "Supplier", :foreign_key => "video_distributor_id"
   belongs_to :laboratory, :class_name => "Supplier", :foreign_key => "laboratory_id"
   belongs_to :production_studio, :class_name => "Supplier", :foreign_key => "production_studio_id"
-  
-  belongs_to :commercial_run_time
+
+  has_and_belongs_to_many :commercial_run_times
   
   has_and_belongs_to_many :video_genres
   has_attached_file :poster, :styles => { 

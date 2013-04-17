@@ -1,1 +1,0 @@
-page.remove "item_#{@videomasterplaylistitem.id}"

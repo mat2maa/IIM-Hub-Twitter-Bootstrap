@@ -84,20 +84,15 @@ class GenresController < ApplicationController
 
   def destroy
 
+    id = params[:id]
 
-    @albums = AlbumsGenre.where("genre_id = ?",
-                                params[:id])
-    @tracks = TracksGenre.where("genre_id = ?",params[:id])
+    @genre = Genre.find(id)
 
-    if  @tracks.length.zero? && @albums.length.zero?
-
-      @genre = Genre.find(params[:id])
+    if @genre.albums.count == 0 && @genre.tracks.count == 0
       @genre.destroy
-
     else
       flash[:notice] = 'Genre could not be deleted, genre is in use in some albums or tracks'
     end
-
 
     respond_to do |format|
       format.html { redirect_to(genres_url) }
