@@ -14,18 +14,12 @@ class VideoMasterPlaylistsController < ApplicationController
 
 
   def index
-    if !params[:q].nil?
-      @search = VideoMasterPlaylist.ransack(params[:q])
-      @video_master_playlists = @search.result(distinct: true)
-      .paginate(page: params[:page],
-                per_page: 10)
-    else
-      @search = VideoMasterPlaylist.ransack(params[:q])
-      @video_master_playlists = @search.result(distinct: true)
-      .order("id DESC")
-      .paginate(page: params[:page],
-                per_page: 10)
-    end
+    @search = VideoMasterPlaylist.includes(:airline, :master_playlist_type)
+                                 .ransack(params[:q])
+    @video_master_playlists = @search.result(distinct: true)
+    .order("id DESC")
+    .paginate(page: params[:page],
+              per_page: 10)
 
     @video_master_playlists_count = @video_master_playlists.count
   end
@@ -54,7 +48,8 @@ class VideoMasterPlaylistsController < ApplicationController
   end
 
   def edit
-    @video_master_playlist = VideoMasterPlaylist.find(params[:id], include: [:video_master_playlist_items, :masters])
+    @video_master_playlist = VideoMasterPlaylist.includes(video_master_playlist_items: :master)
+                                                .find(params[:id])
     session[:masters_search] = collection_to_id_array(@video_master_playlist.masters)
 
   end
@@ -75,7 +70,8 @@ class VideoMasterPlaylistsController < ApplicationController
   end
 
   def show
-    @video_master_playlist = VideoMasterPlaylist.find(params[:id], include: [:video_master_playlist_items, :masters])
+    @video_master_playlist = VideoMasterPlaylist.includes(video_master_playlist_items: :master)
+                                                .find(params[:id])
   end
 
   #display overlay

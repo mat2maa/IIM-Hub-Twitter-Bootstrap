@@ -8,7 +8,8 @@ class MoviePlaylistsController < ApplicationController
   filter_access_to :all
 
   def index
-    @search = MoviePlaylist.ransack(params[:q])
+    @search = MoviePlaylist.includes(:airline)
+                           .ransack(params[:q])
     if !params[:q].nil?
       @movie_playlists = @search.result(distinct: true)
                                 .paginate(page: params[:page],
@@ -74,7 +75,8 @@ class MoviePlaylistsController < ApplicationController
   end
 
   def show
-    @movie_playlist = MoviePlaylist.find(params[:id], include: [:movie_playlist_items, :movies])
+    @movie_playlist = MoviePlaylist.includes(movie_playlist_items: :movie)
+                                   .find(params[:id])
   end
 
   #display overlay

@@ -10,7 +10,8 @@ class AlbumsController < ApplicationController
   cache_sweeper :album_sweeper
 
   def index
-    @search = Album.ransack(params[:q])
+    @search = Album.includes(:label)
+                   .ransack(params[:q])
     @albums = @search.result(distinct: true)
                      .order("id DESC")
                      .paginate(page: params[:page],

@@ -6,7 +6,8 @@ class TracksController < ApplicationController
     dur_min = (params[:dur_min_min].to_i * 60 *1000) + (params[:dur_min_sec].to_i * 1000)
     dur_max = (params[:dur_max_min].to_i * 60 *1000) + (params[:dur_max_sec].to_i * 1000)
 
-    @search = Track.ransack(params[:q])
+    @search = Track.includes(album: :label)
+                   .ransack(params[:q])
     @tracks = @search.result(distinct: true)
                      .order("id DESC")
                      .paginate(page: params[:page],

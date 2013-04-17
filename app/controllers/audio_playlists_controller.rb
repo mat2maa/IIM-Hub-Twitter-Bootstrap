@@ -17,7 +17,8 @@ class AudioPlaylistsController < ApplicationController
   filter_access_to :all
 
   def index
-    @search = AudioPlaylist.ransack(params[:q])
+    @search = AudioPlaylist.includes(audio_playlist_tracks: :track)
+                           .ransack(params[:q])
     if !params[:q].nil?
       @audio_playlists = @search.result(distinct: true)
                                 .paginate(page: params[:page],
@@ -32,7 +33,8 @@ class AudioPlaylistsController < ApplicationController
   end
 
   def show
-    @audio_playlist = AudioPlaylist.find(params[:id])
+    @audio_playlist = AudioPlaylist.includes(tracks: :origin)
+                                   .find(params[:id])
   end
 
   def print
@@ -88,11 +90,13 @@ class AudioPlaylistsController < ApplicationController
   end
 
   def edit
-    @audio_playlist = AudioPlaylist.find(params[:id])
+    @audio_playlist = AudioPlaylist.includes([{audio_playlist_tracks: :track}, {tracks: :origin}])
+                                   .find(params[:id])
   end
 
   def update
-    @audio_playlist = AudioPlaylist.find(params[:id])
+    @audio_playlist = AudioPlaylist.includes([{audio_playlist_tracks: :track}, {tracks: :origin}])
+                                   .find(params[:id])
 
     respond_to do |format|
       if @audio_playlist.update_attributes(params[:audio_playlist])

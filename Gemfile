@@ -48,6 +48,7 @@ gem "newrelic_rpm"
 gem "nokogiri"
 gem "test-unit"
 gem 'dalli'
+gem 'bullet'
 
 gem "paperclip", "~> 3.1"
 

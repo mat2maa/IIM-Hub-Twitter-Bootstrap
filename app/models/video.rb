@@ -16,10 +16,10 @@ class Video < ActiveRecord::Base
   belongs_to :laboratory, :class_name => "Supplier", :foreign_key => "laboratory_id"
   belongs_to :production_studio, :class_name => "Supplier", :foreign_key => "production_studio_id"
 
-  has_and_belongs_to_many :commercial_run_times
+  belongs_to :commercial_run_time
   
   has_and_belongs_to_many :video_genres
-  has_attached_file :poster, :styles => { 
+  has_attached_file :poster, :styles => {
                     :small => "160x237>",
                     :medium => "250x250>",
                     :large => "500x500>"},
@@ -65,12 +65,16 @@ class Video < ActiveRecord::Base
         
     # if production studio is empty, set it to the same as movie distributor supplier
     if production_studio_id.nil? && !video_distributor_id.nil?
-      count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", video_distributor_id, "Production Studios"]) 
+      count_suppliers = SupplierCategory.includes(:suppliers)
+                                        .where(["supplier_id = ? and supplier_categories.name = ? ", video_distributor_id, "Production Studios"])
+                                        .count('supplier_id')
       self.production_studio_id = video_distributor_id if !count_suppliers.zero?
     end
     
     if laboratory_id.nil? && !video_distributor_id.nil?
-      count_suppliers = SupplierCategory.count('supplier_id', :include => :suppliers, :conditions => ["supplier_id = ? and supplier_categories.name = ? ", video_distributor_id, "Laboratories"]) 
+      count_suppliers = SupplierCategory.includes(:suppliers)
+                                        .where(["supplier_id = ? and supplier_categories.name = ? ", video_distributor_id, "Laboratories"])
+                                        .count('supplier_id')
       self.laboratory_id = video_distributor_id if !count_suppliers.zero?
     end
     

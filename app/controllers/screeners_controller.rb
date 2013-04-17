@@ -6,7 +6,8 @@ class ScreenersController < ApplicationController
     @languages = MasterLanguage.order("name")
                                .collect { |language| language.name }
 
-    @search = Screener.ransack(params[:q])
+    @search = Screener.includes(:video)
+                      .ransack(params[:q])
     @screeners = @search.result(distinct: true)
                         .order("id DESC")
                         .paginate(page: params[:page],

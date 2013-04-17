@@ -6,7 +6,8 @@ class MastersController < ApplicationController
     @languages = MasterLanguage.order("name")
                                .collect { |language| language.name }
 
-    @search = Master.ransack(params[:q])
+    @search = Master.includes(:video)
+                    .ransack(params[:q])
     @masters = @search.result(distinct: true)
                       .order("id DESC")
                       .paginate(page: params[:page],

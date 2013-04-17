@@ -8,18 +8,12 @@ class VideoPlaylistsController < ApplicationController
   filter_access_to :all
 
   def index
-    if !params[:q].nil?
-      @search = VideoPlaylist.ransack(params[:q])
-      @video_playlists = @search.result(distinct: true)
-      .paginate(page: params[:page],
-                per_page: 10)
-    else
-      @search = VideoPlaylist.ransack(params[:q])
-      @video_playlists = @search.result(distinct: true)
-      .order("id DESC")
-      .paginate(page: params[:page],
-                per_page: 10)
-    end
+    @search = VideoPlaylist.includes(:airline, :video_playlist_type)
+                           .ransack(params[:q])
+    @video_playlists = @search.result(distinct: true)
+                              .order("id DESC")
+                              .paginate(page: params[:page],
+                                        per_page: 10)
 
     @video_playlists_count = @video_playlists.count
   end
@@ -70,7 +64,8 @@ class VideoPlaylistsController < ApplicationController
   end
 
   def show
-    @video_playlist = VideoPlaylist.find(params[:id], include: [:video_playlist_items, :videos])
+    @video_playlist = VideoPlaylist.includes(video_playlist_items: :video)
+                                   .find(params[:id])
   end
 
   #display overlay

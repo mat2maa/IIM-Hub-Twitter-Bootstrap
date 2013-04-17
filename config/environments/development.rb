@@ -39,6 +39,15 @@ Iim::Application.configure do
   # Enable threaded mode
   #config.threadsafe!
 
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+#  Bullet.growl = true
+    Bullet.rails_logger = true
+  end
+
 end
 
 PDFKit.configure do |config|

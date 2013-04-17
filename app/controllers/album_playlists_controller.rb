@@ -17,7 +17,8 @@ class AlbumPlaylistsController < ApplicationController
   filter_access_to :all
 
   def index
-    @search = AlbumPlaylist.ransack(params[:q])
+    @search = AlbumPlaylist.includes(:airline)
+                           .ransack(params[:q])
     if !params[:q].nil?
       @album_playlists = @search.result(distinct: true)
       .paginate(page: params[:page],
@@ -55,7 +56,8 @@ class AlbumPlaylistsController < ApplicationController
   end
 
   def edit
-    @album_playlist = AlbumPlaylist.find(params[:id], include: [:album_playlist_items, :albums])
+    @album_playlist = AlbumPlaylist.includes(album_playlist_items: :album)
+                                   .find(params[:id])
   end
 
   def update
@@ -74,7 +76,8 @@ class AlbumPlaylistsController < ApplicationController
   end
 
   def show
-    @album_playlist = AlbumPlaylist.find(params[:id], include: [:album_playlist_items, :albums])
+    @album_playlist = AlbumPlaylist.includes([:album_playlist_items, {album_playlist_items: :album}, {album_playlist_items: :category}])
+                                   .find(params[:id])
   end
 
   def print

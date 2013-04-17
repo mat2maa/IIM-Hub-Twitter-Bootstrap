@@ -14,18 +14,12 @@ class ScreenerPlaylistsController < ApplicationController
 
 
   def index
-    if !params[:q].nil?
-      @search = ScreenerPlaylist.ransack(params[:q])
-      @screener_playlists = @search.result(distinct: true)
-                          .paginate(page: params[:page],
-                                    per_page: 10)
-    else
-      @search = ScreenerPlaylist.ransack(params[:q])
-      @screener_playlists = @search.result(distinct: true)
-                          .order("id DESC")
-                          .paginate(page: params[:page],
-                                    per_page: 10)
-    end
+    @search = ScreenerPlaylist.includes(:airline, :video_playlist_type)
+                              .ransack(params[:q])
+    @screener_playlists = @search.result(distinct: true)
+                        .order("id DESC")
+                        .paginate(page: params[:page],
+                                  per_page: 10)
 
     @screener_playlists_count = @screener_playlists.count
   end
@@ -54,7 +48,8 @@ class ScreenerPlaylistsController < ApplicationController
   end
 
   def edit
-    @screener_playlist = ScreenerPlaylist.find(params[:id], include: [:screener_playlist_items, :screeners])
+    @screener_playlist = ScreenerPlaylist.includes(screener_playlist_items: :screener)
+                                         .find(params[:id])
     session[:screeners_search] = collection_to_id_array(@screener_playlist.screeners)
   end
 
@@ -74,7 +69,8 @@ class ScreenerPlaylistsController < ApplicationController
   end
 
   def show
-    @screener_playlist = ScreenerPlaylist.find(params[:id], include: [:screener_playlist_items, :screeners])
+    @screener_playlist = ScreenerPlaylist.includes(screener_playlist_items: :screener)
+                                         .find(params[:id])
   end
 
   #display overlay

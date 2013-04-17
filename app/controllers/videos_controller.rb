@@ -5,7 +5,8 @@ class VideosController < ApplicationController
   def index
     @languages = IIM::MOVIE_LANGUAGES
 
-    @search = Video.ransack(params[:q])
+    @search = Video.includes(:video_distributor, :commercial_run_time, :video_genres)
+                   .ransack(params[:q])
     @videos = @search.result(distinct: true)
                      .order("id DESC")
                      .paginate(page: params[:page],
@@ -124,7 +125,8 @@ class VideosController < ApplicationController
   end
 
   def edit
-    @search = Video.ransack(params[:q])
+    @search = Video.includes(:video_genres)
+                   .ransack(params[:q])
     @videos = @search.result(distinct: true)
                      .paginate(page: params[:page],
                                per_page: 10)
