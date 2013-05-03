@@ -86,6 +86,11 @@ class ScreenerPlaylistsController < ApplicationController
                         .paginate(page: params[:page],
                                   per_page: 10)
 
+    if params[:language].present?
+      @screeners = @screeners.with_language_track(params[:language][:track]) if params[:language][:track].present?
+      @screeners = @screeners.with_language_subtitle(params[:language][:subtitle]) if params[:language][:subtitle].present?
+    end
+
     @screeners_count = @screeners.count
 
     respond_to do |format|

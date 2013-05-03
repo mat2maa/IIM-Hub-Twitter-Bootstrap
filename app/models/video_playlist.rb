@@ -11,6 +11,14 @@ class VideoPlaylist < ActiveRecord::Base
     :conditions=>"video_playlist_items.video_id=#{video_id} AND video_playlists.airline_id='#{airline_id}'",
     :joins=>"LEFT JOIN video_playlist_items on video_playlists.id=video_playlist_items.video_playlist_id"} }
 
+  scope :with_language_track, -> language_track {
+    where("language_tracks like ?", "%#{language_track}%")
+  }
+
+  scope :with_language_subtitle, -> language_subtitle {
+    where("language_subtitles like ?", "%#{language_subtitle}%")
+  }
+
   attr_accessible :airline_id, :video_playlist_type_id, :start_cycle, :end_cycle, :user_id
   
   def video_playlist_items_sorted

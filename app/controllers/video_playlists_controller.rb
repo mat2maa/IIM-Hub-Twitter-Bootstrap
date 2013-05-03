@@ -82,6 +82,11 @@ class VideoPlaylistsController < ApplicationController
                      .paginate(page: params[:page],
                                per_page: 10)
 
+    if params[:language].present?
+      @videos = @videos.with_language_track(params[:language][:track]) if params[:language][:track].present?
+      @videos = @videos.with_language_subtitle(params[:language][:subtitle]) if params[:language][:subtitle].present?
+    end
+
     @videos_count = @videos.count
     session[:videos_search] = collection_to_id_array(@videos)
 

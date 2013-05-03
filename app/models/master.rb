@@ -26,7 +26,15 @@ class Master < ActiveRecord::Base
       :if => Proc.new { |master| master.tape_format=='PAL' }
   validates_format_of :time_out, :with => /\A[0-9]+:([0-5]?[0-9]|[0-9]):([0-5]?[0-9]|[0-9]):([0-1][0-9]|2[0-4]|0[0-9]|[0-9])\z/, 
       :if => Proc.new { |master| master.tape_format=='PAL' }
-  
+
+  scope :with_language_track, -> language_track {
+    where("language_tracks like ?", "%#{language_track}%")
+  }
+
+  scope :with_language_subtitle, -> language_subtitle {
+    where("language_subtitles like ?", "%#{language_subtitle}%")
+  }
+
   def before_save
     self.episode_title = episode_title.upcase unless episode_title.nil?
   end

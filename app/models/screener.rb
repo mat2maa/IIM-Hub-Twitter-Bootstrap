@@ -9,6 +9,14 @@ class Screener < ActiveRecord::Base
 
   attr_protected :id
 
+  scope :with_language_track, -> language_track {
+    where("language_tracks like ?", "%#{language_track}%")
+  }
+
+  scope :with_language_subtitle, -> language_subtitle {
+    where("language_subtitles like ?", "%#{language_subtitle}%")
+  }
+
   def before_save
     self.episode_title = self.episode_title.upcase    
   end

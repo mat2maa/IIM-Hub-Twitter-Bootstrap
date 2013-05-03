@@ -14,7 +14,7 @@ class VideoMasterPlaylist < ActiveRecord::Base
 
   attr_accessible :airline_id, :start_cycle, :end_cycle, :master_playlist_type_id,
       :edit_runtime, :media_instruction, :user_id
-  
+
   def total_runtime
     total = 0
     self.masters.each do |master|

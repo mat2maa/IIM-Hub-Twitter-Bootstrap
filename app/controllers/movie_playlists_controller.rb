@@ -94,6 +94,9 @@ class MoviePlaylistsController < ApplicationController
                                per_page: 10)
 
     if params[:language].present?
+      @movies = @movies.with_language_track(params[:language][:track]) if params[:language][:track].present?
+      @movies = @movies.with_language_subtitle(params[:language][:subtitle]) if params[:language][:subtitle].present?
+
       @movies = @movies.with_screener_destroyed if params[:screener][:destroyed] == '1'
       @movies = @movies.with_screener_held if params[:screener][:held] == '1'
     end

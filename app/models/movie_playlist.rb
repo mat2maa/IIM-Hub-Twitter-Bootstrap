@@ -27,6 +27,14 @@ class MoviePlaylist < ActiveRecord::Base
 	  MoviePlaylist.with_same_airline_and_movie(movie_id, airline_id)
 	end
 
+  scope :with_language_track, -> language_track {
+    where("language_tracks like ?", "%#{language_track}%")
+  }
+
+  scope :with_language_subtitle, -> language_subtitle {
+    where("language_subtitles like ?", "%#{language_subtitle}%")
+  }
+
   scope :with_screener_destroyed,
         where("screener_destroyed_date <> 'NULL'")
 

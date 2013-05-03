@@ -6,12 +6,6 @@
                      remote: true,
                      id: "movie_search_form",
                      class: 'spinner-trigger' do |movies| %>
-      <!--Match ANY or ALL of the conditions:<br />-->
-      <%#= movies.select :any,
-[["All",
-false],
-["Any",
-true]] %>
       <br/>
       <%= image_tag 'spinner.gif',
                     id: 'spinner',
@@ -54,12 +48,13 @@ true]] %>
             Movie type:<br/>
             <%= movies.select :movie_type_eq,
                               Movie::MOVIE_TYPE,
-                              {include_blank: true} %> <br/>
+                              include_blank: true %> <br/>
             Genre:<br/>
-            <%= movies.select :movie_genres_id_eq,
-                              MovieGenre.find(:all).collect { |p| [p.name,
-                                                                   p.id] },
-                              {include_blank: true} %>
+            <%= movies.select :id_eq,
+                              MovieGenre.all
+                              .collect { |p| [p.name,
+                                              p.id] },
+                              include_blank: true %>
 
           </td>
         <tr>

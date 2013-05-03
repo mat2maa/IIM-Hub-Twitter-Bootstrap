@@ -84,10 +84,15 @@ class VideoMasterPlaylistsController < ApplicationController
 
     @search = Master.ransack(params[:q])
     @masters = @search.result(distinct: true)
-                      .where("active = ?", "true")
+                      .where("masters.active = ?", "true")
                       .order("id DESC")
                       .paginate(page: params[:page],
                                 per_page: 10)
+
+    if params[:language].present?
+      @masters = @masters.with_language_track(params[:language][:track]) if params[:language][:track].present?
+      @masters = @masters.with_language_subtitle(params[:language][:subtitle]) if params[:language][:subtitle].present?
+    end
 
     @masters_count = @masters.count
 
