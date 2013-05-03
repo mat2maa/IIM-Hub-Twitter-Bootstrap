@@ -175,7 +175,8 @@ class MoviePlaylistsController < ApplicationController
 
   def print
 
-    @movie_playlist = MoviePlaylist.find(params[:id])
+    @movie_playlist = MoviePlaylist.includes(movie_playlist_items: :movie)
+                                   .find(params[:id])
     respond_to do |format|
       format.html
       format.pdf {
