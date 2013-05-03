@@ -164,6 +164,7 @@ GEM
       multi_json (~> 1.0, >= 1.0.2)
     uniform_notifier (1.2.0)
     will_paginate (3.0.4)
+    wkhtmltopdf-heroku (1.0.0)
 
 PLATFORMS
   ruby
@@ -204,3 +205,4 @@ DEPENDENCIES
   therubyracer
   uglifier (>= 1.0.3)
   will_paginate
+  wkhtmltopdf-heroku
