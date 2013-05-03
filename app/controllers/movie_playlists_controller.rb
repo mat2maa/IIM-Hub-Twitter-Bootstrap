@@ -176,10 +176,6 @@ class MoviePlaylistsController < ApplicationController
   def print
 
     @movie_playlist = MoviePlaylist.find(params[:id])
-    headers["Content-Disposition"] = "attachment; filename=\"#{@movie_playlist.airline.code if !@movie_playlist
-    .airline.code.nil?}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_type if
-        !@movie_playlist.movie_type.nil?}.pdf\""
-
     respond_to do |format|
       format.html
       format.pdf {

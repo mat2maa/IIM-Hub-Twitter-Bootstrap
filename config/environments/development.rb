@@ -37,7 +37,7 @@ Iim::Application.configure do
   #
 
   # Enable threaded mode
-  # config.threadsafe!
+  config.threadsafe!
 
   config.after_initialize do
     Bullet.enable = true
