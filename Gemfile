@@ -49,7 +49,6 @@ gem "nokogiri"
 gem "test-unit"
 gem "dalli"
 gem "bullet"
-gem "wkhtmltopdf-heroku"
 
 gem "paperclip", "~> 3.1"
 
