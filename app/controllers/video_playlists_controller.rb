@@ -197,7 +197,8 @@ class VideoPlaylistsController < ApplicationController
       video_type = " " + @video_playlist.video_playlist_type.name
     end
 
-    headers["Content-Disposition"] = "attachment; filename=\"#{@video_playlist.airline.code if !@video_playlist.airline.nil? }#{@video_playlist.start_cycle.strftime("%m%y")}#{video_type}.pdf\""
+    headers["Content-Disposition"] = "attachment; filename=\"#{@video_playlist.airline.code if !@video_playlist
+     .airline.nil? }#{@video_playlist.start_cycle.strftime("%m%y")}#{video_type}.pdf\""
 
     respond_to do |format|
       format.html

@@ -23,15 +23,15 @@ Iim::Application.routes.draw do
   match "/movie_playlists/print/:id" => "movie_playlists#print", as: :print_movie_playlist
   match "/movie_playlists/export_to_excel/:id" => "movie_playlists#export_to_excel", as: :export_to_excel
   match "/audio_playlists/export_to_excel/:id" => "audio_playlists#export_to_excel", as: :export_to_excel
-  match "/audio_playlists/print/:id" => "audio_playlists#print", as: :print
+  match "/audio_playlists/print/:id" => "audio_playlists#print", as: :print_audio_playlist
   match "/album_playlists/export_to_excel/:id" => "album_playlists#export_to_excel", as: :export_to_excel
-  match "/album_playlists/print/:id" => "album_playlists#print", as: :print
+  match "/album_playlists/print/:id" => "album_playlists#print", as: :print_album_playlist
   match "/albums/amazon_cd_covers" => "albums#amazon_cd_covers", as: :amazon_cd_covers
-  match "/video_playlists/print/:id" => "video_playlists#print", as: :print
+  match "/video_playlists/print/:id" => "video_playlists#print", as: :print_video_playlist
   match "/video_playlists/export_to_excel/:id" => "video_playlists#export_to_excel", as: :export_to_excel
-  match "/video_master_playlists/print/:id" => "video_master_playlists#print", as: :print
+  match "/video_master_playlists/print/:id" => "video_master_playlists#print", as: :print_video_master_playlist
   match "/video_master_playlists/export_to_excel/:id" => "video_master_playlists#export_to_excel", as: :export_to_excel
-  match "/screener_playlists/print/:id" => "screener_playlists#print", as: :print
+  match "/screener_playlists/print/:id" => "screener_playlists#print", as: :print_screener_playlist
   match "/screener_playlists/export_to_excel/:id" => "screener_playlists#export_to_excel", as: :export_to_excel
 
   match "/movies/update_date/:id" => "movies#update_date", as: :update_date

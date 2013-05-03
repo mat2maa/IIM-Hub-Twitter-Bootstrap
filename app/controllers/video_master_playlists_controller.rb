@@ -1,3 +1,4 @@
+
 require "spreadsheet"
 require 'stringio'
 
@@ -174,7 +175,8 @@ class VideoMasterPlaylistsController < ApplicationController
     else
       video_type = " " + @video_master_playlist.master_playlist_type.name
     end
-    headers["Content-Disposition"] = "attachment; filename=\"#{@video_master_playlist.airline.code if !@video_master_playlist.airline.nil? }#{@video_master_playlist.start_cycle.strftime("%m%y")}#{video_type} Master.pdf\""
+    headers["Content-Disposition"] = "attachment; filename=\"#{@video_master_playlist.airline.code if
+     !@video_master_playlist.airline.nil? }#{@video_master_playlist.start_cycle.strftime("%m%y")}#{video_type} Master.pdf\""
 
     respond_to do |format|
       format.html

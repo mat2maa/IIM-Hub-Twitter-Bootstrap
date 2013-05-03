@@ -172,7 +172,8 @@ class ScreenerPlaylistsController < ApplicationController
     else
       video_type = " " + @screener_playlist.video_playlist_type.name
     end
-    headers["Content-Disposition"] = "attachment; filename=\"#{@screener_playlist.airline.code if !@screener_playlist.airline.nil? }#{@screener_playlist.start_cycle.strftime("%m%y")}#{video_type} Screener.pdf\""
+    headers["Content-Disposition"] = "attachment; filename=\"#{@screener_playlist.airline.code if
+     !@screener_playlist.airline.nil? }#{@screener_playlist.start_cycle.strftime("%m%y")}#{video_type} Screener.pdf\""
 
     respond_to do |format|
       format.html

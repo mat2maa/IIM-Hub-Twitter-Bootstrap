@@ -6,7 +6,22 @@
     - <%= @screener_playlist.airline.code if !@screener_playlist.airline_id.nil? %><%= @screener_playlist.start_cycle.strftime("%m%y") %>
     Screeners Playlist</title>
   <style type="text/css">
-      body, .wrapper, .note, .info, code, #topNav, .L, .R, #frame, #container, #header, #navigation, #footer, #feature, #mainCol, #subCol, #extraCol, .content {position: static; text-align: left; text-indent: 0; background: White; color: Black; border-color: Black; width: auto; height: auto; display: block; float: none; min-height: 0; margin: 0; padding: 0;}
+      body, .wrapper, .note, .info, code, #topNav, .L, .R, #frame, #container, #header, #navigation, #footer,
+      #feature, #mainCol, #subCol, #extraCol, .content {
+          position: static;
+          text-align: left;
+          text-indent: 0;
+          background: White;
+          color: Black;
+          border-color: Black;
+          width: auto;
+          height: auto;
+          display: block;
+          float: none;
+          min-height: 0;
+          margin: 0;
+          padding: 0;
+      }
 
       body {
           background: #FFF;
@@ -40,7 +55,7 @@
       h1,h2,h3,h4,h5,h6 { font-family: "Helvetica Neue", Arial, "Lucida Grande", sans-serif; }
       code { font:.9em "Courier New", Monaco, Courier, monospace; }
 
-      img { float:left; margin:1.5em 1.5em 1.5em 0; }
+      img { float:none; margin:1.5em 1.5em 1.5em 0; }
       a img { border:none; }
 
       blockquote {
@@ -52,6 +67,20 @@
 
       .small  { font-size: .9em; }
       .large  { font-size: 1.1em; }
+
+      #header {
+          display:none;
+      }
+
+      #playlist {
+          border:none;
+          background-color:transparent;
+      }
+
+      table {
+          page-break-inside:avoid !important;
+      }
+
   </style>
 </head>
 <body>
@@ -63,10 +92,8 @@
     Screener Playlist</h2>
 
   <div id="playlist">
-    <table width="900">
       <%= render partial: 'playlist_item_view',
                  collection: @screener_playlist.screener_playlist_items_sorted %>
-    </table>
   </div>
 </div>
 </body>
