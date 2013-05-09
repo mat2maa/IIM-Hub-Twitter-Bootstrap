@@ -274,7 +274,6 @@
         <%= f.input :airline_countries,
                     input_html: {disabled: ((@movie.airline_rights=="Worldwide") || (@movie.airline_rights=="North America")) ? true : false,
                                  tabindex: 24} %>
-		<%= debug(params[:movie]) %>
         <%= f.input :language_tracks,
                     input_html: {tabindex: 25},
                     label: ("Available Language<br/>Tracks").html_safe,
@@ -308,6 +307,10 @@
                     input_html: {tabindex: 33},
                     label: "Chinese Synopsis",
                     hint: ("(<span id='chinese_char_count' ></span > characters)").html_safe %>
+        <%= f.input :imdb_synopsis,
+                    input_html: {tabindex: 33},
+                    label: "IMDB Synopsis",
+                    hint: ("(<span id='imdb_char_count' ></span > characters)").html_safe %>
 
         <%= f.input :critics_review,
                     input_html: {tabindex: 34},
@@ -340,13 +343,16 @@
     $(document).ready(function() {
     	
     	var chars,
-    		chineseChars;
+      		chineseChars,
+          imdbChars;
     	
     	chars = $('#movie_synopsis').val().length;
     	chineseChars = $('#movie_chinese_synopsis').val().length;
+      imdbChars = $('#movie_imdb_synopsis').val().length;
     	
     	$('#char_count').html(chars);
     	$('#chinese_char_count').html(chineseChars);
+      $('#imdb_char_count').html(imdbChars);
     	
     	$('#movie_synopsis').on("keyup change", function() {
 	    	chars = $('#movie_synopsis').val().length;
@@ -357,6 +363,11 @@
 	    	chineseChars = $('#movie_chinese_synopsis').val().length;
 	    	$('#chinese_char_count').html(chineseChars);
     	});
+
+      $('#movie_imdb_synopsis').on("keyup change", function() {
+        imdbChars = $('#movie_imdb_synopsis').val().length;
+        $('#imdb_char_count').html(imdbChars);
+      });
     });
 
 

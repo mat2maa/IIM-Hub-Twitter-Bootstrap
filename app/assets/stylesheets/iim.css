@@ -424,7 +424,8 @@ table.splits{
 	height:30px;
 }
 #movie_synopsis, #video_synopsis,
-#movie_chinese_synopsis{
+#movie_chinese_synopsis,
+#movie_imdb_synopsis{
 	height:100px;
 }
 #movie_critics_review{

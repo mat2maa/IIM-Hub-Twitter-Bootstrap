@@ -31,25 +31,31 @@
             </td>
           </tr>
           <tr>
-            <th valign="top">Distributor:</th>
-            <td valign="top">
-              <%= playlist_item.movie.movie_distributor.company_name if !playlist_item.movie.movie_distributor.nil? %>
+            <th width="90" valign="top">
+              Chinese Movie Title:
+            </th>
+            <td width="290" valign="top">
+              <%= playlist_item.movie.chinese_movie_title if !playlist_item.movie.laboratory.blank? %>
             </td>
             <th valign="top">Laboratory:</th>
             <td valign="top">
               <%= playlist_item.movie.laboratory.company_name if !playlist_item.movie.laboratory.nil? %>
-            </td>
-            <th valign="top">Rating:</th>
-            <td valign="top">
-              <%= playlist_item.movie.rating %>
             </td>
             <th valign="top">Release Versions:</th>
             <td valign="top">
               <%= playlist_item.movie.release_versions.join(',
 ') %>
             </td>
+            <th valign="top">Rating:</th>
+            <td valign="top">
+              <%= playlist_item.movie.rating %>
+            </td>
           </tr>
           <tr>
+            <th valign="top">Distributor:</th>
+            <td valign="top">
+              <%= playlist_item.movie.movie_distributor.company_name if !playlist_item.movie.movie_distributor.nil? %>
+            </td>
             <th width="80" valign="top">Airline Rights:</th>
             <td colspan="7" valign="top">
               <%= playlist_item.movie.airline_rights %>

@@ -91,18 +91,18 @@
       </tr>
       <tr>
         <th>Available Lang Tracks:</th>
-        <td><%= @movie.language_tracks.collect { |r| r }.reject! { |c| c.empty? }.to_sentence if !@movie.language_tracks.nil? %>
+        <td><%= @movie.language_tracks.collect { |r| r }.to_sentence if !@movie.language_tracks.blank? %>
         </td>
         <th>Screener Destroyed:</th>
         <td><%= @movie.screener_destroyed_date == nil ? "No" : "Yes" %></td>
       </tr>
       <tr>
         <th>Available Subtitle Tracks:</th>
-        <td colspan="3"><%= @movie.language_subtitles.collect { |r| r }.reject! { |c| c.empty? }.to_sentence if !@movie.language_subtitles.nil? %>
+        <td colspan="3"><%= @movie.language_subtitles.collect { |r| r }.to_sentence if !@movie.language_subtitles.blank? %>
       </tr>
       <tr>
         <th>Genres:</th>
-        <td colspan="3"><%= @movie.movie_genres.collect { |genre| genre.name }.reject! { |c| c.empty? }.join(',') %></td>
+        <td colspan="3"><%= @movie.movie_genres.collect { |genre| genre.name }.join(',') if !@movie_movie_genres.blank? %></td>
       </tr>
       <tr>
         <th>Rating:</th>
@@ -127,6 +127,10 @@
       <tr>
         <th>Chinese Synopsis:</th>
         <td colspan="3"><%= simple_format(@movie.chinese_synopsis) %></td>
+      </tr>
+      <tr>
+        <th>IMDB Synopsis:</th>
+        <td colspan="3"><%= simple_format(@movie.imdb_synopsis) %></td>
       </tr>
       <tr>
         <th>Remarks:</th>
