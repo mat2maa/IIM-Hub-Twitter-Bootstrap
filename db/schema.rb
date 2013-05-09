@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417095015) do
+ActiveRecord::Schema.define(:version => 20130509095939) do
 
   create_table "airline_rights_countries", :force => true do |t|
     t.string   "name"
@@ -385,6 +385,10 @@ ActiveRecord::Schema.define(:version => 20130417095015) do
     t.text     "language_tracks"
     t.text     "language_subtitles"
     t.boolean  "active",                  :default => true
+    t.string   "chinese_movie_title"
+    t.text     "chinese_cast"
+    t.string   "chinese_director"
+    t.text     "chinese_synopsis"
   end
 
   add_index "movies", ["laboratory_id"], :name => "index_movies_on_laboratory_id"

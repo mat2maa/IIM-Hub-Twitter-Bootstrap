@@ -22,7 +22,8 @@ class Movie < ActiveRecord::Base
                   :screener_destroyed_date, :has_press_kit, :has_poster, :poster_quantity, :rating,
                   :theatrical_runtime, :edited_runtime, :release_versions, :screener_remarks, :airline_rights,
                   :language_tracks, :language_subtitles, :movie_genre_ids, :cast, :director, :synopsis, 
-                  :critics_review, :remarks
+                  :critics_review, :remarks, :chinese_movie_title, :chinese_cast, :chinese_director,
+                  :chinese_synopsis, :foreign_language_title, :airline_countries
     
   has_attached_file :poster, :styles => { 
                     :small => "160x237>",

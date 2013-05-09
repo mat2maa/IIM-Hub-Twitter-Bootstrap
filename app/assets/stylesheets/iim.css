@@ -419,10 +419,12 @@ table.splits{
 	width:80%;
 }
 */
-#movie_cast{
+#movie_cast,
+#movie_chinese_cast{
 	height:30px;
 }
-#movie_synopsis, #video_synopsis{
+#movie_synopsis, #video_synopsis,
+#movie_chinese_synopsis{
 	height:100px;
 }
 #movie_critics_review{

@@ -135,9 +135,6 @@
 
                       hint: ("(<span id='char_count' ></span > characters)").html_safe %>
 
-          <%#= character_count('video_synopsis',
-'char_count',
-                              frequency: 0.10) %>
 
           <%= f.input :remarks,
                       input_html: {tabindex: 15,
@@ -150,3 +147,24 @@
     <%= f.actions %>
 
 <% end %>
+
+<script>
+
+    var $ = jQuery;
+
+    $(document).ready(function() {
+    	
+    	var chars;
+    	
+    	chars = $('#video_synopsis').val().length;
+    	
+    	$('#char_count').html(chars);
+    	
+    	$('#video_synopsis').on("keyup change", function() {
+	    	chars = $('#video_synopsis').val().length;
+	    	$('#char_count').html(chars);
+    	});
+    });
+
+
+</script>
