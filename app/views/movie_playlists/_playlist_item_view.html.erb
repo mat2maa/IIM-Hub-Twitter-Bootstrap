@@ -77,7 +77,7 @@
         <% end%>
       </tr>
       <tr>
-        <td colspan="3"><%= playlist_item_view.movie.critics_review %></td>
+        <td colspan="3"><%= playlist_item_view.movie.critics_review.html_safe if !playlist_item_view.movie.critics_review.blank? %></td>
       </tr>
     </table>
 

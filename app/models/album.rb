@@ -19,7 +19,7 @@ class Album < ActiveRecord::Base
                       large: "300x300>" },
                     url: "s3_domain_url",
                     path: "/system/covers/:id/:style/:basename.:extension",
-                    default_url: "/images/:attachment/missing_:style.png"
+                    default_url: "/assets/:attachment/missing_:style.png"
 
   validates_attachment_size :cover, :less_than => 5.megabytes
   validates_attachment_content_type :cover, :content_type => ['image/jpeg', 'image/png','image/gif']

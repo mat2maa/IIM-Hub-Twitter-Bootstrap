@@ -32,7 +32,7 @@ class Movie < ActiveRecord::Base
                       large: "500x500>" },
                     url: "s3_domain_url",
                     path: "/system/posters/:id/:style/:id.:extension",
-                    default_url: "/images/:attachment/missing_:style.png"
+                    default_url: "/assets/:attachment/missing_:style.png"
 
   validates_numericality_of :theatrical_runtime, :edited_runtime, :allow_nil => true
   validates_length_of :theatrical_runtime, :edited_runtime, :in => 0..999, :allow_nil => true
