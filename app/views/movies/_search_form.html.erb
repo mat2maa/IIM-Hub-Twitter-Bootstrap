@@ -55,8 +55,8 @@ true]] %>
                               include_blank: true %> <br/>
             Genre:<br/>
             <%= movies.select :id_eq,
-                              MovieGenre.all
-                              .collect { |p| [p.name,
+                              MovieGenre.order("name")
+                                        .collect { |p| [p.name,
                                               p.id] },
                               include_blank: true %>
 
