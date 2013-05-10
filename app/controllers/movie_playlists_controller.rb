@@ -180,9 +180,12 @@ class MoviePlaylistsController < ApplicationController
 
     @movie_playlist = MoviePlaylist.includes(movie_playlist_items: :movie)
                                    .find(params[:id])
+    language = params[:language]
+
     headers["Content-Disposition"] =  "attachment; filename=\"#{@movie_playlist.airline.code if !@movie_playlist
     .airline.code.nil?}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_type if
         !@movie_playlist.movie_type.nil?}.pdf\""
+
     respond_to do |format|
       format.html
       format.pdf {
@@ -245,6 +248,7 @@ class MoviePlaylistsController < ApplicationController
     sheet.add_row ["Position",
                    "Movie Title",
                    "Foreign Movie Title",
+                   "Chinese Movie Title",
                    "Theatrical Release Year",
                    "Airline Release Date",
                    "Distributor",
@@ -260,6 +264,10 @@ class MoviePlaylistsController < ApplicationController
                    "Cast",
                    "Director",
                    "Synopsis",
+                   "Chinese Cast",
+                   "Chinese Director",
+                   "Chinese Synopsis",
+                   "IMDB Synopsis",
 
                    "Poster",
                    "Critics Review"]
@@ -294,6 +302,8 @@ class MoviePlaylistsController < ApplicationController
 
                      movie_playlist_item.movie.foreign_language_title,
 
+                     movie_playlist_item.movie.chinese_movie_title,
+
                      movie_playlist_item.movie.theatrical_release_year,
                      airline_release_date,
                      movie_distributor,
@@ -315,6 +325,13 @@ class MoviePlaylistsController < ApplicationController
                      movie_playlist_item.movie.director,
 
                      movie_playlist_item.movie.synopsis,
+
+                     movie_playlist_item.movie.chinese_cast,
+                     movie_playlist_item.movie.chinese_director,
+
+                     movie_playlist_item.movie.chinese_synopsis,
+
+                     movie_playlist_item.movie.imdb_synopsis,
 
                      "http://hub.iim.com.sg" + movie_playlist_item.movie.poster.url,
 

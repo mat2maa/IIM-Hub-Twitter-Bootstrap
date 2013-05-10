@@ -94,10 +94,11 @@
   <br/>
   <strong><%= "MOVIE TYPE: #{@movie_playlist.movie_type.upcase} " if !@movie_playlist.movie_type.nil? %></strong>
   <br/><br/>
-
+  
   <div id="playlist">
     <%= render partial: 'playlist_item_view',
-               collection: @movie_playlist.movie_playlist_items_sorted %>
+               collection: @movie_playlist.movie_playlist_items_sorted,
+               locals: {language: params[:language] } %>
   </div>
 </div>
 </body>

@@ -7,11 +7,12 @@
 <center><p style="color: green"><%= flash[:notice] %></p></center>
 <div id="content-header-wrapper">
   <div id="content-header-actions">
-    <%= link_to "Download Full PDF",
-                {controller: "movie_playlists",
-                 action: "print",
-                 id: @movie_playlist,
-                 format: "pdf"} %>
+    <%= check_box_tag "chinese_checkbox" %> Chinese? &nbsp;
+    <span id="download_pdf_link">
+      <%= link_to "Download Full PDF",
+                  print_movie_playlist_path(id: @movie_playlist, language: "english"),
+                  { format: "pdf" } %>
+    </span>
     <%= link_to "Export as Excel",
                 controller: "movie_playlists",
                 action: "export_to_excel",
@@ -24,13 +25,48 @@
   <center>
     <h2>Movie Playlist</h2>
     <%= "Movie Type: #{@movie_playlist.movie_type}s " if !@movie_playlist.movie_type.nil? %>
-    <table width="900">
+    <div id="playlist_item_view_container">
       <%= render partial: 'playlist_item_view',
-                 collection: @movie_playlist.movie_playlist_items_sorted %>
-    </table>
+                 collection: @movie_playlist.movie_playlist_items_sorted,
+                 locals: {language: 'english' } %>
+    </div>
 
     <%= link_to 'Back',
                 movie_playlists_path %>
 
   </center>
 </div>
+
+<script>
+
+  var $ = jQuery;
+    
+  $(document).ready(function() {
+
+    var playlist,
+        pdfLink;
+    
+    $('#chinese_checkbox').on("change", function() {
+      if($(this).is(':checked')) {
+        playlist = " <%= escape_javascript(render partial: 'playlist_item_view',
+                                                  collection: @movie_playlist.movie_playlist_items_sorted,
+                                                  locals: {language: 'chinese' }) %> ";
+        pdfLink = " <%= escape_javascript(link_to "Download Full PDF",
+                                                  print_movie_playlist_path(id: @movie_playlist, language: "chinese"),
+                                                  { format: "pdf" }) %> " 
+      } else {
+        playlist = " <%= escape_javascript(render partial: 'playlist_item_view',
+                                                  collection: @movie_playlist.movie_playlist_items_sorted,
+                                                  locals: {language: 'english' }) %> ";
+        pdfLink = " <%= escape_javascript(link_to "Download Full PDF",
+                                                  print_movie_playlist_path(id: @movie_playlist, language: "english"),
+                                                  { format: "pdf" }) %> " 
+      }
+
+      $("#playlist_item_view_container").html(playlist);
+      $("#download_pdf_link").html(pdfLink);
+    });
+    
+  });
+    
+</script>
