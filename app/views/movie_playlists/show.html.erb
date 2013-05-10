@@ -51,15 +51,13 @@
                                                   collection: @movie_playlist.movie_playlist_items_sorted,
                                                   locals: {language: 'chinese' }) %> ";
         pdfLink = " <%= escape_javascript(link_to "Download Full PDF",
-                                                  print_movie_playlist_path(id: @movie_playlist, language: "chinese"),
-                                                  { format: "pdf" }) %> " 
+                                                  print_movie_playlist_path(id: @movie_playlist, language: 'chinese', format: 'pdf')) %> " 
       } else {
         playlist = " <%= escape_javascript(render partial: 'playlist_item_view',
                                                   collection: @movie_playlist.movie_playlist_items_sorted,
                                                   locals: {language: 'english' }) %> ";
         pdfLink = " <%= escape_javascript(link_to "Download Full PDF",
-                                                  print_movie_playlist_path(id: @movie_playlist, language: "english"),
-                                                  { format: "pdf" }) %> " 
+                                                  print_movie_playlist_path(id: @movie_playlist, language: 'english', format: 'pdf')) %> " 
       }
 
       $("#playlist_item_view_container").html(playlist);
