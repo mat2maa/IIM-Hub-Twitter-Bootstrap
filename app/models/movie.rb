@@ -25,13 +25,14 @@ class Movie < ActiveRecord::Base
                   :critics_review, :remarks, :chinese_movie_title, :chinese_cast, :chinese_director,
                   :chinese_synopsis, :imdb_synopsis, :foreign_language_title, :airline_countries
     
-  has_attached_file :poster, :styles => { 
-                    :small => "160x237>",
-                    :medium => "250x250>",
-                    :large => "500x500>"},
-                    :url  => "/system/posters/:id/:style/:id.:extension",
-                    :path => ":rails_root/public/system/posters/:id/:style/:id.:extension",
-                    :default_url => "/images/:attachment/missing_:style.png"
+  has_attached_file :poster,
+                    styles: { 
+                      small: "160x237>",
+                      medium: "250x250>",
+                      large: "500x500>" },
+                    url: "s3_domain_url",
+                    path: "/system/posters/:id/:style/:id.:extension",
+                    default_url: "/images/:attachment/missing_:style.png"
 
   validates_numericality_of :theatrical_runtime, :edited_runtime, :allow_nil => true
   validates_length_of :theatrical_runtime, :edited_runtime, :in => 0..999, :allow_nil => true

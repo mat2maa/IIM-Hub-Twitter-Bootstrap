@@ -52,7 +52,7 @@ gem "bullet"
 gem "nilify_blanks"
 
 gem "paperclip", "~> 3.1"
-
+gem 'aws-sdk'
 
 # To use ActiveModel has_secure_password
 gem "bcrypt-ruby", "~> 3.0.1"

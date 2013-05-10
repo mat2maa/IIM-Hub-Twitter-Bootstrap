@@ -13,13 +13,13 @@ class Album < ActiveRecord::Base
   searchable_by :title_original, :title_english, :artist_original, :artist_english, :cd_code
   
   has_attached_file :cover, 
-                    :styles => { 
-                    :small => "50x50>",
-                    :medium => "100x100>",
-                    :large => "300x300>"}
-
-#                    :url  => "/assets/products/:id/:style/:basename.:extension",
-#                    :path => ":rails_root/public/assets/products/:id/:style/:basename.:extension"
+                    styles: { 
+                      small: "50x50>",
+                      medium: "100x100>",
+                      large: "300x300>" }
+                    url: "s3_domain_url",
+                    path: "/system/covers/:id/:style/:basename.:extension",
+                    default_url: "/images/:attachment/missing_:style.png"
 
   validates_attachment_size :cover, :less_than => 5.megabytes
   validates_attachment_content_type :cover, :content_type => ['image/jpeg', 'image/png','image/gif']

@@ -44,7 +44,7 @@ Iim::Application.configure do
   config.action_controller.perform_caching = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host = "http://s3.amazonaws.com/iim"
 
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
@@ -71,3 +71,13 @@ end
 PDFKit.configure do |config|
   config.wkhtmltopdf = Rails.root.join('vendor', 'wkhtmltopdf-amd64').to_s
 end
+
+# config/environments/production.rb
+config.paperclip_defaults = {
+  :storage => :s3,
+  :s3_credentials => {
+    :bucket => ENV['AWS_BUCKET'],
+    :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+    :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+  }
+}

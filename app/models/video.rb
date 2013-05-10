@@ -19,13 +19,15 @@ class Video < ActiveRecord::Base
   belongs_to :commercial_run_time
   
   has_and_belongs_to_many :video_genres
-  has_attached_file :poster, :styles => {
-                    :small => "160x237>",
-                    :medium => "250x250>",
-                    :large => "500x500>"},
-                    :url  => "/system/posters/:id/:style/:id.:extension",
-                    :path => ":rails_root/public/system/posters/:id/:style/:id.:extension",
-                    :default_url => "/images/:attachment/missing_video_small.png"
+
+  has_attached_file poster,
+                    styles: {
+                      small: "160x237>",
+                      medium: "250x250>",
+                      large: "500x500>" },
+                    url: "s3_domain_url",
+                    path: "/system/posters/:id/:style/:id.:extension",
+                    default_url: "/images/:attachment/missing_video_small.png"
 
   validates_attachment_size :poster, :less_than => 5.megabytes
   validates_attachment_content_type :poster, :content_type => ['image/jpeg', 'image/png']
