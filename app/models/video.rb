@@ -20,7 +20,7 @@ class Video < ActiveRecord::Base
   
   has_and_belongs_to_many :video_genres
 
-  has_attached_file poster,
+  has_attached_file :poster,
                     styles: {
                       small: "160x237>",
                       medium: "250x250>",

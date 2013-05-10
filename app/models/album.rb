@@ -16,7 +16,7 @@ class Album < ActiveRecord::Base
                     styles: { 
                       small: "50x50>",
                       medium: "100x100>",
-                      large: "300x300>" }
+                      large: "300x300>" },
                     url: "s3_domain_url",
                     path: "/system/covers/:id/:style/:basename.:extension",
                     default_url: "/images/:attachment/missing_:style.png"
