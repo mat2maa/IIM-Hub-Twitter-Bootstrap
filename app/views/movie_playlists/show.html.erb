@@ -10,8 +10,7 @@
     <%= check_box_tag "chinese_checkbox" %> Chinese? &nbsp;
     <span id="download_pdf_link">
       <%= link_to "Download Full PDF",
-                  print_movie_playlist_path(id: @movie_playlist, language: "english"),
-                  { format: "pdf" } %>
+                  print_movie_playlist_path(id: @movie_playlist, language: "english", format: "pdf") %>
     </span>
     <%= link_to "Export as Excel",
                 controller: "movie_playlists",
