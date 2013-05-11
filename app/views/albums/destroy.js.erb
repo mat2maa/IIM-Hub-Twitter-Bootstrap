@@ -9,6 +9,10 @@ var notice = "<%= escape_javascript(flash[:notice]) %>";
     $('#notice').html(notice);
 <% end %>
 
+$('#spinner').addClass('transparent');
+            console.log("off");
+
+
 /*
 if @album_is_deleted
   page.visual_effect :fade,
