@@ -54,7 +54,7 @@ class Video < ActiveRecord::Base
   
   attr_accessible :movie_id, :programme_title, :foreign_language_title, :video_type, :video_distributor_id,
                   :production_year, :production_studio_id, :episodes_available, :laboratory_id, :on_going_series,
-                  :commercial_run_time_id, :video_genre_ids, :language_tracks, :language_subtitles, :synopsis, :remarks
+                  :commercial_run_time_id, :video_genre_ids, :language_tracks, :language_subtitles, :synopsis, :remarks, :poster
   
   def before_save
     
