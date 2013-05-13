@@ -33,7 +33,8 @@ form.formtastic fieldset ol li.check_boxes fieldset ol li {
 float:left; padding-right:10px;
 }
 
-form.formtastic fieldset ol li.string input{
+form.formtastic fieldset ol li.string input,
+form.formtastic fieldset ol li.text textarea{
 	width:73%;
 }
 

@@ -11,12 +11,10 @@
                 {controller: "video_playlists",
                  action: "edit",
                  id: @video_playlist},
-                target: "_blank" %> |
+                target: "_blank" %>
+    |
     <%= link_to "Print Playlist",
-                {controller: "video_playlists",
-                 action: "print",
-                 id: @video_playlist},
-                :popup => true %>
+                print_video_playlist_path(id: @video_playlist, language: "english", format: "pdf") %>
     |
     <%= link_to "Export as Excel",
                 controller: "video_playlists",

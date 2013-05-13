@@ -236,5 +236,7 @@ $(document).ready(function () {
             $('#spinner').addClass('transparent');
             console.log("off");
         })
+    
+    $('input[type="file"]').attr("size", 6);
 
 });
