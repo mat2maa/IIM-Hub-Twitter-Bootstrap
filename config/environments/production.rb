@@ -79,7 +79,7 @@ Iim::Application.configure do
 end
 
 PDFKit.configure do |config|
-  config.wkhtmltopdf = Rails.root.join('vendor', 'wkhtmltopdf-amd64').to_s
+  config.wkhtmltopdf = Rails.root.join('vendor', 'wkhtmltopdf').to_s
   config.default_options = {
     encoding: "UTF-8",
     page_size: "A4"
