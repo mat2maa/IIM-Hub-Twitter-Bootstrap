@@ -84,7 +84,6 @@ class VideoMasterPlaylistsController < ApplicationController
 
     @search = Master.ransack(params[:q])
     @masters = @search.result(distinct: true)
-                      .where("masters.active = ?", "true")
                       .order("id DESC")
                       .paginate(page: params[:page],
                                 per_page: 10)

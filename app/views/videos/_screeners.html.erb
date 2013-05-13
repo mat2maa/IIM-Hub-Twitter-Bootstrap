@@ -11,7 +11,7 @@
     </th>
     <th></th>
   </tr>
-  <% Screener.find_all_by_video_id(video_id).each do |screener| %>
+  <% Screener.where("video_id = #{video_id} AND active=true").order("location").each do |screener| %>
       <tr id="screener-<%= screener.id %>">
         <td><%= screener.episode_title %></td>
         <td><%= screener.episode_number %></td>
