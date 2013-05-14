@@ -18,38 +18,39 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem "therubyracer", :platforms => :ruby
 
-  gem "uglifier", ">= 1.0.3"
+  gem "uglifier", ">= 1.0.3", require: false
 end
 
-gem "mysql2"
-gem "ransack"
-gem "activerecord-mysql-adapter"
+gem "mysql2", require: false
+gem "ransack", require: false
+gem "activerecord-mysql-adapter", require: false
 gem "jquery-rails"
 gem "jquery-ui-rails"
-gem "settingslogic"
-gem "authlogic"
+gem "settingslogic", require: false
+gem "authlogic", require: false
 gem "formtastic"
 gem "pdfkit"
 gem "spreadsheet"
 gem "ruby-ole"
-gem "ruby-aaws"
+gem "ruby-aaws", require: false
 gem "rbrainz"
-gem "hirb"
+gem "hirb", require: false
 gem "rubyzip"
-gem "mime-types"
+gem "mime-types", require: false
 gem "will_paginate"
 #gem "acts_as_list"
 gem "ranked-model"
 gem "declarative_authorization"
-gem "ruby_parser"
+gem "ruby_parser", require: false
 gem "best_in_place"
 gem "in_place_editing"
 gem "newrelic_rpm"
-gem "nokogiri"
-gem "test-unit"
+gem "nokogiri", require: false
+gem "test-unit", require: false
 gem "dalli"
 gem "bullet"
 gem "nilify_blanks"
+gem 'gem_bench', :require => false, :group => :development
 
 gem "paperclip", "~> 3.1"
 gem 'aws-sdk'
@@ -57,7 +58,7 @@ gem 'aws-sdk'
 gem "asset_sync"
 
 # To use ActiveModel has_secure_password
-gem "bcrypt-ruby", "~> 3.0.1"
+gem "bcrypt-ruby", "~> 3.0.1", require: false
 
 # To use Jbuilder templates for JSON
 # gem "jbuilder"
