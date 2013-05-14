@@ -32,7 +32,9 @@
           <td>
             <strong>Foreign Language Title:</strong>
           </td>
-          <td><%= playlist_item_view.movie.foreign_language_title %></td>
+          <td <% if playlist_item_view.movie.movie_type.upcase == "KOREAN MOVIE" %>style="font-family: 'Baekmuk Dotum';"<% end %> >
+            <%= playlist_item_view.movie.foreign_language_title %>
+          </td>
         </tr>
       <% end %>
       <% if !playlist_item_view.movie.production_studio.blank? %>
