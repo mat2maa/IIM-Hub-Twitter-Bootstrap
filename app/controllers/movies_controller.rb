@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     @movies = @search.result(distinct: true)
                      .order("id DESC")
                      .paginate(page: params[:page],
-                               per_page: 10)
+                               per_page: items_per_page)
 
     if params[:language].present?
       @movies = @movies.with_language_track(params[:language][:track]) if params[:language][:track].present?
@@ -84,7 +84,7 @@ class MoviesController < ApplicationController
     @movies = @search.result(distinct: true)
                      .order("id DESC")
                      .paginate(page: params[:page],
-                               per_page: 10)
+                               per_page: items_per_page)
     @movies_count = @movies.count
 
     @movie = Movie.find(params[:id])
@@ -103,7 +103,7 @@ class MoviesController < ApplicationController
     @movies = @search.result(distinct: true)
                      .order("id DESC")
                      .paginate(page: params[:page],
-                               per_page: 10)
+                               per_page: items_per_page)
     @movies_count = @movies.count
 
     @movie = Movie.find(params[:id])
@@ -176,4 +176,12 @@ class MoviesController < ApplicationController
     end
   end
 
+end
+
+private
+def items_per_page
+  if params[:per_page]
+    session[:items_per_page] = params[:per_page]
+  end
+  session[:items_per_page]
 end

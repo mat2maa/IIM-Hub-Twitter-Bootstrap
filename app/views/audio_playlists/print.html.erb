@@ -86,16 +86,38 @@
           display: none;
       }
 
-      #playlist {
-          border: none;
-          background-color: transparent;
-      }
+        #playlist {
+            border:none;
+        }
 
-      table {
-          page-break-inside: avoid !important;
-          font-size:14px !important;
-      }
-
+        table.playlist{
+          border-collapse: collapse;
+          border: 2px solid #ddd;
+        }
+        .playlist td {
+          font-size: 13px;
+          border: 1px solid #ddd; 
+          color: #333;  
+          padding:5px;
+        }
+        .print{
+          margin-left: auto;
+          margin-right: auto;
+          width: 900px;
+        }
+        .print h2{
+          margin-bottom:0;
+        }
+        @media print {  
+          body { background-color: #FFF; }  
+        
+          table.playlist{
+            page-break-inside: avoid;  
+          }
+          .print-hide{
+            display:none;
+          }
+        }
   </style>
 </head>
 <body>

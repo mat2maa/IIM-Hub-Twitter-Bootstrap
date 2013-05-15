@@ -10,7 +10,7 @@ class MasterPlaylistTypesController < ApplicationController
   def index
     @master_playlist_types = MasterPlaylistType.order("name asc")
     .paginate(page: params[:page],
-              per_page: 10)
+              per_page: items_per_page)
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -77,4 +77,12 @@ master_playlist_type is in use'
       format.html { redirect_to(master_playlist_types_url) }
     end
   end
+end
+
+private
+def items_per_page
+  if params[:per_page]
+    session[:items_per_page] = params[:per_page]
+  end
+  session[:items_per_page]
 end

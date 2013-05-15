@@ -10,7 +10,7 @@ class CommercialRunTimesController < ApplicationController
   def index
     @commercial_run_times = CommercialRunTime.order("minutes asc")
     .paginate(page: params[:page],
-              per_page: 10)
+              per_page: items_per_page)
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -80,4 +80,12 @@ commercial_run_time is in use in some tracks'
       format.html { redirect_to(commercial_run_times_url) }
     end
   end
+end
+
+private
+def items_per_page
+  if params[:per_page]
+    session[:items_per_page] = params[:per_page]
+  end
+  session[:items_per_page]
 end

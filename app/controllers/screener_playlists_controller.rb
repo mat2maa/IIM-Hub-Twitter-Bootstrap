@@ -19,7 +19,7 @@ class ScreenerPlaylistsController < ApplicationController
     @screener_playlists = @search.result(distinct: true)
                         .order("id DESC")
                         .paginate(page: params[:page],
-                                  per_page: 10)
+                                  per_page: items_per_page)
 
     @screener_playlists_count = @screener_playlists.count
   end
@@ -84,7 +84,7 @@ class ScreenerPlaylistsController < ApplicationController
     @screeners = @search.result(distinct: true)
                         .order("id DESC")
                         .paginate(page: params[:page],
-                                  per_page: 10)
+                                  per_page: items_per_page)
 
     if params[:language].present?
       @screeners = @screeners.with_language_track(params[:language][:track]) if params[:language][:track].present?
@@ -319,4 +319,12 @@ class ScreenerPlaylistsController < ApplicationController
     end
   end
 
+end
+
+private
+def items_per_page
+  if params[:per_page]
+    session[:items_per_page] = params[:per_page]
+  end
+  session[:items_per_page]
 end

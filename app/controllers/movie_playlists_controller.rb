@@ -13,12 +13,12 @@ class MoviePlaylistsController < ApplicationController
     if !params[:q].nil?
       @movie_playlists = @search.result(distinct: true)
                                 .paginate(page: params[:page],
-                                          per_page: 10)
+                                          per_page: items_per_page)
     else
       @movie_playlists = @search.result(distinct: true)
                                 .order("id DESC")
                                 .paginate(page: params[:page],
-                                          per_page: 10)
+                                          per_page: items_per_page)
     end
 
     @movie_playlists_count = @movie_playlists.count
@@ -91,7 +91,7 @@ class MoviePlaylistsController < ApplicationController
                      .where("to_delete = ?", "0")
                      .order("id DESC")
                      .paginate(page: params[:page],
-                               per_page: 10)
+                               per_page: items_per_page)
 
     if params[:language].present?
       @movies = @movies.with_language_track(params[:language][:track]) if params[:language][:track].present?
@@ -182,7 +182,7 @@ class MoviePlaylistsController < ApplicationController
                                    .find(params[:id])
     language = params[:language]
 
-    headers["Content-Disposition"] =  "attachment; filename=\"#{@movie_playlist.airline.code if !@movie_playlist.airline.nil? && !@movie_playlist.airline.code.nil?}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_type if !@movie_playlist.movie_type.nil?}.pdf\""
+#    headers["Content-Disposition"] =  "attachment; filename=\"#{@movie_playlist.airline.code if !@movie_playlist.airline.nil? && !@movie_playlist.airline.code.nil?}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_type if !@movie_playlist.movie_type.nil?}.pdf\""
 
     respond_to do |format|
       format.html
@@ -384,4 +384,12 @@ class MoviePlaylistsController < ApplicationController
     end
   end
 
+end
+
+private
+def items_per_page
+  if params[:per_page]
+    session[:items_per_page] = params[:per_page]
+  end
+  session[:items_per_page]
 end

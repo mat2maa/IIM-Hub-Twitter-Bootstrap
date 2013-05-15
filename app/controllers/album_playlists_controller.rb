@@ -22,12 +22,12 @@ class AlbumPlaylistsController < ApplicationController
     if !params[:q].nil?
       @album_playlists = @search.result(distinct: true)
       .paginate(page: params[:page],
-                per_page: 10)
+                per_page: items_per_page)
     else
       @album_playlists = @search.result(distinct: true)
       .order("id DESC")
       .paginate(page: params[:page],
-                per_page: 10)
+                per_page: items_per_page)
     end
     @album_playlists_count = @album_playlists.count
   end
@@ -99,7 +99,7 @@ class AlbumPlaylistsController < ApplicationController
                      .where("to_delete = ?", "0")
                      .order("id DESC")
                      .paginate(page: params[:page],
-                               per_page: 10)
+                               per_page: items_per_page)
 
     @albums_count = @albums.count
 
@@ -451,4 +451,12 @@ class AlbumPlaylistsController < ApplicationController
     end
 
   end
+end
+
+private
+def items_per_page
+  if params[:per_page]
+    session[:items_per_page] = params[:per_page]
+  end
+  session[:items_per_page]
 end

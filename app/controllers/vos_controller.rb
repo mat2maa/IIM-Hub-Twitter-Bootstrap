@@ -10,7 +10,7 @@ class VosController < ApplicationController
   def index
     @vos = Vo.order("name asc")
     .paginate(page: params[:page],
-              per_page: 10)
+              per_page: items_per_page)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -80,4 +80,12 @@ VO is in use in a playlist'
       format.html { redirect_to(vos_url) }
     end
   end
+end
+
+private
+def items_per_page
+  if params[:per_page]
+    session[:items_per_page] = params[:per_page]
+  end
+  session[:items_per_page]
 end

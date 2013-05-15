@@ -10,7 +10,7 @@ class AirlineRightsCountriesController < ApplicationController
   def index
     @airline_rights_countries = AirlineRightsCountry.order("name asc")
     .paginate(page: params[:page],
-              per_page: 10)
+              per_page: items_per_page)
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -75,4 +75,12 @@ class AirlineRightsCountriesController < ApplicationController
       format.html { redirect_to(airline_rights_countries_url) }
     end
   end
+end
+
+private
+def items_per_page
+  if params[:per_page]
+    session[:items_per_page] = params[:per_page]
+  end
+  session[:items_per_page]
 end

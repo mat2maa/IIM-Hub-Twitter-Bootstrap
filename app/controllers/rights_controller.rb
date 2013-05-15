@@ -9,7 +9,7 @@ class RightsController < ApplicationController
     @search = Right.ransack(params[:q])
     @rights = @search.result(distinct: true)
     .paginate(page: params[:page],
-              per_page: 10)
+              per_page: items_per_page)
     @rights_count = @rights.count
   end
 
@@ -53,4 +53,12 @@ class RightsController < ApplicationController
     flash[:notice] = 'Right successfully destroyed.'
     redirect_to rights_path
   end
+end
+
+private
+def items_per_page
+  if params[:per_page]
+    session[:items_per_page] = params[:per_page]
+  end
+  session[:items_per_page]
 end

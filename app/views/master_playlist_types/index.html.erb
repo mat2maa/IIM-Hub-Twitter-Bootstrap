@@ -15,5 +15,15 @@
     <br/>
     <br/>
     <%= will_paginate @master_playlist_types %>
+    <%
+      def items_per_page_select(collection = MasterPlaylistTypes)
+        select_tag :per_page, options_for_select([10, 20, 50, 100], collection.per_page)
+      end
+    %>
+    <%= form_for '/master_playlist_types', method: :get do |f| %>
+      <span>Items per page: </span>
+      <%= items_per_page_select @master_playlist_types %>
+      <%= f.submit "Submit" %>
+    <% end %>
   </center>
 </div>

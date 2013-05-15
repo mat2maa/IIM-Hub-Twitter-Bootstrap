@@ -15,7 +15,7 @@ class AlbumsController < ApplicationController
     @albums = @search.result(distinct: true)
                      .order("id DESC")
                      .paginate(page: params[:page],
-                               per_page: 10)
+                               per_page: items_per_page)
 
     @albums_count = @albums.count
   end
@@ -262,4 +262,12 @@ class AlbumsController < ApplicationController
     end
   end
 
+end
+
+private
+def items_per_page
+  if params[:per_page]
+    session[:items_per_page] = params[:per_page]
+  end
+  session[:items_per_page]
 end

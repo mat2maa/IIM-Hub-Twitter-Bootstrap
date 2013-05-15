@@ -11,7 +11,7 @@ class CategoriesController < ApplicationController
     @categories = Category.where("id!=1")
     .order("name asc")
     .paginate(page: params[:page],
-              per_page: 10)
+              per_page: items_per_page)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -82,4 +82,12 @@ category is in use in some album playlist items'
       format.html { redirect_to(categories_url) }
     end
   end
+end
+
+private
+def items_per_page
+  if params[:per_page]
+    session[:items_per_page] = params[:per_page]
+  end
+  session[:items_per_page]
 end
