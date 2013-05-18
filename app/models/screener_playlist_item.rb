@@ -8,19 +8,15 @@ class ScreenerPlaylistItem < ActiveRecord::Base
 
   attr_accessible :screener_playlist_id, :screener_id, :position
 
-  def after_save
-    screener = Screener.find(self.screener.id)
-    screener.in_playlists = ScreenerPlaylist.find(:all,
-      :conditions => "screeners.id=#{self.screener.id}", 
-      :include => "screeners").collect{|playlist| playlist.id}.join(',')
-    screener.save(validate: false)
-  end
+  after_save :update_screener_in_playlist
+
+  before_destroy :update_screener_in_playlist
   
-  def before_destroy
+  def update_screener_in_playlist
     screener = Screener.find(self.screener.id)
-    screener.in_playlists = ScreenerPlaylist.find(:all, 
-      :conditions => "screeners.id=#{self.screener.id}", 
-      :include => "screeners").collect{|playlist| playlist.id}.join(',')
+    screener.in_playlists = ScreenerPlaylist.includes("screeners")
+                                            .where("screeners.id=#{self.screener.id}")
+                                            .collect{|playlist| playlist.id}.join(',')
     screener.save(validate: false)
   end
 end

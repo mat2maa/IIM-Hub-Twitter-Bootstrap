@@ -67,8 +67,10 @@ class Movie < ActiveRecord::Base
 
   scope :with_screener_held,
         where("screener_received_date <> 'NULL'")
+  
+  before_save :meta_tidy
 
-  def before_save
+  def meta_tidy
 
     self.language_tracks = nil if self.language_tracks.class == String
     self.language_subtitles = nil if self.language_subtitles.class == String
@@ -79,14 +81,14 @@ class Movie < ActiveRecord::Base
     
     # if production studio is empty, set it to the same as movie distributor supplier
     if production_studio_id.nil? && !movie_distributor_id.nil?
-      count_suppliers = SupplierCategory.includes(:suppliers)
+      count_suppliers = SupplierCategory.joins(:suppliers)
                                         .where(["supplier_id = ? and supplier_categories.name = ? ", movie_distributor_id, "Production Studios"])
                                         .count('supplier_id')
       self.production_studio_id = movie_distributor_id if !count_suppliers.zero?
     end
     
     if laboratory_id.nil? && !movie_distributor_id.nil?
-      count_suppliers = SupplierCategory.includes(:suppliers)
+      count_suppliers = SupplierCategory.joins(:suppliers)
                                         .where(["supplier_id = ? and supplier_categories.name = ? ", movie_distributor_id, "Laboratories"])
                                         .count('supplier_id')
       self.laboratory_id = movie_distributor_id if !count_suppliers.zero?

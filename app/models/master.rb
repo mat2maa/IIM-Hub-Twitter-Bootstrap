@@ -34,8 +34,10 @@ class Master < ActiveRecord::Base
   scope :with_language_subtitle, -> language_subtitle {
     where("language_subtitles like ?", "%#{language_subtitle}%")
   }
+  
+  before_save :uppercase_title
 
-  def before_save
+  def uppercase_title
     self.episode_title = episode_title.upcase unless episode_title.nil?
   end
   

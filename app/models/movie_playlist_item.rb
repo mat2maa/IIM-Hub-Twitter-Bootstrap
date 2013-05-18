@@ -8,20 +8,15 @@ class MoviePlaylistItem < ActiveRecord::Base
 
   attr_accessible :movie_id, :movie_playlist_id, :position, :position_position
 
-  def after_save
+  after_save :update_moviein_playlist
+
+  before_destroy :update_movie_in_playlist
+  
+  def update_movie_in_playlist
     movie = Movie.find(self.movie.id)
-    movie.in_playlists = MoviePlaylist.where("movies.id=#{self.movie.id}")
-                                      .includes("movies")
+    movie.in_playlists = MoviePlaylist.includes("movies")
+                                      .where("movies.id=#{self.movie.id}")
                                       .collect { |playlist| playlist.id }.join(',')
     movie.save(validate: false)
   end
-
-  def before_destroy
-    movie = Movie.find(self.movie.id)
-    movie.in_playlists = MoviePlaylist.where("movies.id=#{self.movie.id}")
-                                      .includes("movies")
-                                      .collect { |playlist| playlist.id }.join(',')
-    movie.save(validate: false)
-  end
-
 end

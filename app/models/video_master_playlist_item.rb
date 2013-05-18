@@ -8,18 +8,14 @@ class VideoMasterPlaylistItem < ActiveRecord::Base
 
   attr_accessible :mastering, :video_master_playlist_id, :master_id, :position
   
-  def after_save
-    master = Master.find(self.master.id)
-    master.in_playlists = VideoMasterPlaylist.where("masters.id=#{self.master.id}")
-                                             .includes("masters")
-                                             .collect{|playlist| playlist.id}.join(',')
-    master.save(validate: false)
-  end
+  after_save :update_master_in_playlist
+
+  before_destroy :update_master_in_playlist
   
-  def before_destroy
+  def update_master_in_playlist
     master = Master.find(self.master.id)
-    master.in_playlists = VideoMasterPlaylist.where("masters.id=#{self.master.id}")
-                                             .includes("masters")
+    master.in_playlists = VideoMasterPlaylist.includes("masters")
+                                             .where("masters.id=#{self.master.id}")
                                              .collect{|playlist| playlist.id}.join(',')
     master.save(validate: false)
   end

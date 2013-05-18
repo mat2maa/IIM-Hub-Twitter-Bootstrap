@@ -17,7 +17,9 @@ class Screener < ActiveRecord::Base
     where("language_subtitles like ?", "%#{language_subtitle}%")
   }
 
-  def before_save
+  before_save :uppercase_title
+
+  def uppercase_title
     self.episode_title = self.episode_title.upcase    
   end
   

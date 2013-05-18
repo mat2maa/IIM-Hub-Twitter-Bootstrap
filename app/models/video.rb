@@ -56,7 +56,9 @@ class Video < ActiveRecord::Base
                   :production_year, :production_studio_id, :episodes_available, :laboratory_id, :on_going_series,
                   :commercial_run_time_id, :video_genre_ids, :language_tracks, :language_subtitles, :synopsis, :remarks, :poster
   
-  def before_save
+  before_save :meta_tidy
+
+  def meta_tidy
     
     self.language_tracks = nil if self.language_tracks.class == String
     self.language_subtitles = nil if self.language_subtitles.class == String
@@ -67,14 +69,14 @@ class Video < ActiveRecord::Base
         
     # if production studio is empty, set it to the same as movie distributor supplier
     if production_studio_id.nil? && !video_distributor_id.nil?
-      count_suppliers = SupplierCategory.includes(:suppliers)
+      count_suppliers = SupplierCategory.joins(:suppliers)
                                         .where(["supplier_id = ? and supplier_categories.name = ? ", video_distributor_id, "Production Studios"])
                                         .count('supplier_id')
       self.production_studio_id = video_distributor_id if !count_suppliers.zero?
     end
     
     if laboratory_id.nil? && !video_distributor_id.nil?
-      count_suppliers = SupplierCategory.includes(:suppliers)
+      count_suppliers = SupplierCategory.joins(:suppliers)
                                         .where(["supplier_id = ? and supplier_categories.name = ? ", video_distributor_id, "Laboratories"])
                                         .count('supplier_id')
       self.laboratory_id = video_distributor_id if !count_suppliers.zero?
