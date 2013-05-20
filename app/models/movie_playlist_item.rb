@@ -8,7 +8,7 @@ class MoviePlaylistItem < ActiveRecord::Base
 
   attr_accessible :movie_id, :movie_playlist_id, :position, :position_position
 
-  after_save :update_moviein_playlist
+  after_save :update_movie_in_playlist
 
   before_destroy :update_movie_in_playlist
   
