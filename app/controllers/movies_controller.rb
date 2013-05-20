@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
     @search = Movie.includes(:movie_distributor)
                    .ransack(params[:q])
     @movies = @search.result(distinct: true)
-                     .order("id DESC")
+                     .order("movies.id DESC")
                      .paginate(page: params[:page],
                                per_page: items_per_page)
 
@@ -82,7 +82,7 @@ class MoviesController < ApplicationController
 
     @search = Movie.ransack(params[:q])
     @movies = @search.result(distinct: true)
-                     .order("id DESC")
+                     .order("movies.id DESC")
                      .paginate(page: params[:page],
                                per_page: items_per_page)
     @movies_count = @movies.count
@@ -101,7 +101,7 @@ class MoviesController < ApplicationController
   def update
     @search = Movie.ransack(params[:q])
     @movies = @search.result(distinct: true)
-                     .order("id DESC")
+                     .order("movies.id DESC")
                      .paginate(page: params[:page],
                                per_page: items_per_page)
     @movies_count = @movies.count

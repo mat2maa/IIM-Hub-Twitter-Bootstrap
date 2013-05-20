@@ -45,28 +45,16 @@
       <br/>
       <%= f.actions %>
       <%= link_to "Add EPK",
-                  {controller: :videos,
-                   action: "new",
-                   id: params[:id],
-                   video_type: CGI.escape("Movie EPK")} %>
+                  new_video_path(), id: params[:id], video_type: CGI.escape("Movie EPK") %>
       <br/>
       <%= link_to "Add Trailer",
-                  {controller: :videos,
-                   action: "new",
-                   id: params[:id],
-                   video_type: CGI.escape("Movie Trailer")} %>
+                  new_video_path(id: params[:id], video_type: CGI.escape("Movie Trailer")) %>
       <br/>
       <%= link_to "Add Master",
-                  {controller: :videos,
-                   action: "new",
-                   id: params[:id],
-                   video_type: CGI.escape("Movie Master")} %>
+                  new_video_path(id: params[:id], video_type: CGI.escape("Movie Master")) %>
       <br/>
       <%= link_to "Add TV Special",
-                  {controller: :videos,
-                   action: "new",
-                   id: params[:id],
-                   video_type: CGI.escape("TV Special")} %>
+                  new_video_path(id: params[:id], video_type: CGI.escape("TV Special")) %>
     </div>
 
     <%= f.inputs do %>

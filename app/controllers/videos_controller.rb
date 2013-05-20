@@ -8,7 +8,7 @@ class VideosController < ApplicationController
     @search = Video.includes(:video_distributor, :commercial_run_time, :video_genres)
                    .ransack(params[:q])
     @videos = @search.result(distinct: true)
-                     .order("id DESC")
+                     .order("videos.id DESC")
                      .paginate(page: params[:page],
                                per_page: items_per_page)
 

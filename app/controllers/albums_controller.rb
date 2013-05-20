@@ -13,7 +13,7 @@ class AlbumsController < ApplicationController
     @search = Album.includes(:label)
                    .ransack(params[:q])
     @albums = @search.result(distinct: true)
-                     .order("id DESC")
+                     .order("albums.id DESC")
                      .paginate(page: params[:page],
                                per_page: items_per_page)
 

@@ -25,7 +25,7 @@ class AlbumPlaylistsController < ApplicationController
                 per_page: items_per_page)
     else
       @album_playlists = @search.result(distinct: true)
-      .order("id DESC")
+      .order("album_playlists.id DESC")
       .paginate(page: params[:page],
                 per_page: items_per_page)
     end
@@ -97,7 +97,7 @@ class AlbumPlaylistsController < ApplicationController
     @search = Album.ransack(params[:q])
     @albums = @search.result(distinct: true)
                      .where("to_delete = ?", "0")
-                     .order("id DESC")
+                     .order("albums.id DESC")
                      .paginate(page: params[:page],
                                per_page: items_per_page)
 

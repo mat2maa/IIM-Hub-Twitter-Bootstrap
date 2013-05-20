@@ -25,7 +25,7 @@ class AudioPlaylistsController < ApplicationController
                                           per_page: items_per_page)
     else
       @audio_playlists = @search.result(distinct: true)
-                                .order("id DESC")
+                                .order("audio_playlists.id DESC")
                                 .paginate(page: params[:page],
                                           per_page: items_per_page)
     end
@@ -227,7 +227,7 @@ class AudioPlaylistsController < ApplicationController
 
     @search = Track.ransack(params[:q])
     @tracks = @search.result(distinct: true)
-                     .order("id DESC")
+                     .order("tracks.id DESC")
                      .paginate(page: params[:page],
                                per_page: items_per_page)
 

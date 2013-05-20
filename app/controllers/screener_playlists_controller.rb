@@ -17,7 +17,7 @@ class ScreenerPlaylistsController < ApplicationController
     @search = ScreenerPlaylist.includes(:airline, :video_playlist_type)
                               .ransack(params[:q])
     @screener_playlists = @search.result(distinct: true)
-                        .order("id DESC")
+                        .order("screener_playlists.id DESC")
                         .paginate(page: params[:page],
                                   per_page: items_per_page)
 
@@ -82,7 +82,7 @@ class ScreenerPlaylistsController < ApplicationController
 
     @search = Screener.ransack(params[:q])
     @screeners = @search.result(distinct: true)
-                        .order("id DESC")
+                        .order("screeners.id DESC")
                         .paginate(page: params[:page],
                                   per_page: items_per_page)
 

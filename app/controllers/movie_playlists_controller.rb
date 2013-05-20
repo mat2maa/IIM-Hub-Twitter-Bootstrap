@@ -16,7 +16,7 @@ class MoviePlaylistsController < ApplicationController
                                           per_page: items_per_page)
     else
       @movie_playlists = @search.result(distinct: true)
-                                .order("id DESC")
+                                .order("movie_playlists.id DESC")
                                 .paginate(page: params[:page],
                                           per_page: items_per_page)
     end
@@ -89,7 +89,7 @@ class MoviePlaylistsController < ApplicationController
     @search = Movie.ransack(params[:q])
     @movies = @search.result(distinct: true)
                      .where("to_delete = ?", "0")
-                     .order("id DESC")
+                     .order("movies.id DESC")
                      .paginate(page: params[:page],
                                per_page: items_per_page)
 

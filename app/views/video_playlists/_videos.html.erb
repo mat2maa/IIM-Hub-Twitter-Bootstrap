@@ -54,7 +54,7 @@
                             <%= VideoPlaylist.with_same_airline_and_video(video.id,
                                                                           (@video_playlist.airline_id unless @video_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
                                                                                                                                                                          edit_video_playlist_path(playlist),
-                                                                                                                                                                         target: "_blank") }.join(',').html_safe %>
+                                                                                                                                                                         target: "_blank") }.join(', ').html_safe %>
                         <% end %>
                     </span>
                 </td>

@@ -18,9 +18,9 @@ class VideoMasterPlaylistsController < ApplicationController
     @search = VideoMasterPlaylist.includes(:airline, :master_playlist_type)
                                  .ransack(params[:q])
     @video_master_playlists = @search.result(distinct: true)
-    .order("id DESC")
-    .paginate(page: params[:page],
-              per_page: items_per_page)
+                                     .order("video_master_playlists.id DESC")
+                                     .paginate(page: params[:page],
+                                               per_page: items_per_page)
 
     @video_master_playlists_count = @video_master_playlists.count
   end
@@ -84,7 +84,7 @@ class VideoMasterPlaylistsController < ApplicationController
 
     @search = Master.ransack(params[:q])
     @masters = @search.result(distinct: true)
-                      .order("id DESC")
+                      .order("masters.id DESC")
                       .paginate(page: params[:page],
                                 per_page: items_per_page)
 

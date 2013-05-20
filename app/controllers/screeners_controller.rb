@@ -9,7 +9,7 @@ class ScreenersController < ApplicationController
     @search = Screener.includes(:video)
                       .ransack(params[:q])
     @screeners = @search.result(distinct: true)
-                        .order("id DESC")
+                        .order("screeners.id DESC")
                         .paginate(page: params[:page],
                                   per_page: items_per_page)
 
@@ -67,7 +67,7 @@ class ScreenersController < ApplicationController
       #no search made yet
       @search = Screener.ransack(params[:q])
       @screeners = @search.result(distinct: true)
-                          .order("id DESC")
+                          .order("screeners.id DESC")
                           .paginate(page: params[:page],
                                     per_page: items_per_page)
     end

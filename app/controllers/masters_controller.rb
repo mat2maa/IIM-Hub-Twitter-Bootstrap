@@ -9,7 +9,7 @@ class MastersController < ApplicationController
     @search = Master.includes(:video)
                     .ransack(params[:q])
     @masters = @search.result(distinct: true)
-                      .order("id DESC")
+                      .order("masters.id DESC")
                       .paginate(page: params[:page],
                                 per_page: items_per_page)
 
@@ -71,9 +71,9 @@ class MastersController < ApplicationController
       #no search made yet
       @search = Master.ransack(params[:q])
       @masters = @search.result(distinct: true)
-      .order("id DESC")
-      .paginate(page: params[:page],
-                per_page: items_per_page)
+                        .order("masters.id DESC")
+                        .paginate(page: params[:page],
+                                  per_page: items_per_page)
     end
     @masters_count = @masters.count
 

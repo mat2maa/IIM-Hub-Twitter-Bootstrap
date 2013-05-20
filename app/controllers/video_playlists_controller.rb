@@ -11,7 +11,7 @@ class VideoPlaylistsController < ApplicationController
     @search = VideoPlaylist.includes(:airline, :video_playlist_type)
                            .ransack(params[:q])
     @video_playlists = @search.result(distinct: true)
-                              .order("id DESC")
+                              .order("video_playlists.id DESC")
                               .paginate(page: params[:page],
                                         per_page: items_per_page)
 
@@ -78,7 +78,7 @@ class VideoPlaylistsController < ApplicationController
     @search = Video.ransack(params[:q])
     @videos = @search.result(distinct: true)
                      .where("to_delete = ?", "0")
-                     .order("id DESC")
+                     .order("videos.id DESC")
                      .paginate(page: params[:page],
                                per_page: items_per_page)
 

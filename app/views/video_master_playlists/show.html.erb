@@ -37,18 +37,18 @@
         <td class="pl-title">Edit Runtime :</td>
         <td><%= @video_master_playlist.edit_runtime %></td>
         <td class="pl-title">Total Runtime :</td>
+        <td><%= @video_master_playlist.total_runtime %></td>
       </tr>
       <tr>
         <td class="pl-title">Media Instruction</td>
-        <td colspan="5"><%= @video_master_playlist.media_instruction.gsub(/\n/,
-                                                                          '<br/>') %></td>
+        <td colspan="5"><%= @video_master_playlist.media_instruction.gsub(/\n/,'<br/>').html_safe %></td>
       </tr>
     </table>
 
 
     <div id="playlist">
       <table width="100%" id="videoplaylist">
-        <% @video_master_playlist.video_master_playlist_items_sorted.each do |video_master_playlist_item| %>
+        <% @video_master_playlist.video_master_playlist_items_sorted.each_with_index do |video_master_playlist_item, i| %>
             <tr id="item_<%= video_master_playlist_item.id %>">
               <% if video_master_playlist_item.master.nil? %>
                   <td colspan="2">Missing master <%= video_master_playlist_item.master_id %></td>
@@ -56,7 +56,7 @@
                   <td>
                     <table width="100%">
                       <tr>
-                        <th width="130">(<%= video_master_playlist_item.position %>) Programme Title</th>
+                        <th width="130">(<%= (i+1) %>) Programme Title</th>
                         <td width="200"><%= video_master_playlist_item.master.video.programme_title %></td>
                         <th width="85">Lang Track 1:</th>
                         <td width="50"><%= video_master_playlist_item.master.language_track_1 %></td>

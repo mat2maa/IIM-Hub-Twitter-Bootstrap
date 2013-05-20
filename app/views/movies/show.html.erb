@@ -102,7 +102,7 @@
       </tr>
       <tr>
         <th>Genres:</th>
-        <td colspan="3"><%= @movie.movie_genres.collect { |genre| genre.name }.join(',') if !@movie_movie_genres.blank? %></td>
+        <td colspan="3"><%= @movie.movie_genres.collect { |genre| genre.name }.join(', ') if !@movie_movie_genres.blank? %></td>
       </tr>
       <tr>
         <th>Rating:</th>

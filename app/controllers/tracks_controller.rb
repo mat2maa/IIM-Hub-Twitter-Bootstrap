@@ -9,7 +9,7 @@ class TracksController < ApplicationController
     @search = Track.includes(album: :label)
                    .ransack(params[:q])
     @tracks = @search.result(distinct: true)
-                     .order("id DESC")
+                     .order("tracks.id DESC")
                      .paginate(page: params[:page],
                                per_page: items_per_page)
 
