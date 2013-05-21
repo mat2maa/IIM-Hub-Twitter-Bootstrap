@@ -17,6 +17,15 @@
 development:
   adapter: mysql2
   encoding: utf8
+  database: heroku_9180bde14683662
+  username: iim_development
+  password: iim_development
+  pool: 5
+  socket: /tmp/mysql.sock
+
+dev_work:
+  adapter: mysql2
+  encoding: utf8
   database: iim_development
   username: iim_development
   password: iim_development
