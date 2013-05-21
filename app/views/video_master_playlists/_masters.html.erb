@@ -60,7 +60,7 @@
                     <span id="exists">
                         <% if (master.in_playlists!="" && !master.in_playlists.nil?) %>
                             <%= VideoMasterPlaylist.with_same_airline_and_master(master.id,
-                                                                                 (@master_playlist.airline_id unless @master_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
+                                                                                 (@video_master_playlist.airline_id unless @video_master_playlist.airline.nil?)).collect { |playlist| link_to("#{playlist.airline.code unless playlist.airline.nil?}#{playlist.start_cycle.strftime("%m%y") unless playlist.start_cycle.nil?}",
                                                                                                                                                                                               edit_video_master_playlist_path(playlist),
                                                                                                                                                                                               target: "_blank") }.join(', ').html_safe %>
                         <% end %>
@@ -69,7 +69,7 @@
                 <%# end %>
                 <td>
                   <%= link_to "add to playlist",
-                              add_video_master_video_master_playlist_path(@master_playlist, master_id: master.id),
+                              add_video_master_video_master_playlist_path(@video_master_playlist, master_id: master.id),
                               method: :post,
                               remote: true,
                               class: 'spinner-trigger' %>

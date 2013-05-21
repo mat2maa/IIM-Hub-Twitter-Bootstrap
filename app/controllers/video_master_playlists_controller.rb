@@ -78,7 +78,7 @@ class VideoMasterPlaylistsController < ApplicationController
   #display overlay
   def add_video_master_to_playlist
 
-    @master_playlist = VideoMasterPlaylist.find(params[:id])
+    @video_master_playlist = VideoMasterPlaylist.find(params[:id])
     @languages = MasterLanguage.order("name")
                                .collect { |language| language.name }
 

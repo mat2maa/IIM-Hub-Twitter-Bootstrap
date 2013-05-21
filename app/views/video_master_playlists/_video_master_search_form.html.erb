@@ -2,16 +2,12 @@
     <fieldset>
       <legend>Search Masters</legend>
       <%= search_form_for @search,
-                         url: add_video_master_to_playlist_path(id: @master_playlist.id),
+                         url: add_video_master_to_playlist_path(id: @video_master_playlist.id),
                          remote: true,
                          id: "master_search_form",
                          class: 'spinner-trigger' do |masters| %>
           <!--Match ANY or ALL of the conditions:<br />-->
-          <%#= masters.select :any,
-[["All",
-false],
-["Any",
-true]] %>
+          <%#= masters.select :any, [["All", false], ["Any", true]] %>
           <br/>
           <%= image_tag 'spinner.gif',
                         id: 'spinner',
