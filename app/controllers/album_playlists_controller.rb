@@ -279,14 +279,14 @@ class AlbumPlaylistsController < ApplicationController
                    "Album Duration"]
 
     # data rows
-    album_playlist_items.each do |album_playlist_item|
+    album_playlist_items.each.with_index do |album_playlist_item, index|
       if !album_playlist_item.album.label_id.nil?
         label = album_playlist_item.album.label.name
       else
         label =""
       end
 
-      sheet.add_row [album_playlist_item.position,
+      sheet.add_row [index + 1,
                      album_playlist_item.category.name,
 
                      album_playlist_item.album.cd_code,
@@ -320,7 +320,7 @@ class AlbumPlaylistsController < ApplicationController
                    "Songs Track Title (Original)", "Song Duration"]
 
     # data rows
-    album_playlist_items.each do |album_playlist_item|
+    album_playlist_items.each.with_index do |album_playlist_item, index|
 
       if !album_playlist_item.album.label_id.nil?
         label = album_playlist_item.album.label.name
@@ -334,7 +334,7 @@ class AlbumPlaylistsController < ApplicationController
 
         track_num = convert_to_two_digits(track.track_num)
 
-        sheet.add_row [album_playlist_item.position,
+        sheet.add_row [index + 1,
                        label,
 
                        album_playlist_item.album.title_english,
@@ -451,12 +451,4 @@ class AlbumPlaylistsController < ApplicationController
     end
 
   end
-end
-
-private
-def items_per_page
-  if params[:per_page]
-    session[:items_per_page] = params[:per_page]
-  end
-  session[:items_per_page]
 end

@@ -634,6 +634,11 @@ table.movie td, table.movie t{
     opacity:0;
 }
 
+/* Items Per Page Select Menu */
+.items_per_page_select {
+  padding-bottom:60px;
+}
+
 @media print {  
 	body, html{
 		margin:0;

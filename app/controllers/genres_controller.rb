@@ -99,11 +99,3 @@ class GenresController < ApplicationController
     end
   end
 end
-
-private
-def items_per_page
-  if params[:per_page]
-    session[:items_per_page] = params[:per_page]
-  end
-  session[:items_per_page]
-end

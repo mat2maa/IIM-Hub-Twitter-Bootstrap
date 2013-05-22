@@ -258,7 +258,7 @@ class VideoPlaylistsController < ApplicationController
                    "Poster"]
 
     # data rows
-    video_playlist_items.each do |video_playlist_item|
+    video_playlist_items.each.with_index do |video_playlist_item, index|
 
       if video_playlist_item.video.video_distributor.nil?
         video_distributor = ""
@@ -272,7 +272,7 @@ class VideoPlaylistsController < ApplicationController
         runtime = video_playlist_item.video.commercial_run_time.minutes
       end
 
-      sheet.add_row [video_playlist_item.position,
+      sheet.add_row [index + 1,
 
                      video_playlist_item.video.programme_title,
 
@@ -316,12 +316,4 @@ class VideoPlaylistsController < ApplicationController
     end
     render nothing: true
   end
-end
-
-private
-def items_per_page
-  if params[:per_page]
-    session[:items_per_page] = params[:per_page]
-  end
-  session[:items_per_page]
 end

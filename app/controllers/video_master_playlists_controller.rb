@@ -255,7 +255,7 @@ Sub-Genre",
                    "Mastering"]
 
     # data rows
-    video_master_playlist_items.each do |video_master_playlist_item|
+    video_master_playlist_items.each.with_index do |video_master_playlist_item, index|
 
       if video_master_playlist_item.master.video.video_distributor.nil?
         distributor = ""
@@ -264,7 +264,7 @@ Sub-Genre",
       end
 
       if !video_master_playlist_item.master.nil?
-        sheet.add_row [video_master_playlist_item.position,
+        sheet.add_row [index + 1,
 
                        video_master_playlist_item.master.video.programme_title,
 
@@ -365,12 +365,4 @@ Sub-Genre",
     end
   end
 
-end
-
-private
-def items_per_page
-  if params[:per_page]
-    session[:items_per_page] = params[:per_page]
-  end
-  session[:items_per_page]
 end

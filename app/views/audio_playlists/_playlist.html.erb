@@ -2,7 +2,8 @@
 <table width="100%">
   <% @accum_duration = 0 %>
   <tbody id="audioplaylist" class="sort-list" data-url="<%= sort_audio_playlist_path %>" style="cursor: move">
-  <%= render partial: 'playlist_track',
-             collection: @audio_playlist.audio_playlist_tracks_sorted %>
+    <% @audio_playlist.audio_playlist_tracks_sorted.each.with_index do |track, index| %>
+      <%= render partial: 'playlist_track', object: track, locals: { position: index + 1} %>
+    <% end %>
   </tbody>
 </table>

@@ -76,7 +76,7 @@ params_scope: :audio_playlists  %></th>
         select_tag :per_page, options_for_select([10, 20, 50, 100], collection.per_page)
       end
     %>
-    <%= form_for '/tracks', method: :get, remote: true do |f| %>
+    <%= form_for '/tracks', method: :get, html: { class: 'items_per_page_select' }, remote: true do |f| %>
       <span>Items per page: </span>
       <%= items_per_page_select @tracks %>
       <%= f.submit "Submit" %>

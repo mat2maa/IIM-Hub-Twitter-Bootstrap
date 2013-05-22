@@ -49,7 +49,7 @@
         select_tag :per_page, options_for_select([10, 20, 50, 100], collection.per_page)
       end
     %>
-    <%= form_for '/albums', method: :get do |f| %>
+    <%= form_for '/albums', method: :get, html: { class: 'items_per_page_select' } do |f| %>
       <span>Items per page: </span>
       <%= items_per_page_select @albums %>
       <%= f.submit "Submit" %>

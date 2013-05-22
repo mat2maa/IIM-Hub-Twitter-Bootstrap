@@ -26,7 +26,7 @@ development:
 dev_work:
   adapter: mysql2
   encoding: utf8
-  database: iim_development
+  database: heroku_9180bde14683662
   username: iim_development
   password: iim_development
   pool: 5

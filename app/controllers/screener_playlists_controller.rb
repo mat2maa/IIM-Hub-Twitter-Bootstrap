@@ -236,7 +236,7 @@ class ScreenerPlaylistsController < ApplicationController
                    "Synopsis"]
 
     # data rows
-    screener_playlist_items.each do |screener_playlist_item|
+    screener_playlist_items.each.with_index do |screener_playlist_item, index|
 
       if screener_playlist_item.screener.video.video_distributor.nil?
         distributor = ""
@@ -244,7 +244,7 @@ class ScreenerPlaylistsController < ApplicationController
         distributor = screener_playlist_item.screener.video.video_distributor
       end
 
-      sheet.add_row [screener_playlist_item.position,
+      sheet.add_row [index + 1,
 
                      screener_playlist_item.screener.video.programme_title,
 
@@ -319,12 +319,4 @@ class ScreenerPlaylistsController < ApplicationController
     end
   end
 
-end
-
-private
-def items_per_page
-  if params[:per_page]
-    session[:items_per_page] = params[:per_page]
-  end
-  session[:items_per_page]
 end

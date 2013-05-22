@@ -5,7 +5,7 @@
     <% else %>
         <table width="100%" class="playlist">
           <tr>
-            <th width="130">(<%= playlist_track_counter + 1 %>)Track
+            <th width="130">(<%= position %>)Track
               Title <%= link_to 'Edit',
                                 edit_track_path(playlist_track.track_id),
                                 target: '_blank' %>:

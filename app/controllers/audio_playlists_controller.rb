@@ -342,7 +342,7 @@ class AudioPlaylistsController < ApplicationController
 
     accum_duration = 0
     # data rows
-    @audio_playlist.audio_playlist_tracks_sorted.each do |audio_playlist_track|
+    @audio_playlist.audio_playlist_tracks_sorted.each.with_index do |audio_playlist_track, index|
       if !audio_playlist_track.track.album.label_id.nil?
         label = audio_playlist_track.track.album.label.name
       else
@@ -366,7 +366,7 @@ class AudioPlaylistsController < ApplicationController
 
       sheet.add_row [audio_playlist_track.mastering,
 
-                     audio_playlist_track.position,
+                     index + 1,
 
                      audio_playlist_track.track.title_english,
 
@@ -482,12 +482,4 @@ class AudioPlaylistsController < ApplicationController
 
   end
 
-end
-
-private
-def items_per_page
-  if params[:per_page]
-    session[:items_per_page] = params[:per_page]
-  end
-  session[:items_per_page]
 end

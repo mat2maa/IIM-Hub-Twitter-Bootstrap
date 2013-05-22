@@ -10,6 +10,10 @@
     <<: *defaults
     iim_domain: localhost:3000
 
+  dev_work:
+    <<: *defaults
+    iim_domain: localhost:3000
+
   test:
     <<: *defaults
 

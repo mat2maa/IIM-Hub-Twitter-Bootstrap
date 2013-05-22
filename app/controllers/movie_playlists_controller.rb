@@ -271,7 +271,7 @@ class MoviePlaylistsController < ApplicationController
                    "Critics Review"]
 
     # data rows
-    movie_playlist_items.each do |movie_playlist_item|
+    movie_playlist_items.each.with_index do |movie_playlist_item, index|
 
       if movie_playlist_item.movie.movie_distributor.nil?
         movie_distributor = ""
@@ -294,7 +294,7 @@ class MoviePlaylistsController < ApplicationController
       airline_release_date = ""
       airline_release_date = movie_playlist_item.movie.airline_release_date.strftime('%m-%Y') unless movie_playlist_item.movie.airline_release_date.nil?
 
-      sheet.add_row [movie_playlist_item.position,
+      sheet.add_row [index + 1,
 
                      movie_playlist_item.movie.movie_title,
 
@@ -384,12 +384,4 @@ class MoviePlaylistsController < ApplicationController
     end
   end
 
-end
-
-private
-def items_per_page
-  if params[:per_page]
-    session[:items_per_page] = params[:per_page]
-  end
-  session[:items_per_page]
 end

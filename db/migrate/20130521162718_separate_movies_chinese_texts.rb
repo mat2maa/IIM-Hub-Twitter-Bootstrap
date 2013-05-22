@@ -1,9 +1,27 @@
-class SeparateChineseTexts < ActiveRecord::Migration
+class SeparateMoviesChineseTexts < ActiveRecord::Migration
   def up
     Movie.all.each do |movie|
 
       if has_chinese_text?(movie, :movie_title)
         split_chinese_text(movie, :movie_title)
+
+        movie.save(validate: false)
+      end
+
+      if has_chinese_text?(movie, :cast)
+        split_chinese_text(movie, :cast)
+
+        movie.save(validate: false)
+      end
+
+      if has_chinese_text?(movie, :director)
+        split_chinese_text(movie, :director)
+
+        movie.save(validate: false)
+      end
+
+      if has_chinese_text?(movie, :synopsis)
+        split_chinese_text(movie, :synopsis)
 
         movie.save(validate: false)
       end

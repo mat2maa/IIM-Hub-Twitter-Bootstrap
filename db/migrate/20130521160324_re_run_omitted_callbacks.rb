@@ -1,19 +1,61 @@
 class ReRunOmittedCallbacks < ActiveRecord::Migration
   def up
-    videos = Video.where("updated_at > ?", DateTime.new(2013, 5, 12))
+    # before_save
+    movies = Movie.where("updated_at > ?", DateTime.new(2013, 5, 12))
+    movies.each do |movie|
+      movie.meta_tidy
+      movie.save
+    end
 
+    videos = Video.where("updated_at > ?", DateTime.new(2013, 5, 12))
     videos.each do |video|
       video.meta_tidy
       video.save
     end
 
-    movies = Movie.all
+    masters = Master.where("updated_at > ?", DateTime.new(2013, 5, 12))
+    masters.each do |master|
+      masters.uppercase_title
+      masters.save
+    end
 
+    screeners = Screener.where("updated_at > ?", DateTime.new(2013, 5, 12))
+    screeners.each do |screener|
+      screeners.uppercase_title
+      screeners.save
+    end
+
+    # after_save, before_destroy
+    movies = Movie.all
     movies.each do |movie|
       movie.in_playlists = MoviePlaylist.includes("movies")
                                         .where("movies.id=#{self.movie.id}")
                                         .collect { |playlist| playlist.id }.join(',')
       movie.save(validate: false)
+    end
+
+    videos = Video.all
+    videos.each do |video|
+      video.in_playlists = VideoPlaylist.includes("videos")
+                                        .where("videos.id=#{self.video.id}")
+                                        .collect { |playlist| playlist.id }.join(',')
+      video.save(validate: false)
+    end
+
+    masters = Master.all
+    masters.each do |master|
+      master.in_playlists = VideoMasterPlaylist.includes("masters")
+                                        .where("masters.id=#{self.master.id}")
+                                        .collect { |playlist| playlist.id }.join(',')
+      master.save(validate: false)
+    end
+
+    screeners = Screener.all
+    screeners.each do |screener|
+      screener.in_playlists = ScreenerPlaylist.includes("screeners")
+                                              .where("screeners.id=#{self.screener.id}")
+                                              .collect{|playlist| playlist.id}.join(',')
+      screener.save(validate: false)
     end
 
   end
