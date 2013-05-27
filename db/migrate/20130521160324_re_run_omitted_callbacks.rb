@@ -15,21 +15,21 @@ class ReRunOmittedCallbacks < ActiveRecord::Migration
 
     masters = Master.where("updated_at > ?", DateTime.new(2013, 5, 12))
     masters.each do |master|
-      masters.uppercase_title
-      masters.save
+      master.uppercase_title
+      master.save
     end
 
     screeners = Screener.where("updated_at > ?", DateTime.new(2013, 5, 12))
     screeners.each do |screener|
-      screeners.uppercase_title
-      screeners.save
+      screener.uppercase_title
+      screener.save
     end
 
     # after_save, before_destroy
     movies = Movie.all
     movies.each do |movie|
       movie.in_playlists = MoviePlaylist.includes("movies")
-                                        .where("movies.id=#{self.movie.id}")
+                                        .where("movies.id=#{movie.id}")
                                         .collect { |playlist| playlist.id }.join(',')
       movie.save(validate: false)
     end
@@ -37,7 +37,7 @@ class ReRunOmittedCallbacks < ActiveRecord::Migration
     videos = Video.all
     videos.each do |video|
       video.in_playlists = VideoPlaylist.includes("videos")
-                                        .where("videos.id=#{self.video.id}")
+                                        .where("videos.id=#{video.id}")
                                         .collect { |playlist| playlist.id }.join(',')
       video.save(validate: false)
     end
@@ -45,7 +45,7 @@ class ReRunOmittedCallbacks < ActiveRecord::Migration
     masters = Master.all
     masters.each do |master|
       master.in_playlists = VideoMasterPlaylist.includes("masters")
-                                        .where("masters.id=#{self.master.id}")
+                                        .where("masters.id=#{master.id}")
                                         .collect { |playlist| playlist.id }.join(',')
       master.save(validate: false)
     end
@@ -53,7 +53,7 @@ class ReRunOmittedCallbacks < ActiveRecord::Migration
     screeners = Screener.all
     screeners.each do |screener|
       screener.in_playlists = ScreenerPlaylist.includes("screeners")
-                                              .where("screeners.id=#{self.screener.id}")
+                                              .where("screeners.id=#{screener.id}")
                                               .collect{|playlist| playlist.id}.join(',')
       screener.save(validate: false)
     end

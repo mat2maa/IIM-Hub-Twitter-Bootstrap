@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class SeparateMoviesChineseTexts < ActiveRecord::Migration
   def up
     Movie.all.each do |movie|
