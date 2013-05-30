@@ -31,10 +31,12 @@ true]] %>
                                   size: 17 %>
             <br/>
             <%= check_box :screener,
-                          :destroyed %>Screener Destroyed
+                          :destroyed,
+                          { checked: !params[:screener].nil? && params[:screener][:destroyed] == '1' ? true : false } %>Screener Destroyed
             <br/>
             <%= check_box :screener,
-                          :held %>Screener Held
+                          :held,
+                          { checked: !params[:screener].nil? && params[:screener][:held] == '1' ? true : false } %>Screener Held
           </td>
           <td valign="top">
             Movie Distributor:<br/>
@@ -56,12 +58,11 @@ true]] %>
                               Movie::MOVIE_TYPE,
                               include_blank: true %> <br/>
             Genre:<br/>
-            <%= movies.select :id_eq,
+            <%= movies.select :movie_genres_id_eq,
                               MovieGenre.order("name")
                                         .collect { |p| [p.name,
-                                              p.id] },
-                              include_blank: true %>
-
+                                                        p.id] },
+                              {include_blank: true} %>
           </td>
           <td valign="top">
             Airline Release Date (MM-YYYY)<br/>

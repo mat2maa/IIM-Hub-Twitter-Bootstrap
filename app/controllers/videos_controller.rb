@@ -52,9 +52,9 @@ class VideosController < ApplicationController
 
         @existing_video = Video.where("programme_title=? AND video_type=?",
                                       movie.movie_title,
-                                      @video.video_type)
+                                      @video.video_type).find(:first)
 
-        if !@existing_video.nil?
+        if @existing_video.present?
           redirect_to edit_video_path(@existing_video)
         end
 

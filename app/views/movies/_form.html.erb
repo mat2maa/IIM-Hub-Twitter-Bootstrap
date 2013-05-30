@@ -45,7 +45,7 @@
       <br/>
       <%= f.actions %>
       <%= link_to "Add EPK",
-                  new_video_path(), id: params[:id], video_type: CGI.escape("Movie EPK") %>
+                  new_video_path(id: params[:id], video_type: CGI.escape("Movie EPK")) %>
       <br/>
       <%= link_to "Add Trailer",
                   new_video_path(id: params[:id], video_type: CGI.escape("Movie Trailer")) %>

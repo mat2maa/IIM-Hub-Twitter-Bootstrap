@@ -1,4 +1,6 @@
 <%# cache 'video_search_form' do %>
+<% @selected_track = (params[:language]).nil? ? '' : params[:language][:track] %>
+<% @selected_subtitle = (params[:language]).nil? ? '' : params[:language][:subtitle] %>
 <fieldset>
   <legend>Search Videos</legend>
   <%= search_form_for @search,
@@ -39,13 +41,15 @@
             <%= select :language,
                        :track,
                        @languages,
-                       {include_blank: true} %>
+                       {include_blank: true,
+                        selected: @selected_track} %>
             <br/>
             Available Lang Subtitles:<br/>
             <%= select :language,
                        :subtitle,
                        @languages,
-                       {include_blank: true} %>
+                       {include_blank: true,
+                        selected: @selected_subtitle} %>
           </td>
           <td valign="top">
             Genre:<br/>

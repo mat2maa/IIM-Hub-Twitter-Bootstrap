@@ -1,4 +1,6 @@
 <%# cache 'movie_search_form' do %>
+<% @selected_track = (params[:language]).nil? ? '' : params[:language][:track] %>
+<% @selected_subtitle = (params[:language]).nil? ? '' : params[:language][:subtitle] %>
 <fieldset>
   <legend>Search Movies</legend>
   <%= search_form_for @search,
@@ -25,10 +27,12 @@
                                   size: 17 %>
             <br/>
             <%= check_box :screener,
-                          :destroyed %>Screener Destroyed
+                          :destroyed,
+                          { checked: !params[:screener].nil? && params[:screener][:destroyed] == '1' ? true : false } %>Screener Destroyed
             <br/>
             <%= check_box :screener,
-                          :held %>Screener Held
+                          :held,
+                          { checked: !params[:screener].nil? && params[:screener][:held] == '1' ? true : false } %>Screener Held
           </td>
           <td valign="top">
             Movie Distributor:<br/>
@@ -50,7 +54,7 @@
                               Movie::MOVIE_TYPE,
                               include_blank: true %> <br/>
             Genre:<br/>
-            <%= movies.select :id_eq,
+            <%= movies.select :movie_genres_id_eq,
                               MovieGenre.all
                               .collect { |p| [p.name,
                                               p.id] },
@@ -65,12 +69,14 @@
                   <%= select :language,
                              :track,
                              @languages,
-                             {include_blank: true} %></td>
+                             {include_blank: true,
+                             selected: @selected_track} %></td>
                 <td>Subtitles:<br/>
                   <%= select :language,
                              :subtitle,
                              @languages,
-                             {include_blank: true} %></td>
+                             {include_blank: true,
+                              selected: @selected_subtitle} %></td>
                 <td>Theatrical Release Year:<br/>
                   <%= movies.select :theatrical_release_year_eq,
                                     movie_release_years,

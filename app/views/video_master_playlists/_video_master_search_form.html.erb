@@ -1,4 +1,6 @@
 <%# cache 'video_master_search_form' do %>
+<% @selected_track = (params[:language]).nil? ? '' : params[:language][:track] %>
+<% @selected_subtitle = (params[:language]).nil? ? '' : params[:language][:subtitle] %>
 <fieldset>
   <legend>Search Masters</legend>
   <%= search_form_for @search,
@@ -59,18 +61,26 @@
 
           </td>
           <td valign="top">
+<!--
             Lang Track:<br/>
-            <%= select :language,
+-->
+            <%#= select :language,
                        :track,
                        @languages,
-                       {include_blank: true} %>
+                       {include_blank: true,
+                        selected: @selected_track} %>
+<!--
             <br/>
             Lang Subtitles:<br/>
-            <%= select :language,
+-->
+            <%#= select :language,
                        :subtitle,
                        @languages,
-                       {include_blank: true} %>
+                       {include_blank: true,
+                        selected: @selected_subtitle} %>
+<!--
             <br/>
+-->
             Tape Location Number:<br/>
             <%= masters.text_field :video_masters_location_eq,
                                    size: 6 %>

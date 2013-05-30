@@ -1,3 +1,5 @@
+<% @selected_track = (params[:language]).nil? ? '' : params[:language][:track] %>
+<% @selected_subtitle = (params[:language]).nil? ? '' : params[:language][:subtitle] %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,13 +55,15 @@
             <%= select :language,
                        :track,
                        @languages,
-                       {include_blank: true} %>
+                       {include_blank: true,
+                        selected: @selected_track} %>
             <br/>
             Lang Subtitles:<br/>
             <%= select :language,
                        :subtitle,
                        @languages,
-                       {include_blank: true} %>
+                       {include_blank: true,
+                        selected: @selected_subtitle} %>
           </td>
           <td valign="top">
             Genre:<br/>

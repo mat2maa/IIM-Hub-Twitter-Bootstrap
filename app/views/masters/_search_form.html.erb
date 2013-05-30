@@ -1,3 +1,5 @@
+<% @selected_track = (params[:language]).nil? ? '' : params[:language][:track] %>
+<% @selected_subtitle = (params[:language]).nil? ? '' : params[:language][:subtitle] %>
 <%= search_form_for @search,
                     class: 'spinner-trigger' do |masters| %>
     <fieldset>
@@ -34,19 +36,27 @@
                                include_blank: true %>
             <br/>
           </td>
-          <!--<td valign="top">-->
-            <!--Lang Track:<br/>-->
+<!--
+          <td valign="top">
+            Lang Track:<br/>
+-->
             <%#= select :language,
                        :track,
                        @languages,
-                       {include_blank: true} %>
-            <!--<br/>-->
-            <!--Language Subtitles:<br/>-->
+                       {include_blank: true,
+                        selected: @selected_track} %>
+<!--
+            <br/>
+            Lang Subtitles:<br/>
+-->
             <%#= select :language,
                        :subtitle,
                        @languages,
-                       {include_blank: true} %>
-          <!--</td>-->
+                       {include_blank: true,
+                        selected: @selected_subtitle} %>
+<!--
+          </td>
+-->
           <td valign="top">
             Genre:<br/>
             <%= masters.select :video_video_genres_video_parent_genre_id_eq,

@@ -1,4 +1,6 @@
 <%# cache 'screener_search_form' do %>
+<% @selected_track = (params[:language]).nil? ? '' : params[:language][:track] %>
+<% @selected_subtitle = (params[:language]).nil? ? '' : params[:language][:subtitle] %>
 <fieldset>
   <legend>Search Screeners</legend>
   <%= search_form_for @search,
@@ -49,19 +51,27 @@
                                       size: 6 %>
 
             </td>
+<!--
             <td valign="top">
               Lang Track:<br/>
-              <%= select :language,
+-->
+              <%#= select :language,
                          :track,
                          @languages,
-                         {include_blank: true} %>
+                         {include_blank: true,
+                          selected: @selected_track} %>
+<!--
               <br/>
               Lang Subtitles:<br/>
-              <%= select :language,
+-->
+              <%#= select :language,
                          :subtitle,
                          @languages,
-                         {include_blank: true} %>
+                         {include_blank: true,
+                          selected: @selected_subtitle} %>
+<!--
               <br/>
+-->
               Tape Location Number:<br/>
               <%= screeners.text_field :video_screeners_location_eq,
                                        size: 6 %>
