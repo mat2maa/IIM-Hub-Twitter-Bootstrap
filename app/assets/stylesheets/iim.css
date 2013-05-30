@@ -639,6 +639,11 @@ table.movie td, table.movie t{
   padding-bottom:60px;
 }
 
+/* Force overflow-y:scroll for jQuery-UI Dialog */
+.ui-dialog .ui-dialog-content {
+  overflow-y:scroll;
+}
+
 @media print {  
 	body, html{
 		margin:0;

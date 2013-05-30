@@ -43,7 +43,7 @@ class SeparateMoviesChineseTexts < ActiveRecord::Migration
   def split_chinese_text(object, attribute)
     text = object.send(attribute)
 
-    english, chinese = split_it(text)
+    chinese, english = split_it(text)
 
     object.send(:"#{attribute}=", english)
     object.send(:"chinese_#{attribute}=", chinese)
@@ -51,9 +51,9 @@ class SeparateMoviesChineseTexts < ActiveRecord::Migration
 
   def split_it(string)
     words = string.split(/\s+/)
-    english_words, chinese_words = words.partition { |word| contains_cjk?(word) }
+    chinese_words, english_words = words.partition { |word| contains_cjk?(word) }
 
-    [english_words.join(" "),  chinese_words.join(" ")]
+    [chinese_words.join(" "), english_words.join(" ")]
   end
 
 
