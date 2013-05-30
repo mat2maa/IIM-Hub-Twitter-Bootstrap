@@ -1,3 +1,5 @@
+<% @selected_track = (params[:language]).nil? ? '' : params[:language][:track] %>
+<% @selected_subtitle = (params[:language]).nil? ? '' : params[:language][:subtitle] %>
 <fieldset>
   <legend>Search Movies</legend>
 
@@ -87,12 +89,14 @@ true]] %>
                   <%= select :language,
                              :track,
                              @languages,
-                             {include_blank: true} %></td>
+                             {include_blank: true,
+                             selected: @selected_track} %></td>
                 <td>Subtitles:<br/>
                   <%= select :language,
                              :subtitle,
                              @languages,
-                             {include_blank: true} %></td>
+                             {include_blank: true,
+                              selected: @selected_subtitle} %></td>
 
               </tr>
             </table>

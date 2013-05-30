@@ -23,7 +23,7 @@ class SeparateMoviesChineseTexts < ActiveRecord::Migration
       end
 
       if has_chinese_text?(movie, :synopsis)
-        split_chinese_text(movie, :synopsis)
+        split_chinese_synopsis(movie, :synopsis)
 
         movie.save(validate: false)
       end
@@ -56,6 +56,15 @@ class SeparateMoviesChineseTexts < ActiveRecord::Migration
     [chinese_words.join(" "), english_words.join(" ")]
   end
 
+  # Using a different function for synopses as some don't have a space at the beginning of the Chinese part.
+  def split_chinese_synopsis(object, attribute)
+    text = object.send(attribute)
+
+    english, chinese = text.split( /\b\p{Han}|\b\p{Katakana}|\b\p{Hiragana}|\b\p{Hangul}/, 2 )
+
+    object.send(:"#{attribute}=", english)
+    object.send(:"chinese_#{attribute}=", chinese)
+  end
 
   def contains_cjk?(string)
     !!(string =~ /\p{Han}|\p{Katakana}|\p{Hiragana}|\p{Hangul}/)
