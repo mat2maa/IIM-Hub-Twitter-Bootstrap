@@ -112,9 +112,13 @@ class MoviePlaylistsController < ApplicationController
   def add_movie
 
     @movie_playlist = MoviePlaylist.find(params[:id])
+    @movie_playlist_item_position = MoviePlaylistItem.where("movie_playlist_id=?", params[:id])
+                                                     .order("position ASC")
+                                                     .find(:last)
+                                                     .position + 1
     @movie_playlist_item = MoviePlaylistItem.new(movie_playlist_id: params[:id],
                                                  movie_id: params[:movie_id],
-                                                 position: @movie_playlist.movie_playlist_items.count)
+                                                 position: @movie_playlist_item_position)
     @notice=""
     @movie_to_add = Movie.find(params[:movie_id])
     if @movie_playlist_item.save
@@ -131,9 +135,13 @@ class MoviePlaylistsController < ApplicationController
     movie_ids = params[:movie_ids]
 
     movie_ids.each do |movie_id|
+      @movie_playlist_item_position = MoviePlaylistItem.where("movie_playlist_id=?", params[:playlist_id])
+                                                       .order("position ASC")
+                                                       .find(:last)
+                                                       .position + 1
       @movie_playlist_item = MoviePlaylistItem.new(movie_playlist_id: params[:playlist_id],
                                                    movie_id: movie_id,
-                                                   position: @movie_playlist.movie_playlist_items.count)
+                                                   position: @movie_playlist_item_position)
 
       if @movie_playlist_item.save
         flash[:notice] = 'Movies were successfully added.'

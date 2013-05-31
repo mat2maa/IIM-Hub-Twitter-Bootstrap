@@ -104,9 +104,13 @@ class VideoMasterPlaylistsController < ApplicationController
   def add_video_master
 
     @video_master_playlist = VideoMasterPlaylist.find(params[:id])
+    @video_master_playlist_item_position = VideoMasterPlaylistItem.where("video_master_playlist_id=?", params[:id])
+                                                                  .order("position ASC")
+                                                                  .find(:last)
+                                                                  .position + 1
     @video_master_playlist_item = VideoMasterPlaylistItem.new(video_master_playlist_id: params[:id],
                                                               master_id: params[:master_id],
-                                                              position: @video_master_playlist.video_master_playlist_items.count)
+                                                              position: @video_master_playlist_item_position)
 
     @notice=""
 
@@ -126,9 +130,13 @@ class VideoMasterPlaylistsController < ApplicationController
     master_ids = params[:master_ids]
 
     master_ids.each do |master_id|
+      @video_master_playlist_item_position = VideoMasterPlaylistItem.where("video_master_playlist_id=?", params[:playlist_id])
+                                                                    .order("position ASC")
+                                                                    .find(:last)
+                                                                    .position + 1
       @video_master_playlist_item = VideoMasterPlaylistItem.new(video_master_playlist_id: params[:playlist_id],
                                                                 master_id: master_id,
-                                                                position: @video_master_playlist.video_master_playlist_items.count + 1)
+                                                                position: @video_master_playlist_item_position)
 
       @master_to_add = Master.find(master_id)
       if @video_master_playlist_item.save

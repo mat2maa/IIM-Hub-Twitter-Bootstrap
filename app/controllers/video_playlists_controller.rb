@@ -99,9 +99,13 @@ class VideoPlaylistsController < ApplicationController
   def add_video
 
     @video_playlist = VideoPlaylist.find(params[:id])
+    @video_playlist_item_position = VideoPlaylistItem.where("video_playlist_id=?", params[:id])
+                                                     .order("position ASC")
+                                                     .find(:last)
+                                                     .position + 1
     @video_playlist_item = VideoPlaylistItem.new(video_playlist_id: params[:id],
                                                  video_id: params[:video_id],
-                                                 position: @video_playlist.video_playlist_items.count)
+                                                 position: @video_playlist_item_position)
 
     @notice=""
 
@@ -121,9 +125,13 @@ class VideoPlaylistsController < ApplicationController
     video_ids = params[:video_ids]
 
     video_ids.each do |video_id|
+      @video_playlist_item_position = VideoPlaylistItem.where("video_playlist_id=?", params[:playlist_id])
+                                                       .order("position ASC")
+                                                       .find(:last)
+                                                       .position + 1
       @video_playlist_item = VideoPlaylistItem.new(video_playlist_id: params[:playlist_id],
                                                    video_id: video_id,
-                                                   position: @video_playlist.video_playlist_items.count + 1)
+                                                   position: @video_playlist_item_position)
 
       @video_to_add = Video.find(video_id)
       if @video_playlist_item.save

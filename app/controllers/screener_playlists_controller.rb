@@ -102,9 +102,13 @@ class ScreenerPlaylistsController < ApplicationController
   def add_screener
 
     @screener_playlist = ScreenerPlaylist.find(params[:id])
+    @screener_playlist_item_position = ScreenerPlaylistItem.where("screener_playlist_id=?", params[:id])
+                                                           .order("position ASC")
+                                                           .find(:last)
+                                                           .position + 1
     @screener_playlist_item = ScreenerPlaylistItem.new(screener_playlist_id: params[:id],
                                                        screener_id: params[:screener_id],
-                                                       position: @screener_playlist.screener_playlist_items.count)
+                                                       position: @screener_playlist_item_position)
 
     @notice=""
 
@@ -124,9 +128,13 @@ class ScreenerPlaylistsController < ApplicationController
     screener_ids = params[:screener_ids]
 
     screener_ids.each do |screener_id|
+      @screener_playlist_item_position = ScreenerPlaylistItem.where("screener_playlist_id=?", params[:playlist_id])
+                                                             .order("position ASC")
+                                                             .find(:last)
+                                                             .position + 1
       @screener_playlist_item = ScreenerPlaylistItem.new(screener_playlist_id: params[:playlist_id],
                                                          screener_id: screener_id,
-                                                         position: @screener_playlist.screener_playlist_items.count + 1)
+                                                         position: @screener_playlist_item_position)
 
       @screener_to_add = Screener.find(screener_id)
       if @screener_playlist_item.save
