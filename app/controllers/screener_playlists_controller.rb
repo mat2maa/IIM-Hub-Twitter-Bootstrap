@@ -105,7 +105,7 @@ class ScreenerPlaylistsController < ApplicationController
     @screener_playlist_item_position = ScreenerPlaylistItem.where("screener_playlist_id=?", params[:id])
                                                            .order("position ASC")
                                                            .find(:last)
-                                                           .position + 1
+    @screener_playlist_item_position = @screener_playlist_item_position.nil? ? 1 : @screener_playlist_item_position.position + 1
     @screener_playlist_item = ScreenerPlaylistItem.new(screener_playlist_id: params[:id],
                                                        screener_id: params[:screener_id],
                                                        position: @screener_playlist_item_position)
@@ -131,7 +131,7 @@ class ScreenerPlaylistsController < ApplicationController
       @screener_playlist_item_position = ScreenerPlaylistItem.where("screener_playlist_id=?", params[:playlist_id])
                                                              .order("position ASC")
                                                              .find(:last)
-                                                             .position + 1
+      @screener_playlist_item_position = @screener_playlist_item_position.nil? ? 1 : @screener_playlist_item_position.position + 1
       @screener_playlist_item = ScreenerPlaylistItem.new(screener_playlist_id: params[:playlist_id],
                                                          screener_id: screener_id,
                                                          position: @screener_playlist_item_position)

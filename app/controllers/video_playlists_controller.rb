@@ -102,7 +102,7 @@ class VideoPlaylistsController < ApplicationController
     @video_playlist_item_position = VideoPlaylistItem.where("video_playlist_id=?", params[:id])
                                                      .order("position ASC")
                                                      .find(:last)
-                                                     .position + 1
+    @video_playlist_item_position = @video_playlist_item_position.nil? ? 1 : @video_playlist_item_position.position + 1
     @video_playlist_item = VideoPlaylistItem.new(video_playlist_id: params[:id],
                                                  video_id: params[:video_id],
                                                  position: @video_playlist_item_position)
@@ -128,7 +128,7 @@ class VideoPlaylistsController < ApplicationController
       @video_playlist_item_position = VideoPlaylistItem.where("video_playlist_id=?", params[:playlist_id])
                                                        .order("position ASC")
                                                        .find(:last)
-                                                       .position + 1
+      @video_playlist_item_position = @video_playlist_item_position.nil? ? 1 : @video_playlist_item_position.position + 1
       @video_playlist_item = VideoPlaylistItem.new(video_playlist_id: params[:playlist_id],
                                                    video_id: video_id,
                                                    position: @video_playlist_item_position)

@@ -112,10 +112,12 @@ class MoviePlaylistsController < ApplicationController
   def add_movie
 
     @movie_playlist = MoviePlaylist.find(params[:id])
+
     @movie_playlist_item_position = MoviePlaylistItem.where("movie_playlist_id=?", params[:id])
                                                      .order("position ASC")
                                                      .find(:last)
-                                                     .position + 1
+    @movie_playlist_item_position = @movie_playlist_item_position.nil? ? 1 : @movie_playlist_item_position.position + 1
+
     @movie_playlist_item = MoviePlaylistItem.new(movie_playlist_id: params[:id],
                                                  movie_id: params[:movie_id],
                                                  position: @movie_playlist_item_position)
@@ -138,7 +140,7 @@ class MoviePlaylistsController < ApplicationController
       @movie_playlist_item_position = MoviePlaylistItem.where("movie_playlist_id=?", params[:playlist_id])
                                                        .order("position ASC")
                                                        .find(:last)
-                                                       .position + 1
+      @movie_playlist_item_position = @movie_playlist_item_position.nil? ? 1 : @movie_playlist_item_position.position + 1
       @movie_playlist_item = MoviePlaylistItem.new(movie_playlist_id: params[:playlist_id],
                                                    movie_id: movie_id,
                                                    position: @movie_playlist_item_position)
