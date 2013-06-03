@@ -1,6 +1,9 @@
 Iim::Application.routes.draw do
 
 
+  resources :movie_types
+
+
   root to: "dashboard#index"
 
   # probably refers to "my account", we'll need to handle it differently

@@ -13,6 +13,7 @@ class Movie < ActiveRecord::Base
   belongs_to :movie_distributor, :class_name => "Supplier", :foreign_key => "movie_distributor_id"
   belongs_to :laboratory, :class_name => "Supplier", :foreign_key => "laboratory_id"
   belongs_to :production_studio, :class_name => "Supplier", :foreign_key => "production_studio_id"
+  belongs_to :movie_type, :class_name => "MovieType", :foreign_key => "movie_type_id"
 
   has_and_belongs_to_many :airline_rights_countries
   has_and_belongs_to_many :movie_genres
@@ -23,7 +24,7 @@ class Movie < ActiveRecord::Base
                   :theatrical_runtime, :edited_runtime, :release_versions, :screener_remarks, :airline_rights,
                   :language_tracks, :language_subtitles, :movie_genre_ids, :cast, :director, :synopsis, 
                   :critics_review, :remarks, :chinese_movie_title, :chinese_cast, :chinese_director,
-                  :chinese_synopsis, :imdb_synopsis, :foreign_language_title, :airline_countries, :poster
+                  :chinese_synopsis, :imdb_synopsis, :foreign_language_title, :airline_countries, :poster, :gapp_number
     
   has_attached_file :poster,
                     styles: { 
@@ -44,12 +45,6 @@ class Movie < ActiveRecord::Base
   scope :with_release_version, lambda { |release_version| {:conditions => "release_versions_mask & #{2**RELEASE_VERSIONS.index(release_version.to_s)} > 0"} }
   
   RELEASE_VERSIONS = ["Th", "Ed", "M1", "M2", "W2", "M4", "W4"]
-  
-  MOVIE_TYPE = ["Hollywood Movie", "Arabic Movie", "Cantonese Movie", "Danish Movie", "Dutch Movie", 
-									"Finnish Movie", "French Movie", "German Movie", "Greek Movie", "Hebrew Movie", "Hindi Movie", 
-									"Indonesian Movie", "Italian Movie", "Japanese Movie", "Korean Movie", "Malay Movie", "Mandarin Movie", 
-									"Norwegian Movie", "Persian Movie", "Portuguese Movie", "Russian Movie", "Spanish Movie", "Swedish Movie",
-									"Thai Movie"]
   
   serialize   :language_tracks
   serialize   :language_subtitles
@@ -94,10 +89,15 @@ class Movie < ActiveRecord::Base
       self.laboratory_id = movie_distributor_id if !count_suppliers.zero?
     end
     
-    self.synopsis = self.synopsis.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip      
-    self.cast = self.cast.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip    
+    self.synopsis = self.synopsis.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
+    self.cast = self.cast.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
     self.director = self.director.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
 
+    self.chinese_synopsis = self.chinese_synopsis.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
+    self.chinese_cast = self.chinese_cast.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
+    self.chinese_director = self.chinese_director.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
+
+    self.imdb_synopsis = self.imdb_synopsis.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
   end
   
   def movie_genres_string

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130521162718) do
+ActiveRecord::Schema.define(:version => 20130603135644) do
 
   create_table "airline_rights_countries", :force => true do |t|
     t.string   "name"
@@ -343,10 +343,15 @@ ActiveRecord::Schema.define(:version => 20130521162718) do
 
   add_index "movie_playlists", ["airline_id"], :name => "index_movie_playlists_on_airline_id"
 
+  create_table "movie_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "movies", :force => true do |t|
     t.string   "movie_title"
     t.string   "foreign_language_title"
-    t.string   "movie_type"
     t.integer  "movie_distributor_id"
     t.integer  "production_studio_id"
     t.integer  "laboratory_id"
@@ -390,6 +395,8 @@ ActiveRecord::Schema.define(:version => 20130521162718) do
     t.string   "chinese_director"
     t.text     "chinese_synopsis"
     t.text     "imdb_synopsis"
+    t.string   "gapp_number"
+    t.integer  "movie_type_id"
   end
 
   add_index "movies", ["laboratory_id"], :name => "index_movies_on_laboratory_id"

@@ -1,0 +1,2 @@
+module MovieTypesHelper
+end

@@ -5,7 +5,7 @@ class MoviesController < ApplicationController
   def index
     @languages = IIM::MOVIE_LANGUAGES
 
-    @search = Movie.includes(:movie_distributor)
+    @search = Movie.includes(:movie_distributor, :movie_type)
                    .ransack(params[:q])
     @movies = @search.result(distinct: true)
                      .order("movies.id DESC")

@@ -36,7 +36,7 @@
       <%= f.input :poster,
                   label: "Poster Image",
                   as: :file,
-                  input_html: {tabindex: 37, size: 6} %>
+                  input_html: {tabindex: autotab, size: 6} %>
       <br/>
       <a href="http://images.google.com/images?hl=en&q=movie+<%= CGI.escape(@movie.movie_title.to_s) %>" target="_blank">
         Search Google Images
@@ -62,11 +62,11 @@
         <div id="movie-fields">
         <%= f.input :movie_title,
                     label: "Movie Title",
-                    input_html: {tabindex: 1},
+                    input_html: {tabindex: autotab},
                     size: 5 %>
         <%= f.input :chinese_movie_title,
                     label: "Chinese Movie Title",
-                    input_html: {tabindex: 2},
+                    input_html: {tabindex: autotab},
                     size: 5 %>
         <!-- TODO: Update to Rails 3 -->
         <%= f.input :movie_type,
@@ -74,17 +74,17 @@
                     as: :select,
                     collection: Movie::MOVIE_TYPE,
                     include_blank: true,
-                    input_html: {tabindex: 3} %>
+                    input_html: {tabindex: autotab} %>
 
         <% if @movie.movie_type=="Hollywood Movie" %>
             <%= f.input :foreign_language_title,
                         label: "Foreign Language Title",
                         input_html: {disabled: true,
-                                     tabindex: 4} %>
+                                     tabindex: autotab} %>
         <% else %>
             <%= f.input :foreign_language_title,
                         label: "Foreign Language Title",
-                        input_html: {tabindex: 5} %>
+                        input_html: {tabindex: autotab} %>
         <% end %>
 
         <table border="0" cellpadding="0" cellspacing="0">
@@ -92,7 +92,7 @@
             <td valign="top">
               <%= f.input :movie_distributor,
                           include_blank: true,
-                          input_html: {tabindex: 5},
+                          input_html: {tabindex: autotab},
                           label: ("Distributor " + link_to("[edit]",
                                                            suppliers_path,
                                                            target: "_blank")).html_safe,
@@ -101,7 +101,7 @@
             </td>
             <td>
               <%= f.input :production_studio,
-                          input_html: {tabindex: 7},
+                          input_html: {tabindex: autotab},
                           include_blank: true,
                           label: ("Production Studio " + link_to("[edit]",
                                                                  suppliers_path,
@@ -111,7 +111,7 @@
             </td>
             <td>
               <%= f.input :laboratory,
-                          input_html: {tabindex: 8},
+                          input_html: {tabindex: autotab},
                           include_blank: true,
                           label: ("Laboratory " + link_to("[edit]",
                                                           suppliers_path,
@@ -123,7 +123,7 @@
           <tr>
             <td>Airline Release Date
               <%= f.input :airline_release_date,
-                          input_html: {tabindex: 9},
+                          input_html: {tabindex: autotab},
                           label: false,
                           labels: {month: false,
                                    year: false},
@@ -138,7 +138,7 @@
             <td>
               Personal Video Date
               <%= f.input :personal_video_date,
-                          input_html: {tabindex: 10},
+                          input_html: {tabindex: autotab},
                           label: false,
                           labels: {month: false,
                                    year: false},
@@ -152,7 +152,7 @@
             </td>
             <td valign="top">
               <%= f.input :theatrical_release_year,
-                          input_html: {tabindex: 11},
+                          input_html: {tabindex: autotab},
                           label: "Theatrical Release Year" %>
             </td>
           </tr>
@@ -163,7 +163,7 @@
                           update_date_path("movie_screener_received_date"),
                           remote: true %>
               <%= f.input :screener_received_date,
-                          input_html: {tabindex: 12},
+                          input_html: {tabindex: autotab},
                           label: false,
                           labels: {day: false,
                                    month: false,
@@ -180,7 +180,7 @@
                           update_date_path("movie_screener_destroyed_date"),
                           remote: true %>
               <%= f.input :screener_destroyed_date,
-                          input_html: {tabindex: 13},
+                          input_html: {tabindex: autotab},
                           order: [:day,
                                   :month,
                                   :year],
@@ -193,13 +193,13 @@
             </td>
             <td>
               <%= f.input :has_press_kit,
-                          input_html: {tabindex: 14},
+                          input_html: {tabindex: autotab},
                           label: "Photo CD/Press Kit" %>
               <%= f.input :has_poster,
-                          input_html: {tabindex: 15},
+                          input_html: {tabindex: autotab},
                           label: "Poster" %>
               <%= f.input :poster_quantity,
-                          input_html: {tabindex: 16,
+                          input_html: {tabindex: autotab,
                                        size: 3},
                           label: ",
  &nbsp;Qty" %>
@@ -208,7 +208,7 @@
           <tr>
             <td>
               <%= f.input :rating,
-                          input_html: {tabindex: 17},
+                          input_html: {tabindex: autotab},
                           label: "Rating",
                           as: :select,
                           collection: %w(NR G PG PG-13 R NC-17),
@@ -216,18 +216,18 @@
             </td>
             <td>
               <%= f.input :theatrical_runtime,
-                          input_html: {tabindex: 18},
+                          input_html: {tabindex: autotab},
                           label: "Theatrical R/T (min)" %>
             </td>
             <td>
               <%= f.input :edited_runtime,
                           label: "Edited R/T (min)",
-                          input_html: {tabindex: 19} %>
+                          input_html: {tabindex: autotab} %>
             </td>
           </tr>
         </table>
         <%= f.input :release_versions,
-                    input_html: {tabindex: 20},
+                    input_html: {tabindex: autotab},
                     label: "Release Versions",
                     as: :check_boxes,
                     collection: Movie::RELEASE_VERSIONS %>
@@ -237,12 +237,16 @@
                     label: "Screener Remarks",
                     as: :check_boxes,
                     collection: Movie::SCREENER_REMARKS,
-                    input_html: {tabindex: 21} %>
+                    input_html: {tabindex: autotab} %>
         <%= f.input :screener_remarks_other,
-                    input_html: {tabindex: 22},
+                    input_html: {tabindex: autotab},
                     label: "Other",
                     id: 'movie_screener_remarks_other_other',
                     input_html: @movie.screener_remarks.include?("Other") ? {disabled: false} : {disabled: true} %>
+        <%= f.input :gapp_number,
+                    label: "GAPP Number",
+                    input_html: {tabindex: autotab},
+                    size: 5 %>
 
 
         <div class="clear"></div>
@@ -257,50 +261,50 @@
                                  "North America",
                                  "Limited"],
                     include_blank: true,
-                    input_html: {tabindex: 23} %>
+                    input_html: {tabindex: autotab} %>
         <%= f.input :airline_countries,
                     input_html: {disabled: ((@movie.airline_rights=="Worldwide") || (@movie.airline_rights=="North America")) ? true : false,
-                                 tabindex: 24} %>
+                                 tabindex: autotab} %>
         <%= f.input :language_tracks,
-                    input_html: {tabindex: 25},
+                    input_html: {tabindex: autotab},
                     label: ("Available Language<br/>Tracks").html_safe,
                     as: :check_boxes,
                     collection: @languages %>
         <%= f.input :language_subtitles,
-                    input_html: {tabindex: 26},
+                    input_html: {tabindex: autotab},
                     label: ("Available Language<br/>Subtitles").html_safe,
                     as: :check_boxes,
                     collection: @languages %>
         <%= f.input :movie_genres,
                     collection: MovieGenre.order("name"),
-                    input_html: {tabindex: 27},
+                    input_html: {tabindex: autotab},
                     label: "Movie Genre",
                     as: :check_boxes %>
 
         <%= f.input :cast,
-                    input_html: {tabindex: 28} %>
+                    input_html: {tabindex: autotab} %>
         <%= f.input :chinese_cast,
-                    input_html: {tabindex: 29},
+                    input_html: {tabindex: autotab},
                     label: "Cast (Chinese)" %>
         <%= f.input :director,
-                    input_html: {tabindex: 30} %>
+                    input_html: {tabindex: autotab} %>
         <%= f.input :chinese_director,
-                    input_html: {tabindex: 31},
+                    input_html: {tabindex: autotab},
                     label: "Director (Chinese)" %>
         <%= f.input :synopsis,
-                    input_html: {tabindex: 32},
+                    input_html: {tabindex: autotab},
                     hint: ("(<span id='char_count' ></span > characters)").html_safe %>
         <%= f.input :chinese_synopsis,
-                    input_html: {tabindex: 33},
+                    input_html: {tabindex: autotab},
                     label: "Chinese Synopsis",
                     hint: ("(<span id='chinese_char_count' ></span > characters)").html_safe %>
         <%= f.input :imdb_synopsis,
-                    input_html: {tabindex: 34},
+                    input_html: {tabindex: autotab},
                     label: "IMDB Synopsis",
                     hint: ("(<span id='imdb_char_count' ></span > characters)").html_safe %>
 
         <%= f.input :critics_review,
-                    input_html: {tabindex: 35},
+                    input_html: {tabindex: autotab},
                     label: ("Critics Review<br/>
                                   <a href='http://mingyi.org/T2F3' target='_blank'>Install TableTools</a>
                                   <br/>
@@ -313,7 +317,7 @@
                                   Other Table Operations > Copy Filtered As HTML").html_safe %>
 
         <%= f.input :remarks,
-                    input_html: {tabindex: 36,
+                    input_html: {tabindex: autotab,
                                  rows: 3},
                     hint: 'Only use this remarks field as a last resort' %>
 

@@ -59,7 +59,7 @@
       </tr>
       <tr>
         <th width="150">Movie Type:</th>
-        <td><%= @movie.movie_type %></td>
+        <td><%= @movie.movie_type.name %></td>
         <th>Airline Release Date (MM-YYYY):</th>
         <td><%= @movie.airline_release_date.strftime("%m-%Y") if !@movie.airline_release_date.nil? %></td>
       </tr>
@@ -106,7 +106,9 @@
       </tr>
       <tr>
         <th>Rating:</th>
-        <td colspan="3"><%= @movie.rating %></td>
+        <td><%= @movie.rating %></td>
+        <th>GAPP Number:</th>
+        <td><%= @movie.gapp_number %></td>
       </tr>
       <tr>
         <th>Cast:</th>

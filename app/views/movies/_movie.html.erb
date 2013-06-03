@@ -6,7 +6,7 @@
                       target: "_blank") %></td>
       <td><%= movie.movie_title %></td>
       <td><%= movie.movie_distributor.company_name if !movie.movie_distributor.nil? %>&nbsp;</td>
-      <td><%= movie.movie_type %></td>
+      <td><%= movie.movie_type.name if movie.movie_type.present?  %></td>
       <td><%= movie.airline_release_date.strftime("%m-%Y") if !movie.airline_release_date.nil? %></td>
       <td><%= movie.screener_received_date.strftime("%d-%m-%Y") if !movie.screener_received_date.nil? %></td>
   <% end %>
