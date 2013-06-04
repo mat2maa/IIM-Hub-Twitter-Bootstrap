@@ -10,16 +10,10 @@ class MoviePlaylistsController < ApplicationController
   def index
     @search = MoviePlaylist.includes(:airline)
                            .ransack(params[:q])
-    if !params[:q].nil?
-      @movie_playlists = @search.result(distinct: true)
-                                .paginate(page: params[:page],
-                                          per_page: items_per_page)
-    else
-      @movie_playlists = @search.result(distinct: true)
-                                .order("movie_playlists.id DESC")
-                                .paginate(page: params[:page],
-                                          per_page: items_per_page)
-    end
+    @movie_playlists = @search.result(distinct: true)
+                              .order("movie_playlists.id DESC")
+                              .paginate(page: params[:page],
+                                        per_page: items_per_page)
 
     @movie_playlists_count = @movie_playlists.count
   end
@@ -192,7 +186,7 @@ class MoviePlaylistsController < ApplicationController
                                    .find(params[:id])
     language = params[:language]
 
-    headers["Content-Disposition"] =  "attachment; filename=\"#{@movie_playlist.airline.code if !@movie_playlist.airline.nil? && !@movie_playlist.airline.code.nil?}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_type if !@movie_playlist.movie_type.nil?}.pdf\""
+    headers["Content-Disposition"] =  "attachment; filename=\"#{@movie_playlist.airline.code if !@movie_playlist.airline.nil? && !@movie_playlist.airline.code.nil?}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_playlist_type.name if !@movie_playlist.movie_playlist_type.nil?}.pdf\""
 
     respond_to do |format|
       format.html
@@ -353,7 +347,7 @@ class MoviePlaylistsController < ApplicationController
     send_data data.string,
               type: "application/excel",
               disposition: 'attachment',
-              filename: "#{airline_code}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_type}.xls"
+              filename: "#{airline_code}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_playlist_type.name}.xls"
   end
 
 =begin
@@ -373,7 +367,7 @@ class MoviePlaylistsController < ApplicationController
     @playlist_duplicate = MoviePlaylist.create(
         start_cycle: @playlist.start_cycle,
         end_cycle: @playlist.end_cycle,
-        movie_type: @playlist.movie_type,
+        movie_playlist_type_id: @playlist.movie_playlist_type_id,
         user_id: current_user.id
     )
 

@@ -26,8 +26,8 @@
         </th>
         <th>
           <%= sort_link(@search,
-                        :movie_type,
-                        'Movie Type') %>
+                        :movie_playlist_type_name,
+                        'Movie Playlist Type') %>
         </th>
         <th colspan="4"></th>
       </tr>
@@ -50,7 +50,7 @@
                   <%= movie_playlist.end_cycle.strftime("%m-%Y") if !movie_playlist.end_cycle.nil? %>&nbsp;
                 </td>
                 <td>
-                  <%= movie_playlist.movie_type %>&nbsp;
+                  <%= movie_playlist.movie_playlist_type.name if movie_playlist.movie_playlist_type.present? %>&nbsp;
                 </td>
             <% end %>
             <td>

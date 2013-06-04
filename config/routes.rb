@@ -1,6 +1,9 @@
 Iim::Application.routes.draw do
 
 
+  resources :movie_playlist_types
+
+
   resources :movie_types
 
 

@@ -23,7 +23,7 @@
 <div id="content">
   <center>
     <h2>Movie Playlist</h2>
-    <%= "Movie Type: #{@movie_playlist.movie_type}s " if !@movie_playlist.movie_type.nil? %>
+    <%= "Movie Type: #{@movie_playlist.movie_playlist_type.name}s " if !@movie_playlist.movie_playlist_type.nil? %>
     <div id="playlist_item_view_container">
       <%= render partial: 'playlist_item_view',
                  collection: @movie_playlist.movie_playlist_items_sorted,

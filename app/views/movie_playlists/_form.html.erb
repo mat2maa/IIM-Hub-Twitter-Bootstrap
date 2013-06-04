@@ -35,11 +35,13 @@
                                start_year: Date.today.year + 2,
                                end_year: 1900 %>
         </td>
-        <td class="pl-title">Movie Type :</td>
+        <td class="pl-title">Movie Playlist Type :</td>
         <td>
           <%= select("movie_playlist",
-                     "movie_type",
-                     MoviePlaylist::MOVIE_TYPE,
+                     "movie_playlist_type_id",
+                     MoviePlaylistType.order("name asc")
+                                      .collect { |p| [p.name,
+                                                      p.id] },
                      {include_blank: true}) %>
         </td>
         <td class="pl-title">Programmer :</td>

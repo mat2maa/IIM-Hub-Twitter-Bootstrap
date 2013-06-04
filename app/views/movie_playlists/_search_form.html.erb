@@ -26,6 +26,15 @@
             <br/>
           </td>
           <td>
+            Movie Playlist Type:<br/>
+            <%= movie_playlists.select :movie_playlist_type_id_eq,
+                                       MoviePlaylistType.order("name asc")
+                                                        .collect { |p| [p.name,
+                                                                        p.id] },
+                                       {include_blank: true} %>
+            <br/>
+          </td>
+          <td>
             Start Playdate:<br/>
             <%= movie_playlists.date_select :start_cycle_matches,
                                             {discard_day: true,

@@ -1,0 +1,2 @@
+module MoviePlaylistTypesHelper
+end

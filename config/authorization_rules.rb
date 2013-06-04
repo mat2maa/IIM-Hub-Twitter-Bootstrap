@@ -103,6 +103,7 @@ authorization do
 		has_permission_on :airline_rights_countries, :to => :manage
 		has_permission_on :movie_genres, :to => :manage
     has_permission_on :movie_types, :to => :manage
+    has_permission_on :movie_playlist_types, :to => :manage
 		has_permission_on :video_genres, :to => :manage
 		has_permission_on :video_parent_genres, :to => :manage
 		has_permission_on :movies_settings, :to => :manage
@@ -178,6 +179,7 @@ authorization do
     has_permission_on :airline_rights_countries, :to => :manage
     has_permission_on :movie_genres, :to => :manage
     has_permission_on :movie_types, :to => :manage
+    has_permission_on :movie_playlist_types, :to => :manage
     has_permission_on :video_genres, :to => :manage
     has_permission_on :video_parent_genres, :to => :manage
     has_permission_on :movies_settings, :to => :manage
