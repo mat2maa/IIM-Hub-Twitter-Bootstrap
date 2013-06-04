@@ -12,6 +12,10 @@
       <%= link_to "Master Playlist Types",
                   controller: "master_playlist_types" %>
     </li>
+    <li <%= "id='curr-nav'" if (yield(:title).eql?(" - Movie Types")) %>>
+      <%= link_to "Movie Types",
+                  controller: "movie_types" %>
+    </li>
     <li <%= "id='curr-nav'" if (yield(:title).eql?(" - Movie Genres")) %>>
       <%= link_to "Movie Genres",
                   controller: "movie_genres" %>

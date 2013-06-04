@@ -89,104 +89,122 @@ $(document).ready(function () {
     });
 
     //Auto-completing sections of the movies form based on selected inputs
-    $('#movie_movie_type').on("change", function() {
+    $('#movie_movie_type_id').on("change", function() {
         $('#movie_language_tracks_input').find('input').prop('checked', false);
         var movieType = $(this).val();
+
+        /*
+        14 Arabic Movie
+        3 Cantonese Movie
+        19 Danish Movie
+        15 Dutch Movie
+        17 Finnish Movie
+        2 French Movie
+        7 German Movie
+        21 Hebrew Movie
+        12 Hindi Movie
+        1 Hollywood Movie
+        9 Italian Movie
+        5 Japanese Movie
+        4 Korean Movie
+        23 Malay Movie
+        6 Mandarin Movie
+        18 Norwegian Movie
+        20 Persian Movie
+        16 Portuguese Movie
+        10 Russian Movie
+        8 Spanish Movie
+        13 Swedish Movie
+        22 Thai Movie
+        */
+
         switch(movieType) {
-            case "Hollywood Movie" :
+            case "1" :
                 $('#movie_foreign_language_title').val("");
                 $('#movie_foreign_language_title').prop('disabled', true);
                 $('#movie_language_tracks_eng').prop('checked', true);
                 break;
-            case "Cantonese Movie" :
+            case "3" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_zho').prop('checked', true);
                 break;
-            case "Arabic Movie" :
+            case "14" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_ara').prop('checked', true);
                 break;
-            case "Danish Movie" :
+            case "19" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_dan').prop('checked', true);
                 break;
-            case "Dutch Movie" :
+            case "15" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_ndl').prop('checked', true);
                 break;
-            case "Finnish Movie" :
+            case "17" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_fin').prop('checked', true);
                 break;
-            case "French Movie" :
+            case "2" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_fra').prop('checked', true);
                 break;
-            case "German Movie" :
+            case "7" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_deu').prop('checked', true);
                 break;
-            case "Greek Movie" :
-                $('#movie_foreign_language_title').prop('disabled', false);
-                $('#movie_language_tracks_ell').prop('checked', true);
-                break;
-            case "Hebrew Movie" :
+            case "21" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_heb').prop('checked', true);
                 break;
-            case "Hindi Movie" :
+            case "12" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_hin').prop('checked', true);
                 break;
-            case "Indonesian Movie" :
-                $('#movie_foreign_language_title').prop('disabled', false);
-                $('#movie_language_tracks_ind').prop('checked', true);
-                break;
-            case "Italian Movie" :
+            case "9" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_ita').prop('checked', true);
                 break;
-            case "Japanese Movie" :
+            case "5" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_jpn').prop('checked', true);
                 break;
-            case "Korean Movie" :
+            case "4" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_kor').prop('checked', true);
                 break;
-            case "Malay Movie" :
+            case "23" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_msa').prop('checked', true);
                 break;
-            case "Mandarin Movie" :
+            case "6" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_zho').prop('checked', true);
                 break;
-            case "Norwegian Movie" :
+            case "18" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_nor').prop('checked', true);
                 break;
-            case "Persian Movie" :
+            case "20" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_fas').prop('checked', true);
                 break;
-            case "Portuguese Movie" :
+            case "16" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_por').prop('checked', true);
                 break;
-            case "Russian Movie" :
+            case "10" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_ru').prop('checked', true);
                 break;
-            case "Spanish Movie" :
+            case "8" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_spa').prop('checked', true);
                 break;
-            case "Swedish Movie" :
+            case "13" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_swe').prop('checked', true);
                 break;
-            case "Thai Movie" :
+            case "22" :
                 $('#movie_foreign_language_title').prop('disabled', false);
                 $('#movie_language_tracks_tha').prop('checked', true);
                 break;

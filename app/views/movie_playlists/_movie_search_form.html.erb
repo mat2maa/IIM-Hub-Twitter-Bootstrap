@@ -50,8 +50,10 @@
           </td>
           <td valign="top">
             Movie type:<br/>
-            <%= movies.select :movie_type_eq,
-                              Movie::MOVIE_TYPE,
+            <%= movies.select :movie_type_id_eq,
+                              MovieType.order("name")
+                                       .collect { |p| [p.name,
+                                                       p.id] },
                               include_blank: true %> <br/>
             Genre:<br/>
             <%= movies.select :movie_genres_id_eq,

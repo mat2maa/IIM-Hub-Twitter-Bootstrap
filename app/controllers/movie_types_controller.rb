@@ -1,83 +1,81 @@
 class MovieTypesController < ApplicationController
-  # GET /movie_types
-  # GET /movie_types.json
+  before_filter :require_user
+  filter_access_to :all
+
+  before_filter only: [:index,
+                       :new] do
+    @movie_type = MovieType.new
+  end
+
   def index
-    @movie_types = MovieType.all
+    @movie_types = MovieType.order("name asc")
+                            .paginate(page: params[:page],
+                                            per_page: items_per_page)
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @movie_types }
     end
   end
 
-  # GET /movie_types/1
-  # GET /movie_types/1.json
-  def show
-    @movie_type = MovieType.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @movie_type }
-    end
-  end
-
-  # GET /movie_types/new
-  # GET /movie_types/new.json
-  def new
-    @movie_type = MovieType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @movie_type }
-    end
-  end
-
-  # GET /movie_types/1/edit
   def edit
     @movie_type = MovieType.find(params[:id])
   end
 
-  # POST /movie_types
-  # POST /movie_types.json
+  def new
+    respond_to do |format|
+      format.html # new.html.erb
+    end
+  end
+
   def create
     @movie_type = MovieType.new(params[:movie_type])
 
     respond_to do |format|
       if @movie_type.save
-        format.html { redirect_to @movie_type, notice: 'Movie type was successfully created.' }
-        format.json { render json: @movie_type, status: :created, location: @movie_type }
+        format.html { redirect_to @movie_type,
+                      notice: 'Movie type was successfully created.' }
+        format.json { render json: @movie_type,
+                      status: :created,
+                      location: @movie_type }
+        format.js
       else
         format.html { render action: "new" }
-        format.json { render json: @movie_type.errors, status: :unprocessable_entity }
+        format.json { render json: @movie_type.errors,
+                      status: :unprocessable_entity }
+        format.js
       end
     end
   end
 
-  # PUT /movie_types/1
-  # PUT /movie_types/1.json
   def update
     @movie_type = MovieType.find(params[:id])
 
     respond_to do |format|
       if @movie_type.update_attributes(params[:movie_type])
-        format.html { redirect_to @movie_type, notice: 'Movie type was successfully updated.' }
-        format.json { head :no_content }
+        flash[:notice] = 'MovieType was successfully updated.'
+        format.html { redirect_to(movie_types_path) }
       else
         format.html { render action: "edit" }
-        format.json { render json: @movie_type.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /movie_types/1
-  # DELETE /movie_types/1.json
   def destroy
-    @movie_type = MovieType.find(params[:id])
-    @movie_type.destroy
+
+    id = params[:id]
+
+    @movie_type = MovieType.find(id)
+
+    @movies = @movie_type.movies
+
+    if @movies.length.zero?
+      @movie_type.destroy
+    else
+      flash[:notice] = 'MovieType could not be deleted, movie_type is in use in some tracks'
+    end
 
     respond_to do |format|
       format.html { redirect_to movie_types_url }
-      format.json { head :no_content }
     end
   end
 end

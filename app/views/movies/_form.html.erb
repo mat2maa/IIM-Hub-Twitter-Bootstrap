@@ -70,13 +70,17 @@
                     size: 5 %>
         <!-- TODO: Update to Rails 3 -->
         <%= f.input :movie_type,
-                    label: "Movie Type",
+                    label: (link_to("[edit]",
+                                    movie_types_path,
+                                    target: "_blank") + " Movie Type").html_safe,
                     as: :select,
-                    collection: Movie::MOVIE_TYPE,
+                    collection: MovieType.order("name")
+                                         .collect { |p| [p.name,
+                                                         p.id] },
                     include_blank: true,
                     input_html: {tabindex: autotab} %>
 
-        <% if @movie.movie_type=="Hollywood Movie" %>
+        <% if @movie.movie_type.name=="Hollywood Movie" %>
             <%= f.input :foreign_language_title,
                         label: "Foreign Language Title",
                         input_html: {disabled: true,

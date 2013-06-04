@@ -18,7 +18,7 @@ class Movie < ActiveRecord::Base
   has_and_belongs_to_many :airline_rights_countries
   has_and_belongs_to_many :movie_genres
 
-  attr_accessible :movie_title, :movie_type, :movie_distributor_id, :production_studio_id, :laboratory_id,
+  attr_accessible :movie_title, :movie_type_id, :movie_distributor_id, :production_studio_id, :laboratory_id,
                   :airline_release_date, :personal_video_date, :theatrical_release_year, :screener_received_date,
                   :screener_destroyed_date, :has_press_kit, :has_poster, :poster_quantity, :rating,
                   :theatrical_runtime, :edited_runtime, :release_versions, :screener_remarks, :airline_rights,

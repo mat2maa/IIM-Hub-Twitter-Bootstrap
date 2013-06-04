@@ -59,7 +59,7 @@
       </tr>
       <tr>
         <th width="150">Movie Type:</th>
-        <td><%= @movie.movie_type.name %></td>
+        <td><%= @movie.movie_type.name if @movie.movie_type.present? %></td>
         <th>Airline Release Date (MM-YYYY):</th>
         <td><%= @movie.airline_release_date.strftime("%m-%Y") if !@movie.airline_release_date.nil? %></td>
       </tr>

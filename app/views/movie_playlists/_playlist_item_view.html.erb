@@ -12,7 +12,7 @@
                           edit_movie_path(playlist_item_view.movie),
                           target: "_blank" %>
             <% if (!playlist_item_view.movie.foreign_language_title.nil? && playlist_item_view.movie.foreign_language_title!='') %>
-                (<%= playlist_item_view.movie.movie_type.upcase %>)
+                (<%= playlist_item_view.movie.movie_type.name.upcase %>)
             <% end %>
           </td>
         <% else %>
@@ -21,7 +21,7 @@
                           edit_movie_path(playlist_item_view.movie),
                           target: "_blank" %>
             <% if (!playlist_item_view.movie.foreign_language_title.nil? && playlist_item_view.movie.foreign_language_title!='') %>
-                (<%= playlist_item_view.movie.movie_type.upcase %>)
+                (<%= playlist_item_view.movie.movie_type.name.upcase %>)
             <% end %>
           </td>
         <% end %>
@@ -32,7 +32,7 @@
           <td>
             <strong>Foreign Language Title:</strong>
           </td>
-          <td <% if playlist_item_view.movie.movie_type.upcase == "KOREAN MOVIE" %>style="font-family: 'Baekmuk Dotum';"<% end %> >
+          <td <% if playlist_item_view.movie.movie_type.name.upcase == "KOREAN MOVIE" %>style="font-family: 'Baekmuk Dotum';"<% end %> >
             <%= playlist_item_view.movie.foreign_language_title %>
           </td>
         </tr>

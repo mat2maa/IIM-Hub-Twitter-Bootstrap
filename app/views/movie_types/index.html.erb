@@ -1,23 +1,29 @@
-<h1>Listing movie_types</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @movie_types.each do |movie_type| %>
-  <tr>
-    <td><%= movie_type.name %></td>
-    <td><%= link_to 'Show', movie_type %></td>
-    <td><%= link_to 'Edit', edit_movie_type_path(movie_type) %></td>
-    <td><%= link_to 'Destroy', movie_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Movie type', new_movie_type_path %>
+<%= render partial: 'header' %>
+<div id="content">
+  <center>
+    <%= render partial: 'form' %>
+    <br/>
+    <table border="0" cellpadding="10" cellspacing="0" width="100%" id="movie_types">
+      <tr>
+        <td class="list-header">ID</td>
+        <td class="list-header">Movie Type</td>
+        <td colspan="2" class="list-header">&nbsp;</td>
+      </tr>
+      <%= render partial: 'movie_type',
+                 collection: @movie_types %>
+    </table>
+    <br/>
+    <br/>
+    <%= will_paginate @movie_types %>
+    <%
+      def items_per_page_select(collection = MovieTypes)
+        select_tag :per_page, options_for_select([10, 20, 50, 100], collection.per_page)
+      end
+    %>
+    <%= form_for '/movie_types', method: :get, html: { class: 'items_per_page_select' } do |f| %>
+      <span>Items per page: </span>
+      <%= items_per_page_select @movie_types %>
+      <%= f.submit "Submit" %>
+    <% end %>
+  </center>
+</div>

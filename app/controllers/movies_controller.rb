@@ -49,9 +49,9 @@ class MoviesController < ApplicationController
     @movie = Movie.new
     @movie.theatrical_release_year = Date.today.year
     @movie.release_versions = ["Th"]
-    @movie.movie_type = "Hollywood Movie"
+    @movie.movie_type_id = "1"
     @movie.airline_rights = "Worldwide"
-    @movie.language_tracks = ["En"]
+    @movie.language_tracks = ["Eng"]
     @movie.screener_received_date = nil
     @movie.screener_destroyed_date = nil
     @movie.airline_release_date = nil
