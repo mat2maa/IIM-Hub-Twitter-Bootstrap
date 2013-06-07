@@ -85,3 +85,8 @@ PDFKit.configure do |config|
     page_size: "A4"
   }
 end
+
+THALES_OPTS = {
+    url: "s3_domain_url",
+    path: "/assets/thales_schema_packages/:id.:extension"
+}

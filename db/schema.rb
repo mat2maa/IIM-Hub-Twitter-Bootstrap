@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604120557) do
+ActiveRecord::Schema.define(:version => 20130607154502) do
 
   create_table "airline_rights_countries", :force => true do |t|
     t.string   "name"
@@ -341,10 +341,14 @@ ActiveRecord::Schema.define(:version => 20130604120557) do
     t.date     "start_cycle"
     t.date     "end_cycle"
     t.integer  "user_id"
-    t.boolean  "locked",                 :default => false, :null => false
+    t.boolean  "locked",                             :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "movie_playlist_type_id"
+    t.string   "thales_schema_package_file_name"
+    t.string   "thales_schema_package_content_type"
+    t.integer  "thales_schema_package_file_size"
+    t.datetime "thales_schema_package_updated_at"
   end
 
   add_index "movie_playlists", ["airline_id"], :name => "index_movie_playlists_on_airline_id"

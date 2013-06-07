@@ -1,4 +1,4 @@
-<%= form_for(@movie_playlist) do |form| %>
+<%= form_for @movie_playlist, html: { multipart: true } do |form| %>
 
     <%= error_messages_for(form.object) %>
 
@@ -35,6 +35,8 @@
                                start_year: Date.today.year + 2,
                                end_year: 1900 %>
         </td>
+      </tr>
+      <tr>
         <td class="pl-title">Movie Playlist Type :</td>
         <td>
           <%= select("movie_playlist",
@@ -44,8 +46,14 @@
                                                       p.id] },
                      {include_blank: true}) %>
         </td>
-        <td class="pl-title">Programmer :</td>
+        <td class="pl-title">Thales Schema Package:</td>
         <td>
+          <%= form.file_field :thales_schema_package %>
+        </td>
+      </tr>
+      <tr>
+        <td class="pl-title">Programmer :</td>
+        <td colspan="3">
           <%= @movie_playlist.user.login if !@movie_playlist.user_id.nil? %></td>
       </tr>
     </table>

@@ -26,17 +26,25 @@ Iim::Application.routes.draw do
   match "/edit_album_playlist_synopsis/:id" => "album_playlists#edit_synopsis", as: :edit_album_playlist_synopsis
   match "/export_by_airline" => "album_playlists#export_by_airline", as: :export_by_airline
   match "/view_splits" => "audio_playlists#splits", as: :view_splits
+
   match "/movie_playlists/print/:id" => "movie_playlists#print", as: :print_movie_playlist
   match "/movie_playlists/export_to_excel/:id" => "movie_playlists#export_to_excel", as: :export_to_excel
-  match "/audio_playlists/export_to_excel/:id" => "audio_playlists#export_to_excel", as: :export_to_excel
+  match "/movie_playlists/download_thales_schema_package/:id" => "movie_playlists#download_thales_schema_package",
+                                                                 as: :download_thales_schema_package
+
   match "/audio_playlists/print/:id" => "audio_playlists#print", as: :print_audio_playlist
   match "/album_playlists/export_to_excel/:id" => "album_playlists#export_to_excel", as: :export_to_excel
+
   match "/album_playlists/print/:id" => "album_playlists#print", as: :print_album_playlist
+
   match "/albums/amazon_cd_covers" => "albums#amazon_cd_covers", as: :amazon_cd_covers
+
   match "/video_playlists/print/:id" => "video_playlists#print", as: :print_video_playlist
   match "/video_playlists/export_to_excel/:id" => "video_playlists#export_to_excel", as: :export_to_excel
+
   match "/video_master_playlists/print/:id" => "video_master_playlists#print", as: :print_video_master_playlist
   match "/video_master_playlists/export_to_excel/:id" => "video_master_playlists#export_to_excel", as: :export_to_excel
+
   match "/screener_playlists/print/:id" => "screener_playlists#print", as: :print_screener_playlist
   match "/screener_playlists/export_to_excel/:id" => "screener_playlists#export_to_excel", as: :export_to_excel
 

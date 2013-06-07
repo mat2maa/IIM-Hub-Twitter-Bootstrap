@@ -62,3 +62,8 @@ if $0 == 'irb'
   require 'hirb'
   Hirb.enable
 end
+
+THALES_OPTS = {
+    url: "public/thales_schema_packages/:id.:extension",
+    path: "public/thales_schema_packages/:id.:extension"
+}

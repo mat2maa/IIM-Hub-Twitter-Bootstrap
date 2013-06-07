@@ -350,6 +350,163 @@ class MoviePlaylistsController < ApplicationController
               filename: "#{airline_code}#{@movie_playlist.start_cycle.strftime("%m%y")} #{@movie_playlist.movie_playlist_type.name}.xls"
   end
 
+  def download_thales_schema_package
+    @movie_playlist = MoviePlaylist.find(params[:id])
+
+    if @movie_playlist.airline_id.nil?
+      airline_code = ''
+      airline_name = ''
+    else
+      airline_code = @movie_playlist.airline.code
+      airline_name = @movie_playlist.airline.name
+    end
+
+    if @movie_playlist.start_cycle.nil?
+      start_cycle_day = ''
+      start_cycle_month = ''
+      start_cycle_year = ''
+    else
+      start_cycle_day = @movie_playlist.start_cycle.strftime("%d")
+      start_cycle_month = @movie_playlist.start_cycle.strftime("%m")
+      start_cycle_year = @movie_playlist.start_cycle.strftime("%Y")
+    end
+
+    if @movie_playlist.end_cycle.nil?
+      end_cycle_day = ''
+      end_cycle_month = ''
+      end_cycle_year = ''
+    else
+      end_cycle_day = @movie_playlist.end_cycle.strftime("%d")
+      end_cycle_month = @movie_playlist.end_cycle.strftime("%m")
+      end_cycle_year = @movie_playlist.end_cycle.strftime("%Y")
+    end
+
+    t = Time.now
+    t.to_s
+    time = t.strftime "%H:%M:%S"
+
+    xml = File.open(@movie_playlist.thales_schema_package.path)
+    @movies = Nokogiri::XML(xml)
+    xml.close
+    ns = "http://services.extend.com/thales/m3"
+    nodes = @movies.xpath("//x:*[@name='Movies']", "x" => ns)
+
+    movie_playlist_items = @movie_playlist.movie_playlist_items_sorted
+
+    nodes.each do |node|
+      movie_playlist_items.each.with_index do |movie_playlist_item, index|
+        content = Nokogiri::XML::Node.new "content", @movies
+        content["name"] = movie_playlist_item.movie.movie_title.gsub(/\W+/, '').downcase.capitalize
+        content["altId"] = rand(10 ** 20).to_s
+        content["exhibitionStartDate"] = start_cycle_year + "-" + start_cycle_month + "-" + start_cycle_day + "T" + time
+        content["exhibitionEndDate"] = end_cycle_year + "-" + end_cycle_month + "-" + end_cycle_day + "T" + time
+        content["commonTitleId"] = movie_playlist_item.movie.movie_title.gsub(/\W+/, '').downcase.capitalize
+
+        fld_title = Nokogiri::XML::Node.new "fld_title", @movies
+        fld_shorttitle = Nokogiri::XML::Node.new "fld_shorttitle", @movies
+        fld_genre_name = Nokogiri::XML::Node.new "fld_GenreName", @movies
+        fld_actor = Nokogiri::XML::Node.new "fld_Actor", @movies
+        fld_director = Nokogiri::XML::Node.new "fld_Director", @movies
+        fld_rating = Nokogiri::XML::Node.new "fld_Rating", @movies
+        fld_duration = Nokogiri::XML::Node.new "fld_Duration", @movies
+        fld_audio_language = Nokogiri::XML::Node.new "fld_AudioLanguage", @movies
+        fld_synopsis = Nokogiri::XML::Node.new "fld_Synopsis", @movies
+        fld_standard_image = Nokogiri::XML::Node.new "fld_StandardImage", @movies
+        fld_preview_video_asset = Nokogiri::XML::Node.new "fld_PreviewVideoAsset", @movies
+        fld_preview_aspect_ratio = Nokogiri::XML::Node.new "fld_PreviewAspectRatio", @movies
+        fld_cnt_pos = Nokogiri::XML::Node.new "fld_CntPos", @movies
+        fld_subtitle_lang_text = Nokogiri::XML::Node.new "fld_subtitleLangText", @movies
+        group = Nokogiri::XML::Node.new "group", @movies
+
+        content.add_child(fld_title)
+        fld_title_eng = Nokogiri::XML::Node.new "value", @movies
+        fld_title_fra = Nokogiri::XML::Node.new "value", @movies
+        fld_title_zho = Nokogiri::XML::Node.new "value", @movies
+        fld_title_eng["lang"] = "eng"
+        fld_title_fra["lang"] = "fra"
+        fld_title_zho["lang"] = "zho"
+
+        fld_title_eng.content = movie_playlist_item.movie.movie_title
+        fld_title_fra.content = movie_playlist_item.movie.movie_title
+        fld_title_zho.content = movie_playlist_item.movie.chinese_movie_title
+
+        fld_title.add_child(fld_title_eng)
+        fld_title.add_child(fld_title_fra)
+        fld_title.add_child(fld_title_zho)
+
+
+        content.add_child(fld_shorttitle)
+        fld_shorttitle_eng = Nokogiri::XML::Node.new "value", @movies
+        fld_shorttitle_fra = Nokogiri::XML::Node.new "value", @movies
+        fld_shorttitle_zho = Nokogiri::XML::Node.new "value", @movies
+        fld_shorttitle_eng["lang"] = "eng"
+        fld_shorttitle_fra["lang"] = "fra"
+        fld_shorttitle_zho["lang"] = "zho"
+
+        fld_shorttitle_eng.content = movie_playlist_item.movie.movie_title
+        fld_shorttitle_fra.content = movie_playlist_item.movie.movie_title
+        fld_shorttitle_zho.content = movie_playlist_item.movie.chinese_movie_title
+
+        fld_shorttitle.add_child(fld_shorttitle_eng)
+        fld_shorttitle.add_child(fld_shorttitle_fra)
+        fld_shorttitle.add_child(fld_shorttitle_zho)
+
+
+        content.add_child(fld_genre_name)
+        content.add_child(fld_actor)
+        content.add_child(fld_director)
+        content.add_child(fld_rating)
+        content.add_child(fld_duration)
+        content.add_child(fld_audio_language)
+        content.add_child(fld_synopsis)
+        content.add_child(fld_standard_image)
+        content.add_child(fld_preview_video_asset)
+        content.add_child(fld_preview_aspect_ratio)
+        content.add_child(fld_cnt_pos)
+        content.add_child(fld_subtitle_lang_text)
+        content.add_child(group)
+
+        node.add_child(content)
+
+        #
+        #content.children = fld_title
+        #fld_title_eng = Nokogiri::XML::Node.new "value", @movies
+        #fld_title_fra = Nokogiri::XML::Node.new "value", @movies
+        #fld_title_zho = Nokogiri::XML::Node.new "value", @movies
+        #fld_title_eng["lang"] = "eng"
+        #fld_title_fra["lang"] = "fra"
+        #fld_title_zho["lang"] = "zho"
+        #
+        #fld_title_eng.content = movie_1[0]
+        #fld_title_fra.content = movie_1[0]
+        #fld_title_zho.content = movie_1[1]
+        #
+        #fld_title.children = fld_title_eng
+        #fld_title_eng.after(fld_title_fra)
+        #fld_title_fra.after(fld_title_zho)
+        #
+        #fld_title.after(fld_shorttitle)
+        #fld_shorttitle.after(fld_GenreName)
+        #fld_GenreName.after(fld_Actor)
+        #fld_Actor.after(fld_Director)
+        #fld_Director.after(fld_Rating)
+        #fld_Rating.after(fld_Duration)
+        #fld_Duration.after(fld_AudioLanguage)
+        #fld_AudioLanguage.after(fld_Synopsis)
+        #fld_Synopsis.after(fld_StandardImage)
+        #fld_StandardImage.after(fld_PreviewVideoAsset)
+        #fld_PreviewVideoAsset.after(fld_PreviewAspectRatio)
+        #fld_PreviewAspectRatio.after(fld_CntPos)
+        #fld_CntPos.after(fld_subtitleLangText)
+        #fld_subtitleLangText.after(group)
+      end
+    end
+
+    data = @movies.to_xml
+    send_data data,
+              filename: "#{@movie_playlist.id}_thales_import_package.xml"
+  end
+
 =begin
   def sort
     params[:movieplaylist].each_with_index do |id,

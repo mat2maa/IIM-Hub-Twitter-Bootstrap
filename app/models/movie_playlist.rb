@@ -11,7 +11,10 @@ class MoviePlaylist < ActiveRecord::Base
     :conditions=>"movie_playlist_items.movie_id=#{movie_id} AND movie_playlists.airline_id='#{airline_id}'",
     :joins=>"LEFT JOIN movie_playlist_items on movie_playlists.id=movie_playlist_items.movie_playlist_id"} }
 
-  attr_accessible :airline_id, :start_cycle, :end_cycle, :movie_playlist_type_id, :user_id
+  attr_accessible :airline_id, :start_cycle, :end_cycle, :movie_playlist_type_id, :user_id, :thales_schema_package
+
+  has_attached_file :thales_schema_package,
+                    THALES_OPTS
 
   def movie_playlist_items_sorted
     return MoviePlaylistItem.where(:movie_playlist_id => self.id)
