@@ -45,6 +45,10 @@
                                       .collect { |p| [p.name,
                                                       p.id] },
                      {include_blank: true}) %>
+          <%= link_to "+",
+                      movie_playlist_types_path,
+                      id: "add",
+                      target: "_blank" %>
         </td>
         <td class="pl-title">Programmer :</td>
         <td>
