@@ -50,16 +50,18 @@
         <td>
           <%= @movie_playlist.user.login if @movie_playlist.user_id.present? %></td>
       </tr>
-      <tr>
-        <td class="pl-title">Thales Schema Package:</td>
-        <td>
-          <%= form.file_field :thales_schema_package %>
-        </td>
-        <td class="pl-title">Current Schema Package:</td>
-        <td>
-          <%= @movie_playlist.thales_schema_package_file_name.present? ?
-                      @movie_playlist.thales_schema_package_file_name : "n/a" %></td>
-      </tr>
+      <% permitted_to? :download_thales_schema_package, :movie_playlists do %>
+          <tr>
+            <td class="pl-title">Thales Schema Package:</td>
+            <td>
+              <%= form.file_field :thales_schema_package %>
+            </td>
+            <td class="pl-title">Current Schema Package:</td>
+            <td>
+              <%= @movie_playlist.thales_schema_package_file_name.present? ?
+                          @movie_playlist.thales_schema_package_file_name : "n/a" %></td>
+          </tr>
+      <% end %>
     </table>
 
     <p>

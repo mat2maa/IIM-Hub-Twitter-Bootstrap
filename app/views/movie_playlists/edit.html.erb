@@ -46,7 +46,21 @@ format: "pdf"} %>
     <%= link_to "Export as Excel",
                 controller: "movie_playlists",
                 action: "export_to_excel",
-                id: @movie_playlist %> |
+                id: @movie_playlist %>
+
+    |
+
+    <% if @movie_playlist.thales_schema_package_file_name.present? then %>
+        <span id="download_thales_schema_package_link">
+          <%= link_to "Download Thales Schema Package",
+                      controller: "movie_playlists",
+                      action: "download_thales_schema_package",
+                      id: @movie_playlist %>
+        </span>
+
+        |
+
+    <% end %>
     <%= link_to "Create a playlist",
                 new_movie_playlist_path %>
   </div>

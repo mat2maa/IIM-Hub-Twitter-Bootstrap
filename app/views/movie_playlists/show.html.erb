@@ -12,13 +12,20 @@
       <%= link_to "Download Full PDF",
                   print_movie_playlist_path(id: @movie_playlist, language: "english", format: "pdf") %>
     </span>
+
+    |
+
     <span id="export_to_excel_link">
       <%= link_to "Export as Excel",
                   controller: "movie_playlists",
                   action: "export_to_excel",
                   id: @movie_playlist %>
     </span>
+
     <% if @movie_playlist.thales_schema_package_file_name.present? then %>
+
+        |
+
         <span id="download_thales_schema_package_link">
           <%= link_to "Download Thales Schema Package",
                       controller: "movie_playlists",
