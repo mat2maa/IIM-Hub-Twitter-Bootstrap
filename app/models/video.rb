@@ -82,7 +82,11 @@ class Video < ActiveRecord::Base
       self.laboratory_id = video_distributor_id if !count_suppliers.zero?
     end
     
-    self.synopsis = self.synopsis.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip unless self.synopsis.nil?
+    self.synopsis = self.synopsis
+                        .gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ')
+                        .strip
+                        .gsub(/(\.\s{2,})/, '. ')
+                        .strip if self.synopsis.present?
   end
     
   def video_genres_string

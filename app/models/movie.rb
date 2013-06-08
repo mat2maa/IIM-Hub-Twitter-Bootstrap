@@ -13,7 +13,7 @@ class Movie < ActiveRecord::Base
   belongs_to :movie_distributor, :class_name => "Supplier", :foreign_key => "movie_distributor_id"
   belongs_to :laboratory, :class_name => "Supplier", :foreign_key => "laboratory_id"
   belongs_to :production_studio, :class_name => "Supplier", :foreign_key => "production_studio_id"
-  belongs_to :movie_type, :class_name => "MovieType", :foreign_key => "movie_type_id"
+#  belongs_to :movie_type, :class_name => "MovieType", :foreign_key => "movie_type_id"
 
   has_and_belongs_to_many :airline_rights_countries
   has_and_belongs_to_many :movie_genres
@@ -89,15 +89,43 @@ class Movie < ActiveRecord::Base
       self.laboratory_id = movie_distributor_id if !count_suppliers.zero?
     end
     
-    self.synopsis = self.synopsis.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
-    self.cast = self.cast.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
-    self.director = self.director.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
+    self.synopsis = self.synopsis
+                        .gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ')
+                        .strip
+                        .gsub(/(\.\s{2,})/, '. ')
+                        .strip if self.synopsis.present?
+    self.cast = self.cast
+                    .gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ')
+                    .strip
+                    .gsub(/(\.\s{2,})/, '. ')
+                    .strip if self.cast.present?
+    self.director = self.director
+                        .gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ')
+                        .strip
+                        .gsub(/(\.\s{2,})/, '. ')
+                        .strip if self.director.present?
 
-    self.chinese_synopsis = self.chinese_synopsis.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
-    self.chinese_cast = self.chinese_cast.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
-    self.chinese_director = self.chinese_director.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
+    self.chinese_synopsis = self.chinese_synopsis
+                                .gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ')
+                                .strip
+                                .gsub(/(\.\s{2,})/, '. ')
+                                .strip if self.chinese_synopsis.present?
+    self.chinese_cast = self.chinese_cast
+                            .gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ')
+                            .strip
+                            .gsub(/(\.\s{2,})/, '. ')
+                            .strip if self.chinese_cast.present?
+    self.chinese_director = self.chinese_director
+                                .gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ')
+                                .strip
+                                .gsub(/(\.\s{2,})/, '. ')
+                                .strip if self.chinese_director.present?
 
-    self.imdb_synopsis = self.imdb_synopsis.gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ').strip.gsub(/(\.\s{2,})/, '. ').strip
+    self.imdb_synopsis = self.imdb_synopsis
+                             .gsub(/(\r\n|\r|\n|\u0085|\u000C|\u2028|\u2029|\s{2,})/, ' ')
+                             .strip
+                             .gsub(/(\.\s{2,})/,'. ')
+                             .strip if self.imdb_synopsis.present?
   end
   
   def movie_genres_string

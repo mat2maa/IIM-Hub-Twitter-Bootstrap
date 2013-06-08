@@ -4,7 +4,7 @@ class MoviePlaylist < ActiveRecord::Base
 
   belongs_to :airline
   belongs_to :user
-  belongs_to :movie_playlist_type, :class_name => "MoviePlaylistType", :foreign_key => "movie_playlist_type_id"
+#  belongs_to :movie_playlist_type, :class_name => "MoviePlaylistType", :foreign_key => "movie_playlist_type_id"
 
   scope :with_same_airline_and_movie, lambda { |movie_id, airline_id| {
     :select=>"movie_playlists.id, movie_playlists.airline_id, movie_playlists.start_cycle", 
