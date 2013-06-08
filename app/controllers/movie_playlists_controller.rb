@@ -386,7 +386,7 @@ class MoviePlaylistsController < ApplicationController
     t.to_s
     time = t.strftime '%H:%M:%S'
 
-    xml = File.open(@movie_playlist.thales_schema_package.path)
+    xml = File.open(@movie_playlist.thales_schema_package.url(:original, false))
     @movies = Nokogiri::XML(xml)
     xml.close
     ns = 'http://services.extend.com/thales/m3'
