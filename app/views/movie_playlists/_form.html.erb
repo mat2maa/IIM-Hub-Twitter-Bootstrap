@@ -46,15 +46,19 @@
                                                       p.id] },
                      {include_blank: true}) %>
         </td>
+        <td class="pl-title">Programmer :</td>
+        <td>
+          <%= @movie_playlist.user.login if @movie_playlist.user_id.present? %></td>
+      </tr>
+      <tr>
         <td class="pl-title">Thales Schema Package:</td>
         <td>
           <%= form.file_field :thales_schema_package %>
         </td>
-      </tr>
-      <tr>
-        <td class="pl-title">Programmer :</td>
-        <td colspan="3">
-          <%= @movie_playlist.user.login if !@movie_playlist.user_id.nil? %></td>
+        <td class="pl-title">Current Schema Package:</td>
+        <td>
+          <%= @movie_playlist.thales_schema_package_file_name.present? ?
+                      @movie_playlist.thales_schema_package_file_name : "n/a" %></td>
       </tr>
     </table>
 

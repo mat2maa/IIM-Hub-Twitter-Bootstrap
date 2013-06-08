@@ -1,3 +1,4 @@
+# coding: utf-8
 require "spreadsheet"
 require 'stringio'
 
@@ -366,9 +367,9 @@ class MoviePlaylistsController < ApplicationController
       start_cycle_month = ''
       start_cycle_year = ''
     else
-      start_cycle_day = @movie_playlist.start_cycle.strftime("%d")
-      start_cycle_month = @movie_playlist.start_cycle.strftime("%m")
-      start_cycle_year = @movie_playlist.start_cycle.strftime("%Y")
+      start_cycle_day = @movie_playlist.start_cycle.strftime('%d')
+      start_cycle_month = @movie_playlist.start_cycle.strftime('%m')
+      start_cycle_year = @movie_playlist.start_cycle.strftime('%Y')
     end
 
     if @movie_playlist.end_cycle.nil?
@@ -376,55 +377,45 @@ class MoviePlaylistsController < ApplicationController
       end_cycle_month = ''
       end_cycle_year = ''
     else
-      end_cycle_day = @movie_playlist.end_cycle.strftime("%d")
-      end_cycle_month = @movie_playlist.end_cycle.strftime("%m")
-      end_cycle_year = @movie_playlist.end_cycle.strftime("%Y")
+      end_cycle_day = @movie_playlist.end_cycle.strftime('%d')
+      end_cycle_month = @movie_playlist.end_cycle.strftime('%m')
+      end_cycle_year = @movie_playlist.end_cycle.strftime('%Y')
     end
 
     t = Time.now
     t.to_s
-    time = t.strftime "%H:%M:%S"
+    time = t.strftime '%H:%M:%S'
 
     xml = File.open(@movie_playlist.thales_schema_package.path)
     @movies = Nokogiri::XML(xml)
     xml.close
-    ns = "http://services.extend.com/thales/m3"
-    nodes = @movies.xpath("//x:*[@name='Movies']", "x" => ns)
+    ns = 'http://services.extend.com/thales/m3'
+#    nodes = @movies.xpath('//x:*[@name="Movies"]', 'x' => ns)
+    nodes = @movies.xpath('//x:*[@dgiId="159578d6-0e15-4f5d-98c1-7cfe3c367efd"]//x:*[@name="Movies"]',
+                          'x' => ns) # B777 A330 i5000
+#    nodes = @movies.xpath('//x:*[@dgiId="31238cf4-4172-4417-a48b-ee6dc86172b8"]//x:*[@name="Movies"]',
+#                          'x' => ns) # A330 i4000
 
     movie_playlist_items = @movie_playlist.movie_playlist_items_sorted
 
     nodes.each do |node|
-      movie_playlist_items.each.with_index do |movie_playlist_item, index|
-        content = Nokogiri::XML::Node.new "content", @movies
-        content["name"] = movie_playlist_item.movie.movie_title.gsub(/\W+/, '').downcase.capitalize
-        content["altId"] = rand(10 ** 20).to_s
-        content["exhibitionStartDate"] = start_cycle_year + "-" + start_cycle_month + "-" + start_cycle_day + "T" + time
-        content["exhibitionEndDate"] = end_cycle_year + "-" + end_cycle_month + "-" + end_cycle_day + "T" + time
-        content["commonTitleId"] = movie_playlist_item.movie.movie_title.gsub(/\W+/, '').downcase.capitalize
+      movie_playlist_items.each do |movie_playlist_item|
+        content = Nokogiri::XML::Node.new 'content', @movies
+        content['name'] = movie_playlist_item.movie.movie_title.gsub(/\W+/, '').downcase.capitalize
+        content['altId'] = rand(10 ** 20).to_s
+        content['exhibitionStartDate'] = start_cycle_year + '-' + start_cycle_month + '-' + start_cycle_day + 'T' +
+time
+        content['exhibitionEndDate'] = end_cycle_year + '-' + end_cycle_month + '-' + end_cycle_day + 'T' + time
+        content['commonTitleId'] = movie_playlist_item.movie.movie_title.gsub(/\W+/, '').downcase.capitalize
 
-        fld_title = Nokogiri::XML::Node.new "fld_title", @movies
-        fld_shorttitle = Nokogiri::XML::Node.new "fld_shorttitle", @movies
-        fld_genre_name = Nokogiri::XML::Node.new "fld_GenreName", @movies
-        fld_actor = Nokogiri::XML::Node.new "fld_Actor", @movies
-        fld_director = Nokogiri::XML::Node.new "fld_Director", @movies
-        fld_rating = Nokogiri::XML::Node.new "fld_Rating", @movies
-        fld_duration = Nokogiri::XML::Node.new "fld_Duration", @movies
-        fld_audio_language = Nokogiri::XML::Node.new "fld_AudioLanguage", @movies
-        fld_synopsis = Nokogiri::XML::Node.new "fld_Synopsis", @movies
-        fld_standard_image = Nokogiri::XML::Node.new "fld_StandardImage", @movies
-        fld_preview_video_asset = Nokogiri::XML::Node.new "fld_PreviewVideoAsset", @movies
-        fld_preview_aspect_ratio = Nokogiri::XML::Node.new "fld_PreviewAspectRatio", @movies
-        fld_cnt_pos = Nokogiri::XML::Node.new "fld_CntPos", @movies
-        fld_subtitle_lang_text = Nokogiri::XML::Node.new "fld_subtitleLangText", @movies
-        group = Nokogiri::XML::Node.new "group", @movies
-
+        fld_title = Nokogiri::XML::Node.new 'fld_title', @movies
         content.add_child(fld_title)
-        fld_title_eng = Nokogiri::XML::Node.new "value", @movies
-        fld_title_fra = Nokogiri::XML::Node.new "value", @movies
-        fld_title_zho = Nokogiri::XML::Node.new "value", @movies
-        fld_title_eng["lang"] = "eng"
-        fld_title_fra["lang"] = "fra"
-        fld_title_zho["lang"] = "zho"
+        fld_title_eng = Nokogiri::XML::Node.new 'value', @movies
+        fld_title_fra = Nokogiri::XML::Node.new 'value', @movies
+        fld_title_zho = Nokogiri::XML::Node.new 'value', @movies
+        fld_title_eng['lang'] = 'eng'
+        fld_title_fra['lang'] = 'fra'
+        fld_title_zho['lang'] = 'zho'
 
         fld_title_eng.content = movie_playlist_item.movie.movie_title
         fld_title_fra.content = movie_playlist_item.movie.movie_title
@@ -435,13 +426,14 @@ class MoviePlaylistsController < ApplicationController
         fld_title.add_child(fld_title_zho)
 
 
+        fld_shorttitle = Nokogiri::XML::Node.new 'fld_shorttitle', @movies
         content.add_child(fld_shorttitle)
-        fld_shorttitle_eng = Nokogiri::XML::Node.new "value", @movies
-        fld_shorttitle_fra = Nokogiri::XML::Node.new "value", @movies
-        fld_shorttitle_zho = Nokogiri::XML::Node.new "value", @movies
-        fld_shorttitle_eng["lang"] = "eng"
-        fld_shorttitle_fra["lang"] = "fra"
-        fld_shorttitle_zho["lang"] = "zho"
+        fld_shorttitle_eng = Nokogiri::XML::Node.new 'value', @movies
+        fld_shorttitle_fra = Nokogiri::XML::Node.new 'value', @movies
+        fld_shorttitle_zho = Nokogiri::XML::Node.new 'value', @movies
+        fld_shorttitle_eng['lang'] = 'eng'
+        fld_shorttitle_fra['lang'] = 'fra'
+        fld_shorttitle_zho['lang'] = 'zho'
 
         fld_shorttitle_eng.content = movie_playlist_item.movie.movie_title
         fld_shorttitle_fra.content = movie_playlist_item.movie.movie_title
@@ -452,53 +444,202 @@ class MoviePlaylistsController < ApplicationController
         fld_shorttitle.add_child(fld_shorttitle_zho)
 
 
+        fld_genre_name = Nokogiri::XML::Node.new 'fld_GenreName', @movies
         content.add_child(fld_genre_name)
+        fld_genre_name_list_value = Nokogiri::XML::Node.new 'list_value_', @movies
+        fld_genre_name_list_value['lang'] = ''
+
+        fld_genre_name_list_value.content = '1'
+
+        fld_genre_name.add_child(fld_genre_name_list_value)
+
+
+        fld_actor = Nokogiri::XML::Node.new 'fld_Actor', @movies
         content.add_child(fld_actor)
+        fld_actor_eng = Nokogiri::XML::Node.new 'value', @movies
+        fld_actor_fra = Nokogiri::XML::Node.new 'value', @movies
+        fld_actor_zho = Nokogiri::XML::Node.new 'value', @movies
+        fld_actor_eng['lang'] = 'eng'
+        fld_actor_fra['lang'] = 'fra'
+        fld_actor_zho['lang'] = 'zho'
+
+        fld_actor_eng.content = movie_playlist_item.movie.cast
+        fld_actor_fra.content = movie_playlist_item.movie.cast
+        fld_actor_zho.content = movie_playlist_item.movie.chinese_cast
+
+        fld_actor.add_child(fld_actor_eng)
+        fld_actor.add_child(fld_actor_fra)
+        fld_actor.add_child(fld_actor_zho)
+
+
+        fld_director = Nokogiri::XML::Node.new 'fld_Director', @movies
         content.add_child(fld_director)
+        fld_director_eng = Nokogiri::XML::Node.new 'value', @movies
+        fld_director_fra = Nokogiri::XML::Node.new 'value', @movies
+        fld_director_zho = Nokogiri::XML::Node.new 'value', @movies
+        fld_director_eng['lang'] = 'eng'
+        fld_director_fra['lang'] = 'fra'
+        fld_director_zho['lang'] = 'zho'
+
+        fld_director_eng.content = movie_playlist_item.movie.director
+        fld_director_fra.content = movie_playlist_item.movie.director
+        fld_director_zho.content = movie_playlist_item.movie.chinese_director
+
+        fld_director.add_child(fld_director_eng)
+        fld_director.add_child(fld_director_fra)
+        fld_director.add_child(fld_director_zho)
+
+
+        fld_rating = Nokogiri::XML::Node.new 'fld_Rating', @movies
         content.add_child(fld_rating)
+        fld_rating_list_value = Nokogiri::XML::Node.new 'list_value_', @movies
+        fld_rating_list_value['lang'] = ''
+
+        fld_rating_list_value.content = '1'
+
+        fld_rating.add_child(fld_rating_list_value)
+
+
+        fld_duration = Nokogiri::XML::Node.new 'fld_Duration', @movies
         content.add_child(fld_duration)
-        content.add_child(fld_audio_language)
+        fld_duration_value = Nokogiri::XML::Node.new 'value', @movies
+
+        fld_duration_value.content = 60 * movie_playlist_item.movie.theatrical_runtime
+
+        fld_duration.add_child(fld_duration_value)
+
+
+        thales_tracks = %w(ara dan deu ell eng spa spn fas fin cfr fra hin ind ita heb jpn kor msa nld nor por rus
+swe tha zho yue tam)
+        iim_tracks = movie_playlist_item.movie.language_tracks.map!{ |c| c.downcase }
+        tracks = thales_tracks & iim_tracks
+        tracks.each do |track|
+          fld_audio_language = Nokogiri::XML::Node.new 'fld_AudioLanguage', @movies
+          content.add_child(fld_audio_language)
+          fld_audio_language_list_value = Nokogiri::XML::Node.new 'list_value_', @movies
+          fld_audio_language_list_value['lang'] = ''
+
+          fld_audio_language_list_value.content = track
+
+          fld_audio_language.add_child(fld_audio_language_list_value)
+        end
+
+        fld_synopsis = Nokogiri::XML::Node.new 'fld_Synopsis', @movies
         content.add_child(fld_synopsis)
+        fld_synopsis_eng = Nokogiri::XML::Node.new 'value', @movies
+        fld_synopsis_fra = Nokogiri::XML::Node.new 'value', @movies
+        fld_synopsis_zho = Nokogiri::XML::Node.new 'value', @movies
+        fld_synopsis_eng['lang'] = 'eng'
+        fld_synopsis_fra['lang'] = 'fra'
+        fld_synopsis_zho['lang'] = 'zho'
+
+        fld_synopsis_eng.content = movie_playlist_item.movie.synopsis
+        fld_synopsis_fra.content = movie_playlist_item.movie.synopsis
+        fld_synopsis_zho.content = movie_playlist_item.movie.chinese_synopsis
+
+        fld_synopsis.add_child(fld_synopsis_eng)
+        fld_synopsis.add_child(fld_synopsis_fra)
+        fld_synopsis.add_child(fld_synopsis_zho)
+
+
+        fld_standard_image = Nokogiri::XML::Node.new 'fld_StandardImage', @movies
         content.add_child(fld_standard_image)
+        fld_standard_image_eng = Nokogiri::XML::Node.new 'value', @movies
+        fld_standard_image_fra = Nokogiri::XML::Node.new 'value', @movies
+        fld_standard_image_zho = Nokogiri::XML::Node.new 'value', @movies
+        fld_standard_image_eng['lang'] = 'eng'
+        fld_standard_image_fra['lang'] = 'fra'
+        fld_standard_image_zho['lang'] = 'zho'
+
+        fld_standard_image_eng.content = ''
+        fld_standard_image_fra.content = ''
+        fld_standard_image_zho.content = ''
+
+        fld_standard_image.add_child(fld_standard_image_eng)
+        fld_standard_image.add_child(fld_standard_image_fra)
+        fld_standard_image.add_child(fld_standard_image_zho)
+
+
+        fld_preview_video_asset = Nokogiri::XML::Node.new 'fld_PreviewVideoAsset', @movies
         content.add_child(fld_preview_video_asset)
+        fld_preview_video_asset_value = Nokogiri::XML::Node.new 'value', @movies
+
+        fld_preview_video_asset_value.content = ''
+
+        fld_preview_video_asset.add_child(fld_preview_video_asset_value)
+
+
+        fld_preview_aspect_ratio = Nokogiri::XML::Node.new 'fld_PreviewAspectRatio', @movies
         content.add_child(fld_preview_aspect_ratio)
+        fld_preview_aspect_ratio_list_value = Nokogiri::XML::Node.new 'list_value_', @movies
+        fld_preview_aspect_ratio_list_value['lang'] = ''
+
+        fld_preview_aspect_ratio_list_value.content = '1'
+
+        fld_preview_aspect_ratio.add_child(fld_preview_aspect_ratio_list_value)
+
+
+        fld_cnt_pos = Nokogiri::XML::Node.new 'fld_CntPos', @movies
         content.add_child(fld_cnt_pos)
+        fld_cnt_pos_value = Nokogiri::XML::Node.new 'value', @movies
+
+        fld_cnt_pos_value.content = ''
+
+        fld_cnt_pos.add_child(fld_cnt_pos_value)
+
+
+        fld_subtitle_lang_text = Nokogiri::XML::Node.new 'fld_subtitleLangText', @movies
         content.add_child(fld_subtitle_lang_text)
+        fld_subtitle_lang_text_eng = Nokogiri::XML::Node.new 'value', @movies
+        fld_subtitle_lang_text_fra = Nokogiri::XML::Node.new 'value', @movies
+        fld_subtitle_lang_text_zho = Nokogiri::XML::Node.new 'value', @movies
+        fld_subtitle_lang_text_eng['lang'] = 'eng'
+        fld_subtitle_lang_text_fra['lang'] = 'fra'
+        fld_subtitle_lang_text_zho['lang'] = 'zho'
+
+        fld_subtitle_lang_text_eng.content = 'Mandarin/English'
+        fld_subtitle_lang_text_fra.content = 'Mandarin/English'
+        fld_subtitle_lang_text_zho.content = '中文/英文'
+
+        fld_subtitle_lang_text.add_child(fld_subtitle_lang_text_eng)
+        fld_subtitle_lang_text.add_child(fld_subtitle_lang_text_fra)
+        fld_subtitle_lang_text.add_child(fld_subtitle_lang_text_zho)
+
+
+        group = Nokogiri::XML::Node.new 'group', @movies
+
+        fld_vd_asset = Nokogiri::XML::Node.new 'fld_VdAsset', @movies
+        group.add_child(fld_vd_asset)
+        fld_vd_asset_value = Nokogiri::XML::Node.new 'value', @movies
+
+        fld_vd_asset_value.content = ''
+
+        fld_vd_asset.add_child(fld_vd_asset_value)
+
+
+        fld_sub_cnt_pos = Nokogiri::XML::Node.new 'fld_SubCntPos', @movies
+        group.add_child(fld_sub_cnt_pos)
+        fld_sub_cnt_pos_value = Nokogiri::XML::Node.new 'value', @movies
+
+        fld_sub_cnt_pos_value.content = ''
+
+        fld_sub_cnt_pos.add_child(fld_sub_cnt_pos_value)
+
+
+        fld_vid_aspect_ratio = Nokogiri::XML::Node.new 'fld_VidAspectRatio', @movies
+        group.add_child(fld_vid_aspect_ratio)
+        fld_vid_aspect_ratio_list_value = Nokogiri::XML::Node.new 'list_value_', @movies
+        fld_vid_aspect_ratio_list_value['lang'] = ''
+
+        fld_vid_aspect_ratio_list_value.content = '1'
+
+        fld_vid_aspect_ratio.add_child(fld_vid_aspect_ratio_list_value)
+
+
         content.add_child(group)
 
         node.add_child(content)
 
-        #
-        #content.children = fld_title
-        #fld_title_eng = Nokogiri::XML::Node.new "value", @movies
-        #fld_title_fra = Nokogiri::XML::Node.new "value", @movies
-        #fld_title_zho = Nokogiri::XML::Node.new "value", @movies
-        #fld_title_eng["lang"] = "eng"
-        #fld_title_fra["lang"] = "fra"
-        #fld_title_zho["lang"] = "zho"
-        #
-        #fld_title_eng.content = movie_1[0]
-        #fld_title_fra.content = movie_1[0]
-        #fld_title_zho.content = movie_1[1]
-        #
-        #fld_title.children = fld_title_eng
-        #fld_title_eng.after(fld_title_fra)
-        #fld_title_fra.after(fld_title_zho)
-        #
-        #fld_title.after(fld_shorttitle)
-        #fld_shorttitle.after(fld_GenreName)
-        #fld_GenreName.after(fld_Actor)
-        #fld_Actor.after(fld_Director)
-        #fld_Director.after(fld_Rating)
-        #fld_Rating.after(fld_Duration)
-        #fld_Duration.after(fld_AudioLanguage)
-        #fld_AudioLanguage.after(fld_Synopsis)
-        #fld_Synopsis.after(fld_StandardImage)
-        #fld_StandardImage.after(fld_PreviewVideoAsset)
-        #fld_PreviewVideoAsset.after(fld_PreviewAspectRatio)
-        #fld_PreviewAspectRatio.after(fld_CntPos)
-        #fld_CntPos.after(fld_subtitleLangText)
-        #fld_subtitleLangText.after(group)
       end
     end
 
@@ -506,17 +647,6 @@ class MoviePlaylistsController < ApplicationController
     send_data data,
               filename: "#{@movie_playlist.id}_thales_import_package.xml"
   end
-
-=begin
-  def sort
-    params[:movieplaylist].each_with_index do |id,
-        pos|
-      MoviePlaylistItem.find(id).update_attribute(:position,
-                                                  pos+1)
-    end
-    render nothing: true
-  end
-=end
 
   def duplicate
 
