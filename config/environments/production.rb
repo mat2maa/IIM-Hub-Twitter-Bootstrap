@@ -88,5 +88,5 @@ end
 
 THALES_OPTS = {
     url: "s3_domain_url",
-    path: "/assets/thales_schema_packages/:id.:extension"
+    path: "http://s3.amazonaws.com/iim/assets/thales_schema_packages/:id.:extension"
 }
