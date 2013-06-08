@@ -13,7 +13,7 @@ class Movie < ActiveRecord::Base
   belongs_to :movie_distributor, :class_name => "Supplier", :foreign_key => "movie_distributor_id"
   belongs_to :laboratory, :class_name => "Supplier", :foreign_key => "laboratory_id"
   belongs_to :production_studio, :class_name => "Supplier", :foreign_key => "production_studio_id"
-#  belongs_to :movie_type, :class_name => "MovieType", :foreign_key => "movie_type_id"
+  belongs_to :movie_type, :class_name => "MovieType", :foreign_key => "movie_type_id"
 
   has_and_belongs_to_many :airline_rights_countries
   has_and_belongs_to_many :movie_genres
