@@ -269,7 +269,7 @@
         <%= f.input :airline_countries,
                     input_html: {disabled: ((@movie.airline_rights=="Worldwide") || (@movie.airline_rights=="North America")) ? true : false,
                                  tabindex: autotab} %>
-        <%= f.input :language_tracks,
+        <%#= f.input :language_tracks,
                     input_html: {tabindex: autotab},
                     label: ("Available Language<br/>Tracks").html_safe,
                     as: :check_boxes,
