@@ -91,7 +91,7 @@
       </tr>
       <tr>
         <th>Available Lang Tracks:</th>
-        <td><%#= @movie.language_tracks.collect { |r| r }.to_sentence if !@movie.language_tracks.blank? %>
+        <td><%= @movie.language_tracks.collect { |r| r }.to_sentence if !@movie.language_tracks.blank? %>
         </td>
         <th>Screener Destroyed:</th>
         <td><%= @movie.screener_destroyed_date == nil ? "No" : "Yes" %></td>
