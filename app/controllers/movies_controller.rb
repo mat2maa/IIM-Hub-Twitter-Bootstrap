@@ -113,10 +113,10 @@ class MoviesController < ApplicationController
     params[:movie][:foreign_language_title] = params[:movie][:foreign_language_title].upcase if !params[:movie][:foreign_language_title].nil?
 
     #remove empty string from starts of arrays
-    params[:movie][:release_versions] = params[:movie][:release_versions].reject! { |c| c.empty? } if !params[:movie][:release_versions].nil?
-    params[:movie][:language_tracks] = params[:movie][:language_tracks].reject! { |c| c.empty? } if !params[:movie][:language_tracks].nil?
-    params[:movie][:language_subtitles] = params[:movie][:language_subtitles].reject! { |c| c.empty? } if !params[:movie][:language_subtitles].nil?
-    params[:movie][:movie_genre_ids] = params[:movie][:movie_genre_ids].reject! { |c| c.empty? } if !params[:movie][:movie_genre_ids].nil?
+    #params[:movie][:release_versions] = params[:movie][:release_versions].reject! { |c| c.empty? } if !params[:movie][:release_versions].nil?
+    #params[:movie][:language_tracks] = params[:movie][:language_tracks].reject! { |c| c.empty? } if !params[:movie][:language_tracks].nil?
+    #params[:movie][:language_subtitles] = params[:movie][:language_subtitles].reject! { |c| c.empty? } if !params[:movie][:language_subtitles].nil?
+    #params[:movie][:movie_genre_ids] = params[:movie][:movie_genre_ids].reject! { |c| c.empty? } if !params[:movie][:movie_genre_ids].nil?
 
     if @movie.update_attributes(params[:movie])
       flash[:notice] = "Successfully updated movie."
