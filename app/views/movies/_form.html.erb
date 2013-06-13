@@ -320,6 +320,10 @@
                                   <br/>
                                   Other Table Operations > Copy Filtered As HTML").html_safe %>
 
+        <div class="action-button">
+          <%= link_to "Add Critics Review", add_review_to_movie_path(id: @movie.id), id: "add_review_to_movie" %>
+        </div>
+
         <%= f.input :remarks,
                     input_html: {tabindex: autotab,
                                  rows: 3},
@@ -331,6 +335,11 @@
     <center><%= f.actions %></center>
 <% end %>
 
+<div id="add_review_dialog" style="display:none;">
+  <div id="add_review">
+  </div>
+</div>
+
 <script>
 
     var $ = jQuery;
@@ -339,15 +348,15 @@
     	
     	var chars,
       		chineseChars,
-          imdbChars;
+            imdbChars;
     	
     	chars = $('#movie_synopsis').val().length;
     	chineseChars = $('#movie_chinese_synopsis').val().length;
-      imdbChars = $('#movie_imdb_synopsis').val().length;
+        imdbChars = $('#movie_imdb_synopsis').val().length;
     	
     	$('#char_count').html(chars);
     	$('#chinese_char_count').html(chineseChars);
-      $('#imdb_char_count').html(imdbChars);
+        $('#imdb_char_count').html(imdbChars);
     	
     	$('#movie_synopsis').on("keyup change", function() {
 	    	chars = $('#movie_synopsis').val().length;
@@ -359,10 +368,42 @@
 	    	$('#chinese_char_count').html(chineseChars);
     	});
 
-      $('#movie_imdb_synopsis').on("keyup change", function() {
+        $('#movie_imdb_synopsis').on("keyup change", function() {
         imdbChars = $('#movie_imdb_synopsis').val().length;
         $('#imdb_char_count').html(imdbChars);
-      });
+        });
+
+        $(document).on("click", "#add_review_to_movie", function (review) {
+            review.preventDefault();
+            $('#add_review_dialog').dialog({
+                title: 'Add Review',
+                modal: true,
+                width: 912,
+                height: 540,
+                position: ['center', 100],
+                close: function (review, ui) {
+                    $('#add_review_dialog').dialog('destroy');
+                }
+            });
+            $.ajax({ url: '/add_review_to_movie/<%= @movie.id %>',
+                type: 'get',
+                dataType: 'script'
+            });
+        });
+
+        $(document).on("click", ".expand-link", function (e) {
+            e.preventDefault();
+            link = $(this).attr('data-link');
+            $('.expandable-row[data-link = ' + link + ']').toggle();
+        });
+
+        $(document).on("click", ".choice-link", function (e) {
+            e.preventDefault();
+            link = $(this).attr('data-review');
+            text = $('.choice-content[data-review = ' + link + ']').text();
+            $('#movie_critics_review').text(text);
+            $('#add_review_dialog').dialog('destroy');
+        });
     });
 
 

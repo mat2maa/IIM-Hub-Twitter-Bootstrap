@@ -1,3 +1,6 @@
+require 'rotten'
+Rotten.api_key = 'snr4rshxrz9cqgpfsswebhb7'
+
 class MoviesController < ApplicationController
   before_filter :require_user
   filter_access_to :all
@@ -95,6 +98,20 @@ class MoviesController < ApplicationController
         @next_id = ids[id+1] if (id+1 < ids.count)
         @prev_id = ids[id-1] if (id-1 >= 0)
       end
+    end
+  end
+
+  #display overlay
+  def add_review_to_movie
+
+    @movie = Movie.find(params[:id])
+
+    @movies = Rotten::Movie.search(@movie.movie_title)
+
+    @movies_count = @movies.count
+
+    respond_to do |format|
+      format.js { render layout: false }
     end
   end
 

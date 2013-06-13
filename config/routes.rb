@@ -21,6 +21,9 @@ Iim::Application.routes.draw do
   match "/add_video_to_playlist/:id" => "video_playlists#add_video_to_playlist", as: :add_video_to_playlist
   match "/add_video_master_to_playlist/:id" => "video_master_playlists#add_video_master_to_playlist", as: :add_video_master_to_playlist
   match "/add_screener_to_playlist/:id" => "screener_playlists#add_screener_to_playlist", as: :add_screener_to_playlist
+
+  match "/add_review_to_movie/:id" => "movies#add_review_to_movie", as: :add_review_to_movie
+
   match "/download_track_mp3/:id" => "audio_playlists#download_mp3", as: :download_tracks_mp3
   match "/download_album_mp3/:id" => "album_playlists#download_mp3", as: :download_album_tracks_mp3
   match "/edit_album_playlist_synopsis/:id" => "album_playlists#edit_synopsis", as: :edit_album_playlist_synopsis
