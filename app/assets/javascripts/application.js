@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require jquery.ui.all
 //= require jquery.purr
 //= require best_in_place
