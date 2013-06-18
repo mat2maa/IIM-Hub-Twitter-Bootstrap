@@ -16,5 +16,5 @@
 //= require jquery.ui.all
 //= require jquery.purr
 //= require best_in_place
+//= require bootstrap-datepicker
 //= require scripts.js
-//= require all.js

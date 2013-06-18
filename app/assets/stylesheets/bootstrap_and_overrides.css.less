@@ -194,6 +194,16 @@ body {
   padding-bottom: 40px;
 }
 
+#logo {
+  img {
+    margin-top:-3px;
+  }
+}
+
+.datepicker {
+  color:black;
+}
+
 #background-image {
   position:fixed;
   top:0;
@@ -244,6 +254,10 @@ body {
 /*===== Responsive Styles =====*/
 
 @media (max-width: 979px) {
+  .navbar-fixed-top, .navbar-fixed-bottom {
+    position: relative;
+  }
+
   body {
     padding-top:0;
   }
@@ -269,4 +283,11 @@ body {
     margin-left: -10px;
     margin-right: -10px;
   }
+
+  .navbar {
+    .brand {
+      float:none;
+    }
+  }
+
 }

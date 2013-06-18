@@ -6,21 +6,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="brand" href="#">
-        <div id="logo">
-          <%= image_tag "text-logo.png" %>
-        </div>
-      </a>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li class="active">
-            <a href="#dashboard">Dashboard</a>
-          </li>
-        </ul>
-      </div>
-      <!--/.nav-collapse -->
-      <div class="btn-group">
-      </div>
+      <%= link_to options = { controller: "dashboard" }, html_options = { class: 'brand' } do %>
+          <div id="logo">
+            <%= image_tag "text-logo.png" %>
+          </div>
+      <% end %>
     </div>
   </div>
 </div>
