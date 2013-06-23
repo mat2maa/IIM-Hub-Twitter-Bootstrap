@@ -17,4 +17,6 @@
 //= require jquery.purr
 //= require best_in_place
 //= require bootstrap-datepicker
+//= require chosen-jquery
+//= require chosen-init
 //= require scripts.js

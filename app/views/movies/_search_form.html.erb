@@ -4,131 +4,125 @@
 <%= search_form_for @search,
                     class: 'spinner-trigger' do |movies| %>
   <div class="control-group">
-    <label class="control-label">
-      Movie Title:
-    </label>
-    <%= movies.text_field :movie_title_cont %>
-    <label class="control-label">
-      Cast:
-    </label>
-    <%= movies.text_field :cast_cont %>
-    <label class="control-label">
-      Director:
-    </label>
-    <%= movies.text_field :director_cont %>
-    <label class="control-label">
-      Movie Distributor:
-    </label>
+    <%= movies.text_field :movie_title_cont,
+                          placeholder: 'Movie Title' %>
+
+    <%= movies.text_field :cast_cont,
+                          placeholder: 'Cast' %>
+
+    <%= movies.text_field :director_cont,
+                          placeholder: 'Director'  %>
+
     <div class="controls">
       <%= movies.select :movie_distributor_id_eq,
                         Supplier.movie_distributors.collect { |p| [p.company_name,
                                                                    p.id] },
-                        include_blank: true %>
+                        { include_blank: true },
+                        { class: 'chzn-select',
+                          data: { placeholder: 'Movie Distributor' } } %>
     </div>
-    <label class="control-label">
-      Laboratory:
-    </label>
+
     <div class="controls">
       <%= movies.select :laboratory_id_eq,
                         Supplier.laboratories.collect { |p| [p.company_name,
                                                              p.id] },
-                        include_blank: true %>
+                        { include_blank: true },
+                        { class: 'chzn-select',
+                          data: { placeholder: 'Laboratory' } } %>
     </div>
-    <label class="control-label">
-      Movie Type:
-    </label>
+
     <div class="controls">
       <%= movies.select :movie_type_id_eq,
                         MovieType.order("name")
                         .collect { |p| [p.name,
                                         p.id] },
-                        include_blank: true %>
+                        { include_blank: true },
+                        { class: 'chzn-select',
+                          data: { placeholder: 'Movie Type' } } %>
     </div>
-    <label class="control-label">
-      Genre:
-    </label>
+
     <div class="controls">
       <%= movies.select :movie_genres_id_eq,
                         MovieGenre.order("name")
                         .collect { |p| [p.name,
                                         p.id] },
-                        {include_blank: true} %>
+                        { include_blank: true },
+                        { class: 'chzn-select',
+                          data: { placeholder: 'Genre' } } %>
     </div>
+
     <label class="control-label">
       Airline Release Date:
-      <br>
-      From:
     </label>
     <%= movies.text_field :airline_release_date_gteq,
-                          data: { behaviour: 'datepicker' } %>
-    <label class="control-label">
-      To:
-    </label>
+                          data: { behaviour: 'datepicker' },
+                          placeholder: 'From'  %>
     <%= movies.text_field :airline_release_date_lteq,
-                          data: { behaviour: 'datepicker' } %>
-    <label class="control-label">
-      Languages:
-    </label>
+                          data: { behaviour: 'datepicker' },
+                          placeholder: 'To'  %>
+
     <div class="controls">
       <%= select :language,
                  :track,
                  @languages,
                  {include_blank: true,
-                  selected: @selected_track} %>
+                  selected: @selected_track},
+                 { class: 'chzn-select',
+                   data: { placeholder: 'Languages' } } %>
     </div>
-    <label class="control-label">
-      Subtitles:
-    </label>
+
     <div class="controls">
       <%= select :language,
                  :subtitle,
                  @languages,
                  {include_blank: true,
-                  selected: @selected_subtitle} %>
+                  selected: @selected_subtitle},
+                 { class: 'chzn-select',
+                   data: { placeholder: 'Movie Distributor' } } %>
     </div>
-    <label class="control-label">
-      Theatrical Release Year:
-    </label>
-    <%= movies.text_field :theatrical_release_year_eq,
-                          data: { behaviour: 'datepicker' } %>
-    <label class="control-label">
-      Movie ID:
-    </label>
-    <%= movies.text_field :id_eq %>
 
-    <div class="row-fluid">
-      <div class="span6">
-        <label class="checkbox">
-          <%= check_box :screener,
-                        :held,
-                        { checked: !params[:screener].nil? && params[:screener][:held] == '1' ? true : false } %>Screener Held
-        </label>
-      </div>
-      <div class="span6">
-        <label class="checkbox">
-          <%= check_box :screener,
-                        :destroyed,
-                        { checked: !params[:screener].nil? && params[:screener][:destroyed] == '1' ? true : false } %>Screener Destroyed
-        </label>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="span6">
-        <label class="checkbox">
-          <%= check_box_tag :active, '1', params[:active].to_i == 1 %>Deactivated Movie
-        </label>
-      </div>
-      <div class="span6">
-        <label class="checkbox">
-          <%= check_box_tag :to_delete, '1', params[:to_delete].to_i == 1 %>Pending Delete
-        </label>
-      </div>
-    </div>
-    <%= movies.submit "Search" %>
-    <input type="reset" value="Reset">
+    <%= movies.text_field :theatrical_release_year_eq,
+                          data: { behaviour: 'datepicker' },
+                          placeholder: 'Theatrical Release Year'  %>
+
+    <%= movies.text_field :id_eq,
+                          placeholder: 'Movie ID'  %>
+
+    <br>
+
+    <label class="checkbox">
+      <%= check_box :screener,
+                    :held,
+                    { checked: !params[:screener].nil? && params[:screener][:held] == '1' ? true : false } %> Screener Held
+    </label>
+
+    <label class="checkbox">
+        <%= check_box :screener,
+                      :destroyed,
+                      { checked: !params[:screener].nil? && params[:screener][:destroyed] == '1' ? true : false } %> Screener Destroyed
+    </label>
+
+    <label class="checkbox">
+        <%= check_box_tag :active, '1', params[:active].to_i == 1 %> Deactivated Movie
+    </label>
+
+    <label class="checkbox">
+        <%= check_box_tag :to_delete, '1', params[:to_delete].to_i == 1 %> Pending Delete
+    </label>
+
+    <br>
+
+    <%= movies.submit "Search",
+                      { class: 'btn' } %>
+    <input type="reset" value="Reset" class="btn">
+
   </div>
 <% end %>
 
 <script type="text/javascript">
-    $('[data-behaviour~=datepicker]').datepicker();
+    $('[data-behaviour~=datepicker]').datepicker( {
+        format: "mm-yyyy",
+        viewMode: "months",
+        minViewMode: "months"
+    });
 </script>
